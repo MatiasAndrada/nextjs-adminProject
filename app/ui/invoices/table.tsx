@@ -27,7 +27,7 @@ export default async function InvoicesTable({
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
-                        alt="Profile picture of the customer"
+                        alt={invoice.name}
                         src={invoice.image_url}
                         className="mr-2 rounded-full"
                         width={28}
@@ -46,7 +46,7 @@ export default async function InvoicesTable({
                     </p>
                     <p>{formatDateToLocal(invoice.date)}</p>
                   </div>
-                  <div className="flex justify-end gap-2">
+                  <div className="flex justify-end gap-2 whitespace-nowrap px-6 py-4 text-sm">
                     <UpdateInvoice id={invoice.id} />
                     <DeleteInvoice id={invoice.id} />
                   </div>
@@ -86,7 +86,7 @@ export default async function InvoicesTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
-                        alt="Profile picture of the customer"
+                        alt={invoice.name}
                         src={invoice.image_url}
                         className="rounded-full"
                         width={28}
