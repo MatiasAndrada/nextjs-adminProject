@@ -5,6 +5,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ children, className, ...rest }: ButtonProps) {
+  console.log('Button');
+  console.log('className', className);
+  console.log('rest', rest);
   return (
     <button
       {...rest}

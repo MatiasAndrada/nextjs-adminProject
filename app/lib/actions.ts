@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth'
 
-
 const FormSchema = z.object({
     id: z.string(),
     customerId: z.string({
@@ -31,6 +30,7 @@ export type State = {
     message?: string | null;
 };
 
+//! create invoice
 export async function createInvoice(prevState: State, formData: FormData) {
     // Validate form using Zod
     const validatedFields = CreateInvoice.safeParse({
@@ -70,6 +70,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     redirect('/dashboard/invoices');
 }
 
+//! update invoice
 // Use Zod to update the expected types
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 export async function updateInvoice(
@@ -107,6 +108,7 @@ export async function updateInvoice(
     redirect('/dashboard/invoices');
 }
 
+//! delete invoice
 export async function deleteInvoice(id: string) {
     try {
         await sql`DELETE FROM invoices WHERE id = ${id}`;
@@ -132,3 +134,5 @@ export async function authenticate(
         throw err;
     }
 }
+
+
