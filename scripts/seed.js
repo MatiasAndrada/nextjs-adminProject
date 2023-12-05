@@ -5,6 +5,7 @@ const {
   revenue,
   users,
   task_group,
+  tasks,
 } = require("../app/lib/placeholder-data.js");
 const bcrypt = require("bcrypt");
 
@@ -216,9 +217,9 @@ async function seed_tasks(client) {
       );
     `;
     console.log(`Created "tasks" table`);
-    // Insert data into the "task_group" table
+    // Insert data into the "tasks" table
     const inserted_task_group = await Promise.all(
-      task_group.map(async (task) => {
+      tasks.map(async (task) => {
         return client.sql`
         INSERT INTO tasks (task_group_id, user_id, owner_id, name, description, status, progress) 
         VALUES  (${task.task_group_id}, ${task.user_id}, ${task.owner_id}, ${task.name}, ${task.description}, ${task.status}, ${task.progress})
