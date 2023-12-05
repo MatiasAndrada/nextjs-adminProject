@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { lusitana } from "@/app/ui/fonts";
 import Search from "@/app/ui/search";
 import CustomersTable from "@/app/ui/customers/table";
-import Pagination from "@/app/ui/invoices/pagination";
+import Pagination from "@/app/ui/pagination";
 import { CreateCustomer } from "@/app/ui/customers/buttons";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { fetchCustomersPages } from "@/app/lib/data";

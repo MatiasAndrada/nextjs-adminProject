@@ -97,7 +97,7 @@ export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  noStore();
+  noStore(); // Prevent the response from being cached
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {

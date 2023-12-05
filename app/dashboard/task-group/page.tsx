@@ -1,24 +1,46 @@
 import { Metadata } from 'next';
-import Table from "@/app/ui/groupTask/table";
+import Table from "@/app/ui/task-group/tasks/table";
+import Search from "@/app/ui/search";
+import Pagination from "@/app/ui/pagination";
 /* import { InvoicesTableSkeleton } from "@/app/ui/skeletons"; */
-/* import Search from "@/app/ui/search"; */
 import { lusitana } from "@/app/ui/fonts";
+import { fetch_task_pages } from '@/app/lib/data/tasks';
 import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
-    title: 'Invoices',
+    title: 'Tasks group | Task group | Dashboard',
 };
 
-export default async function Page() {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: {
+        query?: string;
+        page?: string;
+    };
+}) {
+    const query = searchParams?.query || "";
+    const currentPage = Number(searchParams?.page) || 1;
+    /*     const totalPages = await fetch_task_pages(query); */
     return (
         <div className="w-full">
             <div className="flex w-full items-center justify-between">
                 <h1 className={`${lusitana.className} text-2xl`}>Task group</h1>
             </div>
+            <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+                <Search placeholder="Search invoices..." />
+                {/*         <CreateInvoice /> */}
+            </div>
             <Suspense fallback={<div>Loading...</div>}>
-                <Table />
+                <Table
+                    currentPage={currentPage}
+                    query={query}
+                />
             </Suspense>
+            <div className="mt-5 flex w-full justify-center">
+                {/*         <Pagination totalPages={totalPages} /> */}
+            </div>
         </div>
     );
 }
