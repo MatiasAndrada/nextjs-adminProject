@@ -1,4 +1,5 @@
-import { fetch_filtered_task } from "@/app/lib/data/tasks";
+import { fetch_filtered_task_group } from "@/app/lib/data/tasks";
+
 export default async function CustomersTable({
     query,
     currentPage,
@@ -7,7 +8,7 @@ export default async function CustomersTable({
     currentPage: number;
 
 }) {
-    /*     const customers = await fetch_filtered_task(query, currentPage); */
+    const customers = await fetch_filtered_task_group(query, currentPage);
 
     return (
 
