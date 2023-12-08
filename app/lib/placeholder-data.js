@@ -210,7 +210,7 @@ const task_group = [
     user_id: users[0].user_id,
     status: "In progress",
     progress: "10 / 10",
-    criticality: "High",
+    criticality: "Critical",
   },
   {
     name: "Functionality Testing",
@@ -230,7 +230,7 @@ const task_group = [
     user_id: users[0].user_id,
     status: "Paused",
     progress: "4 / 7",
-    criticality: "Essential",
+    criticality: "Medium",
   },
   {
     name: "Performance Optimization",
@@ -240,7 +240,7 @@ const task_group = [
     user_id: users[0].user_id,
     status: "Paused",
     progress: "1 /3",
-    criticality: "Essential",
+    criticality: "Medium",
   },
   {
     name: "Development of New Features",
@@ -250,7 +250,7 @@ const task_group = [
     user_id: users[0].user_id,
     status: "In progress",
     progress: "2/7",
-    criticality: "Essential",
+    criticality: "Medium",
   },
   {
     name: "Technical Feasibility Analysis",
@@ -260,7 +260,7 @@ const task_group = [
     user_id: users[0].user_id,
     status: "Paused",
     progress: "2 / 4",
-    criticality: "Non-critical",
+    criticality: "Low",
   },
 ];
 

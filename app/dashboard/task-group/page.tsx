@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import TaskGroup from '@/app/ui/task-group/task-group';
+import TaskGroupGrid from '@/app/ui/task-group/task-group-grid';
 import Search from "@/app/ui/search";
 import Pagination from "@/app/ui/pagination";
 /* import { InvoicesTableSkeleton } from "@/app/ui/skeletons"; */
@@ -34,7 +34,7 @@ export default async function Page({
             </div>
             <Suspense fallback={<div>Loading...</div>}>
 
-                <TaskGroup query={query} currentPage={currentPage} />
+                <TaskGroupGrid query={query} currentPage={currentPage} />
                 {/*                 {<Table
                     currentPage={currentPage}
                     query={query}

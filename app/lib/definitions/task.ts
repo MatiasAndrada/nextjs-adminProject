@@ -4,12 +4,20 @@
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 
 
+export enum Criticality {
+    Low = 'Low',
+    Medium = 'Medium',
+    High = 'High',
+    Critical = 'Critical',
+}
+
 export type taskGroupItem = {
     task_group_id: string;
     user_id: string;
     owner_id: string;
     name: string;
     description: string;
+    criticality: Criticality;
     status: string;
     progress: number;
     created_at: string,
