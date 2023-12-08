@@ -1,7 +1,8 @@
-import { taskGroupItem, Criticality } from "@/app/lib/definitions/task";
+import Link from "next/link";
+import { taskGroup, Criticality } from "@/app/lib/definitions/task";
 
-export default function TaskGridItem({ task }: { task: taskGroupItem }) {
-  const { name, description, criticality, status, progress, ends_at, updated_at } = task;
+export default function TaskGridItem({ task }: { task: taskGroup }) {
+  const { task_group_id, name, description, criticality, status, progress, ends_at, updated_at } = task;
 
   // Calcula los días restantes hasta la fecha de vencimiento
   const today = new Date();
@@ -10,7 +11,7 @@ export default function TaskGridItem({ task }: { task: taskGroupItem }) {
 
   return (
     /* < !--This is an example component-- > */
-    <a href="" className='flex items-center justify-center flex-col  bg-slate-200'>
+    <Link href={`task-group/` + task_group_id + `/tasks`} className='flex items-center justify-center flex-col  bg-slate-200'>
       <div className='break-inside relative overflow-hidden flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 bg-white text-black dark:bg-slate-800 dark:text-white'>
         <div className='flex items-center justify-between font-medium'>
           <span className={`uppercase text-xs 
@@ -60,7 +61,7 @@ export default function TaskGridItem({ task }: { task: taskGroupItem }) {
           </button> */}
         </div>
       </div>
-    </a>
+    </Link >
   );
 
 }

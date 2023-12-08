@@ -11,7 +11,7 @@ export enum Criticality {
     Critical = 'Critical',
 }
 
-export type taskGroupItem = {
+export type taskGroup = {
     task_group_id: string;
     user_id: string;
     owner_id: string;
@@ -33,5 +33,19 @@ export type taskTable = {
     progress: number;
     time_left: string,
     update_ago: string,
+};
+
+export type task = {
+    task_id: string;
+    task_group_id: string;
+    user_id: string;
+    owner_id: string;
+    name: string;
+    description: string;
+    status: string;
+    progress: number;
+    created_at: string,
+    updated_at: string,
+    ends_at: string,
 };
 

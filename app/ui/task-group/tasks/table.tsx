@@ -1,4 +1,4 @@
-import { fetch_filtered_task_group } from "@/app/lib/data/tasks";
+import { fetch_filtered_task_group } from "@/app/lib/data/task-group";
 
 export default async function CustomersTable({
     query,

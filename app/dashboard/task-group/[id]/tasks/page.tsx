@@ -1,10 +1,11 @@
 import Breadcrumbs from "@/app/ui/breadcrumbs";
-import { fetch_task_group_by_id } from "@/app/lib/data/tasks";
+import { fetch_task_of_task_group } from "@/app/lib/data/task";
 import { notFound } from "next/navigation";
 
-export async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id
-    const task_group = await fetch_task_group_by_id(id);
+    const task_group = await fetch_task_of_task_group(id);
+    /*     const { name, description, criticality, status, progress, ends_at, updated_at } = task_group; */
     if (!task_group) {
         notFound();
     }
@@ -20,7 +21,6 @@ export async function Page({ params }: { params: { id: string } }) {
                     },
                 ]}
             />
-
             <section className="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
                 <div className="h-full">
                     {/*  <!-- Table --> */}

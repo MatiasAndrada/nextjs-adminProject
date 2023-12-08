@@ -4,7 +4,7 @@ import Search from "@/app/ui/search";
 import Pagination from "@/app/ui/pagination";
 /* import { InvoicesTableSkeleton } from "@/app/ui/skeletons"; */
 import { lusitana } from "@/app/ui/fonts";
-import { fetch_task_pages } from '@/app/lib/data/tasks';
+import { fetch_task_pages } from '@/app/lib/data/task-group';
 import { Suspense } from "react";
 
 
