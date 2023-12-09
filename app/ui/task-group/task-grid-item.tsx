@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { taskGroup, Criticality } from "@/app/lib/definitions/task";
+import { TaskGroup, Criticality } from "@/app/lib/definitions/task";
 
-export default function TaskGridItem({ task }: { task: taskGroup }) {
+export default function TaskGridItem({ task }: { task: TaskGroup }) {
   const { task_group_id, name, description, criticality, status, progress, ends_at, updated_at } = task;
 
   // Calcula los días restantes hasta la fecha de vencimiento

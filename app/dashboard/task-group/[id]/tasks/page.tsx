@@ -1,148 +1,36 @@
+import { Metadata } from "next";
 import Breadcrumbs from "@/app/ui/breadcrumbs";
+import TaskTable from "@/app/ui/task-group/tasks/table-head";
+import { auth } from "@/auth";
+import { SelectedColumns } from "@/app/lib/definitions/task";
 import { fetch_task_of_task_group } from "@/app/lib/data/task";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
-    const id = params.id
-    const task_group = await fetch_task_of_task_group(id);
-    /*     const { name, description, criticality, status, progress, ends_at, updated_at } = task_group; */
-    if (!task_group) {
-        notFound();
-    }
+export default async function Page({ params }: { params: { id: string, currentPage?: number } }) {
+    const id = params.id;
+    const user_id = await auth()
+    console.log("🦇 ~ file: page.tsx:12 ~ Page ~ user_id:", user_id)
+
+    const currentPage = Number(params?.currentPage) || 1;
+
+
     return (
         <main>
             <Breadcrumbs
                 breadcrumbs={[
-                    { label: 'Task groups', href: '/dashboard/task-groups' },
+                    { label: 'Task group', href: '/dashboard/task-group' },
                     {
-                        label: 'Edit Task group',
+                        label: 'Tasks',
                         href: `/dashboard/task-groups/${id}`,
                         active: true,
                     },
                 ]}
             />
-            <section className="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
-                <div className="h-full">
-                    {/*  <!-- Table --> */}
-                    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100">
-                            <h2 className="font-semibold text-gray-800">Customers</h2>
-                        </header>
-                        <div className="p-3">
-                            <div className="overflow-x-auto">
-                                <table className="table-auto w-full">
-                                    <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                        <tr>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">Name</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">Email</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">Spent</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-center">Country</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-sm divide-y divide-gray-100">
-                                        <tr>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                        <img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov">
-                                                        </img>
-                                                    </div>
-                                                    <div className="font-medium text-gray-800">Alex Shatov</div>
-                                                </div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left">alexshatov@gmail.com</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left font-medium text-green-500">$2,890.66</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-lg text-center">🇺🇸</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-06.jpg" width="40" height="40" alt="Philip Harbach"></img></div>
-                                                    <div className="font-medium text-gray-800">Philip Harbach</div>
-                                                </div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left">philip.h@gmail.com</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left font-medium text-green-500">$2,767.04</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-lg text-center">🇩🇪</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-07.jpg" width="40" height="40" alt="Mirko Fisuk"></img></div>
-                                                    <div className="font-medium text-gray-800">Mirko Fisuk</div>
-                                                </div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left">mirkofisuk@gmail.com</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left font-medium text-green-500">$2,996.00</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-lg text-center">🇫🇷</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-08.jpg" width="40" height="40" alt="Olga Semklo"></img></div>
-                                                    <div className="font-medium text-gray-800">Olga Semklo</div>
-                                                </div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left">olga.s@cool.design</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left font-medium text-green-500">$1,220.66</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-lg text-center">🇮🇹</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-09.jpg" width="40" height="40" alt="Burak Long"></img></div>
-                                                    <div className="font-medium text-gray-800">Burak Long</div>
-                                                </div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left">longburak@gmail.com</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-left font-medium text-green-500">$1,890.66</div>
-                                            </td>
-                                            <td className="p-2 whitespace-nowrap">
-                                                <div className="text-lg text-center">🇬🇧</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section >
+            <div className="mt-8">
+                <TaskTable />
+            </div>
         </main>
     );
 }
+
+

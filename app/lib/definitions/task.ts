@@ -11,7 +11,7 @@ export enum Criticality {
     Critical = 'Critical',
 }
 
-export type taskGroup = {
+export type TaskGroup = {
     task_group_id: string;
     user_id: string;
     owner_id: string;
@@ -25,7 +25,7 @@ export type taskGroup = {
     ends_at: string,
 };
 
-export type taskTable = {
+export type TaskTable = {
     id: string;
     task: string;
     owner: string;
@@ -35,7 +35,7 @@ export type taskTable = {
     update_ago: string,
 };
 
-export type task = {
+export type Task = {
     task_id: string;
     task_group_id: string;
     user_id: string;
@@ -49,3 +49,30 @@ export type task = {
     ends_at: string,
 };
 
+export type SearchFields = {
+    taskId?: string;
+    taskGroupId?: string;
+    userId?: string;
+    ownerId?: string;
+    name?: string;
+    description?: string;
+    status?: string;
+    progress?: string;
+    createdAt?: string;
+    endsAt?: string;
+    updatedAt?: string;
+};
+
+export type SelectedColumns = {
+    taskId: boolean;
+    taskGroupId: boolean;
+    userId: boolean;
+    ownerId: boolean;
+    name: boolean;
+    description: boolean;
+    status: boolean;
+    progress: boolean;
+    createdAt: boolean;
+    endsAt: boolean;
+    updatedAt: boolean;
+};
