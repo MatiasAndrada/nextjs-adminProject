@@ -15,17 +15,17 @@ export async function fetch_task_of_task_group(
     try {
         const task = await sql<SearchFields>`
         SELECT
-        ${selectedColumns.taskId ? 'task.task_id,' : ''}
-        ${selectedColumns.taskGroupId ? 'task.task_group_id,' : ''}
-        ${selectedColumns.userId ? 'task.user_id,' : ''}
-        ${selectedColumns.ownerId ? 'task.owner_id,' : ''}
+        ${selectedColumns.task_id ? 'task.task_id,' : ''}
+        ${selectedColumns.task_group_id ? 'task.task_group_id,' : ''}
+        ${selectedColumns.user_id ? 'task.user_id,' : ''}
+        ${selectedColumns.owner_id ? 'task.owner_id,' : ''}
         ${selectedColumns.name ? 'task.name,' : ''}
         ${selectedColumns.description ? 'task.description,' : ''}
         ${selectedColumns.status ? 'task.status,' : ''}
         ${selectedColumns.progress ? 'task.progress,' : ''}
-        ${selectedColumns.createdAt ? 'task.created_at,' : ''}
-        ${selectedColumns.endsAt ? 'task.ends_at,' : ''}
-        ${selectedColumns.updatedAt ? 'task.updated_at,' : ''}
+        ${selectedColumns.created_at ? 'task.created_at,' : ''}
+        ${selectedColumns.ends_at ? 'task.ends_at,' : ''}
+        ${selectedColumns.updated_at ? 'task.updated_at,' : ''}
         FROM task
         WHERE
         task.task_group_id = ${task_group_id} AND

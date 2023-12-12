@@ -9,9 +9,7 @@ import bcrypt from 'bcrypt';
 async function getUser(email: string): Promise<User | undefined> {
     try {
         const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
-        console.log("🦇 ~ file: auth.ts:13 ~ getUser ~ user.rows[0]:", user.rows[0])
         return user.rows[0];
-
     } catch (error) {
         console.error('Failed to fetch user:', error);
         throw new Error('Failed to fetch user.');
@@ -22,8 +20,8 @@ export const { auth, signIn, signOut } = NextAuth({
     ...authConfig,
     providers: [
         Credentials({
-            async authorize(credentials) {
-                const parsedCredentials = z
+            async authorize(credentials, request) {
+                console.log('Authorizing credentials...'); const parsedCredentials = z
                     .object({ email: z.string().email(), password: z.string().min(6) })
                     .safeParse(credentials);
 
@@ -33,7 +31,11 @@ export const { auth, signIn, signOut } = NextAuth({
                     if (!user) return null;
                     const passwordsMatch = await bcrypt.compare(password, user.password);
 
-                    if (passwordsMatch) return user;
+                    if (passwordsMatch) {
+                        // Return the object with user information including ID
+                        console.log('Credentials are valid!');
+                        return { id: user.user_id, email: user.email, password: user.password };
+                    }
                 }
 
                 console.log('Invalid credentials');

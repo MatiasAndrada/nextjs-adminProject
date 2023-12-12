@@ -1,7 +1,6 @@
 import "@/app/ui/global.css";
 import { inter } from "@/app/ui/fonts";
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   /**Next.js agregará automáticamente el título y los metadatos a su aplicación.
 
@@ -21,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`} id="main_layout">{children}</body>
+      <body className={`${inter.className} antialiased`} id="main_layout">
+        {children}
+      </body>
     </html>
   );
-}
+} 

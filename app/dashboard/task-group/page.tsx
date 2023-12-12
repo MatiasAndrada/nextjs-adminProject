@@ -12,17 +12,12 @@ export const metadata: Metadata = {
     title: 'Tasks group | Task group | Dashboard',
 };
 
-export default async function Page({
-    searchParams,
-}: {
-    searchParams?: {
-        query?: string;
-        page?: string;
-    };
-}) {
+export default async function Page({ searchParams, }: { searchParams?: { query?: string; page?: string; }; }) {
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
     const totalPages = await fetch_task_pages(query);
+
+
     return (
         <div className="w-full">
             <div className="flex w-full items-center justify-between">

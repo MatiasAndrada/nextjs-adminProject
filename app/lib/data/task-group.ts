@@ -5,7 +5,7 @@ import {
 } from '../definitions/task';
 
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 export async function fetch_filtered_task_group(
   // recibe una query y devuelve un array de grupos de tareas

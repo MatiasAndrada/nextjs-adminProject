@@ -9,6 +9,8 @@ const {
 } = require("../app/lib/placeholder-data.js");
 const bcrypt = require("bcrypt");
 
+
+{/*
 async function seedUsers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -16,11 +18,12 @@ async function seedUsers(client) {
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
         user_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        email VARCHAR(100) NOT NULL UNIQUE CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+        password VARCHAR(255) NOT NULL,
       );
     `;
+    //validación de email con expresión regular
+    //permite cualquier valor alfanumérico antes del @, luego un punto y luego 2 o mas letras
 
     console.log(`Created "users" table`);
 
@@ -29,13 +32,13 @@ async function seedUsers(client) {
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         return client.sql`
-        INSERT INTO users (user_id, name, email, password)
-        VALUES (${user.user_id}, ${user.name}, ${user.email}, ${hashedPassword})
+        INSERT INTO users (user_id, email, password)
+        VALUES (${user.user_id}, ${user.email}, ${hashedPassword})
         ON CONFLICT (user_id) DO NOTHING;
       `;
       })
     );
-
+    */}
     console.log(`Seeded ${insertedUsers.length} users`);
 
     return {
@@ -236,7 +239,7 @@ async function seed_tasks(client) {
 
 async function main() {
   const client = await db.connect();
-
+  await seed_next_auth_tables(client);
   await seedUsers(client);
   await seedCustomers(client);
   await seedInvoices(client);

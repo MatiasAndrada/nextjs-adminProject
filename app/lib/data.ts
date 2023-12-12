@@ -10,6 +10,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { Task } from './definitions/task';
 
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
@@ -253,13 +254,20 @@ export async function fetchCustomersPages(query: string) {
   }
 }
 
-
-export async function getUser(email: string) {
+/* export async function getTaskDEPRECATED(email: string) {
   try {
-    const user = await sql`SELECT * FROM users WHERE email = ${email} `;
-    return user.rows[0] as User;
+    const user = await sql<User>`SELECT user_id FROM users WHERE email = ${email} `;
+    const userTasks = await sql<Task[]>`SELECT * FROM tasks WHERE user_id = ${user[0].user_id} `;
+
+    return userTasks;
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
   }
 }
+return userTasks;
+  } catch (error) {
+  console.error('Failed to fetch user:', error);
+  throw new Error('Failed to fetch user.');
+}
+} */

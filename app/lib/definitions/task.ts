@@ -50,10 +50,10 @@ export type Task = {
 };
 
 export type SearchFields = {
-    taskId?: string;
-    taskGroupId?: string;
-    userId?: string;
-    ownerId?: string;
+    task_id?: string;
+    task_group_id?: string;
+    user_id?: string;
+    owner_id?: string;
     name?: string;
     description?: string;
     status?: string;
@@ -64,15 +64,15 @@ export type SearchFields = {
 };
 
 export type SelectedColumns = {
-    taskId: boolean;
-    taskGroupId: boolean;
-    userId: boolean;
-    ownerId: boolean;
+    task_id: boolean;
+    task_group_id: boolean;
+    user_id: boolean;
+    owner_id: boolean;
     name: boolean;
     description: boolean;
     status: boolean;
     progress: boolean;
-    createdAt: boolean;
-    endsAt: boolean;
-    updatedAt: boolean;
+    created_at: boolean;
+    ends_at: boolean;
+    updated_at: boolean;
 };
