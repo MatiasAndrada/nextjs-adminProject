@@ -9,8 +9,66 @@ const {
 } = require("../app/lib/placeholder-data.js");
 const bcrypt = require("bcrypt");
 
+async function seed_next_auth_tables(client) {
+  try {
+    await client.sql`
+    CREATE TABLE IF NOT EXISTS verification_token
+(
+  identifier TEXT NOT NULL,
+  expires TIMESTAMPTZ NOT NULL,
+  token TEXT NOT NULL,
 
-{/*
+  PRIMARY KEY (identifier, token)
+);
+
+CREATE TABLE IF NOT EXISTS accounts
+(
+  id SERIAL,
+  "userId" INTEGER NOT NULL,
+  type VARCHAR(255) NOT NULL,
+  provider VARCHAR(255) NOT NULL,
+  "providerAccountId" VARCHAR(255) NOT NULL,
+  refresh_token TEXT,
+  access_token TEXT,
+  expires_at BIGINT,
+  id_token TEXT,
+  scope TEXT,
+  session_state TEXT,
+  token_type TEXT,
+
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS sessions
+(
+  id SERIAL,
+  "userId" INTEGER NOT NULL,
+  expires TIMESTAMPTZ NOT NULL,
+  "sessionToken" VARCHAR(255) NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS users
+(
+  id SERIAL,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  "emailVerified" TIMESTAMPTZ,
+  image TEXT,
+
+  PRIMARY KEY (id)
+);
+
+  `;
+    console.log(`Created "next_auth" tables`);
+  } catch (error) {
+    console.error("Error seeding next_auth tables:", error);
+    throw error;
+  }
+}
+{
+  /*
 async function seedUsers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -38,7 +96,7 @@ async function seedUsers(client) {
       `;
       })
     );
-    */}
+
     console.log(`Seeded ${insertedUsers.length} users`);
 
     return {
@@ -50,7 +108,8 @@ async function seedUsers(client) {
     throw error;
   }
 }
-
+    */
+}
 async function seedInvoices(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -240,7 +299,7 @@ async function seed_tasks(client) {
 async function main() {
   const client = await db.connect();
   await seed_next_auth_tables(client);
-  await seedUsers(client);
+  //await seedUsers(client);
   await seedCustomers(client);
   await seedInvoices(client);
   await seedRevenue(client);

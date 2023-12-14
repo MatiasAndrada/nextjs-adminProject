@@ -5,14 +5,14 @@ import TaskTable from "@/app/ui/task-group/tasks/table-head";
 import { SelectedColumns } from "@/app/lib/definitions/task";
 import { fetch_task_of_task_group } from "@/app/lib/data/task";
 import { notFound } from "next/navigation";
-import { useSession } from "next-auth/react";
-
+/* import { useSession } from "next-auth/react";
+ */
 export default async function Page({ params }: { params: { id: string, currentPage: string } }) {
-    const { data: session, status } = useSession();
-    console.log({
-        session,
-        status
-    });
+    /*     const { data: session, status } = useSession();
+        console.log({
+            session,
+            status
+        }); */
 
     const id = params.id; // task_group_id
     const currentPage = Number(params?.currentPage) || 1;
