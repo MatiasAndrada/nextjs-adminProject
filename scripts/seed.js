@@ -7,8 +7,8 @@ const {
   task_group,
   tasks,
 } = require("../app/lib/placeholder-data.js");
-const bcrypt = require("bcrypt");
-
+/* const bcrypt = require("bcrypt");
+ */
 async function seed_next_auth_tables(client) {
   try {
     await client.sql`

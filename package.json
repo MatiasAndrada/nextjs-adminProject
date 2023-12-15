@@ -18,11 +18,10 @@
     "@types/node": "20.5.7",
     "@vercel/postgres": "^0.5.0",
     "autoprefixer": "10.4.15",
-    "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
     "clsx": "^2.0.0",
     "next": "^14.0.2",
     "next-auth": "^4.24.5",
+    "nodemailer": "^6.9.7",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -33,8 +32,6 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.1",
-    "@types/bcryptjs": "^2.4.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.14",
     "dotenv": "^16.3.1",

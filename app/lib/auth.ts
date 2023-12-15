@@ -1,29 +1,36 @@
 import type { NextAuthConfig } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { sendVerificationRequest } from "@/app/lib/actions"
+import { EmailProvider } from "next-auth/providers/email";
+
+export type sendVerificationRequest = {
+    identifier: string;
+    url: string;
+    provider: EmailProvider;
+};
+
 
 export const authOptions: NextAuthConfig = {
     session: {
         strategy: "jwt",
     },
     providers: [
-        CredentialsProvider({
-            name: "Sign in",
-            credentials: {
-                email: {
-                    label: "Email",
-                    type: "email",
-                    placeholder: "example@example.com",
-                },
-                password: { label: "Password", type: "password" },
+        {
+            server: {
+                host: process.env.EMAIL_SERVER_HOST,
+                port: process.env.EMAIL_SERVER_PORT,
+                auth: {
+                    user: process.env.EMAIL_SERVER_USER,
+                    pass: process.env.EMAIL_SERVER_PASSWORD,
+                }
             },
-            async authorize(credentials) {
-                const user = { id: "1", name: "Admin", email: "admin@admin.com" };
-                return user;
-            },
-        }),
-    ],
-};
+            from: process.env.EMAIL_FROM,
+            sendVerificationRequest([
 
+            ])
+        }
+
+    ]
+};
 
 /*
 !FORMAS DE RECUPERAR LA SESIÓN DEL USUARIO
