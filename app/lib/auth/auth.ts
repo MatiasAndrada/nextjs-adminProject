@@ -1,37 +1,66 @@
-import type { NextAuthConfig } from "next-auth";
-import { sendVerificationRequest } from "@/app/lib/actions"
-import { EmailProvider } from "next-auth/providers/email";
+import type { AuthOptions } from "next-auth";
+import { sendVerificationRequest } from "@/app/lib/actions/send-verification-email"
+import EmailProvider from "next-auth/providers/email";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
 
-export type sendVerificationRequest = {
-    identifier: string;
-    url: string;
-    provider: EmailProvider;
-};
+const prisma = new PrismaClient()
 
 
-export const authOptions: NextAuthConfig = {
+export const authOptions: AuthOptions = {
+    adapter: PrismaAdapter(prisma),
     session: {
         strategy: "jwt",
     },
+    pages: {
+        signIn: "/login",
+    },
     providers: [
-        {
+        EmailProvider({
             server: {
                 host: process.env.EMAIL_SERVER_HOST,
                 port: process.env.EMAIL_SERVER_PORT,
                 auth: {
                     user: process.env.EMAIL_SERVER_USER,
                     pass: process.env.EMAIL_SERVER_PASSWORD,
-                }
+                },
+                from: process.env.EMAIL_FROM,
             },
-            from: process.env.EMAIL_FROM,
-            sendVerificationRequest([
-
-            ])
-        }
-
-    ]
+            sendVerificationRequest: async ({ identifier: email, url }) => {
+                console.log("entro en email provider")
+                await sendVerificationRequest({ identifier: email, url, provider: EmailProvider });
+            },
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+        }),
+    ],
+    callbacks: {
+        session: ({ session, token }) => {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                    randomKey: token.randomKey,
+                },
+            };
+        },
+        jwt: ({ token, user }) => {
+            if (user) {
+                const u = user as unknown as any;
+                return {
+                    ...token,
+                    id: u.id,
+                    randomKey: u.randomKey,
+                };
+            }
+            return token;
+        },
+    },
 };
-
 /*
 !FORMAS DE RECUPERAR LA SESIÓN DEL USUARIO
 ?Sesión en un componente del servidor

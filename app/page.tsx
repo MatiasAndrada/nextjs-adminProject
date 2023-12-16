@@ -9,7 +9,7 @@ import {
   RegisterButton,
 } from "@/app/ui/buttons-auth";
 import { getServerSession } from "next-auth"; //* get session from server
-import { authOptions } from "@/app/lib/auth"; //* auth options
+import { authOptions } from "@/app/lib/auth/auth"; //* auth options
 import { User } from "@/app/ui/userSessionComponent"; //* user session component
 
 import Link from "next/link";

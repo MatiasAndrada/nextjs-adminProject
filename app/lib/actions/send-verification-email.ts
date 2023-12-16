@@ -9,8 +9,7 @@ interface Theme {
 }
 
 
-
-export async function sendVerificationRequest(params = {} as Params) {
+export async function sendVerificationRequest(params: { identifier: string; url: string; provider: any; theme?: Theme }) {
     const { identifier, url, provider, theme } = params
     const { host } = new URL(url)
     // NOTE: You are not required to use `nodemailer`, use whatever you want.
@@ -20,7 +19,15 @@ export async function sendVerificationRequest(params = {} as Params) {
         from: provider.from,
         subject: `Sign in to ${host}`,
         text: text({ url, host }),
-        html: html({ url, host, theme }),
+        html: html({
+            url, host, theme: theme || {
+                brandColor: "#000",
+                background: "#fff",
+                buttonText: "#000",
+                text: "#000",
+                heading: "#000"
+            }
+        }),
     })
     const failed = result.rejected.concat(result.pending).filter(Boolean)
     if (failed.length) {
