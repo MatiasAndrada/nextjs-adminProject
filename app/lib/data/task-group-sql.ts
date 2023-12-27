@@ -1,15 +1,14 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
+import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 import {
   TaskGroup
 } from '../definitions/task';
 
-
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_filtered_task_group(
-  // recibe una query y devuelve un array de grupos de tareas
-  // se le podría implementar una query por owner_id
+  user_id: string,
   query: string,
   currentPage: number
 ) {
@@ -31,8 +30,9 @@ export async function fetch_filtered_task_group(
         task_group.updated_at
       FROM task_group
       WHERE
-      task_group.name ILIKE ${`%${query}%`} OR
-      task_group.status ILIKE ${`%${query}%`} 
+      task_group.user_id = ${user_id} AND
+      (task_group.name ILIKE ${`%${query}%`} OR
+      task_group.status ILIKE ${`%${query}%`})
       ORDER BY task_group.task_group_id DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -61,7 +61,7 @@ export async function fetch_filtered_task_group(
 }
 
 
-export async function fetch_task_pages(query: string) {
+export async function fetch_task_group_pages(user_id: string, query: string) {
   // recibe una query y devuelve el numero de paginas
   // se le podría implementar una query por owner_id
   noStore();
@@ -69,6 +69,7 @@ export async function fetch_task_pages(query: string) {
     const count = await sql`SELECT COUNT(*)
       FROM task_group
       WHERE
+      task_group.user_id = ${user_id} AND
       task_group.name ILIKE ${`%${query}%`} OR
       task_group.status ILIKE ${`%${query}%`} 
     `;

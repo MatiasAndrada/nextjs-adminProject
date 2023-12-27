@@ -11,14 +11,20 @@ export enum Criticality {
     Critical = 'Critical',
 }
 
+export enum Status {
+    Pending = 'Pending',
+    InProgress = 'In Progress',
+    Completed = 'Completed',
+}
+
 export type TaskGroup = {
     task_group_id: string;
-    user_id: string;
-    owner_id: string;
+    project_id: string;
+    author_id: string;
     name: string;
     description: string;
     criticality: Criticality;
-    status: string;
+    status: Status;
     progress: number;
     created_at: string,
     updated_at: string,
@@ -28,7 +34,7 @@ export type TaskGroup = {
 export type TaskTable = {
     id: string;
     task: string;
-    owner: string;
+    author: string;
     status: string;
     progress: number;
     time_left: string,
@@ -38,8 +44,7 @@ export type TaskTable = {
 export type Task = {
     task_id: string;
     task_group_id: string;
-    user_id: string;
-    owner_id: string;
+    author_id: string;
     name: string;
     description: string;
     status: string;
@@ -53,21 +58,21 @@ export type SearchFields = {
     task_id?: string;
     task_group_id?: string;
     user_id?: string;
-    owner_id?: string;
+    author_id?: string;
     name?: string;
     description?: string;
     status?: string;
     progress?: string;
     createdAt?: string;
-    endsAt?: string;
     updatedAt?: string;
+    endsAt?: string;
 };
 
 export type SelectedColumns = {
     task_id: boolean;
     task_group_id: boolean;
     user_id: boolean;
-    owner_id: boolean;
+    author_id: boolean;
     name: boolean;
     description: boolean;
     status: boolean;

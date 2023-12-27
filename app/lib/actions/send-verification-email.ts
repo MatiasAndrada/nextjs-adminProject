@@ -11,34 +11,46 @@ interface Theme {
 
 export async function sendVerificationRequest(params: { identifier: string; url: string; provider: any; theme?: Theme }) {
     const { identifier, url, provider, theme } = params
+    console.log("🦇 ~ file: send-verification-email.ts:14 ~ sendVerificationRequest ~ params:", params)
+
     const { host } = new URL(url)
+    console.log("🦇 ~ file: send-verification-email.ts:17 ~ sendVerificationRequest ~ host:", host)
     // NOTE: You are not required to use `nodemailer`, use whatever you want.
-    const transport = createTransport(provider.server)
-    const result = await transport.sendMail({
-        to: identifier,
-        from: provider.from,
-        subject: `Sign in to ${host}`,
-        text: text({ url, host }),
-        html: html({
-            url, host, theme: theme || {
-                brandColor: "#000",
-                background: "#fff",
-                buttonText: "#000",
-                text: "#000",
-                heading: "#000"
-            }
-        }),
-    })
-    const failed = result.rejected.concat(result.pending).filter(Boolean)
-    if (failed.length) {
-        throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
-    }
+    console.log("transport 0")
+    const transport = createTransport(provider)
+    console.log("🦇 ~ transport:", transport)
+    console.log("transport 1")
+    /*     const result = await transport.sendMail({
+            to: identifier,
+            from: provider.from,
+            subject: `Sign in to ${host}`,
+            text: text({ url, host }),
+            html: html({
+                url, host, theme: theme || {
+                    brandColor: "#000",
+                    background: "#fff",
+                    buttonText: "#000",
+                    text: "#000",
+                    heading: "#000"
+                }
+            }),
+        })
+        console.log("result")
+        console.log("🦇 ~ file: send-verification-email.ts:35 ~ sendVerificationRequest ~ result:", result)
+    
+        const failed = result.rejected.concat(result.pending).filter(Boolean)
+        console.log("🦇 ~ file: send-verification-email.ts:39 ~ sendVerificationRequest ~ failed:", failed)
+        if (failed.length) {
+            throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+        } */
 }
 
 function html(params: { url: string; host: string; theme: Theme }) {
+    console.log("function html")
     const { url, host, theme } = params
 
     const escapedHost = host.replace(/\./g, "&#8203;.")
+    console.log("🦇 ~ file: send-verification-email.ts:44 ~ html ~ escapedHost:", escapedHost)
 
     const brandColor = theme.brandColor || "#346df1"
     const color = {

@@ -2,31 +2,16 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+import type { DefaultUser } from "next-auth";
 
-export type User = {
-  id: number;
-  name: string;
-  email: string;
-};
+//is for warning of typescript in the next-auth module
+declare module "next-auth" {
+  interface Session {
+    user?: DefaultUser & { id: string; randomKey: string };
+  }
+}
 
-export type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-};
-
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string usnion type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
-};
-
-export type Revenue = {
+/* export type Revenue = {
   month: string;
   revenue: number;
 };
@@ -73,7 +58,7 @@ export type FormattedCustomersTable = {
   total_invoices: number;
   total_pending: string;
   total_paid: string;
-};
+}; */
 
 export type CustomerField = {
   id: string;

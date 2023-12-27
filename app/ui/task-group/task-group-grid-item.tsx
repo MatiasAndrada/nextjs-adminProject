@@ -37,15 +37,17 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
           <div>
             <dt className='sr-only'>Users</dt>
             <dd className='flex justify-start -space-x-1.5'>
-              <a href='#' className='inline-block -m-1'>
-                <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/women/46.jpg' alt='avatar' />
-              </a>
-              <a href='#' className='inline-block -m-1'>
-                <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/men/45.jpg' alt='avatar' />
-              </a>
-              <a href='#' className='inline-block -m-1'>
-                <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/women/47.jpg' alt='avatar' />
-              </a>
+              {/*<a href='#' className='inline-block -m-1'>*/}
+              <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/women/46.jpg' alt='avatar' />
+              {/*</a>*/}
+              {
+                /*
+              <a href='#' className='inline-block -m-1'> */}
+              <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/men/45.jpg' alt='avatar' />
+              {/*</a>
+              <a href='#' className='inline-block -m-1'>*/}
+              <img className='w-7 h-7 rounded-full ring-2 ring-white dark:ring-slate-800' src='https://randomuser.me/api/portraits/women/47.jpg' alt='avatar' />
+              {/* </a>*/}
               <span className='inline-block -m-1 rounded-full ring-2 ring-white dark:ring-slate-800'>
                 <svg width='28' height='28' viewBox='0 0 31 31' fill='none' xmlns='http://www.w3.org/2000/svg' className='text-slate-200 dark:text-slate-600'>
                   <path d='M31 15.5C31 24.0604 24.0604 31 15.5 31C6.93959 31 0 24.0604 0 15.5C0 6.93959 6.93959 0 15.5 0C24.0604 0 31 6.93959 31 15.5ZM8.20879 15.5C8.20879 19.5268 11.4732 22.7912 15.5 22.7912C19.5268 22.7912 22.7912 19.5268 22.7912 15.5C22.7912 11.4732 19.5268 8.20879 15.5 8.20879C11.4732 8.20879 8.20879 11.4732 8.20879 15.5Z' fill='currentColor' />

@@ -67,49 +67,7 @@ CREATE TABLE IF NOT EXISTS users
     throw error;
   }
 }
-{
-  /*
-async function seedUsers(client) {
-  try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    // Create the "users" table if it doesn't exist
-    const createTable = await client.sql`
-      CREATE TABLE IF NOT EXISTS users (
-        user_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        email VARCHAR(100) NOT NULL UNIQUE CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
-        password VARCHAR(255) NOT NULL,
-      );
-    `;
-    //validación de email con expresión regular
-    //permite cualquier valor alfanumérico antes del @, luego un punto y luego 2 o mas letras
 
-    console.log(`Created "users" table`);
-
-    // Insert data into the "users" table
-    const insertedUsers = await Promise.all(
-      users.map(async (user) => {
-        const hashedPassword = await bcrypt.hash(user.password, 10);
-        return client.sql`
-        INSERT INTO users (user_id, email, password)
-        VALUES (${user.user_id}, ${user.email}, ${hashedPassword})
-        ON CONFLICT (user_id) DO NOTHING;
-      `;
-      })
-    );
-
-    console.log(`Seeded ${insertedUsers.length} users`);
-
-    return {
-      createTable,
-      users: insertedUsers,
-    };
-  } catch (error) {
-    console.error("Error seeding users:", error);
-    throw error;
-  }
-}
-    */
-}
 async function seedInvoices(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -231,8 +189,8 @@ async function seed_tasks_groups(client) {
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS task_group (
         task_group_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        user_id UUID NOT NULL,
-        owner_id UUID NOT NULL,
+        user_id VARCHAR(255) NOT NULL,
+        owner_id VARCHAR(255) NOT NULL,
         name VARCHAR(80) NOT NULL,
         description VARCHAR(1000) NULL,
         criticality VARCHAR(18) NOT NULL,
@@ -248,12 +206,13 @@ async function seed_tasks_groups(client) {
     const inserted_task_group = await Promise.all(
       task_group.map(async (task_group) => {
         return client.sql`
-        INSERT INTO task_group (user_id, owner_id, name, description, criticality, status, progress) 
-        VALUES (${task_group.user_id}, ${task_group.owner_id}, ${task_group.name}, ${task_group.description}, ${task_group.criticality}, ${task_group.status}, ${task_group.progress})
+        INSERT INTO task_group (task_group_id, user_id, owner_id, name, description, criticality, status, progress) 
+        VALUES (${task_group.task_group_id},${task_group.user_id}, ${task_group.owner_id}, ${task_group.name}, ${task_group.description}, ${task_group.criticality}, ${task_group.status}, ${task_group.progress})
         ON CONFLICT (task_group_id) DO NOTHING;
       `;
       })
     );
+    console.log(`Seeded ${inserted_task_group.length} task_group`);
   } catch (err) {
     console.error("Error seeding task group:", err);
     throw err;
@@ -264,11 +223,11 @@ async function seed_tasks(client) {
   try {
     //Create the "task" table if it doesn't exist
     const createTable = await client.sql`
-      CREATE TABLE IF NOT EXISTS tasks(
+      CREATE TABLE IF NOT EXISTS task(
         task_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         task_group_id UUID NOT NULL,
-        user_id UUID NOT NULL,
-        owner_id UUID NOT NULL,
+        user_id VARCHAR(255) NOT NULL,
+        owner_id VARCHAR(255) NOT NULL,
         name VARCHAR(80) NOT NULL,
         description VARCHAR(1000) NULL,
         status VARCHAR(18) NOT NULL,
@@ -283,7 +242,7 @@ async function seed_tasks(client) {
     const inserted_task_group = await Promise.all(
       tasks.map(async (task) => {
         return client.sql`
-        INSERT INTO tasks (task_group_id, user_id, owner_id, name, description, status, progress) 
+        INSERT INTO task (task_group_id, user_id, owner_id, name, description, status, progress) 
         VALUES  (${task.task_group_id}, ${task.user_id}, ${task.owner_id}, ${task.name}, ${task.description}, ${task.status}, ${task.progress})
         ON CONFLICT (task_id) DO NOTHING;
       `;
@@ -298,11 +257,11 @@ async function seed_tasks(client) {
 
 async function main() {
   const client = await db.connect();
-  await seed_next_auth_tables(client);
+  //await seed_next_auth_tables(client);
   //await seedUsers(client);
-  await seedCustomers(client);
+  /* await seedCustomers(client);
   await seedInvoices(client);
-  await seedRevenue(client);
+  await seedRevenue(client); */
   await seed_tasks_groups(client);
   await seed_tasks(client);
   await client.end();

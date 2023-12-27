@@ -1,9 +1,9 @@
 import type { AuthOptions } from "next-auth";
-import { sendVerificationRequest } from "@/app/lib/actions/send-verification-email"
 import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
+import { sendVerificationRequest } from "@/app/lib/actions/send-verification-email"
 
 const prisma = new PrismaClient()
 
@@ -15,6 +15,7 @@ export const authOptions: AuthOptions = {
     },
     pages: {
         signIn: "/login",
+
     },
     providers: [
         EmailProvider({
@@ -27,10 +28,11 @@ export const authOptions: AuthOptions = {
                 },
                 from: process.env.EMAIL_FROM,
             },
-            sendVerificationRequest: async ({ identifier: email, url }) => {
+            sendVerificationRequest: async ({ identifier: email, url, }) => {
                 console.log("entro en email provider")
-                await sendVerificationRequest({ identifier: email, url, provider: EmailProvider });
+                await sendVerificationRequest({ identifier: email, url, provider: EmailProvider })
             },
+
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -58,6 +60,9 @@ export const authOptions: AuthOptions = {
                 };
             }
             return token;
+        },
+        async redirect({ url, baseUrl }) {
+            return url.startsWith(baseUrl) ? url : baseUrl;
         },
     },
 };

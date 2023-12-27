@@ -1,11 +1,14 @@
+import { Suspense } from "react";
 import { Metadata } from 'next';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/auth/auth";
+import { fetch_task_group_pages } from '@/app/lib/data/task-group-sql';
 import TaskGroupGrid from '@/app/ui/task-group/task-group-grid';
 import Search from "@/app/ui/search";
+import { CreateTaskGroup } from "@/app/ui/task-group/buttons";
 import Pagination from "@/app/ui/pagination";
-/* import { InvoicesTableSkeleton } from "@/app/ui/skeletons"; */
+//!ADD SKELETON LOADING
 import { lusitana } from "@/app/ui/fonts";
-import { fetch_task_pages } from '@/app/lib/data/task-group';
-import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
@@ -13,10 +16,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ searchParams, }: { searchParams?: { query?: string; page?: string; }; }) {
+    const session = await getServerSession(authOptions);
+    const user_id = session?.user?.id as string;
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
-    const totalPages = await fetch_task_pages(query);
-
+    const totalPages = await fetch_task_group_pages(user_id, query)
 
     return (
         <div className="w-full">
@@ -25,15 +29,10 @@ export default async function Page({ searchParams, }: { searchParams?: { query?:
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 <Search placeholder="Search task groups..." />
-                {/*         <CreateInvoice /> */}
+                <CreateTaskGroup />
             </div>
             <Suspense fallback={<div>Loading...</div>}>
-
-                <TaskGroupGrid query={query} currentPage={currentPage} />
-                {/*                 {<Table
-                    currentPage={currentPage}
-                    query={query}
-                />} */}
+                <TaskGroupGrid user_id={user_id} query={query} currentPage={currentPage} />
             </Suspense>
             <div className="mt-5 flex w-full justify-center">
                 <Pagination totalPages={totalPages} />

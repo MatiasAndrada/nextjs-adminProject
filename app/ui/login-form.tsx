@@ -11,7 +11,7 @@ import {
 import { LoginButton } from '@/app/ui/buttons-auth';
 import { ArrowRightIcon, } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { set } from 'zod';
 
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
 
   if (session) {
     setTimeout(() => {
-      push('/')
+      push('/dashboard')
     }, 5000)
 
     return (

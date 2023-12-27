@@ -1,5 +1,4 @@
 'use client';
-import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   CheckIcon,
@@ -9,133 +8,110 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createInvoice } from '@/app/lib/actions';
+import { create_task_group } from '@/app/lib/actions/task-group';
 
-export default function Form({ customers }: { customers: CustomerField[] }) {
+export default function Form({ user_id }: { user_id: string }) {
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createInvoice, initialState);
+  const [state, dispatch] = useFormState(create_task_group, initialState);
   return (
-    <form action={dispatch}>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* Customer Name */}
-        <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Choose customer
-          </label>
-          <div className="relative">
-            <select
-              id="customer"
-              name="customerId"
-              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue=""
-              aria-describedby="customer-error"
-            >
-              <option value="" disabled>
-                Select a customer
-              </option>
-              {customers.map((customer) => (
-                <option key={customer.id} value={customer.id}>
-                  {customer.name}
-                </option>
-              ))}
-            </select>
-            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-          </div>
-          {state.errors?.customerId ? (
-            <div
-              id="customer-error"
-              aria-live="polite"
-              className="mt-2 text-sm text-red-500"
-            >
-              {state.errors.customerId.map((error: string) => (
-                <p key={error}>{error}</p>
-              ))}
-            </div>
-          ) : null}
-        </div>
-
-        {/* Invoice Amount */}
-        <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Choose an amount
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="amount"
-                name="amount"
-                type="number"
-                step="0.01"
-                placeholder="Enter USD amount"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                aria-describedby="amount-error"
-              />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
-            {state.errors?.amount ? (
-              <div
-                id="amount-error"
-                aria-live="polite"
-                className="mt-2 text-sm text-red-500"
-              >
-                {state.errors.amount.map((error: string) => (
-                  <p key={error}>{error}</p>
-                ))}
-              </div>
-            ) : null}
-          </div>
-
-          {/* Invoice Status */}
-          <fieldset>
-            <legend className="mb-2 block text-sm font-medium">
-              Set the invoice status
-            </legend>
-            <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
-              <div className="flex gap-4">
-                <div className="flex items-center">
-                  <input
-                    id="pending"
-                    name="status"
-                    type="radio"
-                    value="pending"
-                    className="h-4 w-4 border-gray-300 bg-gray-100 text-gray-600 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-gray-600"
-                  />
-                  <label
-                    htmlFor="pending"
-                    className="ml-2 flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300"
-                  >
-                    Pending <ClockIcon className="h-4 w-4" />
-                  </label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    id="paid"
-                    name="status"
-                    type="radio"
-                    value="paid"
-                    className="h-4 w-4 border-gray-300 bg-gray-100 text-gray-600 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-gray-600"
-                  />
-                  <label
-                    htmlFor="paid"
-                    className="ml-2 flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white dark:text-gray-300"
-                  >
-                    Paid <CheckIcon className="h-4 w-4" />
-                  </label>
-                </div>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-        <div className="mt-6 flex justify-end gap-4">
-          <Link
-            href="/dashboard/invoices"
-            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+    <form action={dispatch} className="rounded-md bg-gray-50 p-4 md:p-6">
+      {/* Task Name */}
+      <div className="mb-4">
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          Task Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name='name'
+          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          defaultValue=""
+          aria-describedby="name-error"
+        />
+        {/*         {state.errors?.name ? (
+          <div
+            id="name-error"
+            aria-live="polite"
+            className="mt-2 text-sm text-red-500"
           >
-            Cancel
-          </Link>
-          <Button type="submit">Create Invoice</Button>
-        </div>
+            {state.errors.name.map((error: string) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        ) : null} */}
+
+
+
       </div>
+
+      {/* Task Description */}
+      <div className="mb-4">
+        <label htmlFor="description" className="mb-2 block text-sm font-medium">
+          Task Description
+        </label>
+        <textarea
+          id="description"
+          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+        />
+        {/*         {state.error('description') && (
+          <div className="mt-2 text-sm text-red-500">
+            {state.error('description').map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )} */}
+      </div>
+
+      {/* Task Criticality */}
+      <div className="mb-4">
+        <label htmlFor="criticality" className="mb-2 block text-sm font-medium">
+          Task Criticality
+        </label>
+        <select
+          id="criticality"
+
+          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+        >
+          <option value="">Select a criticality</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        {/*         {state.error('criticality') && (
+          <div className="mt-2 text-sm text-red-500">
+            {state.error('criticality').map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )} */}
+      </div>
+
+      {/* Task Ends At */}
+      <div className="mb-4">
+        <label htmlFor="endsAt" className="mb-2 block text-sm font-medium">
+          Task Ends At
+        </label>
+        <input
+          type="date"
+          id="endsAt"
+          name='endsAt'
+          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          defaultValue=""
+          aria-describedby="endsAt-error"
+        />
+        {/*         {state.error('endsAt') && (
+          <div className="mt-2 text-sm text-red-500">
+            {state.error('endsAt').map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )} */}
+      </div>
+
+      {/* Submit Button */}
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+        Create Task
+      </button>
     </form>
 
   );

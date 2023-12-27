@@ -1,39 +1,36 @@
-"use client"
+
 import { Metadata } from "next";
-import Breadcrumbs from "@/app/ui/breadcrumbs";
-import TaskTable from "@/app/ui/task-group/tasks/table-head";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/auth/auth";
+/* import { notFound } from "next/navigation"; */
+import { fetch_task_pages } from "@/app/lib/data/task-sql";
 import { SelectedColumns } from "@/app/lib/definitions/task";
-import { fetch_task_of_task_group } from "@/app/lib/data/task";
-import { notFound } from "next/navigation";
-/* import { useSession } from "next-auth/react";
- */
-export default async function Page({ params }: { params: { id: string, currentPage: string } }) {
-    /*     const { data: session, status } = useSession();
-        console.log({
-            session,
-            status
-        }); */
+import Breadcrumbs from "@/app/ui/breadcrumbs";
+import Table from "@/app/ui/task-group/tasks/table-head";
+import Pagination from "@/app/ui/pagination";
+import { task_group } from "@/app/lib/placeholder-data";
 
-    const id = params.id; // task_group_id
-    const currentPage = Number(params?.currentPage) || 1;
-
-
+export default async function Page({ params, searchParams }: { params: { id: string }, searchParams: { page: string, query: string } }) {
+    const session = await getServerSession(authOptions);
+    const user_id = session?.user?.id as string;
+    const id = params.id;
+    const query = searchParams.query || "";
+    const currentPage = Number(searchParams.page) || 1;
+    const totalPages = await fetch_task_pages(user_id, id, query);
 
     const selectedColumns: SelectedColumns = {
         task_id: true,
-        task_group_id: true,
-        user_id: true,
+        task_group_id: false,
+        user_id: false,
         owner_id: true,
         name: true,
-        description: true,
+        description: false,
         status: true,
         progress: true,
-        created_at: true,
+        created_at: false,
         ends_at: true,
-        updated_at: true,
+        updated_at: false,
     };
-
-    //const tasks = await fetch_task_of_task_group(
 
     return (
         <main>
@@ -48,7 +45,10 @@ export default async function Page({ params }: { params: { id: string, currentPa
                 ]}
             />
             <div className="mt-8">
-                {/*<TaskTable />*/}
+                <Table user_id={user_id} task_group_id={id} currentPage={currentPage} selectedColumns={selectedColumns} />
+            </div>
+            <div className="mt-5 flex w-full justify-center">
+                {<Pagination totalPages={totalPages} />}
             </div>
         </main>
     );
