@@ -20,49 +20,48 @@ export async function sendVerificationRequest(params: { identifier: string; url:
     const transport = createTransport(provider)
     console.log("🦇 ~ transport:", transport)
     console.log("transport 1")
-    /*     const result = await transport.sendMail({
-            to: identifier,
-            from: provider.from,
-            subject: `Sign in to ${host}`,
-            text: text({ url, host }),
-            html: html({
-                url, host, theme: theme || {
-                    brandColor: "#000",
-                    background: "#fff",
-                    buttonText: "#000",
-                    text: "#000",
-                    heading: "#000"
-                }
-            }),
-        })
-        console.log("result")
-        console.log("🦇 ~ file: send-verification-email.ts:35 ~ sendVerificationRequest ~ result:", result)
-    
-        const failed = result.rejected.concat(result.pending).filter(Boolean)
-        console.log("🦇 ~ file: send-verification-email.ts:39 ~ sendVerificationRequest ~ failed:", failed)
-        if (failed.length) {
-            throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
-        } */
-}
+    const result = await transport.sendMail({
+        to: identifier,
+        from: provider.from,
+        subject: `Sign in to ${host}`,
+        text: text({ url, host }),
+        html: html({
+            url, host, theme: theme || {
+                brandColor: "#000",
+                background: "#fff",
+                buttonText: "#000",
+                text: "#000",
+                heading: "#000"
+            }
+        }),
+    })
+    console.log("result")
+    console.log("🦇 ~ file: send-verification-email.ts:35 ~ sendVerificationRequest ~ result:", result)
 
-function html(params: { url: string; host: string; theme: Theme }) {
-    console.log("function html")
-    const { url, host, theme } = params
-
-    const escapedHost = host.replace(/\./g, "&#8203;.")
-    console.log("🦇 ~ file: send-verification-email.ts:44 ~ html ~ escapedHost:", escapedHost)
-
-    const brandColor = theme.brandColor || "#346df1"
-    const color = {
-        background: "#f9f9f9",
-        text: "#444",
-        mainBackground: "#fff",
-        buttonBackground: brandColor,
-        buttonBorder: brandColor,
-        buttonText: theme.buttonText || "#fff",
+    const failed = result.rejected.concat(result.pending).filter(Boolean)
+    console.log("🦇 ~ file: send-verification-email.ts:39 ~ sendVerificationRequest ~ failed:", failed)
+    if (failed.length) {
+        throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
     }
 
-    return `
+    function html(params: { url: string; host: string; theme: Theme }) {
+        console.log("function html")
+        const { url, host, theme } = params
+
+        const escapedHost = host.replace(/\./g, "&#8203;.")
+        console.log("🦇 ~ file: send-verification-email.ts:44 ~ html ~ escapedHost:", escapedHost)
+
+        const brandColor = theme.brandColor || "#346df1"
+        const color = {
+            background: "#f9f9f9",
+            text: "#444",
+            mainBackground: "#fff",
+            buttonBackground: brandColor,
+            buttonBorder: brandColor,
+            buttonText: theme.buttonText || "#fff",
+        }
+
+        return `
     <body style="background: ${color.background};">
         <table width="100%" border="0" cellspacing="20" cellpadding="0" style="background: ${color.mainBackground}; max-width: 600px; margin: auto; border-radius: 10px;">
             <tr>
@@ -89,7 +88,9 @@ function html(params: { url: string; host: string; theme: Theme }) {
         </table>
     </body>
     `;
+    }
 }
+
 
 // Email Text body (fallback for email clients that don't render HTML, e.g. feature phones)
 function text({ url, host }: { url: string; host: string }) {

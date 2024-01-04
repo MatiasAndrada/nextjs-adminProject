@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth"; //* get session from server
-import { authOptions } from "@/app/lib/auth/auth"; //* auth options
+import db from "@/app/lib/db"
+import { auth } from "@/auth"
 
-const prisma = new PrismaClient();
+const prisma = db;
 
 export async function fetchProjects() {
     console.log(0)

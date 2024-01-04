@@ -1,7 +1,7 @@
 import { useEffect, Suspense } from 'react';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/lib/auth/auth';
+import { authOptions } from '@/app/lib/auth/auth-DEPRECATED';
 import Search from '@/app/ui/search';
 import { lusitana } from '@/app/ui/fonts';
 import { tasks } from '@/app/lib/placeholder-data';

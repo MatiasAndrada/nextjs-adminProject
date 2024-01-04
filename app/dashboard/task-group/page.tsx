@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Metadata } from 'next';
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth/auth";
+import { auth } from '@/auth';
 import { fetch_task_group_pages } from '@/app/lib/data/task-group-sql';
 import TaskGroupGrid from '@/app/ui/task-group/task-group-grid';
 import Search from "@/app/ui/search";
@@ -16,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ searchParams, }: { searchParams?: { query?: string; page?: string; }; }) {
-    const session = await getServerSession(authOptions);
+    const session = await auth()
+    console.log('session', session)
     const user_id = session?.user?.id as string;
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;

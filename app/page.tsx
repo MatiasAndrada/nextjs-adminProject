@@ -8,13 +8,16 @@ import {
   ProfileButton,
   RegisterButton,
 } from "@/app/ui/buttons-auth";
-import { getServerSession } from "next-auth"; //* get session from server
-import { authOptions } from "@/app/lib/auth/auth"; //* auth options
+import { auth } from '@/auth'
+
 import { User } from "@/app/ui/userSessionComponent"; //* user session component
 
 import Link from "next/link";
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await auth()
+
+
+  //const session = await getServerSession(authOptions);
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
@@ -34,8 +37,12 @@ export default async function Page() {
           </p> */}
           <div className="flex flex-col gap-4">
             <p>Server session</p>
+
+            <p>Hello {session?.user?.name}</p>
             <pre>{JSON.stringify(session)}</pre>
             <User />
+
+
           </div>
 
           <div className="flex flex-col gap-4 md:flex-row">

@@ -31,7 +31,7 @@ export default function LoginForm() {
   if (session) {
     setTimeout(() => {
       push('/dashboard')
-    }, 5000)
+    }, 200)
 
     return (
       <div className="bg-yellow-200 text-yellow-800 p-4 rounded-lg">

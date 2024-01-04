@@ -1,7 +1,7 @@
 
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth/auth";
+import { authOptions } from "@/app/lib/auth/auth-DEPRECATED";
 /* import { notFound } from "next/navigation"; */
 import { fetch_task_pages } from "@/app/lib/data/task-sql";
 import { SelectedColumns } from "@/app/lib/definitions/task";

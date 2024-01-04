@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+
+import { db } from "@/app/lib/db";
 import { task_groups, tasks, project, projectUser, user } from "../app/lib/placeholder-data";
-const prisma = new PrismaClient();
 
-
-
-
+const prisma = db;
 
 
 

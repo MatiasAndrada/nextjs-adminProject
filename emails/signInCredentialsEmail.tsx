@@ -2,7 +2,7 @@ import * as React from 'react';
 
 
 
-const SignInCredentialsEmail = ({ url }: { url: string }) => {
+export const SignInCredentialsEmail = (url: string) => {
     const color = {
         background: "#f9f9f9",
         text: "#444",
@@ -42,5 +42,3 @@ const SignInCredentialsEmail = ({ url }: { url: string }) => {
         </body>
     );
 };
-
-export default SignInCredentialsEmail;

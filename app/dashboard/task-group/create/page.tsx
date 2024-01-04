@@ -1,7 +1,7 @@
 import Form from "@/app/ui/invoices/create-form";
 import Breadcrumbs from "@/app/ui/breadcrumbs";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth/auth";
+import { authOptions } from "@/app/lib/auth/auth-DEPRECATED";
 
 export default async function Page() {
     const session = await getServerSession(authOptions);

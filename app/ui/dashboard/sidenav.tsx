@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import DropDownSelectProject from "@/app/ui/dashboard/drop-down-select-project"
-import { fetchProjects } from '@/app/lib/data/projects';
 import {
   LogoutButton,
 } from "@/app/ui/buttons-auth";
@@ -10,8 +9,6 @@ import AcmeLogo from '@/app/ui/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default async function SideNav() {
-  //const projects = await fetchProjects();
-  //console.log(projects)
 
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">

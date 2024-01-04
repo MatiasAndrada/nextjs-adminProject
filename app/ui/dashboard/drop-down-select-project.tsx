@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState, useRef, useEffect } from 'react';
-import { fetchProjects } from "@/app/lib/data/projects";
+//import { fetchProjects } from "@/app/lib/data/projects";
 interface DropDownProps {
     name: string;
     createName: string;
     items?: { label: string; url: string }[];
 }
 
-export async function DropDown({ name, createName, items }: DropDownProps) {
+export function DropDown({ name, createName, items }: DropDownProps) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const dropdownButtonRef = useRef<HTMLButtonElement>(null);
