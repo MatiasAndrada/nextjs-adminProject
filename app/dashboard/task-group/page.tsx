@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { Metadata } from 'next';
 import { auth } from '@/auth';
-import { fetch_task_group_pages } from '@/app/lib/data/task-group-sql';
-import TaskGroupGrid from '@/app/ui/task-group/task-group-grid';
-import Search from "@/app/ui/search";
-import { CreateTaskGroup } from "@/app/ui/task-group/buttons";
-import Pagination from "@/app/ui/pagination";
+import { fetch_task_group_pages } from '@/data/task-group-sql';
+import TaskGroupGrid from '@/components/task-group/task-group-grid';
+import Search from "@/components/search";
+import { CreateTaskGroup } from "@/components/task-group/buttons";
+import Pagination from "@/components/pagination";
 //!ADD SKELETON LOADING
-import { lusitana } from "@/app/ui/fonts";
+import { lusitana } from "@/components/fonts";
 
 
 export const metadata: Metadata = {

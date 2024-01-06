@@ -19,6 +19,7 @@ export default auth((req) => {
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+
     if (isApiAuthRoute) {
         return null;
     }
@@ -40,4 +41,4 @@ export default auth((req) => {
 // Optionally, don't invoke Middleware on some paths
 export const config = {
     matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
-}
+} 

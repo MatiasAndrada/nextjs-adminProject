@@ -1,19 +1,19 @@
-import AcmeLogo from "@/app/ui/acme-logo";
+import AcmeLogo from "@/components/acme-logo";
 import Image from "next/image";
-import { lusitana } from "@/app/ui/fonts";
+import { lusitana } from "@/components/fonts";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import {
+/* import {
   LoginButton,
   LogoutButton,
   ProfileButton,
   RegisterButton,
-} from "@/app/ui/buttons-auth";
+} from "@/components/buttons-auth"; */
 import { auth } from '@/auth'
-
-import { User } from "@/app/ui/userSessionComponent"; //* user session component
+import { User } from "@/components/userSessionComponent";
 
 import Link from "next/link";
 export default async function Page() {
+
   const session = await auth()
 
 
@@ -40,23 +40,22 @@ export default async function Page() {
 
             <p>Hello {session?.user?.name}</p>
             <pre>{JSON.stringify(session)}</pre>
+
             <User />
-
-
           </div>
 
-          <div className="flex flex-col gap-4 md:flex-row">
+          {/*           <div className="flex flex-col gap-4 md:flex-row">
             <RegisterButton />
             <LoginButton />
             <ProfileButton />
             <LogoutButton />
-          </div>
-          {/*           <Link
-            href="/login"
+          </div> */}
+          {<Link
+            href="/auth/login"
             className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
-          </Link> */}
+          </Link>}
         </div>
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           {/* Add Hero Images Here */}

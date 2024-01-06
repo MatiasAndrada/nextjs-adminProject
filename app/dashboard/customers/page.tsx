@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import { lusitana } from "@/app/ui/fonts";
-import Search from "@/app/ui/search";
-import CustomersTable from "@/app/ui/customers/table";
-import Pagination from "@/app/ui/pagination";
-import { CreateCustomer } from "@/app/ui/customers/buttons";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
-import { fetchCustomersPages } from "@/app/lib/data";
+import { lusitana } from "@/components/fonts";
+import Search from "@/components/search";
+import CustomersTable from "@/components/customers/table";
+import Pagination from "@/components/pagination";
+import { CreateCustomer } from "@/components/customers/buttons";
+import { InvoicesTableSkeleton } from "@/components/skeletons";
+import { fetchCustomersPages } from "@/lib/data";
 
 
 export const metadata: Metadata = {

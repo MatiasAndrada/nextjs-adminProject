@@ -1,6 +1,6 @@
-import "@/app/ui/global.css";
+import "@/components/global.css";
 import { NextAuthProvider } from "@/context/SessionAuthProvider";
-import { inter } from "@/app/ui/fonts";
+import { inter } from "@/components/fonts";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

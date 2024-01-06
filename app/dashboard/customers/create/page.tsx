@@ -1,6 +1,6 @@
-import Form from "@/app/ui/customers/create-form";
-import Breadcrumbs from "@/app/ui/breadcrumbs";
-import { fetchCustomers } from "@/app/lib/data";
+import Form from "@/components/customers/create-form";
+import Breadcrumbs from "@/components/breadcrumbs";
+import { fetchCustomers } from "@/lib/data";
 
 //route para crear nuevas facturas
 

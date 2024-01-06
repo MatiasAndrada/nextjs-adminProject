@@ -1,14 +1,14 @@
 
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth/auth-DEPRECATED";
+import { authOptions } from "@/lib/auth/auth-DEPRECATED";
 /* import { notFound } from "next/navigation"; */
-import { fetch_task_pages } from "@/app/lib/data/task-sql";
-import { SelectedColumns } from "@/app/lib/definitions/task";
-import Breadcrumbs from "@/app/ui/breadcrumbs";
-import Table from "@/app/ui/task-group/tasks/table-head";
-import Pagination from "@/app/ui/pagination";
-import { task_group } from "@/app/lib/placeholder-data";
+import { fetch_task_pages } from "@/data/task-sql";
+import { SelectedColumns } from "@/definitions/task";
+import Breadcrumbs from "@/components/breadcrumbs";
+import Table from "@/components/task-group/tasks/table-head";
+import Pagination from "@/components/pagination";
+import { task_group } from "@/lib/placeholder-data";
 
 export default async function Page({ params, searchParams }: { params: { id: string }, searchParams: { page: string, query: string } }) {
     const session = await getServerSession(authOptions);
