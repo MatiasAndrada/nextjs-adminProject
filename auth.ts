@@ -7,6 +7,8 @@ import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "@/data/account";
 
+const adapter = PrismaAdapter(db);
+
 export const {
     handlers: { GET, POST },
     auth,
@@ -87,7 +89,8 @@ export const {
             return token;
         }
     },
-    adapter: PrismaAdapter(db),
+    adapter: adapter,
     session: { strategy: "jwt" },
     ...authConfig,
 });
+

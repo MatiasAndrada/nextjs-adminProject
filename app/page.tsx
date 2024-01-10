@@ -65,6 +65,8 @@ export default async function Page() {
             height={760}
             className="hidden md:block"
             alt="Screenshots of the dashboard project showing desktop version"
+            //add priority to images that are above the fold
+            priority
           />
           <Image
             src="/hero-mobile.png"
@@ -72,6 +74,7 @@ export default async function Page() {
             height={620}
             className="block md:hidden"
             alt="Screenshot of the dashboard project showing mobile version"
+            priority
           />
         </div>
       </div>
