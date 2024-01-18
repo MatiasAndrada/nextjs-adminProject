@@ -10,14 +10,12 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 } from "@/components/buttons-auth"; */
 import { auth } from '@/auth'
 import { User } from "@/components/userSessionComponent";
-
+/* import { currentUser } from "@/lib/auth"; */
 import Link from "next/link";
-export default async function Page() {
 
+export default async function Page() {
   const session = await auth()
 
-
-  //const session = await getServerSession(authOptions);
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">

@@ -1,39 +1,29 @@
-import { fetchCardData } from "@/lib/data";
-import {
+import { fetchProjectsOfUser } from "@/data/projects";
+import Link from "next/link";
+
+/* import {
   BanknotesIcon,
   ClockIcon,
   UserGroupIcon,
   InboxIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/outline"; */
 
-import { lusitana } from "@/components/fonts";
-
-const iconMap = {
-  collected: BanknotesIcon,
-  customers: UserGroupIcon,
-  pending: ClockIcon,
-  invoices: InboxIcon,
-};
+/* import { lusitana } from "@/components/fonts";
+ */
 
 export default async function CardWrapper() {
-  const {
-    numberOfInvoices,
-    numberOfCustomers,
-    totalPaidInvoices,
-    totalPendingInvoices,
-  } = await fetchCardData();
+  const projects = await fetchProjectsOfUser();
   return (
     <>
       {/* NOTE: comment in this code when you get to this point in the course */}
       <div className="grid grid-cols-2">
-
+        {/* 
         <Card title="Collected" value={totalPaidInvoices} type="collected" />
         <Card title="Pending" value={totalPendingInvoices} type="pending" />
-        <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
+        <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
         <Card
-          title="Total Customers"
-          value={numberOfCustomers}
-          type="customers"
+          id={projects[0].id}
+          name={projects[0].name}
         />
       </div>
     </>
@@ -41,28 +31,44 @@ export default async function CardWrapper() {
 }
 
 export function Card({
-  title,
-  value,
-  type,
+  id,
+  name,
 }: {
-  title: string;
-  value: number | string;
-  type: "invoices" | "customers" | "pending" | "collected";
+  id: string;
+  name: string;
 }) {
-  const Icon = iconMap[type];
 
   return (
-    <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
-      <div className="flex p-4">
-        {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-        <h3 className="ml-2 text-sm font-medium">{title}</h3>
+    <div className="max-w-sm mx-auto my-10">
+      <div className="bg-white shadow-lg rounded-lg p-6 space-y-4">
+        <div className="flex items-center space-x-4">
+          <div className="p-2 bg-purple-200 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 15h16" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-gray-600 text-md">{name}</h3>
+            {/*             <div className="text-gray-900 text-2xl font-semibold">
+              71,897
+              <span className="text-green-500 text-sm font-medium flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                </svg>
+                122
+              </span>
+            </div> */}
+          </div>
+        </div>
+        <Link
+          href={`/dashboard`}
+          className="w-full text-purple-600 bg-purple-100 hover:bg-purple-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out">
+          View project
+        </Link>
       </div>
-      <p
-        className={`${lusitana.className}
-          truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
-      >
-        {value}
-      </p>
-    </div>
+    </div >
   );
 }

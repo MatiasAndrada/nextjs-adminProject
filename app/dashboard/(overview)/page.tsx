@@ -1,5 +1,6 @@
-import RevenueChart from "@/components/dashboard/revenue-chart";
-import LatestInvoices from "@/components/dashboard/latest-invoices";
+
+import { initializeStore } from "@/lib/store";
+import GridDashboard from "@/components/dashboard/grid-dashboard";
 import { lusitana } from "@/components/fonts";
 import { Suspense } from "react";
 import {
@@ -7,27 +8,20 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton
 } from "@/components/skeletons";
-import CardWrapper from '@/components/dashboard/cards';
 
 export default async function Page() {
+
   return (
     <main>
+
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
+        Dashboard page
       </h1>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
-      <Suspense fallback={<CardsSkeleton />}>
-        {/*         <CardWrapper /> */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <GridDashboard />
       </Suspense>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <Suspense fallback={<RevenueChartSkeleton />}>
-          {/* <RevenueChart /> */}
-        </Suspense>
-        <Suspense />
-        <Suspense fallback={<LatestInvoicesSkeleton />}>
-          {/* <LatestInvoices /> */}
-        </Suspense>
-      </div>
-    </main>
+
+    </main >
   );
 }
+

@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
     id: string;
     members: ProjectUser[];
     name: string;

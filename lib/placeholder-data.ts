@@ -1,10 +1,10 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
 // https://nextjs.org/learn/dashboard-app/fetching-data
-import type { AdapterUser } from "@auth/core/adapters";
+
 
 export const user = [
   {
-    id: "clr6wcyhg0000779zm5vld2xq",
+    id: "clri6fs8e0000j8la4hdgf2i0",
   },
 ];
 

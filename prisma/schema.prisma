@@ -18,6 +18,8 @@ model User {
   updatedAt             DateTime               @default(now()) @updatedAt
   accounts              Account[]
   ProjectUser           ProjectUser[]
+  selected_project_id   String?
+  selectedProject       Project?               @relation(fields: [selected_project_id], references: [id])
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -104,6 +106,7 @@ model Project {
   description String?       @db.VarChar(1000)
   createdAt   DateTime      @default(now()) @db.Timestamptz(6)
   taskGroup   TaskGroup[]
+  User        User[]
 }
 
 model TaskGroup {

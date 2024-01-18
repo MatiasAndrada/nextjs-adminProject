@@ -6,7 +6,7 @@ export enum Criticality {
     Critical = 'Critical',
 }
 
-type TaskGroup = {
+export type TaskGroup = {
     id: string;
     project_id: string;
     task: Task[];

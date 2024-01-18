@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Metadata } from 'next';
 import { auth } from '@/auth';
-import { fetch_task_group_pages } from '@/data/task-group-sql';
+import { fetch_task_group_pages } from '@/data/task-group';
 import TaskGroupGrid from '@/components/task-group/task-group-grid';
 import Search from "@/components/search";
 import { CreateTaskGroup } from "@/components/task-group/buttons";
@@ -11,16 +11,14 @@ import { lusitana } from "@/components/fonts";
 
 
 export const metadata: Metadata = {
-    title: 'Tasks group | Task group | Dashboard',
+    title: 'Tasks group',
 };
 
 export default async function Page({ searchParams, }: { searchParams?: { query?: string; page?: string; }; }) {
-    const session = await auth()
-    console.log('session', session)
-    const user_id = session?.user?.id as string;
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
-    const totalPages = await fetch_task_group_pages(user_id, query)
+    /*     const project_id = localStorage.getItem("SELECTED_PROJECT") */
+    /*     const totalPages = await fetch_task_group_pages(query) */
 
     return (
         <div className="w-full">
@@ -29,13 +27,13 @@ export default async function Page({ searchParams, }: { searchParams?: { query?:
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 <Search placeholder="Search task groups..." />
-                <CreateTaskGroup />
+                <CreateTaskGroup />s
             </div>
             <Suspense fallback={<div>Loading...</div>}>
-                <TaskGroupGrid user_id={user_id} query={query} currentPage={currentPage} />
+                {/*                 <TaskGroupGrid user_id={user_id} query={query} currentPage={currentPage} /> */}
             </Suspense>
             <div className="mt-5 flex w-full justify-center">
-                <Pagination totalPages={totalPages} />
+                {/*    <Pagination totalPages={totalPages} /> */}
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ const prisma = db;
 
 /* const adapter = PrismaAdapter(db);
  */
-const userId = "clr6wcyhg0000779zm5vld2xq"
+const user_id = "clri6fs8e0000j8la4hdgf2i0"
 
 async function main() {
     try {
@@ -42,7 +42,7 @@ async function main() {
         console.log("Creating projectUser if not exist");
         const projectUserExist = await prisma.projectUser.findMany({
             where: {
-                user_id: userId,
+                user_id: user_id,
             },
         });
         if (projectUserExist.length === 0 && typeof prisma.projectUser.create === 'function') {

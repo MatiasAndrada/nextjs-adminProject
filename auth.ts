@@ -55,7 +55,9 @@ export const {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
             }
-
+            if (token.selected_project_id && session.user) {
+                session.user.selected_project_id = token.selected_project_id as string;
+            }
 
 
             if (session.user) {
@@ -66,6 +68,7 @@ export const {
                 session.user.name = token.name;
                 session.user.email = token.email;
                 session.user.isOAuth = token.isOAuth as boolean;
+
             }
 
             return session;
@@ -75,7 +78,7 @@ export const {
 
             const existingUser = await getUserById(token.sub);
 
-            if (!existingUser) return token;
+            if (!existingUser) return token; 909
 
             const existingAccount = await getAccountByUserId(
                 existingUser.id
@@ -85,6 +88,7 @@ export const {
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+            token.selected_project_id = existingUser.selected_project_id;
 
             return token;
         }

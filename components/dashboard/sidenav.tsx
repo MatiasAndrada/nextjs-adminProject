@@ -1,17 +1,19 @@
 import Link from 'next/link';
-
-import DropDownSelectProject from "@/components/dashboard/drop-down-select-project"
-
 import NavLinks from '@/components/dashboard/nav-links';
+import DropDownSelectProject from "@/components/dashboard/drop-down-select-project"
 import AcmeLogo from '@/components/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
+import { fetchProjectsOfUser } from "@/data/projects";
+
+
 
 export default async function SideNav() {
+  const projectItems = await fetchProjectsOfUser();
 
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:px-2">
+    <div className="flex h-full flex-col px-3 py  -4 md:px-2">
       <div className="dark:bg-slate-950 mb-1 flex flex-col h-20 items-center justify-around rounded-md bg-blue-600 p-2 md:h-40">
-        <DropDownSelectProject name="Projects" createName="project" />
+        <DropDownSelectProject items={projectItems} name="Projects" createName="project" />
         <Link href="/">
           <div className="w-32 text-white md:w-40">
             <AcmeLogo />

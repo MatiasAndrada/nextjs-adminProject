@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TaskGroup, Criticality } from "@/definitions/task";
+import { TaskGroup, Criticality } from "@/definitions/task-group";
 
 
 export default async function TaskGridItem({ task }: { task: TaskGroup }) {

@@ -1,3 +1,4 @@
+import type { Project } from "./project";
 interface User {
     id: string;
     name?: string;
@@ -9,6 +10,7 @@ interface User {
     updatedAt: Date;
     accounts: Account[];
     ProjectUser: ProjectUser[];
+    selected_project_id?: string;
     isTwoFactorEnabled: boolean;
     twoFactorConfirmation?: TwoFactorConfirmation;
 }

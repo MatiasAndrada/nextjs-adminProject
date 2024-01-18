@@ -1,21 +1,42 @@
 "use client";
+import { useStore } from "@/lib/store";
 import Link from "next/link";
 import { useState, useRef, useEffect } from 'react';
 //import { fetchProjects } from "@/lib/data/projects";
 interface DropDownProps {
     name: string;
     createName: string;
-    items?: { label: string; url: string }[];
+    items?: { name: string; id: string }[];
+}
+
+const useProjects = () => {
+    const { setSelectedProject, getSelectedProject } = useStore((store) => ({
+        setSelectedProject: store.setSelectedProject,
+        getSelectedProject: store.getSelectedProject
+    }));
+    return { setSelectedProject };
 }
 
 export function DropDown({ name, createName, items }: DropDownProps) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+    const [selectedProject, setSelectedProject] = useState<string | null>(null);
+    const { setSelectedProject: SetSelectedProjectStore } = useProjects();
+    const { getSelectedProject } = useStore((store) => ({
+        getSelectedProject: store.getSelectedProject
+    }));
+    console.log("STORE GET" + getSelectedProject());
     const dropdownButtonRef = useRef<HTMLButtonElement>(null);
     const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
+    };
+
+    const selectProject = (label: string, id: string) => {
+        /*         SetSelectedProjectStore(id); */
+        /*         localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, id); */
+        setSelectedProject(label);
+        setDropdownOpen(false);
     };
 
     useEffect(() => {
@@ -44,10 +65,11 @@ export function DropDown({ name, createName, items }: DropDownProps) {
                 onClick={toggleDropdown}
                 className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
-                {`Select ${name}`}
+                {selectedProject ? `Selected ${selectedProject}` : `Select ${name}`}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`w-5 h-5 ml-2 -mr-1 transition-transform transform ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
+                    className={`w-5 h-5 ml-2 -mr-1 transition-transform transform ${isDropdownOpen ? 'rotate-180' : 'rotate-0'
+                        }`}
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     aria-hidden="true"
@@ -65,16 +87,18 @@ export function DropDown({ name, createName, items }: DropDownProps) {
                     }`}
             >
                 <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                    {items?.map((item) => (
-                        <Link key={item.label} href={item.url}>
-                            <a
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                role="menuitem"
-                            >
-                                {item.label}
-                            </a>
-                        </Link>
-                    ))}
+                    {items?.map((item) => {
+                        return <button
+                            key={item.id}
+                            onClick={() => selectProject(item.name, item.id)}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem"
+                        >
+                            {item.name}
+                        </button>
+                    }
+                    )}
+
                 </div>
                 <button className="block w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block -mb-1 mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -83,8 +107,8 @@ export function DropDown({ name, createName, items }: DropDownProps) {
                     {`Create ${createName}`}
                 </button>
             </div>
-        </div>
+        </div >
     );
-};
+}
 
 export default DropDown;
