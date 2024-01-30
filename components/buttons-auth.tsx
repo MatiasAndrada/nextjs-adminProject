@@ -19,10 +19,11 @@ export const RegisterButton = () => {
     );
 };
 
-export const LogoutButton = () => {
+export const LogoutButton = ({ children }: { children: React.ReactNode }) => {
     return (
-        <button style={{ marginRight: 10 }} onClick={() => signOut()}>
-            Sign Out
+        <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3" onClick={() => signOut()}>
+            {children}
+            <span className="mr-2 text-md capitalize text-bold">Sign Out</span>
         </button>
     );
 };

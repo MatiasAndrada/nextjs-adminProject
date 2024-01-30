@@ -57,7 +57,7 @@ export type TaskTable = {
     ends_at: string,
 }; */
 
-/* export type SearchFields = {
+export type SearchFields = {
     task_id?: string;
     task_group_id?: string;
     user_id?: string;
@@ -74,7 +74,6 @@ export type TaskTable = {
 export type SelectedColumns = {
     task_id: boolean;
     task_group_id: boolean;
-    user_id: boolean;
     author_id: boolean;
     name: boolean;
     description: boolean;
@@ -84,4 +83,3 @@ export type SelectedColumns = {
     ends_at: boolean;
     updated_at: boolean;
 };
- */

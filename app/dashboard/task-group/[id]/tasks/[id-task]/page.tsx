@@ -1,7 +1,5 @@
 import { useEffect, Suspense } from 'react';
 import { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth/auth-DEPRECATED';
 import Search from '@/components/search';
 import { lusitana } from '@/components/fonts';
 import { tasks } from '@/lib/placeholder-data';
@@ -47,7 +45,7 @@ export default async function Page() {
     return (
         <div className="w-full">
             <div className="flex w-full items-center justify-between">
-                <h1 className={`${lusitana.className} text-2xl`}>{task?.name}</h1>
+                <h1 className='text-2xl'>{task?.name}</h1>
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 <div>

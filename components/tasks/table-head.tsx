@@ -1,23 +1,24 @@
 
-import { fetch_task_of_task_group_for_table } from "@/data/task-sql";
-import { tasks } from "@/lib/placeholder-data";
-import { SelectedColumns } from "@/definitions/task";
-import TableBody from "@/components/task-group/tasks/table-body";
+/* import { SelectedColumns } from "@/definitions/task"; */
+import type { Task } from "@prisma/client";
+import TableBody from "@/components/tasks/table-body";
 
 
-export default async function Table({ user_id, task_group_id, currentPage, selectedColumns }: { user_id: string, task_group_id: string, currentPage: number, selectedColumns: SelectedColumns }) {
+export default async function Table({ tasks }: { tasks: any }) {
 
-    const tasks = await fetch_task_of_task_group_for_table(user_id, task_group_id, currentPage, selectedColumns)
+
     const columnHeaders = [
-        { key: "task_id", label: "Task Id" },
+        { key: "id", label: "Task Id" },
         { key: "name", label: "Name" },
         /*         { key: "owner_id", label: "Owner" }, */
         { key: "status", label: "Status" },
         { key: "progress", label: "Progress" },
-        { key: "ends_at", label: "Ends At" },
+        { key: "updated at", label: "updatedAt" },
     ];
 
-    const filteredColumnHeaders = columnHeaders.filter(column => selectedColumns[column.key as keyof SelectedColumns]);
+    /*  const filteredColumnHeaders = columnHeaders.filter(column => selectedColumns[column.key as keyof SelectedColumns]); */
+    /*     const filteredColumnHeaders = columnHeaders.filter(column => selectedColumns[column.key as keyof Partial<Task>]); */
+
     //El uso de as keyof SelectedColumns es una afirmación de tipo en TypeScript que dice que column.key es una clave del tipo SelectedColumns.
     return (
         <section className="flex flex-col justify-center antialiased  text-gray-600">
@@ -28,14 +29,14 @@ export default async function Table({ user_id, task_group_id, currentPage, selec
                             <table className="table-auto w-full">
                                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                     <tr>
-                                        {filteredColumnHeaders.map(column => (
+                                        {columnHeaders.map(column => (
                                             <th key={column.key} className="p-2 whitespace-nowrap">
                                                 <div className="font-semibold text-left">{column.label}</div>
                                             </th>
                                         ))}
                                     </tr>
                                 </thead>
-                                <TableBody tasks={tasks} task_group_id={task_group_id} />
+                                <TableBody tasks={tasks} />
                             </table>
                         </div>
                     </div>

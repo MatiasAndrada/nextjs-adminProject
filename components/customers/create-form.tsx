@@ -15,7 +15,6 @@ import 'react-phone-number-input/style.css'
 export default function Form() {
     const initialState = { message: null, errors: {} };
     const [state, dispatch] = useFormState(createCustomer, initialState);
-    console.log("🦇 ~ file: create-form.tsx:18 ~ Form ~ state:", state)
 
     return (
         <form action={dispatch}>

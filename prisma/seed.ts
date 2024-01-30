@@ -1,25 +1,35 @@
-/* import { adapter } from "../auth"; */
+import { date } from "zod";
 import { db } from "../lib/db";
-import { user, projectUser, task_groups, tasks, project } from "../lib/placeholder-data";
+import { user, testUser, projectUser, task_groups, tasks, project } from "../lib/placeholder-data";
 
 const prisma = db;
 
-/* const adapter = PrismaAdapter(db);
- */
-const user_id = "clri6fs8e0000j8la4hdgf2i0"
-
 async function main() {
+    let userId = "";
     try {
         //! USER CREATION
         console.log("Creating user if not exist");
-        // Check if the user exists (you need to uncomment this block if needed)
-        // const userExist = await adapter.getUserByEmail(user[0].email);
-        // if (!userExist) {
-        //     console.log("User does not exist");
-        //     // Create the user (you need to uncomment this block if needed)
-        //     // const newUser = await adapter.createUser({...user[0]});
-        //     // console.log("Creating user:", newUser);
-        // }
+        const userExist = await prisma.user.findMany({
+            where: {
+                email: testUser.email,
+            },
+        });
+        if (userExist.length === 0 && typeof prisma.user.create === 'function') {
+            console.log("User does not exist");
+            const newUser = await prisma.user.create({
+                data: {
+                    name: testUser.name,
+                    email: testUser.email,
+                    password: testUser.password,
+                },
+            });
+            console.log("Creating user:", newUser);
+            userId = newUser.id;
+        }
+        else {
+            console.log("User already exist");
+            userId = userExist[0].id;
+        }
 
         //! PROJECT CREATION
         console.log("Creating project if not exist");
@@ -28,7 +38,9 @@ async function main() {
                 id: project[0].id,
             },
         });
+        console.log("Project exist:", projectExist.length);
         if (projectExist.length === 0 && typeof prisma.project.create === 'function') {
+            console.log("Project does not exist");
             const newProject = await prisma.project.create({
                 data: {
                     id: project[0].id,
@@ -37,25 +49,44 @@ async function main() {
                 },
             });
             console.log("Creating project:", newProject);
+        } else {
+            console.log("Project already exist");
         }
-        //! PROJECT USER CREATION
+        //! PROJECT-USER CREATION
         console.log("Creating projectUser if not exist");
         const projectUserExist = await prisma.projectUser.findMany({
             where: {
-                user_id: user_id,
+                user_id: userId,
             },
         });
         if (projectUserExist.length === 0 && typeof prisma.projectUser.create === 'function') {
             console.log("project user does not exist")
             await prisma.projectUser.create({
                 data: {
-                    user_id: projectUser[0].user_id,
+                    user_id: userId,
                     project_id: projectUser[0].project_id,
                     role: "ADMIN",
                 },
             });
             console.log("Creating projectUser...");
         }
+        else {
+            console.log("projectUser already exist");
+        }
+
+        //!SELECT PROJECT FOR USER
+        console.log("Selecting project for user");
+        const userSelectedProject = await prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                selected_project_id: project[0].id,
+            },
+        });
+        console.log("Project selected:", userSelectedProject.selected_project_id);
+
+
         //! TASK GROUP CREATION
         console.log("Creating taskGroup if not exist");
         const taskGroupExist = await prisma.taskGroup.findMany({
@@ -65,45 +96,49 @@ async function main() {
         });
         if (taskGroupExist.length < task_groups.length && typeof prisma.taskGroup.create === 'function') {
             console.log("TaskGroup does not exist");
+            const taskGroupsToCreate = task_groups.filter((taskGroup) => {
+                return !taskGroupExist.some((existingTaskGroup) => existingTaskGroup.id === taskGroup.id);
+            });
+            console.log("TaskGroup to create:", taskGroupsToCreate.length)
             await prisma.taskGroup.createMany({
-                data: task_groups,
+                data: taskGroupsToCreate,
             });
             console.log("Creating taskGroup...");
+        } else {
+            console.log("All TaskGroup already exist");
         }
-
-        // //! TASK CREATION
-        //delete task table
-        /*         await prisma.task.deleteMany({}); */
+        //! TASK CREATION
         console.log("Creating task if not exist");
         // buscar si están todas las tareas dentro de cada taskGroup
         for (let i = 0; i < task_groups.length; i++) {
+            console.log("Checking taskGroup", i, "of", task_groups.length)
             const taskExistInEachTaskGroup = await prisma.task.findMany({
                 where: {
                     task_group_id: task_groups[i].id,
                 },
             });
-            const filterTaskArray = tasks.filter((task) => task.task_group_id === task_groups[i].id);
-            if (taskExistInEachTaskGroup.length < filterTaskArray.length && typeof prisma.task.create === 'function') {
-                console.log("Task does not exist in taskGroup:" + task_groups[i].id);
+            const filterTaskArray = tasks.filter((task) => task.task_group_id === task_groups[i].id); // filtrar las tareas que pertenecen a cada taskGroup
+            if (taskExistInEachTaskGroup.length < filterTaskArray.length && typeof prisma.task.create === 'function') { // si la cantidad de tareas existentes en cada taskGroup es menor a la cantidad de tareas que pertenecen a cada taskGroup
+                console.log("There are tasks that do not exist in the task group" + taskExistInEachTaskGroup.length + "of" + filterTaskArray.length);
                 await prisma.task.createMany({
                     data: filterTaskArray,
                 });
+            } else {
+                console.log("The tasks already exist in the task group" + i)
             }
+            console.log("Task in TaskGroup", i, "of", task_groups.length, "checked")
         }
-        console.log("Creating task...");
     }
     catch (e) {
         console.error(e);
     }
 }
 
-
-
 main()
-    .then(() => prisma.$disconnect())
-    .catch(async (e) => {
+    .then(() => /* prisma.$disconnect() */ console.log("Seed finished"))
+    .catch(async (e: any) => {
         console.error(e);
-        await prisma.$disconnect();
-        process.exit(1);
+        /*  await prisma.$disconnect(); */
+        /* process.exit(1); */
     });
 

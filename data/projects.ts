@@ -15,13 +15,16 @@ export async function fetchProjectsOfUser() {
         }
     })
     if (!projectsOfUser) {
-        throw new Error('Failed to fetch projects of user.');
+        return null;
     }
-    const dto = projectsOfUser.map((pu) => {
-        return {
-            id: pu.project.id,
-            name: pu.project.name,
-        }
-    });
-    return dto;
+    /*     const dto = projectsOfUser.map((pu) => {
+            return {
+                id: pu.project.id,
+                name: pu.project.name,
+            }
+        }); */
+    const onlyProjects = projectsOfUser.map((pu) => {
+        return pu.project
+    })
+    return onlyProjects
 }

@@ -27,11 +27,11 @@ const links = [
     icon: FolderIcon,
   },
   {
-    name: "Invoices",
-    href: "/dashboard/invoices",
+    name: "Task",
+    href: "/dashboard/tasks",
     icon: DocumentDuplicateIcon,
   },
-  { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  /*   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon }, */
 ];
 
 export default function NavLinks() {

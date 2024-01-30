@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { currentUser } from '@/hooks/use-current-user';
 import type { TaskGroup } from '@/definitions/task-group';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
@@ -7,13 +8,14 @@ import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_filtered_task_group(
-  project_id: string,
   query: string,
   currentPage: number
 ) {
   noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
+    const user = await currentUser();
+    const project_id = user?.selected_project_id;
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -25,7 +27,6 @@ export async function fetch_filtered_task_group(
       take: ITEMS_PER_PAGE,
       skip: offset,
     });
-    console.log("🦇 ~ task_group:", task_group)
     //dto
     const task_group_dto = task_group.map((task_group) => {
       return {
@@ -49,6 +50,28 @@ export async function fetch_filtered_task_group(
   }
 }
 
+export async function fetch_all_task_groups_ids() {
+  noStore();
+  try {
+    const user = await currentUser();
+    const project_id = user?.selected_project_id;
+    const task_group = await db.taskGroup.findMany({
+      where: {
+        project_id: project_id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return task_group;
+  }
+  catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch task group.');
+  }
+}
+
 export async function fetch_task_group_pages(project_id: string, query: string) {
   // recibe una query y devuelve el numero de paginas
   // se le podría implementar una query por owner_id
@@ -64,7 +87,6 @@ export async function fetch_task_group_pages(project_id: string, query: string) 
       },
     });
     const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
-    console.log("🦇 ~ fetch_task_group_pages ~ totalPages:", totalPages)
     return totalPages;
   }
   catch (err) {

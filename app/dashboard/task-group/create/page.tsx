@@ -1,11 +1,10 @@
 import Form from "@/components/invoices/create-form";
 import Breadcrumbs from "@/components/breadcrumbs";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth/auth-DEPRECATED";
+//import { getServerSession } from "next-auth";
+//import { authOptions } from "@/lib/auth/auth-DEPRECATED";
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
-    const user_id = session?.user?.id as string;
+
     return (
         <main>
             <Breadcrumbs
@@ -18,7 +17,7 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form user_id={user_id} />
+            {/*<Form user_id={user_id} />*/}
         </main>
     );
 }

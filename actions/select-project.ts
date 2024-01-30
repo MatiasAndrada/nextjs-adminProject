@@ -1,17 +1,38 @@
-"use server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
-export const setSelectedProject = async (projectId: string) => {
+export const setSelectedProject = async (projectId: string | null) => {
     const session = await auth();
     const id = session?.user?.id as string;
-    const user = await db.user.update({
+
+    // Verificar la existencia del usuario antes de la actualización
+    const existingUser = await db.user.findUnique({
         where: {
             id
-        },
-        data: {
-            selected_project_id: projectId
         }
-    })
-    return user;
+    });
+
+    if (!existingUser) {
+        console.error("El usuario no se encontró antes de la actualización.");
+        // Manejar el error o salir de la función
+        throw new Error("Usuario no encontrado");
+    }
+
+    try {
+        // Actualizar el usuario con el nuevo proyecto seleccionado
+        const updatedUser = await db.user.update({
+            where: {
+                id
+            },
+            data: {
+                selected_project_id: projectId
+            }
+        });
+
+        return updatedUser;
+    } catch (error) {
+        console.error("Error al actualizar el usuario:", error);
+        // Manejar el error de Prisma de manera adecuada
+        throw error;
+    }
 }

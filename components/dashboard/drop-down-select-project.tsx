@@ -1,30 +1,22 @@
 "use client";
-import { useStore } from "@/lib/store";
-import Link from "next/link";
 import { useState, useRef, useEffect } from 'react';
-//import { fetchProjects } from "@/lib/data/projects";
+import { selectedProjectStore } from "@/store/selectedProject";
+import type { Project } from "@prisma/client";
+
 interface DropDownProps {
     name: string;
     createName: string;
-    items?: { name: string; id: string }[];
+    selectedItem: Project | null;
+    items?: Project[] | null;
 }
-
-const useProjects = () => {
-    const { setSelectedProject, getSelectedProject } = useStore((store) => ({
-        setSelectedProject: store.setSelectedProject,
-        getSelectedProject: store.getSelectedProject
-    }));
-    return { setSelectedProject };
-}
-
-export function DropDown({ name, createName, items }: DropDownProps) {
+export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
+    console.log(items)
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedProject, setSelectedProject] = useState<string | null>(null);
-    const { setSelectedProject: SetSelectedProjectStore } = useProjects();
-    const { getSelectedProject } = useStore((store) => ({
-        getSelectedProject: store.getSelectedProject
-    }));
-    console.log("STORE GET" + getSelectedProject());
+    const selectedProject = selectedProjectStore((state: any) => state.project);
+    const setSelectedProjectStore = selectedProjectStore((state: any) => state.setProject);
+    const setSelectedDefaultProjectStore = selectedProjectStore((state: any) => state.setDefaultProject);
+
+    //refs
     const dropdownButtonRef = useRef<HTMLButtonElement>(null);
     const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
@@ -32,14 +24,20 @@ export function DropDown({ name, createName, items }: DropDownProps) {
         setDropdownOpen(!isDropdownOpen);
     };
 
-    const selectProject = (label: string, id: string) => {
-        /*         SetSelectedProjectStore(id); */
-        /*         localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, id); */
-        setSelectedProject(label);
+    const selectProject = async (project: Project) => {
+        await setSelectedProjectStore(project);
         setDropdownOpen(false);
     };
 
+    async function selectDefaultProject() {
+        await setSelectedDefaultProjectStore();
+        setDropdownOpen(false);
+    }
+
     useEffect(() => {
+        if (selectedItem !== null) {
+            setSelectedProjectStore(selectedItem);
+        }
         const handleOutsideClick = (event: MouseEvent) => {
             if (
                 dropdownButtonRef.current &&
@@ -63,9 +61,9 @@ export function DropDown({ name, createName, items }: DropDownProps) {
             <button
                 ref={dropdownButtonRef}
                 onClick={toggleDropdown}
-                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
-                {selectedProject ? `Selected ${selectedProject}` : `Select ${name}`}
+                {selectedProject !== null ? `Selected ${selectedProject?.name}` : `Select ${name}`}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`w-5 h-5 ml-2 -mr-1 transition-transform transform ${isDropdownOpen ? 'rotate-180' : 'rotate-0'
@@ -86,11 +84,22 @@ export function DropDown({ name, createName, items }: DropDownProps) {
                 className={`origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-opacity ${isDropdownOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
             >
+                {
+                    items?.length && selectedProject !== null && <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
+                        <button
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem"
+                            onClick={selectDefaultProject}
+                        >
+                            Select none
+                        </button>
+                    </div>
+                }
                 <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                    {items?.map((item) => {
+                    {items?.map((item: Project) => {
                         return <button
                             key={item.id}
-                            onClick={() => selectProject(item.name, item.id)}
+                            onClick={() => selectProject(item)}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                             role="menuitem"
                         >

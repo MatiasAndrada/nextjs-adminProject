@@ -4,15 +4,15 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { Criticality, Status } from "@/definitions/task";
-console.log("🦇 ~ file: task-group.jsx:6 ~ Criticality:", Criticality);
+import { Status } from "@/definitions/task";
+
 const FormSchema = z.object({
   user_id: z.string().uuid(),
   task_group_id: z.string().uuid(),
   owner_id: z.string().uuid(),
   name: z.string().min(4).max(80),
   description: z.string().max(1000),
-  criticality: z.nativeEnum(Criticality),
+  /*   criticality: z.nativeEnum(Criticality), */
   status: z.nativeEnum(Status),
   progress: z.number().int().min(0).max(100),
   createdAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -60,7 +60,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { user_id, owner_id, name, description, criticality, endsAt } = validatedFields.data;
+  const { user_id, owner_id, name, description, /* criticality, */ endsAt } = validatedFields.data;
   const createdAt = new Date().toISOString().split('T')[0];
   const updatedAt = new Date().toISOString().split('T')[0];
 
@@ -68,7 +68,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
   try {
     await sql`
         INSERT INTO task_groups (user_id, owner_id, name, description, criticality, created_at, updated_at, ends_at)
-        VALUES (${user_id}, ${owner_id}, ${name}, ${description}, ${criticality}, ${createdAt}, ${updatedAt}, ${endsAt})
+        VALUES (${user_id}, ${owner_id}, ${name}, ${description},  ${createdAt}, ${updatedAt}, ${endsAt})
       `;
   } catch (error) {
     console.error(error);

@@ -1,8 +1,9 @@
 import { fetchProjectsOfUser } from "@/data/projects";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 /* import {
-  BanknotesIcon,
+  BanknotesIcon,sa
   ClockIcon,
   UserGroupIcon,
   InboxIcon,
@@ -21,10 +22,27 @@ export default async function CardWrapper() {
         <Card title="Collected" value={totalPaidInvoices} type="collected" />
         <Card title="Pending" value={totalPendingInvoices} type="pending" />
         <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
-        <Card
-          id={projects[0].id}
-          name={projects[0].name}
-        />
+        {
+          projects?.length === 0 ? (
+            <div className="flex flex-col items-center justify-center">
+              <h2 className="text-lg font-medium text-gray-900">You don't have any projects yet.</h2>
+              <Link href="/projects/new">
+                <Button
+                  variant="create"
+                >
+                  Create a project
+
+                </Button>
+              </Link>
+            </div>
+          ) :
+            projects?.map((project) => (
+              <Card
+                key={project.id}
+                id={project.id}
+                name={project.name}
+              />
+            ))}
       </div>
     </>
   );
