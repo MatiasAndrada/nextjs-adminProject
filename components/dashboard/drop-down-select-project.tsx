@@ -10,7 +10,6 @@ interface DropDownProps {
     items?: Project[] | null;
 }
 export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
-    console.log(items)
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const selectedProject = selectedProjectStore((state: any) => state.project);
     const setSelectedProjectStore = selectedProjectStore((state: any) => state.setProject);
