@@ -12,7 +12,7 @@ import { LogoutButton } from '@/components/buttons-auth';
 export default async function SideNav() {
   const [projectItems, currentProject] = await Promise.all([fetchProjectsOfUser(), currentSelectedProject()]); //Peticiones en paralelo
   return (
-    <div className="w-[250px] flex h-full flex-col md:px-2">
+    <div className="w-[250px] h-screen flex flex-col md:px-2">
       <div className="dark:bg-slate-950 mb-1 flex flex-col h-20 items-center justify-around rounded-md bg-blue-600 p-2 md:h-40">
         <DropDown name="Projects" createName="project" items={projectItems} selectedItem={currentProject} />
         <Link href="/">

@@ -60,7 +60,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { user_id, owner_id, name, description, /* criticality, */ endsAt } = validatedFields.data;
+  const { user_id, owner_id, name, description, endsAt } = validatedFields.data;
   const createdAt = new Date().toISOString().split('T')[0];
   const updatedAt = new Date().toISOString().split('T')[0];
 

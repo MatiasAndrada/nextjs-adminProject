@@ -11,7 +11,7 @@ import { currentSelectedProject } from "@/hooks/use-current-project";
 export default async function Page() {
   const currentProject = await currentSelectedProject();
   return (
-    <main className="w-full">
+    <main>
       <h1 className={`${lusitana.className} text-4xl mt-4 ml-4`}>
         Dashboard page
       </h1>
@@ -24,7 +24,7 @@ export default async function Page() {
 
       ) : (
         <Suspense fallback={<p>Loading...</p>}>
-          <GridDashboard {...currentProject} />
+          <GridDashboard /* project={currentProject}  */ />
         </Suspense>
       )
       }

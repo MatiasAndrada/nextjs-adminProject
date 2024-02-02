@@ -32,6 +32,7 @@ async function main() {
           password: hashedPassword,
         },
       });
+      userId = newUser.id;
       //?generateVerification token
       console.log("Generate Verification Token");
       const token = uuidv4();
@@ -60,7 +61,7 @@ async function main() {
       console.log("newVerification", newVerification)
       console.log("Verifying the new token");
       console.log("Creating user:", newUser);
-      userId = newUser.id;
+
     } else {
       console.log("User already exist");
       userId = userExist[0].id;

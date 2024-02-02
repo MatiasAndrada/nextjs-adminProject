@@ -1,4 +1,4 @@
-import Form from "@/components/invoices/create-form";
+/* import Form from "@/components/invoices/create-form";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { fetchCustomers } from "@/lib/data";
 
@@ -23,3 +23,4 @@ export default async function Page() {
         </main>
     );
 }
+ */

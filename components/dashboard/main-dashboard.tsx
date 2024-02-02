@@ -1,12 +1,15 @@
 export default function MainDashboard() {
     return (
         <section className="col-span-2 p-2 my-2 dark:bg-gray-800 dark:text-gray-100">
-            <h3 className="text-xl font-bold ">
-                Project Name
-            </h3>
-            <p className="text-sm font-medium min-h-14">
-                Project Description
-            </p>
+            <div className="ml-10">
+                <h3 className="text-xl font-bold ">
+                    Project Name
+                </h3>
+                <p className="text-sm font-medium min-h-14">
+                    Project Description
+                </p>
+
+            </div>
             <div className="mt-2">
                 {/*                 <h3>TASK GROUPS STATE</h3> */}
                 <div className="container p-2 mx-auto sm:p-4 dark:dark:text-gray-100">
@@ -19,7 +22,6 @@ export default function MainDashboard() {
                                 <col />
                                 <col />
                                 <col />
-
                             </colgroup>
                             <thead className="dark:dark:bg-gray-700">
                                 <tr className="text-left">
