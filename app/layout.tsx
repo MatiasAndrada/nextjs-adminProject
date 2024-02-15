@@ -1,4 +1,5 @@
 import "@/components/global.css";
+/* import '@radix-ui/themes/styles.css'; */
 import { NextAuthProvider } from "@/context/SessionAuthProvider";
 import { inter } from "@/components/fonts";
 import { Metadata } from 'next';
@@ -22,10 +23,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`} id="main_layout">
+      <body className={`${inter.className} antialiased dark:bg-slate-950 dark:text-white`} id="main_layout">
+
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
+
       </body>
     </html>
   );

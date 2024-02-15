@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { TaskGroup } from "@prisma/client";
 import { Criticality } from "@/definitions/task-group";
+import DropdownMoreActions from "./dropdownMoreActions";
 
 
 export default async function TaskGridItem({ task }: { task: TaskGroup }) {
@@ -13,8 +14,9 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
 
   return (
     /* < !--This is an example component-- > */
-    <Link href={`task-group/` + id + `/tasks`} className='flex items-center justify-center flex-col  bg-slate-200'>
-      <div className='break-inside relative overflow-hidden flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 bg-white text-black dark:bg-slate-800 dark:text-white'>
+
+    <div className='bg-gray-200 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-col'>
+      <div className='break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 text-black  dark:text-white'>
         <div className='flex items-center justify-between font-medium'>
           <span className={`uppercase text-xs 
           ${criticality === Criticality.Low ? 'text-green-500' : ''}
@@ -57,15 +59,25 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
               </span>
             </dd>
           </div>
-          {/*           <button className='flex items-center justify-center text-xs font-medium rounded-full px-4 py-1 space-x-1 border-2 border-black bg-white hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black'>
-            <span>Submit</span>
+          <div className='flex items-center space-x-2'>
+            <span className='text-xs text-slate-500 dark:text-slate-400'>{progress}</span>
+            <div className='flex items-center space-x-1'>
+              <span className='text-xs text-slate-500 dark:text-slate-400'>{status}</span>
+            </div>
+          </div>
+        </div>
+        <div className='flex justify-between items-center overflow-visible'>
+          <DropdownMoreActions />
+          <Link href={`task-group/` + id + `/tasks`} className='flex items-center justify-center text-xs font-medium rounded-full px-4 py-1 space-x-1 border-2 border-black bg-white hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black'>
+            <span>View Project</span>
             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
               <path d='M5 12h13M12 5l7 7-7 7' />
             </svg>
-          </button> */}
+          </Link>
         </div>
       </div>
-    </Link >
+    </div>
+
   );
 
 }

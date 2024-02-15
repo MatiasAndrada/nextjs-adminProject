@@ -37,6 +37,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
         if (selectedItem !== null) {
             setSelectedProjectStore(selectedItem);
         }
+
         const handleOutsideClick = (event: MouseEvent) => {
             if (
                 dropdownButtonRef.current &&
@@ -56,7 +57,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
     }, []);
 
     return (
-        <div className="relative inline-block text-left z-50">
+        <div className="relative inline-block mx-2 text-left z-50">
             <button
                 ref={dropdownButtonRef}
                 onClick={toggleDropdown}

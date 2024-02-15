@@ -73,8 +73,6 @@ export async function fetch_all_tasks_of_project() {
     }
 }
 
-
-
 export async function fetch_task_pages(task_group_id: string, query: string) {
     //return number of pages
     noStore();
@@ -95,4 +93,24 @@ export async function fetch_task_pages(task_group_id: string, query: string) {
         throw new Error('Failed to fetch task pages.')
     }
 
+}
+
+//devolver el total de tareas activas
+export async function fetch_count_active_task(id: string) {
+    noStore();
+    try {
+        const taskGroupsIds = await fetch_all_task_groups_ids();
+        const countActiveTasks = await db.task.count({
+            where: {
+                task_group_id: {
+                    in: taskGroupsIds.map((taskGroup) => taskGroup.id),
+                },
+                status: 'Active',
+            },
+        });
+        return countActiveTasks;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch active tasks count.');
+    }
 }

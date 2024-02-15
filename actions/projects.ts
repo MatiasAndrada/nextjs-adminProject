@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
-import { revalidatePath } from 'next/cache';
+/* import { revalidatePath } from 'next/cache';*/
 import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
@@ -20,15 +20,12 @@ export type State = {
 
 //!create project
 export async function create_project(prevState: State, formData: FormData) {
-    console.log(0)
     // Validate form using Zod
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         description: formData.get('description'),
         //? Luego aquí debería de pedir también los emails de los miembros del proyecto
     });
-    console.log("🦇 ~ create_project ~ validatedFields:", validatedFields)
-
     // If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
         console.log("!validatedFields.success")
@@ -40,7 +37,6 @@ export async function create_project(prevState: State, formData: FormData) {
 
     // Insert new project into database
     const { name, description } = validatedFields.data;
-    console.log("validate data")
     const user = await currentUser();
     const user_id = user?.id;
     if (!user_id) {
@@ -71,7 +67,5 @@ export async function create_project(prevState: State, formData: FormData) {
             selected_project_id: project_id,
         },
     });
-    console.log(1)
-
     redirect(`/dashboard`);
 }

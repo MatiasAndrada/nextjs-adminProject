@@ -2,6 +2,9 @@
 // https://nextjs.org/learn/dashboard-app/fetching-data
 
 
+import { Status, Criticality } from "@prisma/client";
+
+
 export const user = [
   {
     id: "clri6fs8e0000j8la4hdgf2i0",
@@ -36,63 +39,63 @@ export const task_groups = [
     project_id: project[0].id,
     name: "User Interface Development",
     description: "User Interface Development",
-    status: "Pending",
+    status: Status.PENDING,
     progress: "3 / 7",
-    criticality: "High",
+    criticality: Criticality.HIGH,
   },
   {
     id: "clqhamyrj000108lf72730m2z",
     project_id: project[0].id,
     name: "Server Configuration",
     description: "Server Configuration",
-    status: "In progress",
+    status: Status.IN_PROGRESS,
     progress: "10 / 10",
-    criticality: "Critical",
+    criticality: Criticality.CRITICAL
   },
   {
     id: "clqhan80t000208lf0l5m11lm",
     project_id: project[0].id,
     name: "Functionality Testing",
     description: "Functionality Testing",
-    status: "Completed",
+    status: Status.IN_PROGRESS,
     progress: "4 / 6",
-    criticality: "High",
+    criticality: Criticality.HIGH
   },
   {
     id: "clqhanli4000308lf9r8ders1",
     project_id: project[0].id,
     name: "Code Review",
     description: "Code Review",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: "4 / 7",
-    criticality: "Medium",
+    criticality: Criticality.MEDIUM
   },
   {
     id: "clqhanx05000408lfh4994o42",
     project_id: project[0].id,
     name: "Performance Optimization",
     description: "Performance Optimization",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: "1 /3",
-    criticality: "Medium",
+    criticality: Criticality.MEDIUM
   },
   {
     id: "clqhao6gx000508lf913fdeby",
     project_id: project[0].id,
     name: "Development of New Features",
     description: "Development of New Features",
-    status: "In progress",
+    status: Status.IN_PROGRESS,
     progress: "2/7",
-    criticality: "Medium",
+    criticality: Criticality.MEDIUM
   },
   {
     id: "clqhaog3j000608lf5w2gfwra",
     project_id: project[0].id,
     name: "Technical Feasibility Analysis",
     description: "Technical Feasibility Analysis",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: "2 / 4",
-    criticality: "Low",
+    criticality: Criticality.LOW
   },
 ];
 
@@ -108,7 +111,7 @@ export const tasks = [
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Implement responsive design for mobile and tablet devices",
-    status: "In Progress",
+    status: "Active",
     progress: 50,
   },
   {
@@ -122,7 +125,7 @@ export const tasks = [
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Enhance user profile page with personalized widgets and preferences",
-    status: "In Progress",
+    status: "Active",
     progress: 30,
   },
   {
@@ -136,7 +139,7 @@ export const tasks = [
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Create a visually stunning gallery feature with image upload functionality",
-    status: "In Progress",
+    status: "Active",
     progress: 60,
   },
   {
@@ -200,7 +203,7 @@ export const tasks = [
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Verify data input validation and error handling",
-    status: "In Progress",
+    status: "Active",
     progress: 50,
   },
   {
@@ -218,7 +221,7 @@ export const tasks = [
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Perform security testing and vulnerability assessments",
-    status: "In Progress",
+    status: "Active",
     progress: 75,
   },
   {
@@ -260,7 +263,7 @@ export const tasks = [
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Review code documentation and ensure completeness",
-    status: "In Progress",
+    status: "Active",
     progress: 70,
   },
   {
@@ -274,7 +277,7 @@ export const tasks = [
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Evaluate code performance and suggest optimizations",
-    status: "In Progress",
+    status: "Active",
     progress: 50,
   },
   //! Task Group 5 - Tasks - Performance Optimization - clqhanx05000408lfh4994o42
@@ -304,14 +307,14 @@ export const tasks = [
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Implement user authentication and authorization",
-    status: "In Progress",
+    status: "Active",
     progress: 30,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Enhance user interface with modern design patterns",
-    status: "In Progress",
+    status: "Active",
     progress: 50,
   },
   {

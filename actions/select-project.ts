@@ -2,6 +2,8 @@
 
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from 'next/cache'
+
 
 export const setSelectedProject = async (projectId: string | null) => {
     const session = await auth();
@@ -31,6 +33,7 @@ export const setSelectedProject = async (projectId: string | null) => {
             }
         });
 
+        revalidatePath("/dashboard"); // Revalidar/refresh la página de dashboard
         return updatedUser;
     } catch (error) {
         console.error("Error al actualizar el usuario:", error);

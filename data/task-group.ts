@@ -1,10 +1,8 @@
 import { db } from '@/lib/db';
-import { currentUser } from '@/hooks/use-current-user';
-import type { TaskGroup } from '@/definitions/task-group';
 import { unstable_noStore as noStore } from 'next/cache';
+import { currentUser } from '@/hooks/use-current-user';
+/* import type { TaskGroup } from '@/definitions/task-group'; */
 import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
-
-
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_filtered_task_group(
@@ -94,47 +92,45 @@ export async function fetch_task_group_pages(project_id: string, query: string) 
     throw new Error('Failed to fetch task group pages.')
   }
 }
-/*
-export async function fetch_task_group_by_id(task_group_id: string) {
- // recibe un id y devuelve un grupo de tareas
- noStore();
- try {
-   const task = await sql`
-     SELECT
-       task_group.task_group_id,
-       task_group.user_id,
-       task_group.owner_id,
-       task_group.name,
-       COALESCE(task_group.description, 'Sin descripción') AS description,
-       task_group.criticality,
-       task_group.status,
-       task_group.progress,
-       task_group.created_at,
-       task_group.ends_at,
-       task_group.updated_at
-     FROM task_group
-     WHERE task_group.task_group_id = ${task_group_id}
-   `;
-   //dto
-   const taskDto = task.rows.map((task) => {
-     return {
-       task_group_id: task.task_group_id,
-       user_id: task.user_id,
-       owner_id: task.owner_id,
-       name: task.name,
-       description: task.description,
-       criticality: task.criticality,
-       status: task.status,
-       progress: task.progress,
-       created_at: task.created_at,
-       ends_at: task.ends_at,
-       updated_at: task.updated_at,
-     }
-   });
-   return taskDto;
- }
- catch (err) {
-   console.error('Database Error:', err);
-   throw new Error('Failed to fetch task group.');
- }
-} */
+
+export async function fetch_count_active_task_group(id: string) {
+  noStore();
+  //devolver la cantidad de grupos de tareas activos
+  const task_groups = await db.project.findMany({
+    select: {
+      _count: {
+        select: {
+          taskGroup: {
+            where: {
+              project_id: id,
+              status: 'Active',
+            },
+          },
+        },
+      },
+    },
+    where: {
+      id: id,
+    },
+  });
+  //dto - number of active task groups
+  const active_task_groups = task_groups[0]._count.taskGroup;
+  return active_task_groups;
+}
+
+export async function delete_task_group(id: string) {
+  noStore();
+  try {
+    const task_group = await db.taskGroup.delete({
+      where: {
+        id: id,
+      },
+    });
+    return task_group;
+  }
+  catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to delete task group.');
+  }
+}
+

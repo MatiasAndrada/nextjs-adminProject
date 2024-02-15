@@ -5,10 +5,9 @@
 html,
 body,
 :root {
-  height: 100%;
-  --primary: #2589fe;
-  --secondary: #0070f3;
-  --highlight: #e53e3e;
+  --primary: #1482ff;
+  --secondary: #215fa7;
+  --highlight: #3ee586;
 }
 
 @layer base {

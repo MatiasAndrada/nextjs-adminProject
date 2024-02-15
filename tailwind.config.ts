@@ -7,6 +7,7 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   /*   darkMode: 'media', // or 'media' or 'class' */
+  darkMode: 'class',
   theme: {
     container: {
       center: true,

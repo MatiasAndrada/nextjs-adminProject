@@ -1,4 +1,5 @@
-import { fetchProjectsOfUser } from "@/data/projects";
+import ButtonViewProject from "./buttonViewProject";
+import { fetch_projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EyeIcon } from "@heroicons/react/24/outline";
@@ -14,7 +15,7 @@ import { EyeIcon } from "@heroicons/react/24/outline";
  */
 
 export default async function CardWrapper() {
-  const projects = await fetchProjectsOfUser();
+  const projects = await fetch_projects();
   return (
     <>
       {/* NOTE: comment in this code when you get to this point in the course */}
@@ -77,13 +78,14 @@ export function Card({
               #{id && id.slice(-3)}
             </span>
           </div>
-          <Link
+          <ButtonViewProject projectId={id} />
+          {/*           <Link
             href={`/dashboard`}
             className="flex items-center text-purple-600 bg-purple-100 hover:bg-purple-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"
           >
             <EyeIcon className="w-6 h-6 mr-2" />
-            <span>View project</span>
-          </Link>
+            <span>View project</span>s
+          </Link> */}
         </div>
       </div>
     </div >

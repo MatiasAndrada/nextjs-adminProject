@@ -109,19 +109,33 @@ model Project {
   User        User[]
 }
 
+enum Criticality {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum Status {
+  PAUSED
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
 model TaskGroup {
-  id          String   @id @unique @default(cuid())
+  id          String      @id @unique @default(cuid())
   project_id  String
-  project     Project  @relation(fields: [project_id], references: [id])
+  project     Project     @relation(fields: [project_id], references: [id])
   task        Task[]
-  name        String   @db.VarChar(80)
-  description String?  @db.VarChar(1500)
-  status      String   @db.VarChar(18)
-  progress    String   @db.VarChar(18)
-  criticality String   @db.VarChar(18)
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @default(now()) @db.Timestamptz(6)
-  endsAt      DateTime @default(now()) @db.Timestamptz(6)
+  name        String      @db.VarChar(80)
+  description String?     @db.VarChar(4000)
+  status      Status      @default(PENDING)
+  progress    String      @default("0/0") @db.VarChar(12)
+  criticality Criticality
+  createdAt   DateTime    @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime    @default(now()) @db.Timestamptz(6)
+  endsAt      DateTime    @default(now()) @db.Timestamptz(6)
 }
 
 model Task {
