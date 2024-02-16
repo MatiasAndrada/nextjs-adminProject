@@ -1,24 +1,15 @@
 'use client';
-
-
-import {
-    CheckIcon,
-    ClockIcon,
-    CurrencyDollarIcon,
-    UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
 import type { State } from '@/schemas/task';
 import { create_task } from '@/actions/task';
-import { fetch_all_task_groups_names_ids } from '@/data/task-group';
 
-export default async function Form() {
+
+export default function Form({ task_groups_names_and_ids }: { task_groups_names_and_ids: { id: string, name: string }[] }) {
     const initialState: State = {
         message: null, errors: {}
     };
     const [state, dispatch] = useFormState(create_task, initialState);
-    const task_groups = await fetch_all_task_groups_names_ids();
+
     return (
         <form action={dispatch} className="w-full rounded-md bg-gray-200 dark:bg-slate-950 p-4 md:p-6">
             {/* Task Group Name */}
@@ -86,7 +77,9 @@ export default async function Form() {
                     <option value="" disabled hidden>
                         Select a Task Group
                     </option>
-                    {task_groups.map((task_group) => (
+                    {task_groups_names_and_ids.map((task_group: {
+                        id: string, name: string
+                    }) => (
                         <option key={task_group.id} value={task_group.id}>
                             {task_group.name}
                         </option>

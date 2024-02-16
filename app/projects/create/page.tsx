@@ -1,13 +1,11 @@
 
-/* import { Suspense } from "react";
- */
 import Breadcrumbs from "@/components/breadcrumbs";
-import { currentUser } from "@/hooks/use-current-user";
+
 import Form from "@/components/projects/create-form";
 import { lusitana } from "@/components/fonts";
 
-export default async function Page() {
-    const user = await currentUser();
+export default function Page() {
+
 
     return (
         <main>

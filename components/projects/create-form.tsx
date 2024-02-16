@@ -1,12 +1,4 @@
-'use client';
-
-import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/components/button';
+"use client"
 import { useFormState } from 'react-dom';
 import type { State } from '@/schemas/project';
 import { create_project } from '@/actions/projects';
@@ -17,7 +9,7 @@ export default function Form() {
   };
   const [state, dispatch] = useFormState(create_project, initialState);
   return (
-    <form action={dispatch} className="w-full rounded-md bg-gray-50 p-4 md:p-6">
+    <form action={dispatch} className="w-full rounded-md bg-gray-200 dark:bg-slate-950 p-4 md:p-6">
       {/* Task Name */}
       <div className="mb-4">
         <label htmlFor="name" className="mb-2 block text-xl font-medium">
@@ -42,7 +34,6 @@ export default function Form() {
           </div>
         )}
       </div>
-
       {/* Task Description */}
       <div className="mb-4">
         <label htmlFor="description" className="mb-2 block text-xl font-medium">

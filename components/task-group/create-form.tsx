@@ -1,24 +1,15 @@
 'use client';
-
-
-import {
-    CheckIcon,
-    ClockIcon,
-    CurrencyDollarIcon,
-    UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
-import { Criticality } from '@prisma/client';
 import type { State } from '@/schemas/task-group';
+import { Criticality } from '@prisma/client';
 import { create_task_group } from '@/actions/task-group';
+
 
 export default function Form() {
     const initialState: State = {
         message: null, errors: {}
     };
     const [state, dispatch] = useFormState(create_task_group, initialState);
-    console.log("🦇 ~ Form ~ state:", state)
     return (
         <form action={dispatch} className="w-full rounded-md bg-gray-200 dark:bg-slate-950 p-4 md:p-6">
             {/* Task Group Name */}

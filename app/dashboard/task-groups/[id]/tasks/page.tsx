@@ -28,15 +28,15 @@ export default async function Page({ params, searchParams }: { params: { id: str
 
     return (
         <main>
-            <Breadcrumbs
-                breadcrumbs={[
-                    { label: 'Task group', href: '/dashboard/task-groups' },
-                    {
-                        label: 'Tasks',
-                        href: `/dashboard/task-groups/${id}`,
-                        active: true,
-                    },
-                ]}
+            <Breadcrumbs breadcrumbs={[
+                { label: 'Dashboard', href: '/dashboard' },
+                { label: 'Task Groups', href: '/dashboard/task-groups' },
+                {
+                    label: 'Tasks of Task Group',
+                    href: `/dashboard/task-groups/${id}`,
+                    active: true,
+                },
+            ]}
             />
             <div className="mt-8">
                 <Table tasks={tasks} />

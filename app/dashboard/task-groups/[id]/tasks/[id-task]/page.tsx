@@ -1,8 +1,10 @@
-import { useEffect, Suspense } from 'react';
-import { Metadata } from 'next';
-import Search from '@/components/search';
+/* import { useEffect, Suspense } from 'react'; */
+/* import Search from '@/components/search';
 import { lusitana } from '@/components/fonts';
 import { tasks } from '@/lib/placeholder-data';
+ */
+import Breadcrumbs from '@/components/breadcrumbs';
+import { Metadata } from 'next';
 
 export type Task = {
     task_id: string;
@@ -44,6 +46,16 @@ export default async function Page() {
 
     return (
         <div className="w-full">
+            <Breadcrumbs breadcrumbs={[
+                { label: 'Dashboard', href: '/dashboard' },
+                { label: 'Task Groups', href: '/dashboard/task-groups', active: true },
+                {
+                    label: 'Tasks of Task Group',
+                    href: `/dashboard/task-groups/${task.task_group_id}`,
+                    active: true,
+                },
+            ]}
+            />
             <div className="flex w-full items-center justify-between">
                 <h1 className='text-2xl'>{task?.name}</h1>
             </div>

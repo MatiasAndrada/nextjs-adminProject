@@ -1,11 +1,9 @@
 import Form from "@/components/task-group/create-form";
 import Breadcrumbs from "@/components/breadcrumbs";
-
 import { lusitana } from "@/components/fonts";
-//import { getServerSession } from "next-auth";
-//import { authOptions } from "@/lib/auth/auth-DEPRECATED";
 
-export default async function Page() {
+
+export default function Page() {
 
     return (
         <main>

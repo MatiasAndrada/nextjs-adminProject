@@ -9,7 +9,6 @@ import type { State } from '@/schemas/task-group';
 
 //! create task group
 export async function create_task_group(prevState: State, formData: FormData) {
-  console.log(0)
   // Validate form using Zod
   const validatedFields = CreateSchema.safeParse({
     name: formData.get('name'),

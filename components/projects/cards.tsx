@@ -2,20 +2,12 @@ import ButtonViewProject from "./buttonViewProject";
 import { fetch_projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { EyeIcon } from "@heroicons/react/24/outline";
+/* import { EyeIcon } from "@heroicons/react/24/outline"; */
 
-/* import {
-  BanknotesIcon,sa
-  ClockIcon,
-  UserGroupIcon,
-  InboxIcon,
-} from "@heroicons/react/24/outline"; */
-
-/* import { lusitana } from "@/components/fonts";
- */
 
 export default async function CardWrapper() {
-  const projects = await fetch_projects();
+  const projects = await fetch_projects()
+
   return (
     <>
       {/* NOTE: comment in this code when you get to this point in the course */}
@@ -25,9 +17,9 @@ export default async function CardWrapper() {
         <Card title="Pending" value={totalPendingInvoices} type="pending" />
         <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
         {
-          projects?.length === 0 ? (
+          projects === null ? (
             <div className="flex flex-col items-center justify-center">
-              <h2 className="text-lg font-medium text-gray-900">You don't have any projects yet.</h2>
+              <h2 className="text-lg font-medium ">You don't have any projects yet.</h2>
               <Link href="/projects/new">
                 <Button
                   variant="create"

@@ -15,7 +15,7 @@ export const project = [
   {
     id: "clqhavzc5000008l4co714ot9",
     name: "Project Management App",
-    description: "Project Management App",
+    description: "The Project Management App is a dynamic and innovative solution aimed at streamlining the complexities of project execution. Focused on enhancing user experience and functionality, the project entails the development of a robust user interface, ensuring a seamless and intuitive interaction for all stakeholders involved. The app's server configuration component is pivotal, emphasizing the need for a secure and efficient infrastructure to support the diverse functionalities. With a critical eye on project criticality, the team is actively engaged in functionality testing, striving for a meticulous 6 out of 6 progress milestone. Code review and performance optimization, though momentarily paused, reflect our commitment to maintaining code quality and optimizing the app's performance for optimal user satisfaction. Development of new features is a dynamic aspect of the project, with ongoing progress towards a comprehensive set of seven features, each contributing to the project's overarching objectives. While navigating the intricacies of technical feasibility analysis, the project encounters periodic pauses to ensure a thorough evaluation of the technical landscape. This deliberate approach is complemented by a conscious consideration of criticality levels, ranging from high to low, to prioritize tasks effectively. The Project Management App, encapsulating these multifaceted dimensions, is poised to deliver a cutting-edge solution that not only meets but exceeds the expectations of stakeholders, setting a benchmark in project management excellence.",
   },
 ];
 
@@ -98,48 +98,48 @@ export const tasks = [
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
     name: "Design captivating homepage layout with interactive elements",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Implement responsive design for mobile and tablet devices",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 50,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Develop sleek user registration form with validation logic",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Enhance user profile page with personalized widgets and preferences",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 30,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Implement smooth transitions and animations for a seamless user experience",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
 
     name: "Create a visually stunning gallery feature with image upload functionality",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 60,
   },
   {
     task_group_id: "clqhamf0z000008lf46h3d42t",
     name: "Implement real-time chat functionality with intuitive user interface",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   //! Task Group 2 - Tasks - Server Configuration - clqhamyrj000108lf72730m2z
@@ -147,81 +147,81 @@ export const tasks = [
     task_group_id: "clqhamyrj000108lf72730m2z",
 
     name: "Install and configure web server",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
 
     name: "Configure database server for optimal performance",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
     name: "Optimize server security settings",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
     name: "Configure load balancer for efficient resource distribution",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
     name: "Implement server backup and recovery procedures",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
     name: "Monitor server performance and troubleshoot issues",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhamyrj000108lf72730m2z",
     name: "Implement server updates and patches",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   //! Task Group 3 - Tasks - Functionality Testing - clqhan80t000208lf0l5m11lm
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Test user authentication and login functionality",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Verify data input validation and error handling",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 50,
   },
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Evaluate system response time under various loads",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Test compatibility with different browsers and devices",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Perform security testing and vulnerability assessments",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 75,
   },
   {
     task_group_id: "clqhan80t000208lf0l5m11lm",
     name: "Conduct usability testing for enhanced user experience",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   //! Task Group 4 - Tasks - Code Review - 43c5ecfd-3888-4f45-b463-d2245778ebc8
@@ -229,49 +229,49 @@ export const tasks = [
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Review and provide feedback on frontend code structure",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Analyze and suggest improvements for backend code quality",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Check adherence to coding standards and best practices",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Collaborate with developers to address identified issues",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Review code documentation and ensure completeness",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 70,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Perform security analysis on the codebase",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhanli4000308lf9r8ders1",
 
     name: "Evaluate code performance and suggest optimizations",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 50,
   },
   //! Task Group 5 - Tasks - Performance Optimization - clqhanx05000408lfh4994o42
@@ -279,21 +279,21 @@ export const tasks = [
     task_group_id: "clqhanx05000408lfh4994o42",
 
     name: "Identify and optimize database queries for improved performance",
-    status: "Completed",
+    status: Status.COMPLETED,
     progress: 100,
   },
   {
     task_group_id: "clqhanx05000408lfh4994o42",
 
     name: "Implement caching strategies to reduce load times",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: 0,
   },
   {
     task_group_id: "clqhanx05000408lfh4994o42",
 
     name: "Optimize front-end code for faster rendering",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: 0,
   },
   //! Task Group 6 - Tasks - Development of New Features - clqhao6gx000508lf913fdeby
@@ -301,49 +301,49 @@ export const tasks = [
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Implement user authentication and authorization",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 30,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Enhance user interface with modern design patterns",
-    status: "Active",
+    status: Status.IN_PROGRESS,
     progress: 50,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Integrate third-party APIs for additional functionality",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Optimize backend to handle increased load",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Implement real-time updates for user interactions",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Conduct usability testing for new features",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhao6gx000508lf913fdeby",
 
     name: "Document new features and updates for user reference",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   //! Task Group 7 - Tasks - Technical Feasibility Analysis - clqhaog3j000608lf5w2gfwra
@@ -351,28 +351,28 @@ export const tasks = [
     task_group_id: "clqhaog3j000608lf5w2gfwra",
 
     name: "Evaluate hardware requirements for the new system",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: 0,
   },
   {
     task_group_id: "clqhaog3j000608lf5w2gfwra",
 
     name: "Assess the compatibility of existing software with the proposed changes",
-    status: "Paused",
+    status: Status.PAUSED,
     progress: 0,
   },
   {
     task_group_id: "clqhaog3j000608lf5w2gfwra",
 
     name: "Investigate potential technical challenges and risks",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
   {
     task_group_id: "clqhaog3j000608lf5w2gfwra",
 
     name: "Document findings and present technical feasibility report",
-    status: "Pending",
+    status: Status.PENDING,
     progress: 0,
   },
 ];

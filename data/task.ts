@@ -7,6 +7,7 @@ import {
     SearchFields,
     SelectedColumns,
 } from '@/definitions/task';
+import { Status } from '@prisma/client'
 
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASKS;
 
@@ -96,21 +97,36 @@ export async function fetch_task_pages(task_group_id: string, query: string) {
 }
 
 //devolver el total de tareas activas
-export async function fetch_count_active_task(id: string) {
+export async function fetch_count_in_progress_task(projectId: string) {
     noStore();
     try {
-        const taskGroupsIds = await fetch_all_task_groups_ids();
-        const countActiveTasks = await db.task.count({
+        const countInProgressTasks = await db.task.count({
             where: {
-                task_group_id: {
-                    in: taskGroupsIds.map((taskGroup) => taskGroup.id),
+                taskGroup: {
+                    project_id: projectId,
+                    status: Status.COMPLETED,
                 },
-                status: 'Active',
             },
         });
-        return countActiveTasks;
+        return countInProgressTasks;
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to fetch active tasks count.');
+    }
+}
+export async function fetch_count_total_tasks(projectId: string) {
+    noStore();
+    try {
+        const countTotalTasks = await db.task.count({
+            where: {
+                taskGroup: {
+                    project_id: projectId,
+                },
+            },
+        });
+        return countTotalTasks;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch total tasks count.');
     }
 }

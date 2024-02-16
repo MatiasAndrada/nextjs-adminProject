@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+
 import { currentUser } from "@/hooks/use-current-user";
 
 const prisma = db;
@@ -15,7 +16,7 @@ export async function fetch_projects() {
         }
     })
 
-    if (!projectsOfUser) {
+    if (projectsOfUser.length === 0) {
         return null;
     }
     /*     const dto = projectsOfUser.map((pu) => {

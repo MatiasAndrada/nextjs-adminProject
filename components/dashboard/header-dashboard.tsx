@@ -1,11 +1,12 @@
 import { UserGroupIcon, CalendarDaysIcon, RectangleStackIcon, DocumentCheckIcon } from "@heroicons/react/24/outline"
 import { fetch_count_in_progress_task_group, fetch_count_total_task_group } from "@/data/task-group"
-import { fetch_count_active_task } from "@/data/task"
+import { fetch_count_in_progress_task, fetch_count_total_tasks } from "@/data/task"
 import { fetch_count_members } from "@/data/projects"
 export default async function HeaderDashboard(props: { id: string }) {
     const countTaskGroupInProgress = await fetch_count_in_progress_task_group(props.id)
     const countTaskGroupTotal = await fetch_count_total_task_group(props.id)
-    const activeTask = await fetch_count_active_task(props.id)
+    const countTaskInProgress = await fetch_count_in_progress_task(props.id)
+    const countTaskTotal = await fetch_count_total_tasks(props.id)
     const members = await fetch_count_members(props.id)
 
 
@@ -26,8 +27,8 @@ export default async function HeaderDashboard(props: { id: string }) {
                         <DocumentCheckIcon className="h-6 w-6 dark:text-gray-800" />
                     </div>
                     <div className="flex flex-col justify-center align-middle">
-                        <p className="text-3xl font-semibold leadi">{activeTask}</p>
-                        <p className="capitalize">Active Task</p>
+                        <p className="text-3xl font-semibold leadi">{countTaskInProgress} of {countTaskTotal}</p>
+                        <p className="capitalize">Completed Task</p>
                     </div>
                 </div>
                 <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-100">

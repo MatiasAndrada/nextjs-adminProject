@@ -1,11 +1,9 @@
 import Form from "@/components/tasks/create-form";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { lusitana } from "@/components/fonts";
-//import { getServerSession } from "next-auth";
-//import { authOptions } from "@/lib/auth/auth-DEPRECATED";
-
+import { fetch_all_task_groups_names_ids } from '@/data/task-group';
 export default async function Page() {
-
+    const task_groups_names_ids = await fetch_all_task_groups_names_ids();
     return (
         <main>
             <div className="flex flex-col items-start justify-between">
@@ -24,7 +22,7 @@ export default async function Page() {
                 </h1>
             </div>
             <div className="h-full flex flex-col items-center justify-between">
-                <Form />
+                <Form task_groups_names_and_ids={task_groups_names_ids} />
             </div>
         </main>
     );
