@@ -11,7 +11,7 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                 <tr key={task.id} className="table-row-link
                 hover:bg-gray-100 cursor-pointer
                 " onClick={() => {
-                        router.push(`/dashboard/task-group/${task.task_group_id}/tasks/${task.id}`)
+                        router.push(`/dashboard/task-groups/${task.task_group_id}/tasks/${task.id}`)
                     }}
                 >
                     <td className="p-2 whitespace-nowrap">

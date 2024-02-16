@@ -68,7 +68,7 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
         </div>
         <div className='flex justify-between items-center overflow-visible'>
           <DropdownMoreActions />
-          <Link href={`task-group/` + id + `/tasks`} className='flex items-center justify-center text-xs font-medium rounded-full px-4 py-1 space-x-1 border-2 border-black bg-white hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black'>
+          <Link href={`task-groups/` + id + `/tasks`} className='flex items-center justify-center text-xs font-medium rounded-full px-4 py-1 space-x-1 border-2 border-black bg-white hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black'>
             <span>View Project</span>
             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
               <path d='M5 12h13M12 5l7 7-7 7' />

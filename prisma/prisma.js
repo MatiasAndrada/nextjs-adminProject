@@ -27,7 +27,7 @@ prisma.$use(async (params, next) => {
         data: { progress },
       });
     }
-    s;
+    
 
     return result;
   } else {

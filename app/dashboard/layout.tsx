@@ -19,7 +19,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
       ) : (
         /*         <div className="w-full flex-grow px-4 md:overflow-y-auto md:px-6">{children}</div> //con padding*/
-        <div className="w-full flex-grow md:overflow-y-auto">{children}</div>
+        <div className="w-full flex-grow md:overflow-y-auto  p-6 md:p-12">{children}</div>
       )}
     </div>
 

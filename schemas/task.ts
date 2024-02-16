@@ -1,21 +1,13 @@
 import { z } from 'zod';
-import { Status, Criticality } from '@prisma/client';
+import { Status } from '@prisma/client';
 
 const Schema = z.object({
     id: z.string(),
-    project: z.object({
-        // Aquí debes definir el esquema para el objeto Project
-    }),
-    task: z.array(
-        z.object({
-            // Aquí debes definir el esquema para el objeto Task
-        })
-    ),
+    task_group_id: z.string(),
     name: z.string().max(80),
     description: z.string().max(4000).optional(),
     status: z.nativeEnum(Status),
-    progress: z.string().max(18),
-    criticality: z.nativeEnum(Criticality),
+    progress: z.number().int().min(0).max(100),
     createdAt: z.date(),
     updatedAt: z.date(),
     endsAt: z.date(),
@@ -23,8 +15,6 @@ const Schema = z.object({
 
 const CreateSchema = Schema.omit({
     id: true,
-    project: true,
-    task: true,
     status: true,
     progress: true,
     createdAt: true,
@@ -32,15 +22,14 @@ const CreateSchema = Schema.omit({
     endsAt: true,
 });
 
+export { Schema, CreateSchema };
+
 export type State = {
     errors?: {
         name?: string[],
         description?: string[],
-        criticality?: string[],
+        task_group_id?: string[],
     }
     message?: string | null;
 }
 
-
-
-export { Schema, CreateSchema };

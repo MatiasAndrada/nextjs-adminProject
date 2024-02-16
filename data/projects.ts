@@ -1,19 +1,20 @@
 import { db } from "@/lib/db";
-import { auth } from "@/auth";
+import { currentUser } from "@/hooks/use-current-user";
 
 const prisma = db;
 
 export async function fetch_projects() {
-    const session = await auth()
-    const id = session?.user?.id as string;
+    const user = await currentUser();
+    const user_id = user?.id;
     const projectsOfUser = await prisma.projectUser.findMany({
         where: {
-            user_id: id
+            user_id: user_id
         },
         include: {
             project: true
         }
     })
+
     if (!projectsOfUser) {
         return null;
     }

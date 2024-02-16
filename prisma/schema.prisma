@@ -143,9 +143,9 @@ model Task {
   task_group_id String
   taskGroup     TaskGroup @relation(fields: [task_group_id], references: [id])
   name          String    @db.VarChar(80)
-  description   String?   @db.VarChar(1200)
-  status        String    @db.VarChar(18)
-  progress      Int
+  description   String?   @db.VarChar(4000)
+  status        Status    @default(PENDING)
+  progress      Int       @default(0)
   createdAt     DateTime  @default(now()) @db.Timestamptz(6)
   updatedAt     DateTime  @default(now()) @db.Timestamptz(6)
   endsAt        DateTime  @default(now()) @db.Timestamptz(6)

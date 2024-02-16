@@ -1,27 +1,18 @@
 "use server";
-import { z } from "zod";
+
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
+import { CreateFormSchema } from "@/schemas/project";
+
+import type { State } from "@/schemas/project";
+
 /* import { revalidatePath } from 'next/cache';*/
 import { redirect } from 'next/navigation';
-
-const FormSchema = z.object({
-    name: z.string().min(4).max(80),
-    description: z.string().max(4000).optional(),
-});
-
-export type State = {
-    errors?: {
-        name?: string[],
-        description?: string[],
-    }
-    message?: string | null;
-}
 
 //!create project
 export async function create_project(prevState: State, formData: FormData) {
     // Validate form using Zod
-    const validatedFields = FormSchema.safeParse({
+    const validatedFields = CreateFormSchema.safeParse({
         name: formData.get('name'),
         description: formData.get('description'),
         //? Luego aquí debería de pedir también los emails de los miembros del proyecto

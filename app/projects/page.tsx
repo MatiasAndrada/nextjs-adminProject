@@ -12,11 +12,9 @@ import {
     CardsSkeleton
 } from "@/components/skeletons";
 import { lusitana } from "@/components/fonts";
-import DropdownMoreActions from "@/components/task-group/dropdownMoreActions";
 
 export default async function Page() {
     const user = await currentUser();
-
     return (
         <main>
             <div className="flex flex-row items-center justify-between">
@@ -24,16 +22,16 @@ export default async function Page() {
                     Projects page
                 </h1>
                 <div className="flex flex-row items-center justify-between md:space-x-4">
-                    <h2 className="text-lg font-medium text-gray-900
+                    <h2 className="text-lg font-medium 
                     md:text-xl
                 ">Hi!
                         {user && ` ${user.name}`}
                     </h2>
-                    <FaUser className="w-8 h-8 text-gray-900" />
+                    <FaUser className="w-8 h-8 " />
                 </div>
             </div>
             <div className="flex flex-row items-center justify-between">
-                <h2 className="text-lg font-medium text-gray-900">Your projects</h2>
+                <h2 className="text-lg font-medium ">Your projects</h2>
                 <Link href="/projects/create">
                     <Button
                         variant="create"
@@ -50,7 +48,7 @@ export default async function Page() {
                 <CardWrapper />
             </Suspense>
             <div className="flex items-center justify-between">
-                <h2 className="text-lg font-medium text-gray-900">Projects with you</h2>
+                <h2 className="text-lg font-medium ">Projects with you</h2>
             </div>
             <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
                 {/*                 <Suspense fallback={<RevenueChartSkeleton />}>

@@ -4,14 +4,8 @@
 
 import { Status, Criticality } from "@prisma/client";
 
-
-export const user = [
-  {
-    id: "clri6fs8e0000j8la4hdgf2i0",
-  },
-];
-
 export const testUser = {
+  id: "clri6fs8e0000j8la4hdgf2i0",
   name: "Test User",
   email: "test@projectAdmin.com",
   password: "password",
@@ -27,7 +21,7 @@ export const project = [
 
 export const projectUser = [
   {
-    user_id: user[0].id,
+    user_id: testUser.id,
     project_id: project[0].id,
     role: "ADMIN",
   },

@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
+import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
 import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
@@ -70,6 +71,28 @@ export async function fetch_all_task_groups_ids() {
   }
 }
 
+export async function fetch_all_task_groups_names_ids() {
+  noStore();
+  try {
+    const user = await currentUser();
+    const project_id = user?.selected_project_id;
+    const task_group = await db.taskGroup.findMany({
+      where: {
+        project_id: project_id,
+      },
+      select: {
+        name: true,
+        id: true,
+      },
+    });
+    return task_group;
+  }
+  catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch task group.');
+  }
+}
+
 export async function fetch_task_group_pages(project_id: string, query: string) {
   // recibe una query y devuelve el numero de paginas
   // se le podría implementar una query por owner_id
@@ -93,17 +116,17 @@ export async function fetch_task_group_pages(project_id: string, query: string) 
   }
 }
 
-export async function fetch_count_active_task_group(id: string) {
+export async function fetch_count_in_progress_task_group(id: string) {
   noStore();
   //devolver la cantidad de grupos de tareas activos
-  const task_groups = await db.project.findMany({
+  const task_groups_completed = await db.project.findMany({
     select: {
       _count: {
         select: {
           taskGroup: {
             where: {
               project_id: id,
-              status: 'Active',
+              status: Status.COMPLETED,
             },
           },
         },
@@ -113,9 +136,29 @@ export async function fetch_count_active_task_group(id: string) {
       id: id,
     },
   });
-  //dto - number of active task groups
-  const active_task_groups = task_groups[0]._count.taskGroup;
-  return active_task_groups;
+  const dto = task_groups_completed[0]._count.taskGroup;
+  return dto
+}
+
+export async function fetch_count_total_task_group(id: string) {
+  const task_group_total = await db.project.findMany({
+    select: {
+      _count: {
+        select: {
+          taskGroup: {
+            where: {
+              project_id: id,
+            },
+          },
+        },
+      },
+    },
+    where: {
+      id: id,
+    },
+  });
+  const dto = task_group_total[0]._count.taskGroup;
+  return dto;
 }
 
 export async function delete_task_group(id: string) {

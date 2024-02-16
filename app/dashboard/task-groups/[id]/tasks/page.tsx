@@ -30,7 +30,7 @@ export default async function Page({ params, searchParams }: { params: { id: str
         <main>
             <Breadcrumbs
                 breadcrumbs={[
-                    { label: 'Task group', href: '/dashboard/task-group' },
+                    { label: 'Task group', href: '/dashboard/task-groups' },
                     {
                         label: 'Tasks',
                         href: `/dashboard/task-groups/${id}`,

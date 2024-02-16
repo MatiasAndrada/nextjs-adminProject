@@ -9,16 +9,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
-import { Criticality } from '@prisma/client';
-import type { State } from '@/schemas/task-group';
-import { create_task_group } from '@/actions/task-group';
+import type { State } from '@/schemas/task';
+import { create_task } from '@/actions/task';
+import { fetch_all_task_groups_names_ids } from '@/data/task-group';
 
-export default function Form() {
+export default async function Form() {
     const initialState: State = {
         message: null, errors: {}
     };
-    const [state, dispatch] = useFormState(create_task_group, initialState);
-    console.log("🦇 ~ Form ~ state:", state)
+    const [state, dispatch] = useFormState(create_task, initialState);
+    const task_groups = await fetch_all_task_groups_names_ids();
     return (
         <form action={dispatch} className="w-full rounded-md bg-gray-200 dark:bg-slate-950 p-4 md:p-6">
             {/* Task Group Name */}
@@ -71,33 +71,34 @@ export default function Form() {
                     )
                 }
             </div>
-            {/* Task Group Criticality Dropdown from Type enum*/}
+            {/*Select Task Group Dropdown*/}
             <div className="mb-4">
-                <label htmlFor="criticality" className="mb-2 block text-xl font-medium">
-                    Criticality
+                <label htmlFor="task-group" className="mb-2 block text-xl font-medium">
+                    Task Group
                 </label>
                 <select
-                    id="criticality"
-                    name='criticality'
+                    id="task-group"
+                    name='task_group_id'
                     className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 dark:bg-slate-800 dark:text-gray-300"
                     defaultValue=""
-                    aria-describedby="criticality-error"
+                    aria-describedby="task-group-error"
                 >
                     <option value="" disabled hidden>
-                        Select Criticality
+                        Select a Task Group
                     </option>
-                    <option value={Criticality.LOW} className='text-green-500 '>Low</option>
-                    <option value={Criticality.MEDIUM} className='text-yellow-500 '>Medium</option>
-                    <option value={Criticality.HIGH} className='text-orange-500 '>High</option>
-                    <option value={Criticality.CRITICAL} className='text-red-500 '>Critical</option>
+                    {task_groups.map((task_group) => (
+                        <option key={task_group.id} value={task_group.id}>
+                            {task_group.name}
+                        </option>
+                    ))}
                 </select>
                 {
-                    state.errors?.criticality && (
+                    state.errors?.task_group_id && (
                         <div
                             className="mt-2 text-md text-red-500"
                             aria-live='polite'
                         >
-                            {state.errors.criticality.map((error: string) => (
+                            {state.errors.task_group_id.map((error: string) => (
                                 <p key={error}>{error}</p>
                             ))}
                         </div>

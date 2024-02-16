@@ -84,7 +84,7 @@ export function Card({
             className="flex items-center text-purple-600 bg-purple-100 hover:bg-purple-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"
           >
             <EyeIcon className="w-6 h-6 mr-2" />
-            <span>View project</span>s
+            <span>View project</span>
           </Link> */}
         </div>
       </div>

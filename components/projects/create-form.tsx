@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {
   CheckIcon,
   ClockIcon,
@@ -9,13 +8,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
+import type { State } from '@/schemas/project';
 import { create_project } from '@/actions/projects';
 
 export default function Form() {
-  const initialState = {
+  const initialState: State = {
     message: null, errors: {}
   };
-  console.log("🦇 ~ Form ~ initialState:", initialState)
   const [state, dispatch] = useFormState(create_project, initialState);
   return (
     <form action={dispatch} className="w-full rounded-md bg-gray-50 p-4 md:p-6">
@@ -32,7 +31,7 @@ export default function Form() {
           defaultValue=""
           aria-describedby="name-error"
         />
-        {state.errors.name && (
+        {state.errors?.name && (
           <div
             aria-live="polite"
             className="mt-2 text-md text-red-500"
@@ -42,9 +41,6 @@ export default function Form() {
             ))}
           </div>
         )}
-
-
-
       </div>
 
       {/* Task Description */}
@@ -60,7 +56,7 @@ export default function Form() {
           aria-describedby="description-error"
         />
         {
-          state.errors.description && (
+          state.errors?.description && (
             <div
               className="mt-2 text-md text-red-500"
               aria-live='polite'

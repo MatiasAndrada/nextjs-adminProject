@@ -10,7 +10,5 @@ export async function fetchSelectedProject(idProject: string) {
             id: user.project.id,
             name: user.project.name,
         }; */
-    if (!project) throw new Error("Project not found");
     return project;
-
 } 

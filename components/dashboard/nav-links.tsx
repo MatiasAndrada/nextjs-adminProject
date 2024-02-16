@@ -23,7 +23,7 @@ const links = [
   },
   {
     name: "Task group",
-    href: "/dashboard/task-group",
+    href: "/dashboard/task-groups",
     icon: FolderIcon,
   },
   {

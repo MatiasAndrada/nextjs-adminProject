@@ -29,7 +29,7 @@ export default function Breadcrumbs({
               <span className="mx-3 inline-block">/</span>
             ) : null}
           </li>
-        ))}s
+        ))}
       </ol>
     </nav>
   );
