@@ -3,12 +3,12 @@ import Image from "next/image";
 /* import { lusitana } from "@/components/fonts"; */
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { auth } from '@/auth'
-/* import { User } from "@/components/userSessionComponent"; */
+import { User } from "@/components/userSessionComponent";
 /* import { currentUser } from "@/lib/auth"; */
 import Link from "next/link";
 
 export default async function Page() {
-  /*   const session = await auth() */
+  const session = await auth()
 
   return (
     <main className="flex min-h-screen flex-col p-6">
@@ -27,14 +27,14 @@ export default async function Page() {
             </a>
             , brought to you by Vercel.
           </p> */}
-          {/*           <div className="flex flex-col gap-4">
+          {<div className="flex flex-col gap-4">
             <p>Server session</p>
 
             <p>Hello {session?.user?.name}</p>
             <pre>{JSON.stringify(session)}</pre>
 
             <User />
-          </div> */}
+          </div>}
 
           {<Link
             href="/auth/login"
