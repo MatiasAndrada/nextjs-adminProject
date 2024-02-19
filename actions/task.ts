@@ -26,10 +26,6 @@ export async function create_task(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { name, description, task_group_id } = validatedFields.data;
-    console.log("🦇 ~ create_task ~ task_group_id:", task_group_id)
-    console.log("🦇 ~ create_task ~ description:", description)
-    console.log("🦇 ~ create_task ~ name:", name)
-
     // Insert data into the database
     try {
         await db.task.create({

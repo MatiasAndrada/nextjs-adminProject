@@ -1,18 +1,18 @@
 "use server";
 
-import { auth } from "@/auth";
+/*import { auth } from "@/auth";*/
+import { currentUser } from "@/hooks/use-current-user";
 import { db } from "@/lib/db";
 import { revalidatePath } from 'next/cache'
 
 
 export const setSelectedProject = async (projectId: string | null) => {
-    const session = await auth();
-    const id = session?.user?.id as string;
-
+    const user = await currentUser()
+    const user_id = user?.id;
     // Verificar la existencia del usuario antes de la actualización
     const existingUser = await db.user.findUnique({
         where: {
-            id
+            id: user_id
         }
     });
 
@@ -26,7 +26,7 @@ export const setSelectedProject = async (projectId: string | null) => {
         // Actualizar el usuario con el nuevo proyecto seleccionado
         const updatedUser = await db.user.update({
             where: {
-                id
+                id: user_id
             },
             data: {
                 selected_project_id: projectId

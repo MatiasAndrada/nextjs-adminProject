@@ -19,7 +19,6 @@ export async function create_project(prevState: State, formData: FormData) {
     });
     // If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
-        console.log("!validatedFields.success")
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Missing Fields. Failed to Create Project.',

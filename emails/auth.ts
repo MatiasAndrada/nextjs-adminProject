@@ -44,9 +44,7 @@ export const sendVerificationEmail = async (
     token: string
 ) => {
     try {
-        console.log("sendVerificationEmail", email, token)
         const confirmLink = `${domain}/auth/new-verification?token=${token}`;
-        console.log("confirmLink", confirmLink)
         await resend.emails.send({
             from: fromEmail,
             to: email,

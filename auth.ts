@@ -10,11 +10,11 @@ import { getAccountByUserId } from "@/data/account";
 const adapter = PrismaAdapter(db);
 
 export const {
-    handlers: { GET, POST },
+    handlers,
     auth,
     signIn,
     signOut,
-    update,
+    /*     update, */
 } = NextAuth({
     pages: {
         signIn: "/auth/login",
@@ -66,7 +66,7 @@ export const {
 
             if (session.user) {
                 session.user.name = token.name;
-                session.user.email = token.email;
+                session.user.email = token.email as string;
                 session.user.isOAuth = token.isOAuth as boolean;
 
             }
@@ -83,7 +83,6 @@ export const {
             const existingAccount = await getAccountByUserId(
                 existingUser.id
             );
-
             token.isOAuth = !!existingAccount;
             token.name = existingUser.name;
             token.email = existingUser.email;
@@ -91,7 +90,8 @@ export const {
             token.selected_project_id = existingUser.selected_project_id;
 
             return token;
-        }
+        },
+
     },
     adapter: adapter,
     session: { strategy: "jwt" },
