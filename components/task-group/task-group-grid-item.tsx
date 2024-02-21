@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { TaskGroup } from "@prisma/client";
-import { Criticality } from "@/definitions/task-group";
+import { Criticality } from "@prisma/client";
+
 import DropdownMoreActions from "./dropdownMoreActions";
 
 
@@ -19,10 +20,10 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
       <div className='break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 text-black  dark:text-white'>
         <div className='flex items-center justify-between font-medium'>
           <span className={`uppercase text-xs 
-          ${criticality === Criticality.Low ? 'text-green-500' : ''}
-          ${criticality === Criticality.Medium ? 'text-cyan-500' : ''}
-          ${criticality === Criticality.High ? 'text-orange-500' : ''}
-          ${criticality === Criticality.Critical ? 'text-red-500' : ''}
+          ${criticality === Criticality.LOW ? 'text-green-500' : ''}
+          ${criticality === Criticality.MEDIUM ? 'text-cyan-500' : ''}
+          ${criticality === Criticality.HIGH ? 'text-orange-500' : ''}
+          ${criticality === Criticality.CRITICAL ? 'text-red-500' : ''}
           `}>{criticality}</span>
           <span className='text-xs text-slate-500'>#teamsdesigners</span>
         </div>

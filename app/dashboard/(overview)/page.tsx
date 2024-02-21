@@ -1,4 +1,4 @@
-import GridDashboard from "@/components/dashboard/grid-dashboard";
+import GridDashboard from "@/components/dashboard/overview/grid-dashboard";
 import { lusitana } from "@/components/fonts";
 import { Suspense } from "react";
 import {
@@ -13,7 +13,7 @@ export default async function Page() {
 
   return (
     <main className="bg-gray-50 dark:bg-slate-900">
-      <h1 className={`${lusitana.className} text-white text-4xl mx-4 mb-4`}>
+      <h1 className={`${lusitana.className} text-white text-4xl `}>
         Dashboard
       </h1>
       <Suspense fallback={
@@ -21,7 +21,7 @@ export default async function Page() {
           <Loader1 />
         </div>
       }>
-        < GridDashboard />
+        <GridDashboard />
       </Suspense>
 
     </main >

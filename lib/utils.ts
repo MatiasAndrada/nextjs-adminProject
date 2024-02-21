@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-/*
+
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString('en-US', {
     style: 'currency',
@@ -14,34 +14,50 @@ export const formatCurrency = (amount: number) => {
   });
 };
 
-export const formatDateToLocal = (
-  dateStr: string,
-  locale: string = 'en-US',
-) => {
-  const date = new Date(dateStr);
-  const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  };
-  const formatter = new Intl.DateTimeFormat(locale, options);
-  return formatter.format(date);
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(type, value);
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+  return newPathname;
 };
 
- export const generateYAxis = (revenue: Revenue[]) => {
+export const formatDate = (date: Date) => {
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const day = date.getDate();
+  const month = date.getMonth() + 1; //los meses en js van de 0 a 11
+  const year = date.getFullYear();
+  const formatHour = `${hour}:${minute}`;
+  const formatDay = `${day}/${month}/${year}`;
+  return `${formatHour} ${formatDay}`;
+
+}
+/* export const formatDateToLocal = (date: Date) => {
+  // Convert UTC date to local date
+  const localDate = new Date(date);
+  return localDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+} */
+
+
+/* export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis
   // based on highest record and in 1000s
   const yAxisLabels = [];
   const highestRecord = Math.max(...revenue.map((month) => month.revenue));
   const topLabel = Math.ceil(highestRecord / 1000) * 1000;
-
+ 
   for (let i = topLabel; i >= 0; i -= 1000) {
     yAxisLabels.push(`$${i / 1000}K`);
   }
-
+ 
   return { yAxisLabels, topLabel };
-};
- */
+}; */
+
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.

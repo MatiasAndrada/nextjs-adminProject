@@ -1,9 +1,10 @@
 import { db } from '@/lib/db';
+import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
+import { formatDate } from '@/lib/utils';
 import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
-import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_filtered_task_group(
@@ -23,25 +24,17 @@ export async function fetch_filtered_task_group(
           mode: 'insensitive',
         },
       },
+      select: {
+        id: true,
+        name: true,
+        progress: true,
+        updatedAt: true,
+        criticality: true,
+      },
       take: ITEMS_PER_PAGE,
       skip: offset,
     });
-    //dto
-    const task_group_dto = task_group.map((task_group) => {
-      return {
-        id: task_group.id,
-        project_id: task_group.project_id,
-        name: task_group.name,
-        description: task_group.description,
-        criticality: task_group.criticality,
-        status: task_group.status,
-        progress: task_group.progress,
-        createdAt: task_group.createdAt,
-        endsAt: task_group.endsAt,
-        updatedAt: task_group.updatedAt,
-      };
-    });
-    return task_group_dto;
+    return task_group;
   }
   catch (err) {
     console.error('Database Error:', err);
@@ -93,11 +86,11 @@ export async function fetch_all_task_groups_names_ids() {
   }
 }
 
-export async function fetch_task_group_pages(project_id: string, query: string) {
-  // recibe una query y devuelve el numero de paginas
-  // se le podría implementar una query por owner_id
+export async function fetch_task_group_pages(query: string) {
   noStore();
   try {
+    const user = await currentUser();
+    const project_id = user?.selected_project_id;
     const count = await db.taskGroup.count({
       where: {
         project_id: project_id,
@@ -176,4 +169,3 @@ export async function delete_task_group(id: string) {
     throw new Error('Failed to delete task group.');
   }
 }
-

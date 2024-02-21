@@ -2,17 +2,14 @@ import { UserGroupIcon, CalendarDaysIcon, RectangleStackIcon, DocumentCheckIcon 
 import { fetch_count_in_progress_task_group, fetch_count_total_task_group } from "@/data/task-group"
 import { fetch_count_in_progress_task, fetch_count_total_tasks } from "@/data/task"
 import { fetch_count_members } from "@/data/projects"
-export default async function HeaderDashboard(props: { id: string }) {
-    const countTaskGroupInProgress = await fetch_count_in_progress_task_group(props.id)
-    const countTaskGroupTotal = await fetch_count_total_task_group(props.id)
-    const countTaskInProgress = await fetch_count_in_progress_task(props.id)
-    const countTaskTotal = await fetch_count_total_tasks(props.id)
-    const members = await fetch_count_members(props.id)
-
-
-
+export default async function HeaderDashboard({ id }: { id: string }) {
+    const countTaskGroupInProgress = await fetch_count_in_progress_task_group(id)
+    const countTaskGroupTotal = await fetch_count_total_task_group(id)
+    const countTaskInProgress = await fetch_count_in_progress_task(id)
+    const countTaskTotal = await fetch_count_total_tasks(id)
+    const members = await fetch_count_members(id)
     return (
-        <section className="col-span-3 ">
+        <section className="col-span-3 row-span-1 ">
             <div className="container grid grid-cols-1 gap-2  mx-auto sm:grid-cols-2 xl:grid-cols-5">
                 <div className="flex flex-col justify-center items-center p-4 rounded-lg  bg-gray-200 dark:bg-slate-800">
                     <p className="text-md antialiased font-semibold leading-6 ">Create new task group</p>

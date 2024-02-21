@@ -1,7 +1,6 @@
-# NEXTJS PROJECT ADMIN PRE _ALPHA
+# PROJECT ADMIN BETA
 
 ## Description
-
 Sistema de administración de tareas y usuarios para equipos de trabajo.
 
 ## PASOS PARA INICIALIZAR
@@ -17,3 +16,28 @@ Sistema de administración de tareas y usuarios para equipos de trabajo.
 ### Usuario de prueba
 - email: "test@projectAdmin.com"
 - password: password
+
+## TECHNOLOGIES
+- Next.js
+- Prisma ORM
+- TypeScript
+- Docker
+- Auth.js V5 beta
+- Zustand
+- PostgreSQL
+- React
+
+
+## TODO
+- [x] Create docker-compose
+- [x] Auth with Auth.js
+- [x] Schema for Prisma
+- [x] Seed for Prisma
+- [x] Routes for Next.js
+- [x] Middleware
+- [x] Create Actions
+- [x] Create Pages
+- [x] Create Components
+- [ ] Implement members invite
+
+ 
