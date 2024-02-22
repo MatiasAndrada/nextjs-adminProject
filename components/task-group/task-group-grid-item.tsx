@@ -20,10 +20,10 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
       <div className='break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 text-black  dark:text-white'>
         <div className='flex items-center justify-between font-medium'>
           <span className={`uppercase text-xs 
-          ${criticality === Criticality.LOW ? 'text-green-500' : ''}
-          ${criticality === Criticality.MEDIUM ? 'text-cyan-500' : ''}
-          ${criticality === Criticality.HIGH ? 'text-orange-500' : ''}
-          ${criticality === Criticality.CRITICAL ? 'text-red-500' : ''}
+          ${criticality === Criticality.LOW ? 'text-criticality-low' : ''}
+          ${criticality === Criticality.MEDIUM ? 'text-criticality-medium' : ''}
+          ${criticality === Criticality.HIGH ? 'text-criticality-high' : ''}
+          ${criticality === Criticality.CRITICAL ? 'text-criticality-critical' : ''}
           `}>{criticality}</span>
           <span className='text-xs text-slate-500'>#teamsdesigners</span>
         </div>

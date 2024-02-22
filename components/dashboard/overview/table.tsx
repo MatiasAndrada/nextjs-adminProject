@@ -1,7 +1,8 @@
 
 import { fetch_filtered_task_group } from "@/data/task-group";
-import type { Criticality } from "@prisma/client";
-import { formatDate } from '@/lib/utils';
+import { Criticality } from "@prisma/client";
+import { Status } from "@prisma/client";
+import { formatDate, convertFractionStringToPercentage } from '@/lib/utils';
 export default async function TaskGroupTable({
     query,
     currentPage,
@@ -10,8 +11,10 @@ export default async function TaskGroupTable({
     currentPage: number;
 }) {
     const task_groups = await fetch_filtered_task_group(query, currentPage);
+
+
     return (
-        <table className="min-w-full  w-full text-xs">
+        <table className="min-w-full  w-full text-xs text-center">
             <colgroup>
                 <col />
                 <col />
@@ -20,9 +23,9 @@ export default async function TaskGroupTable({
                 <col />
             </colgroup>
             <thead className="dark:dark:bg-gray-700">
-                <tr className="text-left">
+                <tr /* className="text-left" */>
                     <th className="p-3">Id  #</th>
-                    <th className="p-3">Name</th>
+                    <th className="p-3 text-start">Name</th>
                     <th className="p-3">Progress</th>
                     <th className="p-3">Updated At</th>
                     <th className="p-3">Status</th>
@@ -30,7 +33,7 @@ export default async function TaskGroupTable({
                 </tr>
             </thead>
             <tbody>
-                {task_groups.map(({ id, name, progress, updatedAt, criticality }) => (
+                {task_groups.map(({ id, name, progress, updatedAt, status, criticality }) => (
                     <tr
                         key={id}
                         className="border-b border-opacity-20 dark:dark:border-gray-700 dark:dark:bg-gray-900"
@@ -39,17 +42,24 @@ export default async function TaskGroupTable({
                             <p>#{id && id.slice(-3)}</p>
                         </td>
                         <td className="p-3">
-                            <p>{name}</p>
+                            <p className="text-start">{name}</p>
                         </td>
                         <td className="py-3 text-sm" role="cell">
                             <div className="mx-2 flex font-bold">
                                 <div
                                     className="h-2 w-16 rounded-full bg-gray-200 dark:bg-navy-700"
                                 >
-                                    <div
-                                        className="flex h-full items-center justify-center rounded-md bg-brand-500 dark:bg-red-400"
-                                        style={{ width: '45%' }}
-                                    ></div>
+
+                                    <div className="mx-auto flex items-center">
+                                        <div className="h-2 w-16 rounded-full bg-gray-200 dark:bg-navy-700">
+                                            <div
+                                                className="flex h-full items-center justify-center rounded-md bg-brand-500 dark:bg-green-400"
+                                                style={{
+                                                    width: convertFractionStringToPercentage(progress),
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -57,18 +67,28 @@ export default async function TaskGroupTable({
                             <p>{formatDate(updatedAt)}</p>
                         </td>
                         <td className="p-3">
-                            <span className="px-3 py-1 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900">
-                                <span>{criticality}</span>
+                            <span className={`px-3 py-1 font-semibold rounded-md 
+                            ${status === Status.PAUSED ? 'text-status-paused' : ''}
+                            ${status === Status.PENDING ? 'text-status-pending' : ''}
+                            ${status === Status.IN_PROGRESS ? 'text-status-in_progress' : ''}
+                            ${status === Status.COMPLETED ? 'text-status-completed' : ''}
+                            `}>
+                                <span>{status}</span>
                             </span>
                         </td>
                         <td className="p-3">
-                            <span className="px-3 py-1 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900">
+                            <span className={`px-3 py-1 font-semibold rounded-md 
+                            ${criticality === Criticality.LOW ? 'text-criticality-low' : ''}
+                            ${criticality === Criticality.MEDIUM ? 'text-criticality-medium' : ''}
+                            ${criticality === Criticality.HIGH ? 'text-criticality-high' : ''}
+                            ${criticality === Criticality.CRITICAL ? 'text-criticality-critical' : ''}
+                            `}>
                                 <span>{criticality}</span>
                             </span>
                         </td>
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </table >
     );
 }

@@ -22,6 +22,7 @@ const config: Config = {
       gridTemplateColumns: {
         '13': 'repeat(13, minmax(0, 1fr))',
       },
+
       colors: {
         primary: `var(--primary)`,
         secondary: `var(--secondary)`,
@@ -30,6 +31,18 @@ const config: Config = {
           400: '#2589FE',
           500: '#0070F3',
           600: '#2F6FEB',
+        },
+        status: {
+          paused: "var(--status-paused)",
+          pending: "var(--status-pending)",
+          in_progress: "var(--status-in_progress)",
+          completed: "var(--status-completed)",
+        },
+        'criticality': {
+          low: "var(--criticality-low)",
+          medium: "var(--criticality-medium)",
+          high: "var(--criticality-high)",
+          critical: "var(--criticality-critical)",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

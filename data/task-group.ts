@@ -29,6 +29,7 @@ export async function fetch_filtered_task_group(
         name: true,
         progress: true,
         updatedAt: true,
+        status: true,
         criticality: true,
       },
       take: ITEMS_PER_PAGE,

@@ -8,10 +8,26 @@ body,
   --primary: #1482ff;
   --secondary: #215fa7;
   --highlight: #3ee586;
+  /* !Status */
+  --status-paused: #f57023;
+  --status-pending: #f5ef34;
+  --status-in_progress: #1ca2eb;
+  --status-completed: #00fc11;
+  /* !Criticality */
+  --criticality-low: #00d5ff;
+  --criticality-medium: #0067f7;
+  --criticality-high: #f59e23;
+  --criticality-critical: #e71d1d;
 }
 
 @layer base {
   :root {
+    /* !Criticality */
+    --criticality-low: #f5a623;
+    --medium: #f5a623;
+    --criticality-high: #f5a623;
+    --criticality-critical: #f5a623;
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 

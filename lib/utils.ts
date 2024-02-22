@@ -30,7 +30,16 @@ export const formatDate = (date: Date) => {
   const formatHour = `${hour}:${minute}`;
   const formatDay = `${day}/${month}/${year}`;
   return `${formatHour} ${formatDay}`;
+}
 
+/* export const convertFractionToPercentage = (numerator: number, denominator: number) => {
+  return `${(numerator / denominator) * 100}%`;
+} */
+export const convertFractionStringToPercentage = (fraction: string) => {
+  const [numerator, denominator] = fraction.split('/');
+  const parsedNumerator = eval(numerator);
+  const parsedDenominator = eval(denominator);
+  return `${(parsedNumerator / parsedDenominator) * 100}%`;
 }
 /* export const formatDateToLocal = (date: Date) => {
   // Convert UTC date to local date
