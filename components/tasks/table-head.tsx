@@ -21,13 +21,13 @@ export default async function Table({ tasks }: { tasks: any }) {
 
     //El uso de as keyof SelectedColumns es una afirmación de tipo en TypeScript que dice que column.key es una clave del tipo SelectedColumns.
     return (
-        <section className="flex flex-col justify-center antialiased  text-gray-600">
+        <section className="flex flex-col justify-center antialiased">
             <div className="h-full">
-                <div className="w-full mx-auto bg-white shadow-lg rounded-sm">
+                <div className="w-full mx-auto  shadow-lg rounded-sm">
                     <div className="p-3">
                         <div className="overflow-x-auto">
                             <table className="table-auto w-full">
-                                <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                <thead className="text-xs font-semibold uppercase bg-slate-400 dark:bg-slate-700">
                                     <tr>
                                         {columnHeaders.map(column => (
                                             <th key={column.key} className="p-2 whitespace-nowrap">

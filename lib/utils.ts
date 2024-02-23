@@ -41,7 +41,7 @@ export const convertFractionStringToPercentage = (fraction: string) => {
   const parsedDenominator = eval(denominator);
   return `${(parsedNumerator / parsedDenominator) * 100}%`;
 }
-/* export const formatDateToLocal = (date: Date) => {
+export const formatDateToLocal = (date: Date) => {
   // Convert UTC date to local date
   const localDate = new Date(date);
   return localDate.toLocaleDateString('en-US', {
@@ -49,7 +49,7 @@ export const convertFractionStringToPercentage = (fraction: string) => {
     month: 'long',
     day: 'numeric',
   });
-} */
+}
 
 
 /* export const generateYAxis = (revenue: Revenue[]) => {

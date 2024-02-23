@@ -6,10 +6,11 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
     const router = useRouter()
 
     return (
-        <tbody className="text-sm divide-y divide-gray-100">
+        <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-500">
             {tasks.map((task: Partial<Task>) => (
                 <tr key={task.id} className="table-row-link
-                hover:bg-gray-100 cursor-pointer
+                bg-slate-300 dark:bg-slate-950
+                hover:bg-slate-200 dark:border-gray-700 dark:bg-gray-90 cursor-pointer
                 " onClick={() => {
                         router.push(`/dashboard/task-groups/${task.task_group_id}/tasks/${task.id}`)
                     }}
@@ -20,7 +21,7 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                                 <img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt={task.name} />
                             </div>
                             {/*mostrar 3 últimos dígitos de id */}
-                            <div className="font-medium text-gray-800">{task.id && task.id.slice(-3)}</div>
+                            <div className="font-bold text-green-500 ">#{task.id && task.id.slice(-3)}</div>
                         </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">

@@ -52,10 +52,10 @@ export function Card({
 
   return (
     <div className="mx-auto my-10">
-      <div className="bg-white shadow-xl rounded-lg p-6 space-y-4">
+      <div className="bg-slate-100 shadow-xl rounded-lg p-6 space-y-4">
         <div className="flex items-center space-x-6">
           <div className="p-2 bg-purple-200 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a2 2 0 00-2-2h-3v4z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 15v4a2 2 0 002 2h3v-4" />
@@ -73,7 +73,7 @@ export function Card({
           <ButtonViewProject projectId={id} />
           {/*           <Link
             href={`/dashboard`}
-            className="flex items-center text-purple-600 bg-purple-100 hover:bg-purple-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"
+            className="flex items-center text-blue-600 bg-blue-500 hover:bg-blue-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"
           >
             <EyeIcon className="w-6 h-6 mr-2" />
             <span>View project</span>

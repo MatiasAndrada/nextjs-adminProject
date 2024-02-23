@@ -9,19 +9,16 @@ import {
 import { currentSelectedProject } from "@/hooks/use-current-project";
 import { Loader1 } from "@/components/loaders";
 
-export default async function Page() {
-
+export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
   return (
-    <main className="bg-gray-50 dark:bg-slate-900">
-      <h1 className={`${lusitana.className} text-white text-4xl `}>
+    <main>
+      <h1 className={`${lusitana.className}  text-4xl `}>
         Dashboard
       </h1>
       <Suspense fallback={
-        <div className="flex items-center justify-center w-full h-full">
-          <Loader1 />
-        </div>
+        <Loader1 />
       }>
-        <GridDashboard />
+        <GridDashboard searchParams={searchParams} />
       </Suspense>
 
     </main >

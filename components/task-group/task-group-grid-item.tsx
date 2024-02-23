@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { RectangleStackIcon } from "@heroicons/react/24/outline";
+import { formatDate, formatDateToLocal } from "@/lib/utils";
 import type { TaskGroup } from "@prisma/client";
 import { Criticality } from "@prisma/client";
+
 
 import DropdownMoreActions from "./dropdownMoreActions";
 
@@ -16,23 +19,53 @@ export default async function TaskGridItem({ task }: { task: TaskGroup }) {
   return (
     /* < !--This is an example component-- > */
 
-    <div className='bg-gray-200 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-col'>
+    <div className='bg-slate-300 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-col'>
       <div className='break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 text-black  dark:text-white'>
         <div className='flex items-center justify-between font-medium'>
-          <span className={`uppercase text-xs 
+          <div >
+            <div
+              className="flex items-center space-x-2  rounded-md px-2 py-1 "
+            >
+              <p
+                className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400"
+              >Criticality:</p>
+              <span className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-200 dark:bg-slate-700
           ${criticality === Criticality.LOW ? 'text-criticality-low' : ''}
           ${criticality === Criticality.MEDIUM ? 'text-criticality-medium' : ''}
           ${criticality === Criticality.HIGH ? 'text-criticality-high' : ''}
           ${criticality === Criticality.CRITICAL ? 'text-criticality-critical' : ''}
           `}>{criticality}</span>
-          <span className='text-xs text-slate-500'>#teamsdesigners</span>
+            </div>
+            <div
+              className="flex items-center space-x-2  rounded-md px-2 py-1 "
+            >
+              <p
+                className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400"
+              >Status:</p>
+              <span className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-200 dark:bg-slate-700
+          ${criticality === Criticality.LOW ? 'text-criticality-low' : ''}
+          ${criticality === Criticality.MEDIUM ? 'text-criticality-medium' : ''}
+          ${criticality === Criticality.HIGH ? 'text-criticality-high' : ''}
+          ${criticality === Criticality.CRITICAL ? 'text-criticality-critical' : ''}
+          `}>{criticality}</span>
+            </div>
+          </div>
+          <div>
+            <span className='text-xs font-bold uppercase text-slate-500 dark:text-slate-400 '>Time left:</span>
+            <span className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-200 dark:bg-slate-700`}>
+              Incoming
+            </span>
+
+          </div>
         </div>
         <div className='flex flex-row items-center space-x-3'>
-          <div className='flex flex-none items-center justify-center w-10 h-10 rounded-full bg-green-500 text-white'>
-            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
-              <polygon points='14 2 18 6 7 17 3 17 3 13 14 2' />
-              <line x1='3' y1='22' x2='21' y2='22' />
-            </svg>
+          <div className={`flex flex-none items-center justify-center w-10 h-10 rounded-full text-white 
+          ${criticality === Criticality.LOW ? 'bg-criticality-low' : ''}
+          ${criticality === Criticality.MEDIUM ? 'bg-criticality-medium' : ''}
+          ${criticality === Criticality.HIGH ? 'bg-criticality-high' : ''}
+          ${criticality === Criticality.CRITICAL ? 'bg-criticality-critical' : ''}
+          `}>
+            <RectangleStackIcon className='w-6 h-6' />
           </div>
           <span className='text-base font-medium'>{name}</span>
         </div>

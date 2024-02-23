@@ -61,7 +61,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
             <button
                 ref={dropdownButtonRef}
                 onClick={toggleDropdown}
-                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium  bg-white hover:bg-slate-100 dark:bg-slate-950 border dark:hover:bg-slate-800 border-black dark:border-white  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
                 {selectedProject !== null ? `Selected ${selectedProject?.name}` : `Select ${name}`}
                 <svg
@@ -81,13 +81,13 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
             </button>
             <div
                 ref={dropdownMenuRef}
-                className={`origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-opacity ${isDropdownOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                className={`origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-slate-200 dark:bg-slate-950 ring-1 ring-black ring-opacity-5 transition-opacity ${isDropdownOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
             >
                 {
                     items?.length && selectedProject !== null && <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
                         <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            className="block px-4 py-2 text-sm  hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
                             role="menuitem"
                             onClick={selectDefaultProject}
                         >
@@ -100,7 +100,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
                         return <button
                             key={item.id}
                             onClick={() => selectProject(item)}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            className="block px-4 py-2 text-sm  hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
                             role="menuitem"
                         >
                             {item.name}

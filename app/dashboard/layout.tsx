@@ -5,7 +5,7 @@ import { currentSelectedProject } from "@/hooks/use-current-project";
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const currentProject = await currentSelectedProject();
   return (
-    <div className="text-black dark:text-white bg-gray-50 dark:bg-slate-900 h-screen flex flex-col md:flex-row md:overflow-hidden">
+    <div className=" h-screen flex flex-col md:flex-row md:overflow-hidden">
       <div className="w-full flex-none md:w-64">
         <SideNav />
       </div>

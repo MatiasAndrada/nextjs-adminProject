@@ -6,7 +6,6 @@ import TaskGroupGrid from '@/components/task-group/task-group-grid';
 import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/buttons";
 import { fetch_task_group_pages } from "@/data/task-group";
-import { currentSelectedProject } from "@/hooks/use-current-project";
 //!ADD SKELETON LOADING
 import { lusitana } from "@/components/fonts";
 
@@ -14,9 +13,7 @@ export const metadata: Metadata = {
     title: 'Tasks group',
 };
 
-export default async function Page({ searchParams, }: { searchParams?: { query?: string; page?: string; }; }) {
-    const currentProject = await currentSelectedProject();
-
+export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; }; }) {
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
     /*     const project_id = localStorage.getItem("SELECTED_PROJECT") */

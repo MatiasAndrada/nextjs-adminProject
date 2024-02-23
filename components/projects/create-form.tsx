@@ -9,7 +9,7 @@ export default function Form() {
   };
   const [state, dispatch] = useFormState(create_project, initialState);
   return (
-    <form action={dispatch} className="w-full rounded-md bg-gray-200 dark:bg-slate-950 p-4 md:p-6">
+    <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-950 p-4 md:p-6">
       {/* Task Name */}
       <div className="mb-4">
         <label htmlFor="name" className="mb-2 block text-xl font-medium">

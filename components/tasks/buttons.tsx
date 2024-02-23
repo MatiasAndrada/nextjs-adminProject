@@ -18,7 +18,7 @@ export function CreateTask() {
     return (
         <Link
             href={`/dashboard/invoices/${id}/edit`}
-            className="rounded-md border p-2 hover:bg-gray-100"
+            className="rounded-md border p-2 hover:bg-slate-300"
         >
             <PencilIcon className="w-5" />
         </Link>
@@ -30,7 +30,7 @@ export function DeleteInvoice({ id }: { id: string }) {
     return (
         <>
             <form >
-                <button className="rounded-md border p-2 hover:bg-gray-100">
+                <button className="rounded-md border p-2 hover:bg-slate-300">
                     <span className="sr-only">Delete</span>
                     <TrashIcon className="w-5" />
                 </button>

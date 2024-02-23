@@ -1,18 +1,17 @@
 
 import { fetch_filtered_task_group } from "@/data/task-group";
-import { Criticality } from "@prisma/client";
-import { Status } from "@prisma/client";
+import type { TaskGroup } from '@prisma/client';
+import { Criticality, Status } from "@prisma/client";
 import { formatDate, convertFractionStringToPercentage } from '@/lib/utils';
 export default async function TaskGroupTable({
     query,
     currentPage,
+    taskGroup
 }: {
     query: string;
     currentPage: number;
+    taskGroup: Partial<TaskGroup>[];
 }) {
-    const task_groups = await fetch_filtered_task_group(query, currentPage);
-
-
     return (
         <table className="min-w-full  w-full text-xs text-center">
             <colgroup>
@@ -33,7 +32,7 @@ export default async function TaskGroupTable({
                 </tr>
             </thead>
             <tbody>
-                {task_groups.map(({ id, name, progress, updatedAt, status, criticality }) => (
+                {taskGroup.map(({ id, name, progress, updatedAt, status, criticality }) => (
                     <tr
                         key={id}
                         className="border-b border-opacity-20 dark:dark:border-gray-700 dark:dark:bg-gray-900"
@@ -47,15 +46,15 @@ export default async function TaskGroupTable({
                         <td className="py-3 text-sm" role="cell">
                             <div className="mx-2 flex font-bold">
                                 <div
-                                    className="h-2 w-16 rounded-full bg-gray-200 dark:bg-navy-700"
+                                    className="h-2 w-16 rounded-full bg-slate-600 dark:bg-navy-700"
                                 >
 
                                     <div className="mx-auto flex items-center">
-                                        <div className="h-2 w-16 rounded-full bg-gray-200 dark:bg-navy-700">
+                                        <div className="h-2 w-16 rounded-full bg-slate-300 dark:bg-navy-700">
                                             <div
                                                 className="flex h-full items-center justify-center rounded-md bg-brand-500 dark:bg-green-400"
                                                 style={{
-                                                    width: convertFractionStringToPercentage(progress),
+                                                    width: convertFractionStringToPercentage(progress ?? ''),
                                                 }}
                                             ></div>
                                         </div>
@@ -64,7 +63,8 @@ export default async function TaskGroupTable({
                             </div>
                         </td>
                         <td className="p-3 text-center">
-                            <p>{formatDate(updatedAt)}</p>
+                            {updatedAt &&
+                                <p>{formatDate(updatedAt)}</p>}
                         </td>
                         <td className="p-3">
                             <span className={`px-3 py-1 font-semibold rounded-md 

@@ -11,7 +11,7 @@ export default async function HeaderDashboard({ id }: { id: string }) {
     return (
         <section className="col-span-3 row-span-1 ">
             <div className="container grid grid-cols-1 gap-2  mx-auto sm:grid-cols-2 xl:grid-cols-5">
-                <div className="flex flex-col justify-center items-center p-4 rounded-lg  bg-gray-200 dark:bg-slate-800">
+                <div className="flex flex-col justify-center items-center p-4 rounded-lg  bg-slate-300 dark:bg-slate-800">
                     <p className="text-md antialiased font-semibold leading-6 ">Create new task group</p>
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
@@ -19,7 +19,7 @@ export default async function HeaderDashboard({ id }: { id: string }) {
                     </svg>
 
                 </div>
-                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-100">
+                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-slate-300 dark:bg-slate-800 dark:text-gray-100">
                     <div className="flex justify-center items-center p-2 align-middle rounded-lg sm:p-4 dark:bg-blue-400">
                         <DocumentCheckIcon className="h-6 w-6 dark:text-gray-800" />
                     </div>
@@ -28,7 +28,7 @@ export default async function HeaderDashboard({ id }: { id: string }) {
                         <p className="capitalize">Completed Task</p>
                     </div>
                 </div>
-                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-100">
+                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-slate-300 dark:bg-slate-800 dark:text-gray-100">
                     <div className="flex justify-center items-center p-2 align-middle rounded-lg sm:p-4 dark:bg-blue-400">
                         <RectangleStackIcon className="h-6 w-6 dark:text-gray-800" />
                     </div>
@@ -37,7 +37,7 @@ export default async function HeaderDashboard({ id }: { id: string }) {
                         <p className="capitalize">Completed Task Group</p>
                     </div>
                 </div>
-                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-100">
+                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-slate-300 dark:bg-slate-800 dark:text-gray-100">
                     <div className="flex justify-center items-center p-2 align-middle rounded-lg sm:p-4 dark:bg-blue-400">
                         <UserGroupIcon className="h-6 w-6 dark:text-gray-800" />
                     </div>
@@ -46,7 +46,7 @@ export default async function HeaderDashboard({ id }: { id: string }) {
                         <p className="capitalize">Members</p>
                     </div>
                 </div>
-                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-100">
+                <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-slate-300 dark:bg-slate-800 dark:text-gray-100">
                     <div className="flex justify-center items-center p-2 align-middle rounded-lg sm:p-4 dark:bg-blue-400">
                         <CalendarDaysIcon className="h-6 w-6 dark:text-gray-800" />
                     </div>

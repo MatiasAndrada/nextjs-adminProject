@@ -19,7 +19,7 @@ const ButtonViewProject = ({ projectId }: { projectId: string }) => {
 
     return (
         <button
-            className=' className="flex items-center text-purple-600 bg-purple-100 hover:bg-purple-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"'
+            className=' className="flex items-center text-blue-600 bg-blue-100 hover:bg-blue-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"'
             onClick={handleViewProject}
         >
             <EyeIcon className="w-6 h-6 mr-2" />

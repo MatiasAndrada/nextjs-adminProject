@@ -23,12 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased dark:bg-slate-950 text-gray-900 dark:text-white`} id="main_layout">
-
+      <body className={`${inter.className} antialiased bg-slate-200 dark:bg-slate-900 text-black dark:text-white`} id="main_layout">
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
-
       </body>
     </html>
   );

@@ -64,7 +64,7 @@ const Filter = () => {
                 Toggle Filters
             </button>
             {isModalOpen && (
-                <div className="absolute top-30 right-50 mt-2 w-64 bg-gray-200 dark:bg-slate-900 border text-black dark:text-white border-gray-200 rounded-lg shadow-lg">
+                <div className="absolute top-30 right-50 mt-2 w-64 bg-slate-300 dark:bg-slate-900 border text-black dark:text-white border-gray-200 rounded-lg shadow-lg">
                     <form action="" className="flex border-t border-gray-200" onChange={handleUpdateParams}>
                         <fieldset className="w-full">
                             <legend className="block w-full px-5 py-3 text-xs font-medium">Criticality</legend>

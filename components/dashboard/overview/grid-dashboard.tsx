@@ -4,7 +4,8 @@ import MainDashboard from "./main-dashboard";
 import AsideDashboard from "./aside-dashboard";
 import { currentSelectedProject } from "@/hooks/use-current-project";
 
-export default async function GridDashboard() {
+export default async function GridDashboard({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
+
     const project = await currentSelectedProject();
     if (project) {
         const { id, name, description } = project;
@@ -14,7 +15,7 @@ export default async function GridDashboard() {
                 <div className="h-screen  grid grid-cols-3 grid-rows-6 gap-1">
                     <>
                         <HeaderDashboard id={id} />
-                        <MainDashboard name={name} description={description ?? null} />
+                        <MainDashboard name={name} description={description ?? null} searchParams={searchParams} />
                         <AsideDashboard />
                     </>
 
