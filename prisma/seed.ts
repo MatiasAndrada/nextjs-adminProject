@@ -157,8 +157,9 @@ async function main() {
     //! TASK CREATION
     console.log("Creating task if not exist");
     // buscar si están todas las tareas dentro de cada taskGroup
-    for (let i = 0; i < task_groups.length; i++) {
-      console.log("Checking taskGroup", i, "of", task_groups.length);
+    const taskGroupIndex = task_groups.length - 1;
+    for (let i = 0; i <= taskGroupIndex; i++) {
+      console.log("Checking taskGroup", i, "of", taskGroupIndex);
       const taskExistInEachTaskGroup = await prisma.task.findMany({
         where: {
           task_group_id: task_groups[i].id,
@@ -173,18 +174,15 @@ async function main() {
       ) {
         // si la cantidad de tareas existentes en cada taskGroup es menor a la cantidad de tareas que pertenecen a cada taskGroup
         console.log(
-          "There are tasks that do not exist in the task group" +
-          taskExistInEachTaskGroup.length +
-          "of" +
-          filterTaskArray.length
+          ` There are tasks that do not exist in the task group ${taskExistInEachTaskGroup.length} of ${filterTaskArray.length}`
         );
         await prisma.task.createMany({
           data: filterTaskArray,
         });
       } else {
-        console.log("The tasks already exist in the task group" + i);
+        console.log("The tasks already exist in the task group " + i);
       }
-      console.log("Task in TaskGroup", i, "of", task_groups.length, "checked");
+      console.log("Task in TaskGroup", i, "of", taskGroupIndex, "checked");
     }
   } catch (e) {
     console.error(e);

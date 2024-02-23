@@ -9,25 +9,27 @@ body,
   --secondary: #215fa7;
   --highlight: #3ee586;
   /* !Status */
-  --status-paused: #f57023;
-  --status-pending: #f5ef34;
-  --status-in_progress: #1ca2eb;
+  --status-paused: #f5a523;
+  --status-paused-foreground: #56330a;
+  --status-pending: #fff700;
+  --status-pending-foreground: #5d5b08;
+  --status-in_progress: #0cc7e9;
+  --status-in_progress-foreground: #063942;
   --status-completed: #00fc11;
+  --status-completed-foreground: #035209;
   /* !Criticality */
   --criticality-low: #00d5ff;
-  --criticality-medium: #0067f7;
+  --criticality-low-foreground: #02505f;
+  --criticality-medium: #0f37da;
+  --criticality-medium-foreground: #8d9dd1;
   --criticality-high: #f59e23;
+  --criticality-high-foreground: #482e0a;
   --criticality-critical: #e71d1d;
+  --criticality-critical-foreground: #650f0f;
 }
 
 @layer base {
   :root {
-    /* !Criticality */
-    --criticality-low: #f5a623;
-    --medium: #f5a623;
-    --criticality-high: #f5a623;
-    --criticality-critical: #f5a623;
-
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 

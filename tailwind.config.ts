@@ -32,17 +32,25 @@ const config: Config = {
           500: '#0070F3',
           600: '#2F6FEB',
         },
-        status: {
+        'status': {
           paused: "var(--status-paused)",
+          paused_foreground: "var(--status-paused-foreground)",
           pending: "var(--status-pending)",
+          pending_foreground: "var(--status-pending-foreground)",
           in_progress: "var(--status-in_progress)",
+          in_progress_foreground: "var(--status-in_progress-foreground)",
           completed: "var(--status-completed)",
+          completed_foreground: "var(--status-completed-foreground)",
         },
         'criticality': {
           low: "var(--criticality-low)",
+          low_foreground: "var(--criticality-low-foreground)",
           medium: "var(--criticality-medium)",
+          medium_foreground: "var(--criticality-medium-foreground)",
           high: "var(--criticality-high)",
+          high_foreground: "var(--criticality-high-foreground)",
           critical: "var(--criticality-critical)",
+          critical_foreground: "var(--criticality-critical-foreground)",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

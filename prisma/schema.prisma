@@ -129,7 +129,7 @@ model TaskGroup {
   project     Project     @relation(fields: [project_id], references: [id])
   task        Task[]
   name        String      @db.VarChar(80)
-  description String?     @db.VarChar(4000)
+  description String?     @db.VarChar(1000)
   status      Status      @default(PENDING)
   progress    String      @default("0/0") @db.VarChar(12)
   criticality Criticality

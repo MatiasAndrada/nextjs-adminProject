@@ -27,6 +27,7 @@ export async function fetch_filtered_task_group(
       select: {
         id: true,
         name: true,
+        description: true,
         progress: true,
         updatedAt: true,
         status: true,

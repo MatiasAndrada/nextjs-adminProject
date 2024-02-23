@@ -11,3 +11,12 @@ declare module "next-auth" {
         user: ExtendedUser;
     }
 }
+declare module "next-auth/jwt" {
+    /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
+    interface JWT {
+        selected_project_id: string;
+        isTwoFactorEnabled: boolean;
+        email: string;
+        isOAuth: boolean;
+    }
+}

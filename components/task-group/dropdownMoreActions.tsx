@@ -6,7 +6,7 @@ const DropdownMoreActions = () => {
         <div>
             <main className=" p-2  flex items-center justify-center">
                 <button
-                    className="z-40 relative group transition-all duration-200 focus:overflow-visible w-max h-max p-2 overflow-hidden flex flex-row items-center justify-center  gap-2 rounded-lg border border-black dark:border-gray-200">
+                    className="z-40 relative group transition-all duration-200 focus:overflow-visible w-max h-max p-2 overflow-hidden flex flex-row items-center justify-center  gap-2 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-950 border-black dark:border-gray-200">
                     <span>
                         More Actions
                     </span>

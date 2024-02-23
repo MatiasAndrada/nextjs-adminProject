@@ -10,7 +10,7 @@ import { getAccountByUserId } from "@/data/account";
 const adapter = PrismaAdapter(db);
 
 export const {
-    handlers,
+    handlers: { GET, POST },
     auth,
     signIn,
     signOut,
@@ -78,7 +78,7 @@ export const {
 
             const existingUser = await getUserById(token.sub);
 
-            if (!existingUser) return token; 909
+            if (!existingUser) return token;
 
             const existingAccount = await getAccountByUserId(
                 existingUser.id

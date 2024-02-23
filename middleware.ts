@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { NextResponse } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 
 //import type { NextRequest } from 'next/server';
 import authConfig from "@/auth.config";
@@ -21,14 +21,14 @@ export default auth((req) => {
 
 
     if (isApiAuthRoute) {
-        return null;
+        return /* null */;
     }
 
     if (isAuthRoute) {
         if (isLoggedIn) {
             return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
         }
-        return null;
+        return /* null */;
     }
 
 
@@ -36,7 +36,7 @@ export default auth((req) => {
         return NextResponse.redirect(new URL("/", nextUrl));
     }
 
-    return null;
+    return /* null */;
 })
 
 // Optionally, don't invoke Middleware on some paths
