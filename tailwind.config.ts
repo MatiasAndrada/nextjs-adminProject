@@ -26,7 +26,7 @@ const config: Config = {
       colors: {
         primary: `var(--primary)`,
         secondary: `var(--secondary)`,
-        highlight: `var(--highligh)`,
+        highlight: `var(--highlight)`,
         blue: {
           400: '#2589FE',
           500: '#0070F3',

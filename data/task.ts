@@ -11,7 +11,27 @@ import { Status } from '@prisma/client'
 
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASKS;
 
-export async function fetch_task_of_task_group_for_table(
+export async function fetch_filtered_task(query: string, currentPage: number) {
+    noStore(); // disable Next.js' response caching
+    const OFFSET = (currentPage - 1) * ITEMS_PER_PAGE;
+    try {
+        const task = await db.task.findMany({
+            where: {
+                name: {
+                    contains: query,
+                    mode: 'insensitive',
+                },
+            },
+            take: ITEMS_PER_PAGE,
+            skip: OFFSET,
+        });
+        return task;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch tasks.');
+    }
+}
+export async function fetch_task_of_task_group(
     task_group_id: string, // id del grupo de tareas
     currentPage: number, // pagina actual
     /*   selectedColumns: SelectedColumns, // columnas seleccionadas */
@@ -53,34 +73,14 @@ export async function fetch_task_of_task_group_for_table(
     }
 
 }
-// fetch_task_of_task_group_for_table no tiene definida la funcion de busqueda aun crear otra fn o modificar esta
 
-export async function fetch_all_tasks_of_project() {
-    noStore(); // disable Next.js' response caching
-    const task_group_ids = await fetch_all_task_groups_ids();
-    try {
-        const task = await db.task.findMany({
-            where: {
-                task_group_id: {
-                    in: task_group_ids.map((taskGroup) => taskGroup.id),
-                },
-            },
-        });
-
-        return task;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch tasks.');
-    }
-}
-
-export async function fetch_task_pages(task_group_id: string, query: string) {
+export async function fetch_task_pages(query: string, task_group_id?: string | null) {
     //return number of pages
     noStore();
     try {
         const count = await db.task.count({
             where: {
-                task_group_id: task_group_id,
+                task_group_id: task_group_id ? task_group_id : undefined,
                 name: {
                     contains: query, // search by name
                     mode: 'insensitive',
@@ -93,7 +93,6 @@ export async function fetch_task_pages(task_group_id: string, query: string) {
         console.error('Database Error:', err);
         throw new Error('Failed to fetch task pages.')
     }
-
 }
 
 //devolver el total de tareas activas

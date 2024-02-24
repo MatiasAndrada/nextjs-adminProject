@@ -1,25 +1,28 @@
 
 /* import { SelectedColumns } from "@/definitions/task"; */
-import type { Task } from "@prisma/client";
-import TableBody from "@/components/tasks/table-body";
+import { fetch_filtered_task, fetch_task_of_task_group } from "@/data/task";
+import TableBody from "./table-body";
 
+export default async function Table({ query, currentPage, task_group_id }: {
+    query: string, currentPage: number,
+    task_group_id?: string
+}) {
 
-export default async function Table({ tasks }: { tasks: any }) {
-
+    let tasks;
+    if (task_group_id) {
+        tasks = await fetch_task_of_task_group(task_group_id, currentPage);
+    } else {
+        tasks = await fetch_filtered_task(query, currentPage);
+    }
 
     const columnHeaders = [
         { key: "id", label: "Task Id" },
         { key: "name", label: "Name" },
-        /*         { key: "owner_id", label: "Owner" }, */
         { key: "status", label: "Status" },
         { key: "progress", label: "Progress" },
         { key: "updated at", label: "updatedAt" },
     ];
 
-    /*  const filteredColumnHeaders = columnHeaders.filter(column => selectedColumns[column.key as keyof SelectedColumns]); */
-    /*     const filteredColumnHeaders = columnHeaders.filter(column => selectedColumns[column.key as keyof Partial<Task>]); */
-
-    //El uso de as keyof SelectedColumns es una afirmación de tipo en TypeScript que dice que column.key es una clave del tipo SelectedColumns.
     return (
         <section className="flex flex-col justify-center antialiased">
             <div className="h-full">

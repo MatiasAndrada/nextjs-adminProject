@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import { Metadata } from 'next';
+import { Metadata } from "next";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
-import TaskGroupGrid from '@/components/task-group/task-group-grid';
+import TaskGroupGrid from "@/components/task-group/task-group-grid";
 import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/buttons";
 import { fetch_task_group_pages } from "@/data/task-group";
@@ -10,21 +10,31 @@ import { fetch_task_group_pages } from "@/data/task-group";
 import { lusitana } from "@/components/fonts";
 
 export const metadata: Metadata = {
-    title: 'Tasks group',
+    title: "Tasks group",
 };
 
-export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; }; }) {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: { query?: string; page?: string };
+}) {
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
     /*     const project_id = localStorage.getItem("SELECTED_PROJECT") */
-    const totalPages = await fetch_task_group_pages(query)
+    const totalPages = await fetch_task_group_pages(query);
     return (
         <div className="w-full">
             <div className="flex flex-col gap-8 w-full items-start justify-between">
-                <Breadcrumbs breadcrumbs={[
-                    { label: 'Dashboard', href: '/dashboard' },
-                    { label: 'Task Groups', href: '/dashboard/task-groups', active: true },
-                ]} />
+                <Breadcrumbs
+                    breadcrumbs={[
+                        { label: "Dashboard", href: "/dashboard" },
+                        {
+                            label: "Task Groups",
+                            href: "/dashboard/task-groups",
+                            active: true,
+                        },
+                    ]}
+                />
             </div>
             <h1 className={`${lusitana.className} text-4xl`}>Tasks groups</h1>
             <div>

@@ -17,7 +17,7 @@ export const BackButton = ({
     <Button
       variant="link"
       className="font-normal w-full"
-      size="sm"
+      size="default"
       asChild
     >
       <Link href={href}>

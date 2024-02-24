@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { UserGroupIcon, CalendarDaysIcon, RectangleStackIcon, DocumentCheckIcon } from "@heroicons/react/24/outline"
 import { fetch_count_in_progress_task_group, fetch_count_total_task_group } from "@/data/task-group"
 import { fetch_count_in_progress_task, fetch_count_total_tasks } from "@/data/task"
@@ -11,14 +12,14 @@ export default async function HeaderDashboard({ id }: { id: string }) {
     return (
         <section className="col-span-3 row-span-1 ">
             <div className="container grid grid-cols-1 gap-2  mx-auto sm:grid-cols-2 xl:grid-cols-5">
-                <div className="flex flex-col justify-center items-center p-4 rounded-lg  bg-slate-300 dark:bg-slate-800">
-                    <p className="text-md antialiased font-semibold leading-6 ">Create new task group</p>
+                <Link href={`/dashboard/task-groups/create`} className="flex flex-col justify-center items-center p-4 rounded-lg text-primary hover:text-secondary bg-slate-300 dark:bg-slate-800">
 
+                    <p className="text-md antialiased font-semibold leading-6 ">Create new task group</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
+                </Link>
 
-                </div>
                 <div className="flex justify-center items-center p-4 space-x-4 rounded-lg md:space-x-6 bg-slate-300 dark:bg-slate-800 dark:text-gray-100">
                     <div className="flex justify-center items-center p-2 align-middle rounded-lg sm:p-4 dark:bg-blue-400">
                         <DocumentCheckIcon className="h-6 w-6 dark:text-gray-800" />

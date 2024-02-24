@@ -39,5 +39,10 @@ Sistema de administración de tareas y usuarios para equipos de trabajo.
 - [x] Create Pages
 - [x] Create Components
 - [ ] Implement members invite
+- [ ] History of actions
+- [ ] Notifications
+- [ ] Sonners
+- [ ] Chat
+- [ ] Calendar
 
  

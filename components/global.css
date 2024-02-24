@@ -6,8 +6,8 @@ html,
 body,
 :root {
   --primary: #1482ff;
-  --secondary: #215fa7;
-  --highlight: #3ee586;
+  --secondary: #1367c7;
+  --highlight: #30ab18;
   /* !Status */
   --status-paused: #f5a523;
   --status-paused-foreground: #56330a;
@@ -45,8 +45,8 @@ body,
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%; */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: #2b2c37;
+    --muted-foreground: #171718;
 
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;

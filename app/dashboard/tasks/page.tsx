@@ -1,31 +1,37 @@
 import { Metadata } from "next";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
-import { CreateTask } from "@/components/tasks/buttons";
 import Table from "@/components/tasks/table-head";
-/* import Pagination from "@/components/pagination"; */
-import { fetch_all_tasks_of_project } from "@/data/task";
-import { fetch_task_pages } from "@/data/task";
+import Pagination from "@/components/pagination";
 import { lusitana } from "@/components/fonts";
-import type { Task } from "@prisma/client";
+import { CreateTask } from "@/components/tasks/buttons";
+import { fetch_task_pages } from "@/data/task";
 
 export const metadata: Metadata = {
-    title: 'Tasks | Dashboard',
+    title: "Tasks | Dashboard",
 };
 
-export default async function Page() {
-    const tasks = await fetch_all_tasks_of_project();
-
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: { query?: string; page?: string };
+}) {
+    /*     const tasks = await fetch_all_tasks_of_project(); */
+    const query = searchParams?.query || "";
+    const currentPage = Number(searchParams?.page) || 1;
+    const totalPages = await fetch_task_pages(query);
 
     return (
         <div className="w-full">
             <div className="flex flex-col gap-8 w-full items-start justify-between">
-                <Breadcrumbs breadcrumbs={[
-                    { label: 'Dashboard', href: '/dashboard' },
-                    { label: 'Tasks', href: '/dashboard/tasks', active: true },
-                ]} />
+                <Breadcrumbs
+                    breadcrumbs={[
+                        { label: "Dashboard", href: "/dashboard" },
+                        { label: "Tasks", href: "/dashboard/tasks", active: true },
+                    ]}
+                />
             </div>
-            <div >
+            <div>
                 <h1 className={`${lusitana.className} text-4xl mb-4`}>Tasks</h1>
                 <h2 className="text-xl font-bold">All task of project</h2>
             </div>
@@ -34,13 +40,13 @@ export default async function Page() {
                 <CreateTask />
             </div>
             <div className="mt-4 ">
-                <div>
 
-                    <Table tasks={tasks} />
-                    {/*
-                    <Pagination total={total} />
-            */}
-                </div>
+                <Table query={query} currentPage={currentPage} />
+                {totalPages > 1 &&
+                    <div className="flex w-full justify-center">
+                        <Pagination totalPages={totalPages} />
+                    </div>
+                }
             </div>
         </div>
     );
