@@ -12,7 +12,7 @@ const Schema = z.object({
         })
     ),
     name: z.string().max(80),
-    description: z.string().max(1000).optional(),
+    description: z.string().max(4000).optional(),
     status: z.nativeEnum(Status),
     progress: z.string().max(18),
     criticality: z.nativeEnum(Criticality),
@@ -23,16 +23,6 @@ const Schema = z.object({
 
 const CreateSchema = Schema.omit({
     id: true,
-    project: true,
-    task: true,
-    status: true,
-    progress: true,
-    createdAt: true,
-    updatedAt: true,
-    endsAt: true,
-});
-
-const UpdateSchema = Schema.omit({
     project: true,
     task: true,
     status: true,
@@ -53,4 +43,4 @@ export type State = {
 
 
 
-export { Schema, CreateSchema, UpdateSchema };
+export { Schema, CreateSchema };
