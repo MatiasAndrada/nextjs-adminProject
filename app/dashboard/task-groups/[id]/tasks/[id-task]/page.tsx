@@ -82,7 +82,6 @@ export default async function Page() {
                     </ul>
                 </div>
             </div>
-            {/* Additional sections for task management (e.g., comments, attachments, etc.) */}
         </div>
     );
 };
