@@ -33,7 +33,7 @@ export default async function Page({
             </div>
             <div>
                 <h1 className={`${lusitana.className} text-4xl mb-4`}>Tasks</h1>
-                <h2 className="text-xl font-bold">All task of project</h2>
+                <h2 className="text-xl font-bold">All task of projectSSS</h2>
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 mx-6">
                 <Search placeholder="Search task groups..." />
