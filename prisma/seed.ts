@@ -8,7 +8,6 @@ import {
 } from "../lib/placeholder-data";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
-import type { TaskGroup } from "@prisma/client";
 
 const prisma = db;
 

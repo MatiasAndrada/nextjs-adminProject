@@ -1,6 +1,6 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { delete_task_group } from '@/actions/task-group';
-import Link from 'next/link';
+/* import { deleteInvoice } from '@/actions';
+ */import Link from 'next/link';
 
 export function CreateTaskGroup() {
     return (
@@ -14,10 +14,10 @@ export function CreateTaskGroup() {
     );
 }
 
-export function UpdateTaskGroup({ id }: { id: string }) {
+/* export function UpdateInvoice({ id }: { id: string }) {
     return (
         <Link
-            href={`/dashboard/task-groups/${id}/edit`}
+            href={`/dashboard/invoices/${id}/edit`}
             className="rounded-md border p-2 hover:bg-slate-300"
         >
             <PencilIcon className="w-5" />
@@ -25,14 +25,13 @@ export function UpdateTaskGroup({ id }: { id: string }) {
     );
 }
 
-export function DeleteTaskGroup({ id }: { id: string }) {
-    /*     const deleteInvoiceWithId = delete_task_group.bind(null, id); */
+export function DeleteInvoice({ id }: { id: string }) {
+    const deleteInvoiceWithId = deleteInvoice.bind(null, id);
 
     return (
         <>
-            <form action={delete_task_group}>
-                <input type="hidden" name="inputId" value={id} />
-                <button type='submit' className="rounded-md border p-2 hover:bg-slate-300">
+            <form >
+                <button className="rounded-md border p-2 hover:bg-slate-300">
                     <span className="sr-only">Delete</span>
                     <TrashIcon className="w-5" />
                 </button>
@@ -40,3 +39,4 @@ export function DeleteTaskGroup({ id }: { id: string }) {
         </>
     );
 }
+ */

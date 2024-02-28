@@ -1,4 +1,8 @@
-"use client"
+/* import { useEffect, Suspense } from 'react'; */
+/* import Search from '@/components/search';
+import { lusitana } from '@/components/fonts';
+import { tasks } from '@/lib/placeholder-data';
+ */
 import Breadcrumbs from '@/components/breadcrumbs';
 import { Metadata } from 'next';
 
@@ -30,7 +34,7 @@ export default async function Page() {
                 { label: 'Dashboard', href: '/dashboard' },
                 { label: 'Task Groups', href: '/dashboard/task-groups', active: true },
                 {
-                    label: 'Task Group Task',
+                    label: 'Tasks of Task Group',
                     href: `/dashboard/task-groups/${task_group_id}`,
                     active: true,
                 },

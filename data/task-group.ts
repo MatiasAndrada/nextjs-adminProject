@@ -2,8 +2,9 @@ import { db } from '@/lib/db';
 import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals/globals';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
+import { formatDate } from '@/lib/utils';
 import { Status } from '@prisma/client';
-
+/* import type { TaskGroup } from '@/definitions/task-group'; */
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_filtered_task_group(
@@ -27,7 +28,7 @@ export async function fetch_filtered_task_group(
         id: true,
         name: true,
         description: true,
-        /*   progress: true, */
+        progress: true,
         updatedAt: true,
         status: true,
         criticality: true,
@@ -155,10 +156,10 @@ export async function fetch_count_total_task_group(id: string) {
   return dto;
 }
 
-export async function fetch_task_group_by_id(id: string) {
+export async function delete_task_group(id: string) {
   noStore();
   try {
-    const task_group = await db.taskGroup.findUnique({
+    const task_group = await db.taskGroup.delete({
       where: {
         id: id,
       },
@@ -167,7 +168,6 @@ export async function fetch_task_group_by_id(id: string) {
   }
   catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch task group.');
+    throw new Error('Failed to delete task group.');
   }
 }
-

@@ -34,7 +34,7 @@ export const task_groups = [
     name: "User Interface Development",
     description: "Task group focused on designing and implementing the user interface. Requires collaboration between UI/UX designers and front-end developers. Critical for delivering a seamless and visually appealing product.",
     status: Status.PENDING,
-    /*   progress: "3 / 7", */
+    progress: "3 / 7",
     criticality: Criticality.HIGH,
   },
   {
@@ -43,7 +43,7 @@ export const task_groups = [
     name: "Server Configuration",
     description: "Task group responsible for configuring and optimizing server settings. Involves collaboration with system administrators and backend developers. Critical for ensuring robust server performance.",
     status: Status.IN_PROGRESS,
-    /* progress: "10 / 10", */
+    progress: "10 / 10",
     criticality: Criticality.CRITICAL
   },
   {
@@ -52,7 +52,7 @@ export const task_groups = [
     name: "Functionality Testing",
     description: "Task group focused on thoroughly testing the functionality of the developed features. Involves coordination between QA testers and developers. Crucial for identifying and resolving bugs.",
     status: Status.IN_PROGRESS,
-    /* progress: "4 / 6", */
+    progress: "4 / 6",
     criticality: Criticality.HIGH
   },
   {
@@ -61,7 +61,7 @@ export const task_groups = [
     name: "Code Review",
     description: "Task group responsible for conducting code reviews to ensure code quality and adherence to coding standards. Collaboration between senior developers and the development team is essential.",
     status: Status.PAUSED,
-    /* progress: "4 / 7", */
+    progress: "4 / 7",
     criticality: Criticality.MEDIUM
   },
   {
@@ -70,7 +70,7 @@ export const task_groups = [
     name: "Performance Optimization",
     description: "Task group focused on optimizing the performance of the application. Requires collaboration between performance engineers and developers. Critical for delivering a fast and efficient product.",
     status: Status.PAUSED,
-    /* progress: "1 /3", */
+    progress: "1 /3",
     criticality: Criticality.MEDIUM
   },
   {
@@ -79,7 +79,7 @@ export const task_groups = [
     name: "Development of New Features",
     description: "Task group responsible for implementing new features as per project requirements. Collaboration between product managers and developers is crucial for delivering innovative functionalities.",
     status: Status.IN_PROGRESS,
-    /* progress: "2/7", */
+    progress: "2/7",
     criticality: Criticality.MEDIUM
   },
   {
@@ -88,7 +88,7 @@ export const task_groups = [
     name: "Technical Feasibility Analysis",
     description: "Task group focused on analyzing the technical feasibility of proposed features. Requires collaboration between technical analysts and development teams. Critical for informed decision-making.",
     status: Status.PAUSED,
-    /* progress: "2 / 4", */
+    progress: "2 / 4",
     criticality: Criticality.LOW
   },
 ];
