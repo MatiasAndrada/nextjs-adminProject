@@ -24,18 +24,18 @@ export default async function Page({
     const totalPages = await fetch_task_group_pages(query);
     return (
         <div className="w-full">
-            <div className="flex flex-col gap-8 w-full items-start justify-between">
-                <Breadcrumbs
-                    breadcrumbs={[
-                        { label: "Dashboard", href: "/dashboard" },
-                        {
-                            label: "Task Groups",
-                            href: "/dashboard/task-groups",
-                            active: true,
-                        },
-                    ]}
-                />
-            </div>
+
+            <Breadcrumbs
+                breadcrumbs={[
+                    { label: "Dashboard", href: "/dashboard" },
+                    {
+                        label: "Task Groups",
+                        href: "/dashboard/task-groups",
+                        active: true,
+                    },
+                ]}
+            />
+
             <h1 className={`${lusitana.className} text-4xl`}>Tasks groups</h1>
             <div>
                 <div className="mt-4 flex items-center justify-between gap-2 mx-6">

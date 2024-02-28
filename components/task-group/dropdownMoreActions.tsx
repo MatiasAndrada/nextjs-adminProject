@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from 'react'
 
 const DropdownMoreActions = () => {
@@ -20,12 +20,12 @@ const DropdownMoreActions = () => {
                         <span className="flex flex-row gap-2 items-center hover:slate-200 hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
                             <p>Rename</p>
                         </span>
+                        <a>
+                            <span className="flex flex-row gap-2 items-center hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
+                                <p>Update</p>
+                            </span>
+                        </a>
                         <span className="flex flex-row gap-2 items-center hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
-
-                            <p>Update</p>
-                        </span>
-                        <span className="flex flex-row gap-2 items-center hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
-
                             <p>Delete</p>
                         </span>
                     </div>

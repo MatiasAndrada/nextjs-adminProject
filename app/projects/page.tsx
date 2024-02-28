@@ -44,9 +44,9 @@ export default async function Page() {
                 </Link>
             </div>
 
-            <Suspense fallback={<CardsSkeleton />}>
-                <CardWrapper />
-            </Suspense>
+            {/*             <Suspense fallback={<CardsSkeleton />}> */}
+            <CardWrapper />
+            {/*             </Suspense> */}
             <div className="flex items-center justify-between">
                 <h2 className="text-lg font-medium ">Projects with you</h2>
             </div>
