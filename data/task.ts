@@ -3,13 +3,25 @@ import { currentUser } from '@/hooks/use-current-user';
 import { fetch_all_task_groups_ids } from './task-group';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ITEMS_PER_PAGE_TASKS } from '@/globals/globals';
-import {
-    SearchFields,
-    SelectedColumns,
-} from '@/definitions/task';
+
 import { Status } from '@prisma/client'
 
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASKS;
+
+export async function fetch_task(id: string) {
+    noStore(); // disable Next.js' response caching
+    try {
+        const task = await db.task.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        return task;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch task.');
+    }
+}
 
 export async function fetch_filtered_task(query: string, currentPage: number) {
     noStore(); // disable Next.js' response caching
@@ -31,7 +43,7 @@ export async function fetch_filtered_task(query: string, currentPage: number) {
         throw new Error('Failed to fetch tasks.');
     }
 }
-export async function fetch_task_of_task_group(
+export async function fetch_tasks_of_task_group(
     task_group_id: string, // id del grupo de tareas
     currentPage: number, // pagina actual
     /*   selectedColumns: SelectedColumns, // columnas seleccionadas */
@@ -94,6 +106,8 @@ export async function fetch_task_pages(query: string, task_group_id?: string | n
         throw new Error('Failed to fetch task pages.')
     }
 }
+
+
 
 //devolver el total de tareas activas
 export async function fetch_count_in_progress_task(projectId: string) {

@@ -54,7 +54,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
         return () => {
             window.removeEventListener('click', handleOutsideClick);
         };
-    }, []);
+    }, [selectedItem, setSelectedProjectStore]);
 
     return (
         <div className="relative inline-block mx-2 text-left z-50">

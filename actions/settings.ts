@@ -1,4 +1,4 @@
-"use server";
+/* "use server";
 
 import * as z from "zod";
 import bcrypt from "bcryptjs";
@@ -85,4 +85,4 @@ export const settings = async (
   });
 
   return { success: "Settings Updated!" }
-}
+} */

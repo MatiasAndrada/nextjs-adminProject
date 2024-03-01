@@ -19,7 +19,7 @@ export default async function CardWrapper() {
         {
           projects === null ? (
             <div className="flex flex-col items-center justify-center">
-              <h2 className="text-lg font-medium ">You don't have any projects yet.</h2>
+              <h2 className="text-lg font-medium ">You don t have any projects yet.</h2>
               <Link href="/projects/new">
                 <Button
                   variant="create"

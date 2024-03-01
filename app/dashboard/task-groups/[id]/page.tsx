@@ -5,7 +5,6 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
 import { fetch_task_pages } from "@/data/task";
-import type { Task } from "@prisma/client";
 
 export default async function Page({ params, searchParams }: { params: { id: string }, searchParams: { page: string, query: string } }) {
     const id = params.id;

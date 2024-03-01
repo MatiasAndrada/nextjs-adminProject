@@ -1,6 +1,6 @@
 
 /* import { SelectedColumns } from "@/definitions/task"; */
-import { fetch_filtered_task, fetch_task_of_task_group } from "@/data/task";
+import { fetch_filtered_task, fetch_tasks_of_task_group } from "@/data/task";
 import TableBody from "./table-body";
 
 export default async function Table({ query, currentPage, task_group_id }: {
@@ -10,7 +10,7 @@ export default async function Table({ query, currentPage, task_group_id }: {
 
     let tasks;
     if (task_group_id) {
-        tasks = await fetch_task_of_task_group(task_group_id, currentPage);
+        tasks = await fetch_tasks_of_task_group(task_group_id, currentPage);
     } else {
         tasks = await fetch_filtered_task(query, currentPage);
     }

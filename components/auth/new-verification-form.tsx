@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 
@@ -46,13 +46,15 @@ export const NewVerificationForm = () => {
       backButtonHref="/auth/login"
     >
       <div className="flex items-center w-full justify-center">
-        {!success && !error && (
-          <BeatLoader />
-        )}
-        <FormSuccess message={success} />
-        {!success && (
-          <FormError message={error} />
-        )}
+        <Suspense fallback={<BeatLoader />}>
+          {!success && !error && (
+            <BeatLoader />
+          )}
+          <FormSuccess message={success} />
+          {!success && (
+            <FormError message={error} />
+          )}
+        </Suspense>
       </div>
     </CardWrapper>
   )

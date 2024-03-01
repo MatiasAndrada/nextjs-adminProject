@@ -1,6 +1,6 @@
 import { fetch_filtered_task_group } from "@/data/task-group";
 import TaskGridItem from "@/components/task-group/task-group-grid-item";
-import type { TaskGroup } from "@/definitions/task";
+
 
 export default async function TaskGroupGrid({
     query,

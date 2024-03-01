@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
 import { formatDate, formatDateToLocal } from "@/lib/utils";
+import Image from "next/image";
 import type { TaskGroup } from "@prisma/client";
 import { Criticality, Status } from "@prisma/client";
 
@@ -108,7 +109,7 @@ export default async function TaskGridItem({
           <span className="mr-2 text-xs font-bold text-slate-500 dark:text-slate-400 ">Assigned to:</span>
           <dd className="flex justify-start -space-x-1.5">
             {/*<a href='#' className='inline-block -m-1'>*/}
-            <img
+            <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
               src="https://randomuser.me/api/portraits/women/46.jpg"
               alt="avatar"
@@ -116,14 +117,14 @@ export default async function TaskGridItem({
             {/*</a>*/}
             {/*
               <a href='#' className='inline-block -m-1'> */}
-            <img
+            <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
               src="https://randomuser.me/api/portraits/men/45.jpg"
               alt="avatar"
             />
             {/*</a>
               <a href='#' className='inline-block -m-1'>*/}
-            <img
+            <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
               src="https://randomuser.me/api/portraits/women/47.jpg"
               alt="avatar"
@@ -156,7 +157,7 @@ export default async function TaskGridItem({
             href={`task-groups/` + id + `/tasks`}
             className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 border-2 border-black  hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
           >
-            <span>View Project</span>
+            <span>View Tasks</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

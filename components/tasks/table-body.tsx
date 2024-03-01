@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { SearchFields } from "@/definitions/task";
+/* import { SearchFields } from "@/definitions/task"; */
 import { DocumentIcon } from "@heroicons/react/24/outline";
 import type { Task } from "@prisma/client";
 import { Status } from "@prisma/client";
@@ -13,11 +13,11 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                 <tr
                     key={id}
                     className="table-row-link
-                bg-slate-300 dark:bg-slate-950
-                hover:bg-slate-200 dark:hover:bg-slate-900 dark:border-gray-700 dark:bg-gray-90 cursor-pointer
-                "
+                        bg-slate-300 dark:bg-slate-950
+                        hover:bg-slate-200 dark:hover:bg-slate-900 dark:border-gray-700 dark:bg-gray-90 cursor-pointer
+                        "
                     onClick={() => {
-                        router.push(`/dashboard/task-groups/${task_group_id}/tasks/${id}`);
+                        router.push(`/dashboard/task-groups/${task_group_id}/task/${id}`);
                     }}
                 >
                     <td className="p-2 whitespace-nowrap">
@@ -53,6 +53,7 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                             {updatedAt?.toString().slice(0, 10)}
                         </div>
                     </td>
+
                 </tr>
             ))}
         </tbody>
