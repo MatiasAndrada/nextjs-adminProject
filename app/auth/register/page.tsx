@@ -1,8 +1,12 @@
+import { Suspense } from "react";
+import { Loader1 } from "@/components/loaders";
 import { RegisterForm } from "@/components/auth/register-form";
 
 const RegisterPage = () => {
   return (
-    <RegisterForm />
+    <Suspense fallback={<Loader1 />}>
+      <RegisterForm />
+    </Suspense>
   );
 }
 
