@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import NavLinks from '@/components/dashboard/nav-links';
 import DropDown from "@/components/dashboard/drop-down-select-project"
-import AcmeLogo from '@/components/acme-logo';
+import AcmeLogo from '@/components/project-admin-logo';
 import ThemeToggle from '@/components/ThemeToggle';
 import { LogoutButton } from '@/components/buttons-auth';
 import { fetch_projects } from "@/data/projects";
