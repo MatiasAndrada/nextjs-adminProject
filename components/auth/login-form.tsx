@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { CardWrapper } from "@/components/auth/card-wrapper"
+import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
@@ -26,9 +26,10 @@ import { login } from "@/actions/login";
 export const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ? "Email already in use with different provider!"
-    : "";
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider!"
+      : "";
 
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
@@ -68,6 +69,37 @@ export const LoginForm = () => {
     });
   };
 
+  const obSubmitTestUser = () => {
+    setError("");
+    setSuccess("");
+    const values = {
+      email: process.env.NEXT_PUBLIC_TEST_USER_EMAIL || "test@projectAdmin.com",
+      password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD || "password",
+    };
+    console.log(values);
+
+    startTransition(() => {
+      login(values, callbackUrl)
+        .then((data) => {
+          if (data?.error) {
+            form.reset();
+            setError(data.error);
+          }
+
+          if (data?.success) {
+            form.reset();
+            setSuccess(data.success);
+          }
+
+          if (data?.twoFactor) {
+            setShowTwoFactor(true);
+          }
+        })
+        .catch(() => setError("Something went wrong"));
+    });
+
+  }
+
   return (
     <CardWrapper
       headerLabel="Welcome back"
@@ -76,10 +108,7 @@ export const LoginForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {showTwoFactor && (
               <FormField
@@ -140,9 +169,7 @@ export const LoginForm = () => {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link href="/auth/reset">
-                          Forgot password?
-                        </Link>
+                        <Link href="/auth/reset">Forgot password?</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -153,15 +180,14 @@ export const LoginForm = () => {
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
-          <Button
-            disabled={isPending}
-            type="submit"
-            className="w-full"
-          >
+          <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
+          </Button>
+          <Button onClick={obSubmitTestUser} className="w-full">
+            Login with test user
           </Button>
         </form>
       </Form>
     </CardWrapper>
   );
-};
+}

@@ -14,11 +14,13 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-try {
-  const testResult = transporter.verify();
-  console.log("Email service is ready to take our messages", testResult);
-} catch (error) {
-  console.error("Error verifying email service:", error);
+async function main() {
+  try {
+    const testResult = await transporter.verify();
+    console.log("Email service is ready to take our messages", testResult);
+  } catch (error) {
+    console.error("Error verifying email service:", error);
+  }
 }
 
 export const mailOptions = {

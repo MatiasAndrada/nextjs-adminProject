@@ -14,6 +14,7 @@ const prisma = db;
 async function main() {
   let userId = "";
   try {
+
     //! USER CREATION
     console.log("Creating user if not exist");
     const userExist = await prisma.user.findMany({
@@ -38,18 +39,18 @@ async function main() {
       console.log("Generate Verification Token");
       const token = uuidv4();
       const expires = new Date(new Date().getTime() + 3600 * 1000);
-      const existingToken = await db.verificationToken.findFirst({
+      const existingToken = await prisma.verificationToken.findFirst({
         where: { email: testUser.email },
       });
       if (existingToken) {
         console.log("The token already exists, delete");
-        await db.verificationToken.delete({
+        await prisma.verificationToken.delete({
           where: {
             id: existingToken.id,
           },
         });
       }
-      const verificationToken = await db.verificationToken.create({
+      const verificationToken = await prisma.verificationToken.create({
         data: {
           email: testUser.email,
           token,
@@ -190,16 +191,16 @@ async function main() {
 }
 
 export default main()
-  .then(() => /* prisma.$disconnect() */ console.log("Seed finished"))
+  .then(() => prisma.$disconnect())
   .catch(async (e) => {
     console.error(e);
-    /*  await prisma.$disconnect(); */
-    /* process.exit(1); */
+    await prisma.$disconnect();
+    process.exit(1);
   });
 
 async function createVerificationEmail(token: string) {
   try {
-    const existingToken = await db.verificationToken.findUnique({
+    const existingToken = await prisma.verificationToken.findUnique({
       where: { token },
     });
     if (!existingToken) {
@@ -210,20 +211,20 @@ async function createVerificationEmail(token: string) {
         console.log("Token has expired");
       }
     }
-    const existingUser = await db.user.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email: testUser.email },
     });
     if (!existingUser) {
       return { error: "Email does not exist!" };
     }
-    await db.user.update({
+    await prisma.user.update({
       where: { id: existingUser.id },
       data: {
         emailVerified: new Date(),
         email: existingToken?.email,
       },
     });
-    /*         await db.verificationToken.delete({
+    /*         await prisma.verificationToken.delete({
                     where: { id: existingToken.id }
                 }); */
     console.log("Email verified");
