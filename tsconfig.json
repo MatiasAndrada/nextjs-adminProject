@@ -17,12 +17,12 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
-      },
+        "name": "next"
+      }
     ],
     "paths": {
-      "@/*": ["./*"],
-    },
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -32,6 +32,7 @@
     "app/lib/placeholder-data.js",
     "scripts/seed.js",
     "prisma/seed.ts",
+    "emails/auth.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
