@@ -52,7 +52,7 @@ export function Card({
 
   return (
     <div className="mx-auto my-10">
-      <div className="bg-slate-100 shadow-xl rounded-lg p-6 space-y-4">
+      <div className=" bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-6 space-y-4">
         <div className="flex items-center space-x-6">
           <div className="p-2 bg-purple-200 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -64,7 +64,7 @@ export function Card({
           </div>
           <div >
 
-            <h3 className="text-gray-600 text-xl w-fit">{name}</h3>
+            <h3 className="text-xl w-fit">{name}</h3>
 
             <span className="text-green-500 text-md font-medium flex items-center">
               #{id && id.slice(-3)}

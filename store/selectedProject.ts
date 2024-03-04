@@ -12,7 +12,6 @@ export const selectedProjectStore = create((set) => ({
         await setSelectedProject(null);
         set({ project: null });
     },
-
 }));
 
 

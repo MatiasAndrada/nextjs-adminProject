@@ -111,7 +111,9 @@ export default async function TaskGridItem({
             {/*<a href='#' className='inline-block -m-1'>*/}
             <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              src="https://randomuser.me/api/portraits/women/46.jpg"
+              width={36}
+              height={36}
+              src="/members-mock/balazs-orban.png"
               alt="avatar"
             />
             {/*</a>*/}
@@ -119,14 +121,18 @@ export default async function TaskGridItem({
               <a href='#' className='inline-block -m-1'> */}
             <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              src="https://randomuser.me/api/portraits/men/45.jpg"
+              width={36}
+              height={36}
+              src="/members-mock/emil-kowalski.png"
               alt="avatar"
             />
             {/*</a>
               <a href='#' className='inline-block -m-1'>*/}
             <Image
               className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              src="https://randomuser.me/api/portraits/women/47.jpg"
+              width={36}
+              height={36}
+              src="/members-mock/lee-robinson.png"
               alt="avatar"
             />
             {/* </a>*/}

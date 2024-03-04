@@ -10,6 +10,7 @@ interface DropDownProps {
     items?: Project[] | null;
 }
 export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
+    console.log("🦇  DropDown  selectedItem:", selectedItem)
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const selectedProject: Project | null = selectedProjectStore((state: any) => state.project);
     const setSelectedProjectStore = selectedProjectStore((state: any) => state.setProject);
@@ -34,7 +35,6 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
     }
 
     useEffect(() => {
-
 
         const handleOutsideClick = (event: MouseEvent) => {
             if (
