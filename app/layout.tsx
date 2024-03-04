@@ -1,6 +1,6 @@
 import "@/components/global.css";
 /* import '@radix-ui/themes/styles.css'; */
-import { NextAuthProvider } from "@/context/SessionAuthProvider";
+import NextAuthProvider from "@/context/SessionAuthProvider";
 import { inter } from "@/components/fonts";
 import { Metadata } from 'next';
 
