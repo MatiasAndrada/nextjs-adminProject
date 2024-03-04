@@ -11,7 +11,7 @@ interface DropDownProps {
 }
 export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const selectedProject = selectedProjectStore((state: any) => state.project);
+    const selectedProject: Project | null = selectedProjectStore((state: any) => state.project);
     const setSelectedProjectStore = selectedProjectStore((state: any) => state.setProject);
     const setSelectedDefaultProjectStore = selectedProjectStore((state: any) => state.setDefaultProject);
 
@@ -34,9 +34,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
     }
 
     useEffect(() => {
-        if (selectedItem !== null) {
-            setSelectedProjectStore(selectedItem);
-        }
+
 
         const handleOutsideClick = (event: MouseEvent) => {
             if (
@@ -54,7 +52,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
         return () => {
             window.removeEventListener('click', handleOutsideClick);
         };
-    }, [selectedItem, setSelectedProjectStore]);
+    });
 
     return (
         <div className="relative inline-block mx-2 text-left z-50">

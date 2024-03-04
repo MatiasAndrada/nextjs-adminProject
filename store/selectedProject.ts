@@ -11,11 +11,8 @@ export const selectedProjectStore = create((set) => ({
     setDefaultProject: async () => {
         await setSelectedProject(null);
         set({ project: null });
-    }
+    },
 
-    /*     fetchSelectedProject: async () => {
-            const res = await fetch("/api/selected-project");
-            const project = await res.json();
-            set({ project: project })
-        }, */
 }));
+
+
