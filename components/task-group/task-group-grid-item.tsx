@@ -9,7 +9,15 @@ import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
 export default async function TaskGridItem({
   task,
 }: {
-  task: TaskGroup;
+  task: {
+    id: string;
+    name: string;
+    description: string | null;
+    criticality: Criticality;
+    status: Status;
+    progress: string;
+    updatedAt: Date;
+  };
 }) {
   const {
     id,
@@ -18,7 +26,6 @@ export default async function TaskGridItem({
     criticality,
     status,
     progress,
-    endsAt,
     updatedAt,
   } = task;
   // Calcula los días restantes hasta la fecha de vencimiento
