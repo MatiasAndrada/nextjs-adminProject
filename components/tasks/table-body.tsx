@@ -13,8 +13,8 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                 <tr
                     key={id}
                     className="table-row-link
-                        bg-slate-300 dark:bg-slate-950
-                        hover:bg-slate-200 dark:hover:bg-slate-900 dark:border-gray-700 dark:bg-gray-90 cursor-pointer
+                        bg-slate-300 dark:bg-slate-900
+                        hover:bg-slate-200 dark:hover:bg-slate-800 dark:border-gray-700 dark:bg-gray-90 cursor-pointer
                         "
                     onClick={() => {
                         router.push(`/dashboard/task-groups/${task_group_id}/task/${id}`);

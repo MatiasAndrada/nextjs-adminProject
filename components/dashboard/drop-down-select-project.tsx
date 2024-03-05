@@ -1,6 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from 'react';
-import { selectedProjectStore } from "@/store/selectedProject";
+import { useCurrentProjectStore } from '@/context/currentProjectStore';
 import type { Project } from "@prisma/client";
 
 interface DropDownProps {
@@ -10,11 +11,9 @@ interface DropDownProps {
     items?: Project[] | null;
 }
 export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
-    console.log("🦇  DropDown  selectedItem:", selectedItem)
+    const router = useRouter();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const selectedProject: Project | null = selectedProjectStore((state: any) => state.project);
-    const setSelectedProjectStore = selectedProjectStore((state: any) => state.setProject);
-    const setSelectedDefaultProjectStore = selectedProjectStore((state: any) => state.setDefaultProject);
+    const { project, setProject, setDefaultProject } = useCurrentProjectStore((state) => state);
 
     //refs
     const dropdownButtonRef = useRef<HTMLButtonElement>(null);
@@ -24,17 +23,21 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
         setDropdownOpen(!isDropdownOpen);
     };
 
+
     const selectProject = async (project: Project) => {
-        await setSelectedProjectStore(project);
+        await setProject(project);
         setDropdownOpen(false);
     };
 
     async function selectDefaultProject() {
-        await setSelectedDefaultProjectStore();
+        await setDefaultProject();
         setDropdownOpen(false);
     }
 
     useEffect(() => {
+        if (selectedItem !== null) {
+            setProject(selectedItem);
+        }
 
         const handleOutsideClick = (event: MouseEvent) => {
             if (
@@ -52,7 +55,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
         return () => {
             window.removeEventListener('click', handleOutsideClick);
         };
-    });
+    }, []);
 
     return (
         <div className="relative inline-block mx-2 text-left z-50">
@@ -61,7 +64,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
                 onClick={toggleDropdown}
                 className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium  bg-white hover:bg-slate-100 dark:bg-slate-950 border dark:hover:bg-slate-800 border-black dark:border-white  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
-                {selectedProject !== null ? `Selected ${selectedProject?.name}` : `Select ${name}`}
+                {project !== null ? `Selected ${project?.name}` : `Select ${name}`}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`w-5 h-5 ml-2 -mr-1 transition-transform transform ${isDropdownOpen ? 'rotate-180' : 'rotate-0'
@@ -83,7 +86,7 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
                     }`}
             >
                 {
-                    items?.length && selectedProject !== null && <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
+                    items?.length && project !== null && <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
                         <button
                             className="block px-4 py-2 text-sm  hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
                             role="menuitem"
@@ -107,7 +110,9 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
                     )}
 
                 </div>
-                <button className="block w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <button className="block w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    onClick={() => router.push(`/projects/create`)}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block -mb-1 mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M10 2a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V3a1 1 0 011-1z" clipRule="evenodd" />
                     </svg>

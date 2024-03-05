@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
-import { formatDate, formatDateToLocal } from "@/lib/utils";
+/* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
 import type { TaskGroup } from "@prisma/client";
 import { Criticality, Status } from "@prisma/client";
-
 import DropdownMoreActions from "./dropdownMoreActions";
 
 export default async function TaskGridItem({
@@ -160,7 +159,7 @@ export default async function TaskGridItem({
         <div className="flex justify-between items-center overflow-visible">
           <DropdownMoreActions />
           <Link
-            href={`task-groups/` + id + `/tasks`}
+            href={`task-groups/` + id}
             className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 border-2 border-black  hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
           >
             <span>View Tasks</span>

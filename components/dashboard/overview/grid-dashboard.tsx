@@ -2,11 +2,11 @@
 import HeaderDashboard from "./header-dashboard";
 import MainDashboard from "./main-dashboard";
 import AsideDashboard from "./aside-dashboard";
-import { currentSelectedProject } from "@/hooks/use-current-project";
+import { currentProject } from "@/hooks/use-current-project";
 
 export default async function GridDashboard({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
 
-    const project = await currentSelectedProject();
+    const project = await currentProject();
     if (project) {
         const { id, name, description } = project;
         return (

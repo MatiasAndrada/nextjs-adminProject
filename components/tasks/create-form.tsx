@@ -11,7 +11,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
     const [state, dispatch] = useFormState(create_task, initialState);
 
     return (
-        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-950 p-4 md:p-6">
+        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             {/* Task Group Name */}
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">

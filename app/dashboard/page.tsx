@@ -6,7 +6,6 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton
 } from "@/components/skeletons";
-import { currentSelectedProject } from "@/hooks/use-current-project";
 import { Loader1 } from "@/components/loaders";
 
 export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
