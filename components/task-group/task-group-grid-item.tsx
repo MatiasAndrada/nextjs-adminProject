@@ -4,12 +4,12 @@ import { RectangleStackIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import type { TaskGroup } from "@prisma/client";
 import { Criticality, Status } from "@prisma/client";
-import DropdownMoreActions from "./dropdownMoreActions";
+import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
 
 export default async function TaskGridItem({
   task,
 }: {
-  task: Partial<TaskGroup>;
+  task: TaskGroup;
 }) {
   const {
     id,
@@ -157,7 +157,11 @@ export default async function TaskGridItem({
           </dd>
         </div>
         <div className="flex justify-between items-center overflow-visible">
-          <DropdownMoreActions />
+          <div className="flex gap-4">
+            <DeleteTaskGroup id={id} />
+            <UpdateTaskGroup id={id} />
+
+          </div>
           <Link
             href={`task-groups/` + id}
             className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 border-2 border-black  hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"

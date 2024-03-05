@@ -7,6 +7,22 @@ import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
 const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
 
+export async function fetch_task_group_by_id(id: string) {
+  noStore();
+  try {
+    const task_group = await db.taskGroup.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return task_group;
+  }
+  catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch task group.');
+  }
+}
+
 export async function fetch_filtered_task_group(
   query: string,
   currentPage: number

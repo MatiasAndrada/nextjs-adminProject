@@ -1,38 +1,27 @@
-"use client";
 import React from 'react'
+import Link from 'next/link'
+import { delete_task_group } from '@/actions/task-group'
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 
-const DropdownMoreActions = () => {
+
+const MoreActions = ({ id }: { id: string }) => {
     return (
-        <div>
-            <main className=" p-2  flex items-center justify-center">
-                <button
-                    className="z-40 relative group transition-all duration-200 focus:overflow-visible w-max h-max p-2 overflow-hidden flex flex-row items-center justify-center  gap-2 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-950 border-black dark:border-gray-200">
-                    <span>
-                        More Actions
-                    </span>
-                    <svg className="rotate-90 group-focus:rotate-180" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                        viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="m12 10.8l-3.9 3.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7l4.6-4.6q.3-.3.7-.3t.7.3l4.6 4.6q.275.275.275.7t-.275.7q-.275.275-.7.275t-.7-.275z" />
-                    </svg>
-                    <div
-                        className="absolute shadow-lg -bottom-40 left-0 w-full h-max p-2 bg-slate-300 dark:bg-slate-800  border-zinc-200 rounded-lg flex flex-col gap-2">
-                        <span className="flex flex-row gap-2 items-center hover:slate-200 hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
-                            <p>Rename</p>
-                        </span>
-                        <span className="flex flex-row gap-2 items-center hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
+        <div className=' flex gap-4'>
+            <form >
+                <span className="sr-only">Delete</span>
 
-                            <p>Update</p>
-                        </span>
-                        <span className="flex flex-row gap-2 items-center hover:bg-slate-200 hover:dark:bg-slate-950 p-2 rounded-lg">
+                <TrashIcon className='h-6 w-6' />
 
-                            <p>Delete</p>
-                        </span>
-                    </div>
-                </button>
-            </main>
+            </form>
+
+
+            <Link href={`/dashboard/task-groups/${id}/edit`} className='p-2 rounded-full hover:bg-slate-700'>
+                <PencilIcon className='h-6 w-6' />
+            </Link>
+
+
         </div >
     )
 }
 
-export default DropdownMoreActions
+export default MoreActions

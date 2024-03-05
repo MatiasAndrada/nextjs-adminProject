@@ -32,6 +32,17 @@ const CreateSchema = Schema.omit({
     endsAt: true,
 });
 
+const UpdateSchema = Schema.omit({
+    project: true,
+    task: true,
+    status: true,
+    progress: true,
+    createdAt: true,
+    updatedAt: true,
+    endsAt: true,
+});
+
+
 export type State = {
     errors?: {
         name?: string[],
@@ -43,4 +54,4 @@ export type State = {
 
 
 
-export { Schema, CreateSchema };
+export { Schema, CreateSchema, UpdateSchema };
