@@ -1,13 +1,15 @@
 "use client";
-
+import { Button } from "./ui/button";
 import { signIn, signOut } from "next-auth/react";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+
 import Link from "next/link";
 
 export const LoginButton = () => {
     return (
-        <button style={{ marginRight: 10 }} onClick={() => signIn()}>
-            Sign in
-        </button>
+        <Button onClick={() => signIn()} size={"lg"}>
+            <span className="mr-2">Sign In</span> <ArrowRightIcon className="w-5 md:w-6" />
+        </Button>
     );
 };
 

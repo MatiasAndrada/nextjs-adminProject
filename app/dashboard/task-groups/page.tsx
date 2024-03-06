@@ -9,10 +9,6 @@ import { fetch_task_group_pages } from "@/data/task-group";
 //!ADD SKELETON LOADING
 import { lusitana } from "@/components/fonts";
 
-export const metadata: Metadata = {
-    title: "Tasks group",
-};
-
 export default async function Page({
     searchParams,
 }: {

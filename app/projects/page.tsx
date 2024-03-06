@@ -18,7 +18,7 @@ export default async function Page() {
     return (
         <main>
             <div className="flex flex-row items-center justify-between">
-                <h1 className={`${lusitana.className} text-4xl mt-4 ml-4l`}>
+                <h1 className={`${lusitana.className} text-4xl `}>
                     Projects page
                 </h1>
                 <div className="flex flex-row items-center justify-between md:space-x-4">

@@ -1,9 +1,18 @@
+import { Metadata } from "next";
 import SideNav from "@/components/dashboard/sidenav";
 import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
 import { inter } from "@/components/fonts"
 /* import SelectedProjectStore from "@/context/selectedProjectStore"; */
 import { currentProject } from "@/hooks/use-current-project";
 
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Project Admin', // El %s se reemplazara con el título de la página especifica
+    default: 'Dashboard',
+  },
+  description: 'The official Next.js Course Dashboard, built with App Router.',
+  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+};
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const project = await currentProject();

@@ -7,16 +7,14 @@ import { inter } from "@/components/fonts";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  /**Next.js agregará automáticamente el título y los metadatos a su aplicación.
-
-Pero ¿qué pasa si deseas agregar un título personalizado para una página específica? Puede hacer esto agregando un metadata objeto a la propia página. Los metadatos de las páginas anidadas anularán los metadatos de la página principal. */
+  /*Next.js agregará automáticamente el título y los metadatos a su aplicación.
+. Los metadatos de las páginas anidadas anularán los metadatos de la página principal. */
   title: {
-    template: '%s | Acme Dashboard', // El %s se reemplazara con el título de la página especifica
-    default: 'Acme Dashboard',
+    template: '%s | Project Admin', // El %s se reemplazara con el título de la página especifica
+    default: 'Project Admin',
   },
   description: 'The official Next.js Course Dashboard, built with App Router.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
-
 };
 export default function RootLayout({
   children,

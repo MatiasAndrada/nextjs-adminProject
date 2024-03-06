@@ -1,6 +1,8 @@
 import SideNav from "@/components/dashboard/sidenav";
 import { inter } from "@/components/fonts";
 import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
+
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

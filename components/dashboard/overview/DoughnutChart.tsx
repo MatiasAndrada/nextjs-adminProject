@@ -27,39 +27,52 @@ ChartJS.register(
 
 // Your chart data...
 const data = {
-    labels: ['Red', 'Blue', 'Yellow'],
+    labels: ['Paused', 'Pending', 'In Progress', 'Completed'],
     datasets: [{
-        label: 'My First Dataset',
-        data: [300, 50, 100],
+        /*  label: 'Colors', */
+        data: [300, 50, 100, 100],
         backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            '#00d5ff',
+            '#0f37da',
+            '#f59e23',
+            '#e71d1d'
         ],
-        hoverOffset: 4
+        hoverOffset: 35
     }]
-};
-
-const config = {
-    type: 'pie',
-    data: data,
 };
 
 function DoughnutChart() {
     return (
-        <div
-            style={{
-                width: "100%",
-                height: "70%",
-                padding: "10px",
-                cursor: "pointer",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Doughnut data={data} ></Doughnut>
-        </div>
+        <>
+            <h3 className="text-center text-xl font-bold">
+                Status of all tasks
+            </h3>
+
+
+            <Doughnut data={data}
+                options={{
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 20,
+                                color: 'white',
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 40,
+                            bottom: 40,
+                            left: 40,
+                            right: 40
+                        }
+                    }
+                }}
+            ></Doughnut>
+
+        </>
 
     );
 }

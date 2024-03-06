@@ -1,14 +1,13 @@
 /* "use client" */
+import { Metadata } from "next";
 import { lusitana, inter } from "@/components/fonts";
 import Breadcrumbs from "@/components/breadcrumbs";
 import TabsContent from "@/components/tasks/tabs/tabs";
 import { fetch_task } from "@/data/task";
 
-import { Metadata } from "next";
-
-/* export const metadata: Metadata = {
-    title: 'Task Details | Dashboard',
-}; */
+export const metadata: Metadata = {
+    title: 'Task',
+};
 
 export default async function Page({
     params: { id, id_task },

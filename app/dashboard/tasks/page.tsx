@@ -7,9 +7,7 @@ import { lusitana } from "@/components/fonts";
 import { CreateTask } from "@/components/tasks/buttons";
 import { fetch_task_pages } from "@/data/task";
 
-export const metadata: Metadata = {
-    title: "Tasks | Dashboard",
-};
+
 
 export default async function Page({
     searchParams,
