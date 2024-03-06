@@ -1,6 +1,5 @@
 
 import { createStore } from 'zustand/vanilla'
-import { currentProject } from '@/hooks/use-current-project';
 import { setSelectedProject } from "@/actions/select-project";
 import type { Project } from "@prisma/client";
 
