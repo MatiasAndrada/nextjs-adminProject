@@ -13,7 +13,7 @@ import { PowerIcon } from '@heroicons/react/24/outline';
 export default async function SideNav() {
   const [projectItems, project] = await Promise.all([fetch_projects(), currentProject()]); //Peticiones en paralelo
   return (
-    <div className=" w-full bg-slate-300 dark:bg-slate-950 h-screen flex flex-col gap-2">
+    <div className=" w-full bg-slate-300 dark:bg-slate-900 h-screen flex flex-col gap-2">
       <div className=" bg-blue-500 p-2 flex flex-col h-fit items-center justify-around gap-4">
         <DropDown name="Projects" createName="project" items={projectItems} selectedItem={project} />
         <div className='flex flex-row items-center'>
@@ -26,13 +26,13 @@ export default async function SideNav() {
         </div>
 
       </div>
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+      <div className="mx-2 flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
-        <div className="bg-slate-300 dark:bg-slate-950 hidden h-auto w-full grow rounded-md  md:block">
+        <div className="bg-slate-300 dark:bg-slate-900 hidden h-auto w-full grow rounded-md  md:block">
         </div>
       </div>
 
-      <div className="mb-6 flex-none flex flex-col justify-end md:justify-start  ">
+      <div className="mb-6 mx-2 flex-none flex flex-col justify-end md:justify-start">
         <LogoutButton>
           <PowerIcon className="w-6" />
         </LogoutButton>

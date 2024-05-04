@@ -38,7 +38,6 @@ export default async function Page({
                 <CreateTask />
             </div>
             <div className="mt-4 ">
-
                 <Table query={query} currentPage={currentPage} />
                 {totalPages > 1 &&
                     <div className="flex w-full justify-center">

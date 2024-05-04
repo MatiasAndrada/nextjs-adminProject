@@ -6,7 +6,6 @@ import type { Task } from "@prisma/client";
 import { Status } from "@prisma/client";
 export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
     const router = useRouter();
-
     return (
         <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-500">
             {tasks.map(({ id, task_group_id, name, status, progress, updatedAt }) => (

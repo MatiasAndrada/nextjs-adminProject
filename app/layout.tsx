@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next" //metricas para ver en vercel
 import "@/components/global.css";
 /* import '@radix-ui/themes/styles.css'; */
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased bg-slate-200 dark:bg-slate-950 text-black dark:text-white`} id="main_layout">
         <NextAuthProvider>
           {children}
+          <SpeedInsights />
         </NextAuthProvider>
       </body>
     </html>

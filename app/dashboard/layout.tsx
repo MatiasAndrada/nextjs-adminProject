@@ -19,9 +19,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased bg-slate-200 dark:bg-slate-950 text-black dark:text-white`} id="main_layout">
-
         <CurrentProjectStoreProvider>
-
           <div className=" h-screen flex flex-col md:flex-row md:overflow-hidden">
             <div className="w-full flex-none md:w-64">
               <SideNav />

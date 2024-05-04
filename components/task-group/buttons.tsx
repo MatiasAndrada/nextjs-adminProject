@@ -26,7 +26,6 @@ export function UpdateTaskGroup({ id }: { id: string }) {
 }
 
 export function DeleteTaskGroup({ id }: { id: string }) {
-    const deleteInvoiceWithId = delete_task_group.bind(id);
     return (
         <>
             <form action={delete_task_group}>

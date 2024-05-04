@@ -50,7 +50,7 @@ export default async function Page({
                 <div className="col-span-2 row-span-2">
                     <div className="flex flex-col items-start justify-start p-2 divide-y-4 divide-slate-900 bg-slate-300 dark:bg-slate-800 rounded-lg shadow-md gap-4">
                         <div>
-                            <p className="mt-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+                            <p className="my-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
                                 Name:
                             </p>
                             <h2 className={`${inter.className} text-4xl `}>
@@ -59,7 +59,7 @@ export default async function Page({
                             </h2>
                         </div>
                         <div>
-                            <p className="mt-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+                            <p className="my-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
                                 Description:
                             </p>
                             <p className={`${inter.className} text-lg `}>
