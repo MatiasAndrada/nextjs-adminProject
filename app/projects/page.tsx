@@ -7,8 +7,8 @@ import { currentUser } from "@/hooks/use-current-user";
 import CardWrapper from '@/components/projects/cards';
 import { Button } from '@/components/ui/button';
 import {
-    RevenueChartSkeleton,
-    LatestInvoicesSkeleton,
+    /*     RevenueChartSkeleton,
+        LatestInvoicesSkeleton, */
     CardsSkeleton
 } from "@/components/skeletons";
 import { lusitana } from "@/components/fonts";
