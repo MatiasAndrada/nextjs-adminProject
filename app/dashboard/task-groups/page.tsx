@@ -1,5 +1,5 @@
-import { Suspense } from "react";
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
 import TaskGroupGrid from "@/components/task-group/task-group-grid";
@@ -8,6 +8,14 @@ import { CreateTaskGroup } from "@/components/task-group/buttons";
 import { fetch_task_group_pages } from "@/data/task-group";
 //!ADD SKELETON LOADING
 import { lusitana } from "@/components/fonts";
+
+export const metadata: Metadata = {
+    title: {
+        template: "%s | Project Admin",
+        default: "Task Groups",
+    },
+    description: "",
+};
 
 export default async function Page({
     searchParams,
