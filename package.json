@@ -8,16 +8,13 @@
     "seed": "ts-node prisma/seed.ts",
     "postinstall": "npx prisma generate && npx prisma db push"
   },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-  },
   "dependencies": {
     "@auth/core": "^0.27.0",
-    "@auth/pg-adapter": "^0.6.0",
-    "@auth/prisma-adapter": "^1.4.0",
+    "@auth/pg-adapter": "^1.0.0",
+    "@auth/prisma-adapter": "^2.0.0",
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
-    "@prisma/client": "^5.9.1",
+    "@prisma/client": "^5.13.0",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -26,7 +23,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/themes": "^2.0.3",
     "@tailwindcss/forms": "^0.5.7",
-    "@vercel/postgres": "^0.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.1",
@@ -55,22 +51,22 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.12.8",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "10.4.17",
-    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-module-resolver": "^5.0.2",
     "dotenv": "^16.4.5",
     "dotenv-cli": "7.3.0",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^14.1.0",
-    "postcss": "^8.4.33",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "prisma": "^5.9.1",
+    "prisma": "^5.13.0",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }

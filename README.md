@@ -28,7 +28,7 @@ Sistema de administración de tareas y usuarios para equipos de trabajo.
 - React
 
 
-## TODO
+## TO DO
 - [x] Create docker-compose
 - [x] Auth with Auth.js
 - [x] Schema for Prisma

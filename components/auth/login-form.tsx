@@ -76,7 +76,6 @@ export const LoginForm = () => {
       email: process.env.NEXT_PUBLIC_TEST_USER_EMAIL || "test@projectAdmin.com",
       password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD || "password",
     };
-    console.log(values);
 
     startTransition(() => {
       login(values, callbackUrl)
