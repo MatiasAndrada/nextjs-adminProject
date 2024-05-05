@@ -19,7 +19,6 @@ export default async function Page({ searchParams }: { searchParams?: { query?: 
       }>
         <GridDashboard searchParams={searchParams} />
       </Suspense>
-
     </main >
   );
 }

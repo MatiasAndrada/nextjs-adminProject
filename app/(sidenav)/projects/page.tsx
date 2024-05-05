@@ -9,10 +9,9 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuGroup,
     DropdownMenuPortal,
-} from "../../components/ui/dropdown-menu"
+} from "../../../components/ui/dropdown-menu"
 import { currentUser } from "@/hooks/use-current-user";
 import CardWrapper from "@/components/projects/cards";
 import { Button } from "@/components/ui/button";
@@ -49,7 +48,6 @@ export default async function Page() {
                                 )}
                             </Avatar>
                         </DropdownMenuTrigger>
-
                         <DropdownMenuPortal >
                             <DropdownMenuContent className="mr-4">
                                 <DropdownMenuLabel className="text-green-500">Free plan</DropdownMenuLabel>
