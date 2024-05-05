@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { currentUser } from '@/hooks/use-current-user';
 import { fetch_all_task_groups_ids } from './task-group';
 import { unstable_noStore as noStore } from 'next/cache';
-import { ITEMS_PER_PAGE_TASKS } from '@/globals/globals';
+import { ITEMS_PER_PAGE_TASKS } from '@/globals';
 
 import { Status } from '@prisma/client'
 
