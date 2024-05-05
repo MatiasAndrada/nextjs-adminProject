@@ -7,7 +7,7 @@ import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/buttons";
 import { fetch_task_group_pages } from "@/data/task-group";
 //!ADD SKELETON LOADING
-import { lusitana } from "@/components/fonts";
+
 
 export const metadata: Metadata = {
     title: {
@@ -38,7 +38,7 @@ export default async function Page({
                     },
                 ]}
             />
-            <h1 className={`${lusitana.className} text-4xl`}>Tasks groups</h1>
+            {/*             <h1 className={`${lusitana.className} text-4xl`}>Tasks groups</h1> */}
             <div>
                 <div className="mt-4 flex items-center justify-between gap-2 mx-6">
                     <Search placeholder="Search task groups..." />

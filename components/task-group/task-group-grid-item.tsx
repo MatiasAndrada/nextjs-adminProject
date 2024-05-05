@@ -2,7 +2,7 @@ import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
 /* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
-import type { TaskGroup } from "@prisma/client";
+/* import type { TaskGroup } from "@prisma/client"; */
 import { Criticality, Status } from "@prisma/client";
 import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
 
@@ -34,12 +34,9 @@ export default async function TaskGridItem({
     const daysRemaining = Math.ceil((dueDateTime - today) / (1000 * 60 * 60 * 24)); */
 
   return (
-    /* < !--This is an example component-- > */
-
-    <div className="bg-slate-300 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-col">
-      <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-4 mb-4 text-black  dark:text-white">
+    <div className="min-w-96 max-w-lg mx-auto bg-slate-300 dark:bg-slate-800 rounded-xl">
+      <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
         <div className="flex items-center justify-between font-medium">
-
           <div className="flex items-center space-x-2   ">
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Criticality:
@@ -50,12 +47,9 @@ export default async function TaskGridItem({
           ${criticality === Criticality.MEDIUM ? "text-criticality-medium p-2 bg-criticality-medium_foreground" : ""}
           ${criticality === Criticality.HIGH ? "text-criticality-high p-2 bg-criticality-high_foreground" : ""}
           ${criticality === Criticality.CRITICAL ? "text-criticality-critical p-2 bg-criticality-critical_foreground" : ""}
-          " : ""}
-          `}
-            >
+          " : ""}`}>
               {criticality}
             </span>
-
           </div>
           <div className="flex items-center space-x-2">
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
@@ -84,24 +78,24 @@ export default async function TaskGridItem({
           >
             <RectangleStackIcon className="w-6 h-6" />
           </div>
-          <span className="text-base font-medium">{name}</span>
+          <span className="text-md md:text-lg font-medium">{name}</span>
         </div>
         <div>
           {description ?? ""}
           {!description?.endsWith(".") && "."}
         </div>
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2  px-2 py-1 ">
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 ">
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-col items-center  space-x-2 py-1 ">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate- 400 ">
               Time left:
             </span>
             <span
-              className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-400 dark:bg-slate-700`}
+              className={`uppercase w-fit text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-400 dark:bg-slate-700`}
             >
               Incoming
             </span>
 
-            <div className="flex items-center space-x-2  px-2 py-1">
+            <div className="flex items-center space-x-2 py-1">
               <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
                 Tasks Completed:
               </p>
@@ -110,40 +104,39 @@ export default async function TaskGridItem({
               </span>
             </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <span className="mr-2 text-xs font-bold text-slate-500 dark:text-slate-400 ">Assigned to:</span>
-          <dd className="flex justify-start -space-x-1.5">
-            {/*<a href='#' className='inline-block -m-1'>*/}
-            <Image
-              className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              width={36}
-              height={36}
-              src="/members-mock/balazs-orban.png"
-              alt="avatar"
-            />
-            {/*</a>*/}
-            {/*
+          <div /* className="flex items-center justify-center" */>
+            <span className="mr-2 text-xs font-bold text-slate-500 dark:text-slate-400 ">Assigned to:</span>
+            <dd className="flex justify-start -space-x-1.5">
+              {/*<a href='#' className='inline-block -m-1'>*/}
+              <Image
+                className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
+                width={36}
+                height={36}
+                src="/members-mock/balazs-orban.png"
+                alt="avatar"
+              />
+              {/*</a>*/}
+              {/*
               <a href='#' className='inline-block -m-1'> */}
-            <Image
-              className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              width={36}
-              height={36}
-              src="/members-mock/emil-kowalski.png"
-              alt="avatar"
-            />
-            {/*</a>
+              <Image
+                className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
+                width={36}
+                height={36}
+                src="/members-mock/emil-kowalski.png"
+                alt="avatar"
+              />
+              {/*</a>
               <a href='#' className='inline-block -m-1'>*/}
-            <Image
-              className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
-              width={36}
-              height={36}
-              src="/members-mock/lee-robinson.png"
-              alt="avatar"
-            />
-            {/* </a>*/}
-            <span className="inline-block m-1 rounded-full ring-2 ring-white dark:ring-slate-800">
-              {/* <svg
+              <Image
+                className="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800"
+                width={36}
+                height={36}
+                src="/members-mock/lee-robinson.png"
+                alt="avatar"
+              />
+              {/* </a>*/}
+              <span className="inline-block m-1 rounded-full ring-2 ring-white dark:ring-slate-800">
+                {/* <svg
                 width="32"
                 height="32"
                 viewBox="0 0 31 31"
@@ -160,8 +153,9 @@ export default async function TaskGridItem({
                   fill="#2BC86A"
                 />
               </svg> */}
-            </span>
-          </dd>
+              </span>
+            </dd>
+          </div>
         </div>
         <div className="flex justify-between items-center overflow-visible">
           <div className="flex gap-4">

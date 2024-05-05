@@ -1,8 +1,4 @@
 import { Metadata } from "next";
-import SideNav from "@/components/dashboard/sidenav";
-import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
-import { inter } from "@/components/fonts"
-/* import SelectedProjectStore from "@/context/selectedProjectStore"; */
 import { currentProject } from "@/hooks/use-current-project";
 
 export const metadata: Metadata = {

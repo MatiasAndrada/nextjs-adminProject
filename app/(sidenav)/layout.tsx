@@ -12,14 +12,12 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <body className={`${inter.className} antialiased bg-slate-200 dark:bg-slate-950 text-black dark:text-white`} id="main_layout">
 
         <CurrentProjectStoreProvider>
-          <div className="md:overflow-hidden">
-            <div className="flex flex-col md:flex-row">
-              <div className="w-full flex-none md:w-64">
-                <SideNav />
-              </div>
-              <div className="h-screen flex-grow p-6 md:overflow-y-auto ">
-                {children}
-              </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full flex-none md:w-64">
+              <SideNav />
+            </div>
+            <div className="h-screen flex-grow p-6 md:overflow-y-auto ">
+              {children}
             </div>
           </div>
         </CurrentProjectStoreProvider>

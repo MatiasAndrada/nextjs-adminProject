@@ -14,14 +14,16 @@ export default function Breadcrumbs({
   breadcrumbs: Breadcrumb[];
 }) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6 block">
-      <ol className={clsx(lusitana.className, 'flex text-xl md:text-2xl')}>
+    <nav aria-label="Breadcrumb" className="mb-2 block">
+      <ol className={clsx(lusitana.className, 'flex items-center justify-center lg:justify-start')}>
         {breadcrumbs.map((breadcrumb, index) => (
           <li
             key={breadcrumb.href}
             aria-current={breadcrumb.active}
             className={clsx(
-              breadcrumb.active ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400',
+              'flex items-center text-xl ', // Alinear verticalmente el texto
+              breadcrumb.active ? 'text-black dark:text-white' : 'text-gray-500 dark:text-slate-300',
+              index === breadcrumbs.length - 1 && 'text-2xl md:text-3xl' // Agrandar la fuente del último elemento
             )}
           >
             <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
