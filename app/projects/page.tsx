@@ -2,6 +2,17 @@ import { Suspense } from "react";
 import Link from "next/link";
 /* import { FaUser } from "react-icons/fa"; */
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuGroup,
+    DropdownMenuPortal,
+} from "../../components/ui/dropdown-menu"
 import { currentUser } from "@/hooks/use-current-user";
 import CardWrapper from "@/components/projects/cards";
 import { Button } from "@/components/ui/button";
@@ -14,6 +25,7 @@ import { lusitana } from "@/components/fonts";
 
 export default async function Page() {
     const user = await currentUser();
+    const initialLetters = user?.name?.split(" ").map((n) => n[0]) ?? "";
     return (
         <main>
             <div className="flex flex-row items-center justify-between">
@@ -27,10 +39,31 @@ export default async function Page() {
                         Hi!
                         {user && ` ${user.name}`}
                     </h2>
-                    <Avatar className="h-14 w-14">
-                        {/*  <AvatarImage src="https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg" alt="John Doe" /> */}
-                        <AvatarFallback>PJ</AvatarFallback>
-                    </Avatar>
+                    <DropdownMenu >
+                        <DropdownMenuTrigger>
+                            <Avatar className="h-14 w-14">
+                                {user && user.image ? (
+                                    <AvatarImage src={user.image} alt="Icon user" />
+                                ) : (
+                                    <AvatarFallback>{initialLetters}</AvatarFallback>
+                                )}
+                            </Avatar>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuPortal >
+                            <DropdownMenuContent className="mr-4">
+                                <DropdownMenuLabel className="text-green-500">Free plan</DropdownMenuLabel>
+                                <DropdownMenuLabel className="text-sm font-light">{user?.email}</DropdownMenuLabel>
+                                <DropdownMenuSeparator className="my-2 bg-slate-300" />
+                                <DropdownMenuGroup>
+                                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                                </DropdownMenuGroup>
+                                <DropdownMenuSeparator className="my-4 bg-slate-300" />
+                                <DropdownMenuItem>Sign out</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenuPortal>
+                    </DropdownMenu>
                 </div>
             </div>
             <div className="flex flex-row items-center justify-between">
@@ -71,6 +104,6 @@ export default async function Page() {
 
                 </Suspense> */}
             </div>
-        </main>
+        </main >
     );
 }
