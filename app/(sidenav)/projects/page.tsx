@@ -9,6 +9,7 @@ import {
 } from "@/components/skeletons";
 import { lusitana } from "@/components/fonts";
 
+//TODO: move to a separate file for create project button in components/projects/buttons.tsx
 export default async function Page() {
     return (
         <main>
