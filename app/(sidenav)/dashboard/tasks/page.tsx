@@ -25,28 +25,28 @@ export default async function Page({
     const totalPages = await fetch_task_pages(query);
 
     return (
-        <div className="w-full">
+        <div className="w-full space-y-4">
             <Breadcrumbs
                 breadcrumbs={[
                     { label: "Dashboard", href: "/dashboard" },
-                    { label: "Tasks", href: "/dashboard/tasks", active: true },
+                    { label: "All Tasks", href: "/dashboard/tasks", active: true },
                 ]}
             />
             <div>
-                <h2 className="text-xl font-base">All task of project</h2>
+                {/*                 <h2 className="mb-1 ml-4 text-xl font-base">All task of project</h2> */}
+                <div className="flex items-center justify-between gap-2">
+                    <Search placeholder="Search tasks..." />
+                    <CreateTask />
+                </div>
             </div>
-            <div className="mt-4 flex items-center justify-between gap-2 mx-6">
-                <Search placeholder="Search task groups..." />
-                <CreateTask />
-            </div>
-            <div className="mt-4 ">
-                <Table query={query} currentPage={currentPage} />
-                {totalPages > 1 &&
-                    <div className="flex w-full justify-center">
-                        <Pagination totalPages={totalPages} />
-                    </div>
-                }
-            </div>
+
+            <Table query={query} currentPage={currentPage} />
+            {totalPages > 1 && (
+                <div className="flex w-full justify-center">
+                    <Pagination totalPages={totalPages} />
+                </div>
+            )}
+
         </div>
     );
 }

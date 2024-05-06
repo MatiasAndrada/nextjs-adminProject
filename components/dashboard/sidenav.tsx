@@ -13,7 +13,7 @@ import { PowerIcon } from '@heroicons/react/24/outline';
 export default async function SideNav() {
   const [projectItems, project] = await Promise.all([fetch_projects(), currentProject()]); //Peticiones en paralelo
   return (
-    <div className=" w-full bg-slate-300 dark:bg-slate-900 h-screen flex flex-col gap-2">
+    <div className=" h-screen w-full bg-slate-300 dark:bg-slate-900  flex flex-col gap-2">
       <div className=" bg-blue-500 p-2 flex flex-col h-fit items-center justify-around gap-4">
         <DropDown name="Projects" createName="project" items={projectItems} selectedItem={project} />
         <div className='flex flex-row items-center'>
