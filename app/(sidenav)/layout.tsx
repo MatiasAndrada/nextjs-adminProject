@@ -1,5 +1,6 @@
 import { currentUser } from "@/hooks/use-current-user";
 /* import { redirect } from "next/navigation" */
+import Link from "next/link";
 import SideNav from "@/components/dashboard/sidenav";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -53,7 +54,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
                       <DropdownMenuLabel className="text-sm font-light">{user?.email}</DropdownMenuLabel>
                       <DropdownMenuSeparator className="my-2 bg-slate-300" />
                       <DropdownMenuGroup>
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                        <DropdownMenuItem><Link href={"/profile"}>Profile</Link></DropdownMenuItem>
                         <DropdownMenuItem>Settings</DropdownMenuItem>
                       </DropdownMenuGroup>
                       <DropdownMenuSeparator className="my-4 bg-slate-300" />
