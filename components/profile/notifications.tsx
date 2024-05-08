@@ -10,10 +10,7 @@ export default function Notifications() {
                 <li>
                     <div>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white">Email notifications</h3>
-                        <input type="checkbox" id="toggle-example" className="sr-only">
-                            <p className="text-gray-500 dark:text-gray-400">Receive emails for new features, updates and security alerts</p>
-                            {/*   <input type="checkbox" ></input> */}
-                        </input>
+                        <p className="text-gray-500 dark:text-gray-400">Receive emails for new features, updates and security alerts</p>
                     </div>
                 </li>
                 <li>

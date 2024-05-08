@@ -8,11 +8,7 @@ import Sessions from '@/components/profile/sessions'
 //TODO: Socials account linked, password change, email change, delete account, alerts & notifications, email notifications, language, timezone, sessions 
 import { lusitana } from '@/components/fonts'
 
-
-
 export default function Page() {
-
-
     return (
         <main className='space-y-2'>
             <h1 className={`${lusitana.className} text-4xl `}>Profile page</h1>
