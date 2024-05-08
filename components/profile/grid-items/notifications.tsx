@@ -5,7 +5,7 @@ export default function Notifications() {
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                     Alerts & Notifications
                 </h2>
-                <span className="text-gray-500 dark:text-gray-400">
+                <span className="text-gray-900 dark:text-gray-400">
                     You can set up Themesberg to get notifications
                 </span>
             </div>
@@ -16,7 +16,7 @@ export default function Notifications() {
                             Email notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive emails for new features, updates and security alerts
                             </p>
                             <label className="inline-flex items-center mb-5 cursor-pointer">
@@ -32,7 +32,7 @@ export default function Notifications() {
                             Push notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive push notifications for new features, updates and security
                                 alerts
                             </p>
@@ -49,7 +49,7 @@ export default function Notifications() {
                             SMS notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive SMS for new features, updates and security alerts
                             </p>
                             <label className="inline-flex items-center mb-5 cursor-pointer">
