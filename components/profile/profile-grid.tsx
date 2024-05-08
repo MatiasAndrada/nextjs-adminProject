@@ -17,11 +17,14 @@ export default function ProfileGrid() {
             <div className='col-span-2 row-span-2'>
                 <AccountsLinked />
             </div>
-            <div className='col-span-3 row-span-2'>
+            <div className='col-span-2 row-span-2'>
                 <Notifications />
             </div>
-            <div className='col-span-3 row-span-2'>
+            <div className='col-span-2 row-span-2'>
                 <EmailNotifications />
+            </div>
+            <div className='col-span-2 row-span-2'>
+                <Sessions />
             </div>
         </div>
     )
