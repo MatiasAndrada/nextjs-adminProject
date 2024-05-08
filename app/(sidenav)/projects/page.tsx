@@ -2,11 +2,11 @@ import { Suspense } from "react";
 import Link from "next/link";
 import CardWrapper from "@/components/projects/cards";
 import { Button } from "@/components/ui/button";
-import {
-    /*     RevenueChartSkeleton,
-          LatestInvoicesSkeleton, */
+/* import {
+    RevenueChartSkeleton,
+          LatestInvoicesSkeleton, 
     CardsSkeleton,
-} from "@/components/skeletons";
+} from "@/components/skeletons"; */
 import { lusitana } from "@/components/fonts";
 
 //TODO: move to a separate file for create project button in components/projects/buttons.tsx
@@ -39,9 +39,9 @@ export default async function Page() {
                 </Link>
             </div>
 
-            <Suspense fallback={<CardsSkeleton />}>
-                <CardWrapper />
-            </Suspense>
+            {/*             <Suspense fallback={<CardsSkeleton />}> */}
+            <CardWrapper />
+            {/*             </Suspense> */}
             <div className="flex items-center justify-between">
                 <h2 className="text-lg font-medium ">Projects with you</h2>
             </div>
