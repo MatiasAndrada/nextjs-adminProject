@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ButtonViewProject } from "@/components/projects/buttons";
+//components
+import { ButtonViewProject, ButtonActionsDropDropdown } from "@/components/projects/buttons";
 import { Button } from "@/components/ui/button";
 //types
 import { Project } from "@prisma/client";
-/* import { EyeIcon } from "@heroicons/react/24/outline"; */
 
 export default function Cards({ projects, yours = true }: { projects: Project[] | null, yours?: boolean }) {
   return projects === null ? (
@@ -42,32 +42,8 @@ export default function Cards({ projects, yours = true }: { projects: Project[] 
 export function Card({ id, name }: { id: string; name: string }) {
   return (
     <div className="min-w-fit flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
-      <div className="p-2 bg-gray-300 dark:bg-gray-700 rounded-full">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-black dark:text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 20h5v-2a2 2 0 00-2-2h-3v4z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 15V7a2 2 0 012-2h10a2 2 0 012 2v8"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 15v4a2 2 0 002 2h3v-4"
-          />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 15h16" />
-        </svg>
+      <div className="p-2 ">
+        <ButtonActionsDropDropdown />
       </div>
       <div>
         <h3 className="text-lg text-balance">{name}</h3>
