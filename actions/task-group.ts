@@ -82,15 +82,16 @@ export async function update_task_group(prevState: State, formData: FormData) {
   const { id, name, description, criticality } = validatedFields.data;
   // Insert data into the database
   try {
-    const user = await currentUser();
-    const user_id = user?.id;
-    const selected_project_id = user?.selected_project_id;
-    if (!user_id) {
-      throw new Error('User not found');
-    }
-    if (!selected_project_id) {
-      throw new Error('Project not found');
-    }
+    /*const user = await currentUser();
+    
+        const user_id = user?.id;
+        const selected_project_id = user?.selected_project_id; 
+        if (!user_id) {
+          throw new Error('User not found');
+        }
+        if (!selected_project_id) {
+          throw new Error('Project not found');
+        } */
     await db.taskGroup.update({
       where: {
         id: id,
