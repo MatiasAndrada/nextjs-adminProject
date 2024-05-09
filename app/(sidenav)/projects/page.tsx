@@ -1,40 +1,30 @@
-import { Suspense } from "react";
-import Link from "next/link";
-import CardWrapper from "@/components/projects/cards";
-import { Button } from "@/components/ui/button";
+/* import { Suspense } from "react"; */
+//components
+import Cards from "@/components/projects/cards";
+import { ButtonCreate } from "@/components/projects/buttons";
 import { lusitana } from "@/components/fonts";
+//functions
+import { fetch_projects } from "@/data/projects";
 
 //TODO: move to a separate file for create project button in components/projects/buttons.tsx
 //TODO: create skeleton loaders for the components
 export default async function Page() {
+    //se están pidiendo los datos aquí por que luego se creara el fetch_projects_with_you para pasarla props a la card
+    const projects = await fetch_projects()
+    //const projectsWithYou = await fetch_projects()
     return (
         <main>
             <h1 className={`${lusitana.className} text-4xl `}>Projects page</h1>
-            <Link href="/projects/create" className="absolute top-16 right-5">
-                <Button variant="create">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-8 h-8"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                    </svg>
-                    Create a new project
-                </Button>
-            </Link>
+            <div className="absolute top-16 right-5" >
+                <ButtonCreate />
+            </div>
             <div className="mt-4 space-y-4">
-                <h2 className="text-lg font-medium ">Your projects</h2>
+                <h2 className="text-xl font-medium ">Your projects</h2>
                 {/*             <Suspense fallback={<CardsSkeleton />}> */}
-                <CardWrapper />
+                <Cards projects={projects} />
                 {/*             </Suspense> */}
-                <h2 className="text-lg font-medium ">Projects with you</h2>
+                < h2 className="text-xl font-medium ">Projects with you</h2>
+                <Cards projects={null} yours={false} />
             </div>
         </main >
     );
