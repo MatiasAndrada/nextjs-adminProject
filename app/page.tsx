@@ -1,12 +1,9 @@
-import ProjectAdminWithText from "@/components/project-admin-logo";
 import Image from "next/image";
+import ProjectAdminWithText from "@/components/project-admin-logo";
 import { lusitana } from "@/components/fonts";
-
 import { LoginButton } from "@/components/buttons-auth";
-
 import { SessionClient } from "@/components/auth/SessionClient";
 import { SessionServer } from "@/components/auth/SessionServer";
-import Link from "next/link";
 
 export default function Page() {
 
