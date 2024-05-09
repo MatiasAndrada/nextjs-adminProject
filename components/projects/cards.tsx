@@ -1,6 +1,7 @@
 import Link from "next/link";
 //components
-import { ButtonViewProject, ButtonActionsDropDropdown } from "@/components/projects/buttons";
+import { ButtonViewProject } from "@/components/projects/buttons";
+import ButtonActionsDropDropdown from "@/components/projects/drop-down-actions";
 import { Button } from "@/components/ui/button";
 //types
 import { Project } from "@prisma/client";
@@ -43,7 +44,7 @@ export function Card({ id, name }: { id: string; name: string }) {
   return (
     <div className="min-w-fit flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
       <div className="p-2 ">
-        <ButtonActionsDropDropdown />
+        <ButtonActionsDropDropdown id={id} />
       </div>
       <div>
         <h3 className="text-lg text-balance">{name}</h3>
