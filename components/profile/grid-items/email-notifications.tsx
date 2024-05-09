@@ -3,7 +3,7 @@ export default function EmailNotifications() {
         <section className="bg-slate-300 dark:bg-gray-900 rounded-lg p-4">
             <div className="lg:py-16">
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Email notifications</h2>
-                <span className="text-gray-500 dark:text-gray-400">You can set up Themesberg to get notifications</span>
+                <span className="text-gray-900 dark:text-gray-400">You can set up Themesberg to get notifications</span>
             </div>
             <ul>
                 <li>
@@ -12,7 +12,7 @@ export default function EmailNotifications() {
                             Email notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive emails for new features, updates and security alerts
                             </p>
                             <label className="inline-flex items-center mb-5 cursor-pointer">
@@ -28,7 +28,7 @@ export default function EmailNotifications() {
                             Push notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive push notifications for new features, updates and security
                                 alerts
                             </p>
@@ -45,7 +45,7 @@ export default function EmailNotifications() {
                             SMS notifications
                         </h3>
                         <div className="flex">
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-900 dark:text-gray-400 text-sm">
                                 Receive SMS for new features, updates and security alerts
                             </p>
                             <label className="inline-flex items-center mb-5 cursor-pointer">
