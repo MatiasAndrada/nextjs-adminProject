@@ -1,4 +1,5 @@
 "use client"
+//components
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -13,10 +14,14 @@ import {
     TrashIcon,
     PencilIcon,
 } from "@heroicons/react/24/outline";
-"use client"
+//functions
+import { delete_project_by_id } from "@/actions/projects";
+
 export default function ButtonActionsDropDropdown({ id }: { id: string }) {
-    function handleDelete(id: string) {
-        console.log("Delete", id);
+
+    async function handleDelete(id: string) {
+        console.log("🦇  handleDelete  id:", id)
+        await delete_project_by_id(id);
     }
     return (
         <DropdownMenu>
@@ -33,7 +38,7 @@ export default function ButtonActionsDropDropdown({ id }: { id: string }) {
                             {/*     </Link> */}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="my-2 bg-slate-300" />
-                        <DropdownMenuItem className="hover:bg-red-200 text-red-500" onSelect={() => handleDelete(id)}>
+                        <DropdownMenuItem className="text-red-500" onSelect={() => handleDelete(id)}>
                             <TrashIcon className="w-4 h-4 mr-1" />
                             <p>Delete</p>
                         </DropdownMenuItem>
