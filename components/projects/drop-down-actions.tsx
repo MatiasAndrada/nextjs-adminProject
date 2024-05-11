@@ -1,4 +1,6 @@
 "use client"
+//next
+import { useRouter } from "next/navigation";
 //components
 import {
     DropdownMenu,
@@ -18,9 +20,9 @@ import {
 import { delete_project_by_id } from "@/actions/projects";
 
 export default function ButtonActionsDropDropdown({ id }: { id: string }) {
+    /*     const router = useRouter(); */
 
     async function handleDelete(id: string) {
-        console.log("🦇  handleDelete  id:", id)
         await delete_project_by_id(id);
     }
     return (
@@ -32,10 +34,11 @@ export default function ButtonActionsDropDropdown({ id }: { id: string }) {
                 <DropdownMenuContent className="mr-4 md:mr-10">
                     <DropdownMenuGroup>
                         <DropdownMenuItem className="hover:bg-slate-200">
-                            {/*     <Link href={`/projects/`} className="flex gap-1"> */}
-                            <PencilIcon className="w-4 h-4" />
-                            <p>Update</p>
-                            {/*     </Link> */}
+                            <a href={`/projects/${id}/edit`} className="flex gap-1">
+                                <PencilIcon className="w-4 h-4" />
+                                <p>Update</p>
+
+                            </a>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="my-2 bg-slate-300" />
                         <DropdownMenuItem className="text-red-500" onSelect={() => handleDelete(id)}>
