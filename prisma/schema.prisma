@@ -103,9 +103,9 @@ model ProjectUser {
 model Project {
   id          String        @id @unique @default(cuid())
   members     ProjectUser[]
-  name        String        @db.VarChar(80)
+  name        String        @db.VarChar(28)
   description String?       @db.VarChar(4000)
-  createdAt   DateTime      @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime      @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
   User        User[]
 }
@@ -129,14 +129,14 @@ model TaskGroup {
   project_id  String
   project     Project     @relation(fields: [project_id], references: [id], onDelete: Cascade)
   task        Task[]
-  name        String      @db.VarChar(80)
-  description String?     @db.VarChar(1000)
+  name        String      @db.VarChar(45)
+  description String?     @db.VarChar(1200)
   status      Status      @default(PENDING)
-  progress    String      @default("0/0") @db.VarChar(12)
+  progress    String      @default("0/0") @db.VarChar(10)
   criticality Criticality
-  createdAt   DateTime    @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime    @default(now()) @db.Timestamptz(6)
-  endsAt      DateTime    @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime    @default(now()) @db.Timestamptz
+  updatedAt   DateTime?   @db.Timestamptz
+  endsAt      DateTime    @default(now()) @db.Timestamptz
 }
 
 model Task {
@@ -147,7 +147,7 @@ model Task {
   description   String?   @db.VarChar(4000)
   status        Status    @default(PENDING)
   progress      Int       @default(0)
-  createdAt     DateTime  @default(now()) @db.Timestamptz(6)
-  updatedAt     DateTime  @default(now()) @db.Timestamptz(6)
-  endsAt        DateTime  @default(now()) @db.Timestamptz(6)
+  createdAt     DateTime  @default(now()) @db.Timestamptz
+  updatedAt     DateTime? @db.Timestamptz
+  endsAt        DateTime  @default(now()) @db.Timestamptz
 }
