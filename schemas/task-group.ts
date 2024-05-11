@@ -11,8 +11,8 @@ const Schema = z.object({
             // Aquí debes definir el esquema para el objeto Task
         })
     ),
-    name: z.string().max(80),
-    description: z.string().max(4000).optional(),
+    name: z.string().min(2).max(45),
+    description: z.string().max(1200).optional(),
     status: z.nativeEnum(Status),
     progress: z.string().max(18),
     criticality: z.nativeEnum(Criticality),
@@ -44,10 +44,10 @@ const UpdateSchema = Schema.omit({
 
 
 export type State = {
-    errors?: {
-        name?: string[],
-        description?: string[],
-        criticality?: string[],
+    errors: {
+        name: string[],
+        description: string[],
+        criticality: string[],
     }
     message?: string | null;
 }

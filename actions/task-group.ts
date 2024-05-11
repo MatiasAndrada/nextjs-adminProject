@@ -15,7 +15,6 @@ export async function create_task_group(prevState: State, formData: FormData) {
     description: formData.get('description'),
     criticality: formData.get('criticality'),
   });
-
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -45,6 +44,8 @@ export async function create_task_group(prevState: State, formData: FormData) {
         project_id: selected_project_id,
       },
     });
+    revalidatePath('/dashboard/task-groups');
+    redirect('/dashboard/task-groups')
   }
   catch (error) {
     console.log("error", error)
@@ -53,11 +54,6 @@ export async function create_task_group(prevState: State, formData: FormData) {
     };
   }
 
-  // Invalidate the cache for the task group list page
-  revalidatePath('/dashboard/task-groups');
-
-  // Redirect to the task group list page
-  redirect('/dashboard/task-groups');
 }
 
 //! update task group
@@ -102,6 +98,10 @@ export async function update_task_group(prevState: State, formData: FormData) {
         criticality,
       },
     });
+    // Invalidate the cache for the task group list page
+    revalidatePath('/dashboard/task-groups');
+    // Redirect to the task group list page
+    redirect('/dashboard/task-groups');
   } catch (error) {
     console.log("error", error)
     return {
@@ -109,11 +109,6 @@ export async function update_task_group(prevState: State, formData: FormData) {
     };
   }
 
-  // Invalidate the cache for the task group list page
-  revalidatePath('/dashboard/task-groups');
-
-  // Redirect to the task group list page
-  redirect('/dashboard/task-groups');
 }
 
 
