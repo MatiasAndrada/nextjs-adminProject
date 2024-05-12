@@ -4,7 +4,6 @@ import { currentUser } from "@/hooks/use-current-user";
 import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
 import { redirect } from 'next/navigation';
-import { revalidatePath } from "next/cache";
 
 export async function create_project(prevState: State, formData: FormData) {
     try {
