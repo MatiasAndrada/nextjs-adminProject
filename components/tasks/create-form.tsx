@@ -6,10 +6,13 @@ import { create_task } from '@/actions/task';
 
 export default function Form({ task_groups_names_and_ids }: { task_groups_names_and_ids: { id: string, name: string }[] }) {
     const initialState: State = {
-        message: null, errors: {}
+        message: null, errors: {
+            name: [],
+            description: [],
+            task_group_id: [],
+        }
     };
     const [state, dispatch] = useFormState(create_task, initialState);
-
     return (
         <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             {/* Task Group Name */}
@@ -98,11 +101,21 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
                     )
                 }
             </div>
+            <div className='flex gap-4 item-center'>
+                {/* Submit Button */}
+                <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
+                    Create task group
+                </button>
+                {state.message && (
+                    <div
+                        className="mt-2 text-md text-red-500"
+                        aria-live='polite'
+                    >
+                        {state.message}
+                    </div>
+                )}
 
-            {/* Submit Button */}
-            <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
-                Create task group
-            </button>
+            </div>
         </form>
 
     );

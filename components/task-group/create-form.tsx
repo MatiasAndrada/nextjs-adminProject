@@ -1,18 +1,25 @@
 'use client';
 import { useFormState } from 'react-dom';
+//actions
+import { create_task_group } from '@/actions/task-group';
+//types
 import type { State } from '@/schemas/task-group';
 import { Criticality } from '@prisma/client';
-import { create_task_group } from '@/actions/task-group';
 
 
 export default function Form() {
     const initialState: State = {
-        message: null, errors: {}
+        message: null, errors: {
+            name: [],
+            description: [],
+            criticality: [],
+        }
     };
     const [state, dispatch] = useFormState(create_task_group, initialState);
     return (
         <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             {/* Task Group Name */}
+
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
                     Name
@@ -95,11 +102,20 @@ export default function Form() {
                     )
                 }
             </div>
-
-            {/* Submit Button */}
-            <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
-                Create task group
-            </button>
+            <div className='flex gap-4 items-center'>
+                {/* Submit Button */}
+                <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
+                    Create task group
+                </button>
+                {state.message && (
+                    <div
+                        className="mt-2 text-md text-red-500"
+                        aria-live='assertive'
+                    >
+                        {state.message}
+                    </div>
+                )}
+            </div>
         </form>
 
     );

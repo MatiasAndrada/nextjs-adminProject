@@ -20,7 +20,7 @@ model User {
   accounts              Account[]
   ProjectUser           ProjectUser[]
   selected_project_id   String?
-  selectedProject       Project?               @relation(fields: [selected_project_id], references: [id])
+  selectedProject       Project?               @relation(fields: [selected_project_id], references: [id], onDelete: SetNull)
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -96,16 +96,16 @@ model ProjectUser {
   //rol
   role       Role    @default(READER)
   //relaciones 
-  user       User    @relation(fields: [user_id], references: [id]) // reclacion one to many 
-  project    Project @relation(fields: [project_id], references: [id]) // relacion one to many
+  user       User    @relation(fields: [user_id], references: [id], onDelete: Cascade) // reclacion one to many 
+  project    Project @relation(fields: [project_id], references: [id], onDelete: Cascade) // relacion one to many
 }
 
 model Project {
   id          String        @id @unique @default(cuid())
   members     ProjectUser[]
-  name        String        @db.VarChar(80)
+  name        String        @db.VarChar(28)
   description String?       @db.VarChar(4000)
-  createdAt   DateTime      @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime      @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
   User        User[]
 }
@@ -127,27 +127,27 @@ enum Status {
 model TaskGroup {
   id          String      @id @unique @default(cuid())
   project_id  String
-  project     Project     @relation(fields: [project_id], references: [id])
+  project     Project     @relation(fields: [project_id], references: [id], onDelete: Cascade)
   task        Task[]
-  name        String      @db.VarChar(80)
-  description String?     @db.VarChar(1000)
+  name        String      @db.VarChar(45)
+  description String?     @db.VarChar(1200)
   status      Status      @default(PENDING)
-  progress    String      @default("0/0") @db.VarChar(12)
+  progress    String      @default("0/0") @db.VarChar(10)
   criticality Criticality
-  createdAt   DateTime    @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime    @default(now()) @db.Timestamptz(6)
-  endsAt      DateTime    @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime    @default(now()) @db.Timestamptz
+  updatedAt   DateTime?   @db.Timestamptz
+  endsAt      DateTime    @default(now()) @db.Timestamptz
 }
 
 model Task {
   id            String    @id @unique @default(cuid())
   task_group_id String
-  taskGroup     TaskGroup @relation(fields: [task_group_id], references: [id])
+  taskGroup     TaskGroup @relation(fields: [task_group_id], references: [id], onDelete: Cascade)
   name          String    @db.VarChar(80)
   description   String?   @db.VarChar(4000)
   status        Status    @default(PENDING)
   progress      Int       @default(0)
-  createdAt     DateTime  @default(now()) @db.Timestamptz(6)
-  updatedAt     DateTime  @default(now()) @db.Timestamptz(6)
-  endsAt        DateTime  @default(now()) @db.Timestamptz(6)
+  createdAt     DateTime  @default(now()) @db.Timestamptz
+  updatedAt     DateTime? @db.Timestamptz
+  endsAt        DateTime  @default(now()) @db.Timestamptz
 }

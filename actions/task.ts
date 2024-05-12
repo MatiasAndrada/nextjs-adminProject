@@ -35,7 +35,11 @@ export async function create_task(prevState: State, formData: FormData) {
                 task_group_id
             },
         });
+        // Invalidate the cache for the task group list page
+        revalidatePath('/dashboard/tasks');
 
+        // Redirect to the task group list page
+        redirect('/dashboard/tasks');
     }
     catch (error) {
         console.log("error", error)
@@ -43,9 +47,4 @@ export async function create_task(prevState: State, formData: FormData) {
             message: 'Failed to Create Task.',
         };
     }
-    // Invalidate the cache for the task group list page
-    revalidatePath('/dashboard/tasks');
-
-    // Redirect to the task group list page
-    redirect('/dashboard/tasks');
 }

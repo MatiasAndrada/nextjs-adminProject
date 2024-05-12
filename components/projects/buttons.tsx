@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { EyeIcon } from "@heroicons/react/24/outline";
+//components
 import { Button } from "@/components/ui/button";
+//icons
+import {
+    EyeIcon,
+
+} from "@heroicons/react/24/outline";
 
 export function ButtonCreate() {
     return (
-        <Link href="/projects/create" >
+        <Link href="/projects/create">
             <Button variant="create">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -23,16 +28,18 @@ export function ButtonCreate() {
                 Create a new project
             </Button>
         </Link>
-    )
+    );
 }
 
 export function ButtonViewProject({ projectId }: { projectId: string }) {
     return (
-        <Link href={`/projects/${projectId}`} >
+        <Link href={`/projects/${projectId}`}>
             <Button variant="outline" size="sm">
                 <EyeIcon className="w-6 h-6 mr-0.5" />
                 View project
             </Button>
         </Link>
-    )
+    );
 }
+
+
