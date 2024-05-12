@@ -22,7 +22,7 @@ export default function EditTaskGroupForm({ project }: { project: Project }) {
             {/* Task Group Name */}
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
-                    Name
+                    Name:
                 </label>
                 <input
                     type="text"
@@ -45,7 +45,7 @@ export default function EditTaskGroupForm({ project }: { project: Project }) {
             </div>
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
-                    Description
+                    Description:
                 </label>
                 <textarea
                     id="description"
@@ -56,7 +56,7 @@ export default function EditTaskGroupForm({ project }: { project: Project }) {
                     rows={12} // Add this line to allow the textarea to expand
                     onChange={handleDescriptionChange} // Add this line to handle textarea value change
                 />
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-end text-sm text-gray-500 mt-2 mr-2">
                     {charactersCount}  / 4000 characters
                 </p>
                 {
