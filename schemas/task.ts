@@ -25,12 +25,12 @@ const CreateSchema = Schema.omit({
 export { Schema, CreateSchema };
 
 export type State = {
-    errors: {
-        name: string[],
-        description: string[],
-        task_group_id: string[
+    errors?: {
+        name?: string[],
+        description?: string[],
+        task_group_id?: string[
         ],
     }
-    message: string | null;
+    message?: string | null;
 }
 

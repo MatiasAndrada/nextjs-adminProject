@@ -16,7 +16,7 @@ export default async function TaskGridItem({
     criticality: Criticality;
     status: Status;
     progress: string;
-    updatedAt: Date;
+    updatedAt: Date | null;
   };
 }) {
   const {

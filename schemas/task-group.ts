@@ -44,10 +44,10 @@ const UpdateSchema = Schema.omit({
 
 
 export type State = {
-    errors: {
-        name: string[],
-        description: string[],
-        criticality: string[],
+    errors?: {
+        name?: string[],
+        description?: string[],
+        criticality?: string[],
     }
     message?: string | null;
 }
