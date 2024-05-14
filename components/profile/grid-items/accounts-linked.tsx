@@ -28,7 +28,7 @@ export default async function AccountsLinked() {
                             <p className="text-sm text-gray-500 dark:text-gray-300">Linked account</p>
                         </div>
                     </div>
-                    <Button variant={"link"}>Unlink</Button>
+                    <Button variant="link">Unlink</Button>
                 </li>
             </ul>
         </section>
