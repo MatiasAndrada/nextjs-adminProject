@@ -1,9 +1,14 @@
 "use server";
-import { CreateSchema, UpdateSchema } from '@/schemas/task-group';
-import { db } from '@/lib/db';
-import { currentUser } from '@/hooks/use-current-user';
-import { revalidatePath } from 'next/cache';
+//next hooks
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+//db
+import { db } from '@/lib/db';
+//schemas
+import { CreateSchema, UpdateSchema } from '@/schemas/task-group';
+//hooks
+import { currentUser } from '@/hooks/use-current-user';
+//types
 import type { State } from '@/schemas/task-group';
 
 
@@ -15,7 +20,6 @@ export async function create_task_group(prevState: State, formData: FormData) {
     description: formData.get('description'),
     criticality: formData.get('criticality'),
   });
-
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -45,6 +49,8 @@ export async function create_task_group(prevState: State, formData: FormData) {
         project_id: selected_project_id,
       },
     });
+    revalidatePath('/dashboard/task-groups');
+    redirect('/dashboard/task-groups')
   }
   catch (error) {
     console.log("error", error)
@@ -53,11 +59,6 @@ export async function create_task_group(prevState: State, formData: FormData) {
     };
   }
 
-  // Invalidate the cache for the task group list page
-  revalidatePath('/dashboard/task-groups');
-
-  // Redirect to the task group list page
-  redirect('/dashboard/task-groups');
 }
 
 //! update task group
@@ -82,15 +83,16 @@ export async function update_task_group(prevState: State, formData: FormData) {
   const { id, name, description, criticality } = validatedFields.data;
   // Insert data into the database
   try {
-    const user = await currentUser();
-    const user_id = user?.id;
-    const selected_project_id = user?.selected_project_id;
-    if (!user_id) {
-      throw new Error('User not found');
-    }
-    if (!selected_project_id) {
-      throw new Error('Project not found');
-    }
+    /*const user = await currentUser();
+    
+        const user_id = user?.id;
+        const selected_project_id = user?.selected_project_id; 
+        if (!user_id) {
+          throw new Error('User not found');
+        }
+        if (!selected_project_id) {
+          throw new Error('Project not found');
+        } */
     await db.taskGroup.update({
       where: {
         id: id,
@@ -101,6 +103,10 @@ export async function update_task_group(prevState: State, formData: FormData) {
         criticality,
       },
     });
+    // Invalidate the cache for the task group list page
+    revalidatePath('/dashboard/task-groups');
+    // Redirect to the task group list page
+    redirect('/dashboard/task-groups');
   } catch (error) {
     console.log("error", error)
     return {
@@ -108,11 +114,6 @@ export async function update_task_group(prevState: State, formData: FormData) {
     };
   }
 
-  // Invalidate the cache for the task group list page
-  revalidatePath('/dashboard/task-groups');
-
-  // Redirect to the task group list page
-  redirect('/dashboard/task-groups');
 }
 
 
