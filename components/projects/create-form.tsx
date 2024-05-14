@@ -5,7 +5,10 @@ import { create_project } from '@/actions/projects';
 
 export default function Form() {
   const initialState: State = {
-    message: null, errors: {}
+    message: null, errors: {
+      name: [],
+      description: [],
+    }
   };
   const [state, dispatch] = useFormState(create_project, initialState);
   return (
