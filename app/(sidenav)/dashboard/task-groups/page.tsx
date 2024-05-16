@@ -1,5 +1,7 @@
-import { Metadata } from "next";
 import { Suspense } from "react";
+import { Metadata } from "next";
+//components
+import { Loader1 } from "@/components/loaders";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
 import TaskGroupGrid from "@/components/task-group/task-group-grid";
@@ -42,7 +44,7 @@ export default async function Page({
                 <Search placeholder="Search task groups..." />
                 <CreateTaskGroup />
             </div>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader1 />}>
                 <TaskGroupGrid query={query} currentPage={currentPage} />
             </Suspense>
             <div className="flex w-full justify-center">
