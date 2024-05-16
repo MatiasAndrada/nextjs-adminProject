@@ -46,11 +46,11 @@ export default async function MainDashboard({ name, description, searchParams }:
                         <h2 className="mb-4 text-2xl font-semibold leadi">Task group status</h2>
                         <Filter />
                     </div>
-                    <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-                        <div className="overflow-x-auto">
-                            <Table query={query} currentPage={currentPage} taskGroup={taskGroup} />
-                        </div>
-                    </Suspense>
+                    {/*<Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}
+                    <div className="overflow-x-auto">
+                        <Table query={query} currentPage={currentPage} taskGroup={taskGroup} />
+                    </div>
+                    {/*</Suspense>*/}
                     <div className="mt-5 flex w-full justify-center">
                         <Pagination totalPages={totalPages} />
                     </div>
