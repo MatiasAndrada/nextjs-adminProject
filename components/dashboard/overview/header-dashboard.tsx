@@ -10,8 +10,8 @@ export default async function HeaderDashboard({ id }: { id: string }) {
     const countTaskTotal = await fetch_count_total_tasks(id)
     const members = await fetch_count_members(id)
     return (
-        <section className="col-span-3 row-span-1 ">
-            <div className="container grid grid-cols-1 gap-2  mx-auto sm:grid-cols-2 xl:grid-cols-5">
+        <section className="col-span-3 row-span-1">
+            <div className=" grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-5">
                 <Link href={`/dashboard/task-groups/create`} className="flex flex-col justify-center items-center p-4 rounded-lg text-primary hover:text-secondary bg-slate-300 dark:bg-slate-800">
 
                     <p className="text-md antialiased font-semibold leading-6 ">Create new task group</p>
