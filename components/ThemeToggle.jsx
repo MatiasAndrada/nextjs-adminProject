@@ -20,7 +20,15 @@ const ThemeToggle = () => {
     }
   }, [darkMode]);
 
-  return <DarkModeSwitch checked={darkMode} onChange={setDarkMode} size={30} />;
+  return (
+    <DarkModeSwitch
+      checked={darkMode}
+      onChange={setDarkMode}
+      size={30}
+      moonColor="white"
+      sunColor="white"
+    />
+  );
 };
 
 export default ThemeToggle;

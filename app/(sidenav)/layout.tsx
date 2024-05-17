@@ -13,7 +13,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuPortal,
 } from "../../components/ui/dropdown-menu"
-import { inter } from "@/components/fonts";
+/* import { inter } from "@/components/fonts"; */
 import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
 
 

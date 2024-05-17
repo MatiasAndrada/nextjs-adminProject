@@ -1,4 +1,5 @@
-import ProjectAdminWithText from "@/components/project-admin-logo";
+import { IconWithText } from "@/components/logo";
+import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
 import { lusitana } from "@/components/fonts";
 
@@ -11,12 +12,13 @@ import Link from "next/link";
 export default function Page() {
 
   return (
-    <main className="flex flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-primary p-4 md:h-28">
-        <ProjectAdminWithText />
+    <main className="flex flex-col  p-6">
+      <div className="flex h-20 shrink-0 items-end justify-between rounded-lg bg-primary p-4 md:h-28">
+        <IconWithText />
+        <ThemeToggle />
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-around gap-6 rounded-lg bg-gray-50 px-6 py-4 md:w-2/5 md:px-20">
+        <div className="flex flex-col justify-around gap-6 rounded-lg bg-slate-50 dark:bg-slate-900 px-6 py-4 md:w-2/5 md:px-20">
           <div className="md:self-end">
 
             <p className="text-gray-500  text-sm w-36">
@@ -45,7 +47,7 @@ export default function Page() {
           <LoginButton />
 
         </div>
-        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-24 md:py-4">
+        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-24 md:py-4 dark:opacity-30">
           {/* Add Hero Images Here */}
           <Image
             src="/hero-desktop.png"
