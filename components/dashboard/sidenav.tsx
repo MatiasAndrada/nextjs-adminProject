@@ -16,23 +16,17 @@ export default async function SideNav() {
   return (
     <div className=" h-screen w-full bg-slate-300 dark:bg-slate-900  flex flex-col gap-2">
       <div className=" bg-blue-500 p-2 flex flex-col h-fit items-center justify-around gap-4">
-        <IconWithText />
-        <div className="
-        flex flex-row items-center gap-2 justify-around w-full
-        ">
+        <div className="pt-2 flex flex-row items-center gap-1 justify-around w-full">
+          <IconWithText redirect="/projects" />
           <ThemeToggle />
 
-          <DropDown
-            name="Projects"
-            createName="project"
-            items={projectItems}
-            selectedItem={project}
-          />
-
-
-
         </div>
-
+        <DropDown
+          name="Projects"
+          createName="project"
+          items={projectItems}
+          selectedItem={project}
+        />
       </div>
       <div className="mx-2 flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
