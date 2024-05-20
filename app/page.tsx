@@ -1,10 +1,8 @@
-
-import { IconWithText } from "@/components/logo";
-import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
 //Components
+import { IconWithText } from "@/components/logo";
+import ThemeToggle from "@/components/ThemeToggle";
 import { lusitana } from "@/components/fonts";
-import ProjectAdminWithText from "@/components/project-admin-logo";
 import LastVersion from "@/components/home/LastVersion";
 import { LoginButton } from "@/components/buttons-auth";
 import { StatusSession } from "@/components/home/StatusSession";
