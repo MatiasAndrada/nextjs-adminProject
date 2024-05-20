@@ -98,20 +98,6 @@ export async function update_project(prevState: State, formData: FormData) {
     }
 }
 
-export async function fetch_project_by_id(id: string) {
-    try {
-        const project = await db.project.findUnique({
-            where: {
-                id,
-            },
-        });
-        return project;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
-
 export async function delete_project_by_id(id: string) {
     try {
         const user = await currentUser();

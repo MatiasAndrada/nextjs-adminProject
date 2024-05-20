@@ -31,6 +31,20 @@ export async function fetch_projects() {
     return onlyProjects
 }
 
+export async function fetch_project_by_id(id: string) {
+    try {
+        const project = await db.project.findUnique({
+            where: {
+                id,
+            },
+        });
+        return project;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 export async function fetch_count_members(id: string) {
     const member = await prisma.project.findFirst({
         where: {
