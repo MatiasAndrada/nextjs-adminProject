@@ -22,7 +22,7 @@ export default function Form() {
           type="text"
           id="name"
           name='name'
-          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          className="peer block w-full rounded-md dark:bg-slate-800 border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
           defaultValue=""
           aria-describedby="name-error"
         />
@@ -44,7 +44,7 @@ export default function Form() {
         </label>
         <textarea
           id="description"
-          className="peer block w-full h-fit  rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          className="peer block w-full h-fit  rounded-md dark:bg-slate-800 border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
           name='description'
           defaultValue=""
           aria-describedby="description-error"

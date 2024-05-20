@@ -1,6 +1,6 @@
 import Form from '@/components/projects/edit-form';
 import Breadcrumbs from '@/components/breadcrumbs';
-import { fetch_project_by_id } from "@/actions/projects"
+import { fetch_project_by_id } from "@/data/projects"
 import { notFound } from 'next/navigation'
 
 export default async function Page({ params }: { params: { id: string } }) {
