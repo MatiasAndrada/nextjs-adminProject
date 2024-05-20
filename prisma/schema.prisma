@@ -83,7 +83,7 @@ model TwoFactorConfirmation {
 enum Role {
   ADMIN /// allowed to do everything
   EDITOR /// allowed to edit content
-  READER /// allowed to read content
+  VIEWER /// allowed to read content
 }
 
 //tabla intermediaria que gestiona la relacion muchos a muchos entre usuarios y proyectos
@@ -94,7 +94,7 @@ model ProjectUser {
   //project_id
   project_id String
   //rol
-  role       Role    @default(READER)
+  role       Role    @default(VIEWER)
   //relaciones 
   user       User    @relation(fields: [user_id], references: [id], onDelete: Cascade) // reclacion one to many 
   project    Project @relation(fields: [project_id], references: [id], onDelete: Cascade) // relacion one to many
