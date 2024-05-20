@@ -1,8 +1,6 @@
 "use server";
 import { resend } from "@/lib/email";
-
-const domain = process.env.APP_URL || "http://localhost:3000";
-const fromEmail = (process.env.EMAIL_HOST as string) || "Project Admin <service-email@resend.dev>";
+import { domain, fromEmail } from "@/emails";
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
     try {
