@@ -1,12 +1,14 @@
+
 import { IconWithText } from "@/components/logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
+//Components
 import { lusitana } from "@/components/fonts";
-
+import ProjectAdminWithText from "@/components/project-admin-logo";
+import LastVersion from "@/components/home/LastVersion";
 import { LoginButton } from "@/components/buttons-auth";
+import { StatusSession } from "@/components/home/StatusSession";
 
-import { SessionClient } from "@/components/auth/SessionClient";
-import { SessionServer } from "@/components/auth/SessionServer";
 
 export default function Page() {
 
@@ -17,18 +19,11 @@ export default function Page() {
         <ThemeToggle />
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-around gap-6 rounded-lg bg-slate-50 dark:bg-slate-900 px-6 py-4 md:w-2/5 md:px-20">
-          <div className="md:self-end">
+        <div className="flex flex-col justify-around gap-6 rounded-lg bg-gray-50 px-6 py-4 md:w-2/5 md:px-20">
+          <div className="flex flex-row items-center justify-between">
+            <LastVersion />
+            <StatusSession />
 
-            <p className="text-gray-500  text-sm w-36">
-              (Verify the server and client session status:)
-            </p>
-            <div className="flex items-center md:justify-center gap-4 opacity-60">
-              <span className="text-xs">Server:</span>
-              <SessionServer />
-              <span className="text-xs">Client:</span>
-              <SessionClient />
-            </div>
           </div>
           <p
             className={`${lusitana.className} text-xl md:text-3xl md:leading-normal`}
