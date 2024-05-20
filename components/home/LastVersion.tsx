@@ -18,9 +18,9 @@ async function LastVersion() {
     }
     return (
         <div className='text-gray-500 text-sm opacity-60'>
-            <h4>Ultima actualización:</h4>
-            <p>Autor: {lastCommitAuthor}</p>
-            <p>Fecha: {transformDate}</p>
+            <h4>Last update:</h4>
+            <p>Author: {lastCommitAuthor}</p>
+            <p>Date: {transformDate}</p>
         </div>
     )
 }
