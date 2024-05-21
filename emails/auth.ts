@@ -1,6 +1,5 @@
 "use server";
-import { resend } from "@/lib/email";
-import { domain, fromEmail } from "@/emails";
+import { resend, domain, fromEmail } from "@/lib/email";
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
     try {
