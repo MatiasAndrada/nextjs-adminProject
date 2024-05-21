@@ -10,14 +10,14 @@ async function LastVersion() {
         const resMessage = response.message
         const extractIP = resMessage?.split(' ')[5]
         return (
-            <div className='text-gray-500 text-sm opacity-60'>
+            <div className='text-gray-500 dark:text-slate-300 text-sm opacity-60'>
                 <h4 className='w-36 text-balance'>Exceded IP limit request in API github</h4>
                 <p>IP: {extractIP}</p>
             </div>
         )
     }
     return (
-        <div className='text-gray-500 text-sm opacity-60'>
+        <div className='text-gray-500 dark:text-slate-300 text-sm opacity-60'>
             <h4>Last update:</h4>
             <p>Author: {lastCommitAuthor}</p>
             <p>Date: {transformDate}</p>

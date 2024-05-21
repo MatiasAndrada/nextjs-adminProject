@@ -17,14 +17,14 @@ export default function Page() {
         <ThemeToggle />
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-around gap-6 rounded-lg bg-gray-50 px-6 py-4 md:w-2/5 md:px-20">
+        <div className="flex flex-col justify-around gap-6 rounded-lg bg-gray-50 dark:bg-slate-800 px-6 py-4 md:w-2/5 md:px-20">
           <div className="flex flex-row items-center justify-between">
             <LastVersion />
             <StatusSession />
 
           </div>
           <p
-            className={`${lusitana.className} text-xl md:text-3xl md:leading-normal`}
+            className={`${lusitana.className} text-xl md:text-3xl md:leading-normal `}
           >
             <strong>Welcome to Project Admin</strong>@beta version
             of the project.{" "}
