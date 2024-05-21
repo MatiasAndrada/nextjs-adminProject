@@ -5,7 +5,6 @@ import type { TaskGroup } from "@prisma/client"
 import { Criticality } from '@prisma/client';
 import { update_task_group } from '@/actions/task-group';
 export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup }) {
-    console.log("🦇  EditTaskGroupForm  taskGroup:", taskGroup)
     const initialState: State = { message: null, errors: {} }
 
     const [state, dispatch] = useFormState(update_task_group, initialState)

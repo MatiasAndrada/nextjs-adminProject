@@ -6,8 +6,6 @@ import { notFound } from 'next/navigation'
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
     const projects = await fetch_project_by_id(id);
-    console.log("🦇  Page  projects:", projects)
-
     if (!projects) {
         notFound();
     }

@@ -24,7 +24,6 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
             subject: "Reset your password",
             html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`,
         });
-        console.log("🦇  sendTwoFactorTokenEmail  a:", a)
     } catch (error) {
         console.error("Error sending password reset email:", error);
     }
