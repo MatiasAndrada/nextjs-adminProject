@@ -42,7 +42,6 @@ const links: Link[] = [
     name: "Members",
     href: "/dashboard/members",
     icon: UserGroupIcon,
-    state: "disabled",
   },
   {
     name: "Recycle Bin",
