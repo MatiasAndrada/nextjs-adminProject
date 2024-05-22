@@ -81,8 +81,9 @@ model TwoFactorConfirmation {
 }
 
 enum Role {
-  ADMIN /// allowed to do everything
-  EDITOR /// allowed to edit content
+  OWNER /// allowed to do everything
+  ADMIN /// allowed to manage users under, and delete taskgroups and tasks
+  EDITOR /// allowed to edit content, but not delete
   VIEWER /// allowed to read content
 }
 
