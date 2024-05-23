@@ -83,6 +83,7 @@ model TwoFactorConfirmation {
 model InviteToken {
   id      String   @id @default(cuid())
   email   String
+  role    Role
   token   String   @unique
   expires DateTime
 
