@@ -80,6 +80,15 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
+model InviteToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
 enum Role {
   OWNER /// allowed to do everything
   ADMIN /// allowed to manage users under, and delete taskgroups and tasks
