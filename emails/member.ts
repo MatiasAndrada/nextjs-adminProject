@@ -3,7 +3,7 @@ import { resend, domain, fromEmail as resendEmail } from "@/lib/email";
 
 export const sendInvitation = async (fromEmail: string, toEmail: string, token: string) => {
     try {
-        const inviteLink = `${domain}/members/invite?token=${token}`;
+        const inviteLink = `${domain}/dashboard/members/invite?token=${token}`;
         await resend.emails.send({
             from: resendEmail,
             to: toEmail,

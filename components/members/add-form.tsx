@@ -8,14 +8,15 @@ import { invite_member } from '@/actions/member';
 export default function Form() {
 
     const initialState: State = {
-        message: null, errors: {
+        errors: {
             email: [],
             role: [],
-        }
+        },
+        message: null,
     };
     const [state, dispatch] = useFormState(invite_member, initialState);
     //not permit admin permission
-    const roles = Object.keys(Role).filter((role) => role !== Role.ADMIN);
+    const roles = Object.keys(Role).filter((role) => role !== Role.OWNER);
     return (
         <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             {/* TO EMAIL INVITE*/}
@@ -85,7 +86,6 @@ export default function Form() {
                         {state.message}
                     </div>
                 )}
-
             </div>
         </form>
 

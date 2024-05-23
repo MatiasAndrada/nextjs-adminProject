@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { getVerificationTokenByEmail } from "@/data/verificiation-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+//types
+import { Role } from "@prisma/client";
 
 //!AUTH
 export const generateTwoFactorToken = async (email: string) => {
@@ -81,7 +83,7 @@ export const generateVerificationToken = async (email: string) => {
 };
 
 //!MEMBERS
-export const generateInviteToken = async (email: string) => {
+export const generateInviteToken = async (email: string, role: Role) => {
     const token = uuidv4();
     const expires = new Date(new Date().getTime() + 72 * 60 * 60 * 1000); // Set expiration time to 72 hours (3 days)
 
@@ -102,6 +104,7 @@ export const generateInviteToken = async (email: string) => {
     const inviteToken = await db.inviteToken.create({
         data: {
             email,
+            role,
             token,
             expires,
         }
