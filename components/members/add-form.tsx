@@ -6,10 +6,10 @@ import { invite_member } from '@/actions/member';
 
 
 export default function Form() {
+
     const initialState: State = {
         message: null, errors: {
-            fromEmail: [],
-            toEmail: [],
+            email: [],
             role: [],
         }
     };
@@ -31,12 +31,12 @@ export default function Form() {
                     defaultValue=""
                     aria-describedby="email-error"
                 />
-                {state.errors?.toEmail && (
+                {state.errors?.email && (
                     <div
                         aria-live="polite"
                         className="mt-2 text-md text-red-500"
                     >
-                        {state.errors.toEmail.map((error: string) => (
+                        {state.errors.email.map((error: string) => (
                             <p key={error}>{error}</p>
                         ))}
                     </div>

@@ -2,7 +2,7 @@ import * as z from "zod";
 import { Role } from "@prisma/client";
 
 export const MemberSchema = z.object({
-    toEmail: z.string().email({
+    email: z.string().email({
         message: "Email is required",
     }),
     role: z.nativeEnum(Role),
@@ -10,7 +10,7 @@ export const MemberSchema = z.object({
 
 export type State = {
     errors?: {
-        toEmail?: string[];
+        email?: string[];
         role?: string[];
     };
     message?: string | null;
