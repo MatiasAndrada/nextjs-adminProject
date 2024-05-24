@@ -35,7 +35,7 @@ export function ButtonViewProject({ projectId }: { projectId: string }) {
     return (
         <Link href={`/projects/${projectId}`}>
             <Button variant="outline" size="sm">
-                <EyeIcon className="w-6 h-6 mr-0.5" />
+                <EyeIcon className="w-6 h-6 mr-1" />
                 View project
             </Button>
         </Link>
