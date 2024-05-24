@@ -81,11 +81,13 @@ model TwoFactorConfirmation {
 }
 
 model InviteToken {
-  id      String   @id @default(cuid())
-  email   String
-  role    Role
-  token   String   @unique
-  expires DateTime
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  email_owner String
+  role        Role
+  token       String   @unique
+  expires     DateTime
 
   @@unique([email, token])
 }
