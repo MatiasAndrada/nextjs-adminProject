@@ -54,7 +54,6 @@ export async function invite_member(prevState: State, formData: FormData) {
             email: true,
         },
     });
-
     // send email to the user
     const { email, role } = validatedFields.data;
     if (email === email_project_owner?.email) {

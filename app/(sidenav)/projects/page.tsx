@@ -1,6 +1,7 @@
 /* import { Suspense } from "react"; */
 //components
 import Cards from "@/components/projects/cards";
+import { CardsInvitation } from "@/components/projects/card-invitation";
 import { ButtonCreate } from "@/components/projects/buttons";
 import { lusitana } from "@/components/fonts";
 //functions
@@ -19,12 +20,14 @@ export default async function Page() {
                 <ButtonCreate />
             </div>
             <div className="mt-4 space-y-4">
-                <h2 className="text-xl font-medium ">Your projects</h2>
+                <h2 className="text-xl font-medium ">Your projects:</h2>
                 {/*             <Suspense fallback={<CardsSkeleton />}> */}
                 <Cards projects={projects} />
                 {/*             </Suspense> */}
-                < h2 className="text-xl font-medium ">Projects with you</h2>
+                < h2 className="text-xl font-medium ">Projects with you:</h2>
                 <Cards projects={null} yours={false} />
+                <h3 className="text-xl font-medium">invitations:</h3>
+                <CardsInvitation />
             </div>
         </main >
     );
