@@ -83,7 +83,7 @@ export const generateVerificationToken = async (email: string) => {
 };
 
 //!MEMBERS
-export const generateInviteToken = async (name: string, email: string, email_owner: string | null, role: Role) => {
+export const generateInviteToken = async (name: string, email: string, email_owner: string, role: Role) => {
     const token = uuidv4();
     const expires = new Date(new Date().getTime() + 72 * 60 * 60 * 1000); // Set expiration time to 72 hours (3 days)
 
@@ -103,7 +103,9 @@ export const generateInviteToken = async (name: string, email: string, email_own
 
     const inviteToken = await db.inviteToken.create({
         data: {
+            name,
             email,
+            email_owner,
             role,
             token,
             expires,
