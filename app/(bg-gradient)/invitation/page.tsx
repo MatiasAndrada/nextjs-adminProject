@@ -6,6 +6,7 @@ import { getUserByEmail } from "@/data/user";
 
 export default async function Page({ searchParams: { token } }: { searchParams: { token: string } }) {
   const invitation = await fetch_invitation_by_token(token);
+  console.log("🦇  Page  invitation:", invitation)
   if (!invitation) {
     throw new Error("Invitation not found.");
   }
