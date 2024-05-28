@@ -11,14 +11,14 @@ export default async function Page() {
                     { label: 'Dashboard', href: '/dashboard' },
                     { label: 'Members', href: '/dashboard/members', active: true },
                     {
-                        label: "Create Task",
+                        label: "Add Member",
                         href: "/dashboard/members/add",
                         active: true,
                     }
                 ]}
                 />
-                <h1 className={`${lusitana.className} capitalize mb-4 text-xl md:text-2xl`}>
-                    Add a member
+                <h1 className={`${lusitana.className} capitalize mb-4 text-xl md:text-4xl`}>
+                    Send invitation
                 </h1>
             </div>
             <div className="h-full flex flex-col items-center justify-between">

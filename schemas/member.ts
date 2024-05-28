@@ -6,13 +6,11 @@ export const Schema = z.object({
     role: z.nativeEnum(Role)
 });
 
-
-
 export type State = {
     errors?: {
         email?: string[];
         role?: string[];
     };
-    message: string | null;
+    message?: string | null;
 };
 

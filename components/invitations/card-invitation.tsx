@@ -1,9 +1,9 @@
 import { Button } from "../ui/button"
-import { fetch_invitations } from "@/data/invitations"
+import { fetch_invitations_of_user } from "@/data/invitations"
 import { InviteToken } from "@prisma/client"
 
 export async function CardsInvitation() {
-    const invitations = await fetch_invitations()
+    const invitations = await fetch_invitations_of_user()
     return (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {

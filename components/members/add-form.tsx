@@ -2,7 +2,7 @@
 import { useFormState } from 'react-dom';
 import type { State } from '@/schemas/member';
 import { Role } from '@prisma/client';
-import { invite_member } from '@/actions/member';
+import { send_invitation } from '@/actions/invitations';
 
 
 export default function Form() {
@@ -14,7 +14,7 @@ export default function Form() {
         },
         message: null,
     };
-    const [state, dispatch] = useFormState(invite_member, initialState);
+    const [state, dispatch] = useFormState(send_invitation, initialState);
     //not permit admin permission
     const roles = Object.keys(Role).filter((role) => role !== Role.OWNER);
     return (
