@@ -5,7 +5,10 @@
  */
 export const publicRoutes: string[] = [
     "/",
-    "/auth/new-verification"
+    "/auth/new-verification",
+    "/invitation",
+    "/invitation/accept",
+    "/invitation/decline",
 ];/* */
 
 /**

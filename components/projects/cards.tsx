@@ -2,45 +2,23 @@ import Link from "next/link";
 //components
 import { ButtonViewProject } from "@/components/projects/buttons";
 import ButtonActionsDropDropdown from "@/components/projects/drop-down-actions";
-import { Button } from "@/components/ui/button";
 //types
-import { Project } from "@prisma/client";
+import { Project, ProjectUser } from "@prisma/client";
 
-export default function Cards({ projects, yours = true }: { projects: Project[] | null, yours?: boolean }) {
-  return projects === null ? (
-    <div className="mx-auto flex flex-col items-center justify-center space-y-2">
-      {yours ? (
-        <>
-          <h2 className="text-lg font-medium ">You don t have any projects yet.</h2>
-          <Link href="/projects/new">
-            <Button variant="create" size="sm">
-              Create a project
-            </Button>
-          </Link>
-        </>
-        /*  */
-      )
-        : (
-          <>
-            <h2 className="text-lg font-medium ">There are no projects with you yet.</h2>
-            <p className="text-gray-500">Join or invite on your project to start collaborating with others.</p>
-            <Button variant="disabled" size="sm">
-              Join a project
-            </Button>
-          </>
-        )
-      }
-    </div>
-  ) : (
+
+export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUser & { project: Project }> }) {
+  return (
     <div className="grid grid-cols-3 gap-4">
-      {projects?.map((project) => (
-        <Card key={project.id} id={project.id} name={project.name} />
+      {ProjectsUser?.map((p) => (
+        <Card key={p.id} id={p.project.id} name={p.project.name} />
       ))}
     </div>
-  );
+  )
+
 }
 
 export function Card({ id, name }: { id: string; name: string }) {
+  //TODO: debe de tener el rol del usuario
   return (
     <div className="min-w-fit flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
       <div className="p-2 ">

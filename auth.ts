@@ -65,7 +65,6 @@ export const {
                 session.user.name = token.name;
                 session.user.email = token.email as string;
                 session.user.isOAuth = token.isOAuth as boolean;
-
             }
 
             return session;
@@ -85,7 +84,6 @@ export const {
             token.email = existingUser.email;
             token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
             token.selected_project_id = existingUser.selected_project_id;
-
             return token;
         },
 

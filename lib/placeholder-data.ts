@@ -2,7 +2,7 @@
 // https://nextjs.org/learn/dashboard-app/fetching-data
 
 
-import { Status, Criticality } from "@prisma/client";
+import { Status, Criticality, Role } from "@prisma/client";
 
 export const testUser = {
   id: "clri6fs8e0000j8la4hdgf2i0",
@@ -23,7 +23,7 @@ export const projectUser = [
   {
     user_id: testUser.id,
     project_id: project[0].id,
-    role: "ADMIN",
+    role: Role.OWNER
   },
 ];
 

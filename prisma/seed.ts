@@ -109,7 +109,7 @@ async function main() {
         data: {
           user_id: userId,
           project_id: projectUser[0].project_id,
-          role: "ADMIN",
+          role: projectUser[0].role,
         },
       });
       console.log("Creating projectUser...");
