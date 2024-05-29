@@ -1,45 +1,23 @@
-import Link from "next/link";
-//components
+"use client"
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-//icons
-import {
-    EyeIcon,
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { delete_project_by_id } from "@/actions/projects";
 
-} from "@heroicons/react/24/outline";
-
-export function ButtonCreate() {
+export function ButtonDeleteProject({ id }: { id: string }) {
+    async function handleDelete(id: string) {
+        await delete_project_by_id(id).then((res) => {
+            if (res.error) {
+                toast.error(res.error);
+            } else {
+                toast.success(res.success);
+            }
+        })
+    }
     return (
-        <Link href="/projects/create">
-            <Button variant="create">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-8 h-8"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                </svg>
-                Create a new project
-            </Button>
-        </Link>
+        <Button variant="ghost" onClick={() => handleDelete(id)}>
+            <TrashIcon className="w-4 h-4 mr-1" />
+            <p>Delete</p>
+        </Button>
     );
 }
-
-export function ButtonViewProject({ projectId }: { projectId: string }) {
-    return (
-        <Link href={`/projects/${projectId}`}>
-            <Button variant="outline" size="sm">
-                <EyeIcon className="w-6 h-6 mr-1" />
-                View project
-            </Button>
-        </Link>
-    );
-}
-
-

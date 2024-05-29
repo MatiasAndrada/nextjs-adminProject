@@ -26,6 +26,12 @@ Sistema de administración de tareas y usuarios para equipos de trabajo.
 - PostgreSQL
 - React
 
+## COMMANDS
+- `npm i` - Install dependencies
+- `postinstall` - Execute after install dependencies to generate Prisma Client types and push schema to database for fewer steps to start the project
+- `npx prisma generate` - Generate Prisma Client types and schema
+- `npx prisma db push` - Push schema to database
+- `npx prisma migrate reset` - Reset migrations and database
 
 ## TO DO
 - []  Add * in labels for required fields

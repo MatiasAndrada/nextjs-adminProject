@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 export const currentUser = async () => {
   const session = await auth();
-  return session?.user;
+  if (!session) throw new Error("No session found");
+  return session.user;
 };

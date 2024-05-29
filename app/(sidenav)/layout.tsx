@@ -1,5 +1,4 @@
 import { currentUser } from "@/hooks/use-current-user";
-/* import { redirect } from "next/navigation" */
 import Link from "next/link";
 import SideNav from "@/components/dashboard/sidenav";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -13,7 +12,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuPortal,
 } from "../../components/ui/dropdown-menu"
-/* import { inter } from "@/components/fonts"; */
+import { Toaster } from 'sonner'
+
 import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
 
 
@@ -23,6 +23,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <section>
       <CurrentProjectStoreProvider>
+        <Toaster richColors />
         <div className="flex flex-col md:flex-row">
           <div className=" w-full flex-none md:w-64">
             <SideNav />
