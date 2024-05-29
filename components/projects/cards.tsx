@@ -1,6 +1,6 @@
 import Link from "next/link";
 //components
-import { ButtonViewProject } from "@/components/projects/buttons";
+import { LinkViewProject } from "@/components/projects/redirects";
 import ButtonActionsDropDropdown from "@/components/projects/drop-down-actions";
 //types
 import { Project, ProjectUser } from "@prisma/client";
@@ -31,7 +31,7 @@ export function Card({ id, name }: { id: string; name: string }) {
         </span>
       </div>
 
-      <ButtonViewProject projectId={id} />
+      <LinkViewProject projectId={id} />
 
       {/*           <Link
             href={`/dashboard`}

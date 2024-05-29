@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Cards from "@/components/projects/cards";
 import { CardsInvitation } from "@/components/invitation/card-invitation";
-import { ButtonCreate } from "@/components/projects/buttons";
+import { LinkCreate } from "@/components/projects/redirects";
 import { Button } from "@/components/ui/button";
 import { lusitana } from "@/components/fonts";
 //functions
@@ -18,7 +18,7 @@ export default async function Page() {
         <main>
             <h1 className={`${lusitana.className} text-4xl `}>Projects page</h1>
             <div className="absolute top-16 right-5">
-                <ButtonCreate />
+                <LinkCreate />
             </div>
             <div className="mt-4 space-y-4">
                 <h2 className="text-xl font-medium ">Your projects:</h2>
