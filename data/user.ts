@@ -3,8 +3,7 @@ import { db } from "@/lib/db";
 export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.user.findUnique({
-      where: { email },
-      include: { ProjectUser: true } // Include the projectuser data
+      where: { email }
     });
 
     return user;
@@ -16,8 +15,7 @@ export const getUserByEmail = async (email: string) => {
 export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({
-      where: { id },
-      include: { ProjectUser: true } // Include the projectuser data
+      where: { id }
     });
     return user;
   } catch {

@@ -6,7 +6,9 @@
 export const publicRoutes: string[] = [
     "/",
     "/auth/new-verification",
-    "/invitation"
+    "/invitation",
+    "/invitation/accept",
+    "/invitation/decline",
 ];/* */
 
 /**

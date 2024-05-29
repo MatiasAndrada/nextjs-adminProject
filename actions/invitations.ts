@@ -1,10 +1,10 @@
 "use server";
-
-import * as z from "zod";
+import { redirect } from 'next/navigation';
 import { db } from "@/lib/db";
 //hooks
 import { currentUser } from "@/hooks/use-current-user";
 import { currentRole } from "@/hooks/use-current-role";
+import { getUserByEmail } from "@/data/user";
 //emails
 import { sendInvitation } from "@/emails/member";
 //tokens
@@ -14,6 +14,91 @@ import { Schema } from "@/schemas/member";
 //types
 import type { State } from "@/schemas/member";
 import { Role } from "@prisma/client";
+
+
+export async function new_invitation(token: string) {
+    const existingToken = await db.inviteToken.findUnique({
+        where: {
+            token: token,
+        },
+        include: {
+            project: true,
+        },
+    });
+    if (!existingToken) {
+        return { error: "Token does not exist!" };
+    }
+    const hasExpired = new Date(existingToken.expires) < new Date();
+    if (hasExpired) {
+        return { error: "Token has expired!" };
+    }
+    const expireIn = Math.floor((existingToken.expires.getTime() - new Date().getTime()) / 3600000)
+    const existingUser = await getUserByEmail(existingToken.email);
+    if (!existingUser) {
+        return { error: "Email does not exist!" };
+    }
+
+
+    return {
+        success: `Correct token expires in ${expireIn} hours.`, invitation: existingToken
+    };
+}
+
+export async function accept_invitation(token: string) {
+    const existingToken = await db.inviteToken.findUnique({
+        where: {
+            token: token,
+        },
+    });
+    if (!existingToken) {
+        return { error: "Token does not exist!" };
+    }
+    const user = await getUserByEmail(existingToken.email);
+    if (!user) {
+        return { error: "Email does not exist!" };
+    }
+    const user_id = user.id;
+    const project_id = existingToken.project_id;
+    const existingProjectUser = await db.projectUser.findFirst({
+        where: {
+            user_id: user_id,
+            project_id: project_id,
+        },
+    });
+    if (existingProjectUser) {
+        return { error: "User is already a member of this project!" };
+    }
+    await db.projectUser.create({
+        data: {
+            user_id: user_id,
+            project_id: project_id,
+            role: existingToken.role,
+        },
+    });
+    await db.inviteToken.delete({
+        where: {
+            token: token,
+        },
+    });
+    redirect("/invitation/accept")
+}
+
+export async function decline_invitation(token: string) {
+    const existingToken = await db.inviteToken.findUnique({
+        where: {
+            token: token,
+        },
+    });
+    if (!existingToken) {
+        return { error: "Token does not exist!" };
+    }
+    await db.inviteToken.delete({
+        where: {
+            token: token,
+        },
+    });
+    redirect("/invitation/decline")
+}
 
 export async function send_invitation(prevState: State, formData: FormData) {
     const validatedFields = Schema.safeParse({
@@ -44,30 +129,3 @@ export async function send_invitation(prevState: State, formData: FormData) {
 }
 
 
-export async function accept_invitation(token: string, email: string) {
-    const invite = await db.inviteToken.findUnique({
-        where: {
-            token: token,
-        },
-    });
-    if (!invite) {
-        return { message: "Invalid token" };
-    }
-    const user = await db.user.findUnique({
-        where: {
-            email: email,
-        },
-    });
-    if (!user) {
-        return { message: "An account was not found with this email so you must create one" };
-    }
-    const projectUser = await db.projectUser.create({
-        data: {
-            user_id: user.id,
-            project_id: invite.project_id,
-            role: invite.role,
-        },
-    })
-
-    return { message: "Invitation accepted!" };
-}

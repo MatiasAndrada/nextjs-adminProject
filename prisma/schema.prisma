@@ -83,6 +83,7 @@ model TwoFactorConfirmation {
 model InviteToken {
   id         String   @id @default(cuid())
   project_id String
+  project    Project  @relation(fields: [project_id], references: [id])
   email      String
   role       Role
   token      String   @unique
@@ -100,16 +101,17 @@ enum Role {
 
 //tabla intermediaria que gestiona la relacion muchos a muchos entre usuarios y proyectos
 model ProjectUser {
-  id         String  @id @unique @default(cuid())
+  id         String @id @unique @default(cuid())
   //user_id
   user_id    String
   //project_id
   project_id String
   //rol
-  role       Role    @default(VIEWER)
+
+  role    Role    @default(VIEWER)
   //relaciones 
-  user       User    @relation(fields: [user_id], references: [id], onDelete: Cascade) // reclacion one to many 
-  project    Project @relation(fields: [project_id], references: [id], onDelete: Cascade) // relacion one to many
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade) // reclacion one to many 
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade) // relacion one to many
 }
 
 model Project {
@@ -120,6 +122,7 @@ model Project {
   createdAt   DateTime      @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
   User        User[]
+  Invitation  InviteToken[]
 }
 
 enum Criticality {
