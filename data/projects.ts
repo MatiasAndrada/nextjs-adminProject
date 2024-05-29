@@ -1,35 +1,49 @@
 import { db } from "@/lib/db";
 
 import { currentUser } from "@/hooks/use-current-user";
-
+import { Role } from "@prisma/client";
 const prisma = db;
 
-export async function fetch_projects() {
+export async function fetch_projects_owner() {
     const user = await currentUser();
     const user_id = user?.id;
     const projectsOfUser = await prisma.projectUser.findMany({
         where: {
+            role: Role.OWNER,
             user_id: user_id
         },
         include: {
             project: true
         }
     })
-
-    if (projectsOfUser.length === 0) {
-        return null;
-    }
     /*     const dto = projectsOfUser.map((pu) => {
             return {
                 id: pu.project.id,
                 name: pu.project.name,
             }
         }); */
-    const onlyProjects = projectsOfUser.map((pu) => {
-        return pu.project
-    })
-    return onlyProjects
+
+    /*     const onlyProjects = projectsOfUser.map((pu) => {
+            return pu.project
+        }) */
+    return projectsOfUser
 }
+
+export async function fetch_projects_member() {
+    const user = await currentUser();
+    const user_id = user?.id;
+    const projectsOfUser = await prisma.projectUser.findMany({
+        where: {
+            role: { in: [Role.VIEWER, Role.EDITOR, Role.ADMIN] },
+            user_id: user_id
+        },
+        include: {
+            project: true
+        }
+    })
+    return projectsOfUser;
+}
+
 
 export async function fetch_project_by_id(id: string) {
     try {

@@ -4,13 +4,13 @@ import DropDown from "@/components/dashboard/drop-down-select-project";
 import { IconWithText } from "@/components/logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import { LogoutButton } from "@/components/buttons-auth";
-import { fetch_projects } from "@/data/projects";
+import { fetch_projects_owner } from "@/data/projects";
 import { currentProject } from "@/hooks/use-current-project";
 import { PowerIcon } from "@heroicons/react/24/outline";
 
 export default async function SideNav() {
   const [projectItems, project] = await Promise.all([
-    fetch_projects(),
+    fetch_projects_owner(),
     currentProject(),
   ]); //Peticiones en paralelo
   return (
