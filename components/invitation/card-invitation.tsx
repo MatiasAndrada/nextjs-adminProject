@@ -16,8 +16,12 @@ export async function CardsInvitation() {
 }
 
 export function CardInvitation({ invitation }: { invitation: InviteToken }) {
-    const { name, email, email_owner, role, expires } = invitation
+
+    const { project_id, email, role, expires } = invitation
+
     const expiresHours = Math.floor((expires.getTime() - new Date().getTime()) / 3600000)
+
+
     return (
         <div className="bg-slate-100 dark:bg-slate-900 text-gray-500 dark:text-slate-300 shadow-xl rounded-lg p-4">
             {/*  {
@@ -27,8 +31,8 @@ export function CardInvitation({ invitation }: { invitation: InviteToken }) {
                     </div>
                 ) : ( */}
             <ul className="mb-4 leading-loose">
-                <li className="text-md ">Project: <span className="text-black dark:text-white font-bold text-lg">{name}</span></li>
-                <li>Invite From: {email_owner}</li>
+                <li className="text-md ">Project: <span className="text-black dark:text-white font-bold text-lg">{role}</span></li>
+                {/*      <li>Invite From: {email_owner}</li> */}
                 <li>Invite Expires in  {expiresHours} hs</li>
             </ul>
             {/*                 )

@@ -1,7 +1,7 @@
 /* import { Suspense } from "react"; */
 //components
 import Cards from "@/components/projects/cards";
-import { CardsInvitation } from "@/components/invitations/card-invitation";
+import { CardsInvitation } from "@/components/invitation/card-invitation";
 import { ButtonCreate } from "@/components/projects/buttons";
 import { lusitana } from "@/components/fonts";
 //functions
