@@ -1,9 +1,12 @@
 "use server"
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
+
 import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
-import { redirect } from 'next/navigation';
+import { Role } from "@prisma/client";
 
 export async function create_project(prevState: State, formData: FormData) {
     try {
@@ -98,35 +101,33 @@ export async function update_project(prevState: State, formData: FormData) {
     }
 }
 
+
+
 export async function delete_project_by_id(id: string) {
     try {
         const user = await currentUser();
-        const user_id = user?.id;
-        if (!user_id) {
-            throw new Error("User not found");
-        }
+        const user_id = user.id;
         const projectUser = await db.projectUser.findFirst({
             where: {
                 user_id,
                 project_id: id,
+                role: Role.OWNER,
             },
         });
         if (!projectUser) {
-            throw new Error("Project not found");
-        }
-        if (projectUser.role !== "ADMIN") {
-            throw new Error("You are not authorized to delete this project.");
+            return { error: "You are not authorized to delete this project." };
         }
         await db.project.delete({
             where: {
                 id,
             },
         });
+        revalidatePath(`/projects`);
+        return { success: "The project was deleted" };
     }
     catch (error) {
-        console.error(error);
         return {
-            message: 'An error occurred while deleting the project.',
+            error: 'An error occurred while deleting the project.',
         };
     }
 }

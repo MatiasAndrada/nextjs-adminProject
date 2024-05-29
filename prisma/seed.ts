@@ -14,7 +14,6 @@ const prisma = db;
 async function main() {
   let userId = "";
   try {
-
     //! USER CREATION
     console.log("Creating user if not exist");
     const userExist = await prisma.user.findMany({
@@ -190,8 +189,8 @@ async function main() {
   }
 }
 
-export default main()
-  .then(() => prisma.$disconnect())
+main()
+  .then(async () => await prisma.$disconnect())
   .catch(async (e) => {
     console.error(e);
     await prisma.$disconnect();
