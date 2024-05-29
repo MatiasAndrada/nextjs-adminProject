@@ -21,15 +21,14 @@ export const NewVerificationForm = () => {
 
     const token = searchParams.get("token");
 
-    if (!token) {
-        setError("Missing token!");
-        return;
-    }
 
     const onSubmit = useCallback(() => {
-        console.log("cb")
+
         if (success || error) return;
-        console.log("cb2")
+        if (!token) {
+            setError("Missing token!");
+            return;
+        }
         new_invitation(token)
             .then((data) => {
                 setSuccess(data.success);
@@ -58,7 +57,7 @@ export const NewVerificationForm = () => {
                         <BeatLoader />
                     )}
                     <FormSuccess message={success} />
-                    {invitation && (
+                    {invitation && token && (
                         <>
                             <h2 className="mt-4 text-lg font-base text-center">Invitation to join project:  <br>
                             </br><span className="font-semibold">{invitation?.project?.name}</span></h2>

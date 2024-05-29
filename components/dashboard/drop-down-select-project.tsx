@@ -2,13 +2,13 @@
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from 'react';
 import { useCurrentProjectStore } from '@/context/currentProjectStore';
-import type { Project } from "@prisma/client";
+import type { Project, ProjectUser } from "@prisma/client";
 
 interface DropDownProps {
     name: string;
     createName: string;
     selectedItem: Project | null;
-    items?: Project[] | null;
+    items?: Array<ProjectUser & { project: Project }>;
 }
 export function DropDown({ name, createName, selectedItem, items }: DropDownProps) {
     const router = useRouter();
@@ -97,14 +97,14 @@ export function DropDown({ name, createName, selectedItem, items }: DropDownProp
                     </div>
                 }
                 <div className="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                    {items?.map((item: Project) => {
+                    {items?.map((projectUser) => {
                         return <button
-                            key={item.id}
-                            onClick={() => selectProject(item)}
+                            key={projectUser.id}
+                            onClick={() => selectProject(projectUser.project)}
                             className="block px-4 py-2 text-sm  hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
                             role="menuitem"
                         >
-                            {item.name}
+                            {projectUser.project.name}
                         </button>
                     }
                     )}

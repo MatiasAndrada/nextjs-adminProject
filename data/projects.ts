@@ -4,6 +4,21 @@ import { currentUser } from "@/hooks/use-current-user";
 import { Role } from "@prisma/client";
 const prisma = db;
 
+export async function fetch_projects() {
+    const user = await currentUser();
+    const user_id = user?.id;
+    const projectsOfUser = await prisma.projectUser.findMany({
+        where: {
+            user_id: user_id
+        },
+        include: {
+            project: true
+        }
+    })
+
+    return projectsOfUser;
+}
+
 export async function fetch_projects_owner() {
     const user = await currentUser();
     const user_id = user?.id;
