@@ -12,6 +12,11 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
+/**
+ * Middleware function for authentication and authorization.
+ * @param req - The request object.
+ * @returns The middleware function that handles authentication and authorization logic.
+ */
 export default auth((req) => {
     const { nextUrl } = req;
     const isLoggedIn = !!req.auth;
