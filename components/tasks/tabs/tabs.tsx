@@ -20,7 +20,7 @@ interface TabContent {
 const Tab: React.FC<{ tab: Tab; isActive: boolean; onClick: (index: number) => void }> = ({ tab, isActive, onClick }) => (
     <button
         type="button"
-        className={`hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border rounded-t-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-gray-700  dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 ${isActive ? 'hs-tab-active text-primary' : ''
+        className={`hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-slate-300 text-sm font-medium text-center border rounded-t-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:border-slate-700  dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600 ${isActive ? 'hs-tab-active text-primary' : ''
             }`}
         id={`hs-tab-to-select-item-${tab.index}`}
         data-hs-tab={`#hs-tab-to-select-${tab.index}`}
@@ -56,7 +56,7 @@ const TabsContent: React.FC<{ status: Status; progress: number; createdAt: Date 
         <>
             <select
                 id="tab-select"
-                className="sm:hidden py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 "
+                className="sm:hidden  px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 "
                 aria-label="Tabs"
                 role="tablist"
                 value={`#hs-tab-to-select-${activeTab}`}
@@ -69,7 +69,7 @@ const TabsContent: React.FC<{ status: Status; progress: number; createdAt: Date 
                 ))}
             </select>
 
-            <div className="hidden sm:block border-b border-gray-200 dark:border-gray-700">
+            <div className="hidden sm:block ">
                 <nav className="flex space-x-2" aria-label="Tabs" role="tablist" hs-data-tab-select="#tab-select">
                     {tabs.map((tab) => (
                         <Tab key={tab.index} tab={tab} isActive={activeTab === tab.index} onClick={handleTabClick} />
@@ -77,7 +77,7 @@ const TabsContent: React.FC<{ status: Status; progress: number; createdAt: Date 
                 </nav>
             </div>
 
-            <div className="mt-3 dark:bg-slate-800 radius-lg min-h-20">
+            <div className="p-2  0 rounded-lg min-h-20">
                 {tabContents.map(({ index, component }) => (
                     <div
                         key={index}

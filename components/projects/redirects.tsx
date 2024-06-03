@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 //icons
 import {
     EyeIcon,
-
+    PencilIcon
 } from "@heroicons/react/24/outline";
 
 export function LinkCreate() {
@@ -37,6 +37,18 @@ export function LinkViewProject({ projectId }: { projectId: string }) {
             <Button variant="outline" size="sm">
                 <EyeIcon className="w-6 h-6 mr-1" />
                 View project
+            </Button>
+        </Link>
+    );
+}
+
+export function LinkEditProject({ projectId }: { projectId: string }) {
+    return (
+        <Link href={`/projects/${projectId}/edit`}>
+            <Button variant="ghost" >
+                <PencilIcon className="w-4 h-4 mr-1" />
+
+                <p>Update</p>
             </Button>
         </Link>
     );

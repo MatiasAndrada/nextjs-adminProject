@@ -15,6 +15,9 @@ export async function fetch_task_group_by_id(id: string) {
         id: id,
       },
     });
+    if (!task_group) {
+      throw new Error('Task group not found.');
+    }
     return task_group;
   }
   catch (err) {
@@ -170,20 +173,4 @@ export async function fetch_count_total_task_group(id: string) {
   });
   const dto = task_group_total[0]._count.taskGroup;
   return dto;
-}
-
-export async function delete_task_group(id: string) {
-  noStore();
-  try {
-    const task_group = await db.taskGroup.delete({
-      where: {
-        id: id,
-      },
-    });
-    return task_group;
-  }
-  catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to delete task group.');
-  }
 }

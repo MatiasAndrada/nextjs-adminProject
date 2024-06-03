@@ -2,6 +2,7 @@
 /* import { Metadata } from "next"; */
 /* import { notFound } from "next/navigation"; */
 import Breadcrumbs from "@/components/breadcrumbs";
+import TaskGroupDetails from "@/components/task-group/task-group-details";
 import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
 import { fetch_task_pages } from "@/data/task";
@@ -25,6 +26,7 @@ export default async function Page({ params, searchParams }: { params: { id: str
             ]}
             />
             <div className="mt-8">
+                <TaskGroupDetails id={id} />
                 <Table query={query} currentPage={currentPage} task_group_id={id} />
             </div>
             {totalPages > 1 &&

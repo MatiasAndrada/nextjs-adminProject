@@ -8,7 +8,7 @@ import {
     DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { ButtonDeleteProject } from "./buttons";
-import { Button } from "@/components/ui/button";
+import { LinkEditProject } from "./redirects";
 import {
     EllipsisVerticalIcon,
     PencilIcon,
@@ -25,10 +25,7 @@ export default function ButtonActionsDropDropdown({ id }: { id: string }) {
                 <DropdownMenuContent className="mr-4 md:mr-10">
                     <DropdownMenuGroup>
                         <DropdownMenuItem className="hover:bg-slate-200">
-                            <a href={`/projects/${id}/edit`} className="flex gap-1">
-                                <PencilIcon className="w-4 h-4" />
-                                <p>Update</p>
-                            </a>
+                            <LinkEditProject projectId={id} />
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="my-2 bg-slate-300" />
                         <DropdownMenuItem className="text-red-500">
