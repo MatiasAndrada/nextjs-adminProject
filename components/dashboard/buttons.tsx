@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { setSelectedProject } from "@/actions/projects";
-/* import { TrashIcon } from "@heroicons/react/24/outline"; */
 
 
 
