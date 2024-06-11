@@ -8,6 +8,30 @@ import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
 import { Role } from "@prisma/client";
 
+export const setSelectedProject = async (projectId: string | null) => {
+    console.log("🦇  setSelectedProject  projectId:", projectId)
+    console.log(666)
+    try {
+        const user = await currentUser()
+        const user_id = user.id;
+        // Actualizar el usuario con el nuevo proyecto seleccionado
+        await db.user.update({
+            where: {
+                id: user_id
+            },
+            data: {
+                currentProjectId: projectId
+            },
+        });
+
+        /* revalidatePath("/dashboard");  */// Revalidar/refresh la página de dashboard
+    } catch (error) {
+        console.error("Error al actualizar el usuario:", error);
+        throw error;
+    }
+}
+
+
 export async function create_project(prevState: State, formData: FormData) {
     try {
         const validatedFields = CreateFormSchema.safeParse({
@@ -50,10 +74,9 @@ export async function create_project(prevState: State, formData: FormData) {
                 id: user_id,
             },
             data: {
-                selected_project_id: project_id,
+                currentProjectId: project_id,
             },
         });
-
         redirect(`/projects`);
     } catch (error) {
         // Handle the error here

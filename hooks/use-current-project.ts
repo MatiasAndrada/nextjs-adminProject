@@ -1,9 +1,20 @@
 import { currentUser } from "./use-current-user";
-import { fetchSelectedProject } from "@/data/selected-project";
+import { db } from "@/lib/db";
 
 export const currentProject = async () => {
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
-    return project_id ? await fetchSelectedProject(project_id) : null;
-};
+    const current_project_id = user?.currentProject.project_id;
+    if (!current_project_id) {
+        return
+    }
+    const current_project = await db.project.findFirst({
+        where: {
+            id: current_project_id
+        }
+    });
 
+    if (!current_project) {
+        return
+    }
+    return current_project;
+}

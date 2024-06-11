@@ -6,7 +6,7 @@ import authConfig from "@/auth.config";
 import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "@/data/account";
-
+import { ProjectUser } from "@prisma/client";
 const adapter = PrismaAdapter(db);
 
 export const {
@@ -55,24 +55,24 @@ export const {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
             }
-            if (token.selected_project_id && session.user) {
-                session.user.selected_project_id = token.selected_project_id as string;
+            if (token.currentProjectId && session.user) {
+                session.user.currentProject = token.currentProject as ProjectUser;
+                session.user.currentProjectId = token.currentProjectId as string;
             }
 
-
             if (session.user) {
+                session.user.currentProjectId = token.currentProjectId as string;
                 session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
                 session.user.name = token.name;
                 session.user.email = token.email as string;
                 session.user.isOAuth = token.isOAuth as boolean;
             }
-
             return session;
         },
         async jwt({ token }) {
-            if (!token.sub) return token;
-            console.log("🦇  jwt  token:", token)
+            /*             console.log("🦇  jwt  token:", token) */
 
+            if (!token.sub) return token;
             const existingUser = await getUserById(token.sub);
 
             if (!existingUser) return token;
@@ -80,11 +80,12 @@ export const {
             const existingAccount = await getAccountByUserId(
                 existingUser.id
             );
+            token.currentProject = existingUser.currentProject
+            token.currentProjectId = existingUser.currentProjectId;
             token.isOAuth = !!existingAccount;
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-            token.selected_project_id = existingUser.selected_project_id;
             return token;
         },
 
