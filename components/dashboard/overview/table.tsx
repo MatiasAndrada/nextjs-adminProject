@@ -23,7 +23,7 @@ export default async function TaskGroupTable({
             </colgroup>
             <thead className="dark:dark:bg-gray-700">
                 <tr /* className="text-left" */>
-                    <th className="p-3">Id  #</th>
+                    <th className="p-3"> # Id</th>
                     <th className="p-3 text-start">Name</th>
                     <th className="p-3">Progress</th>
                     <th className="p-3">Updated At</th>
