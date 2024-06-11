@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export const currentProject = async () => {
     const user = await currentUser();
-    const current_project_id = user?.currentProject.project_id;
+    const current_project_id = user?.currentProject?.project_id;
     if (!current_project_id) {
         return
     }

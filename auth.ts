@@ -70,8 +70,6 @@ export const {
             return session;
         },
         async jwt({ token }) {
-            /*             console.log("🦇  jwt  token:", token) */
-
             if (!token.sub) return token;
             const existingUser = await getUserById(token.sub);
 

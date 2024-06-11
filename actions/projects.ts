@@ -2,18 +2,16 @@
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
-import { currentUser } from "@/hooks/use-current-user";
-
+import { current_user_id } from "@/hooks/use-current-user";
+//types
 import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
 import { Role } from "@prisma/client";
 
 export const setSelectedProject = async (projectId: string | null) => {
-    console.log("🦇  setSelectedProject  projectId:", projectId)
     console.log(666)
     try {
-        const user = await currentUser()
-        const user_id = user.id;
+        const user_id = await current_user_id()
         // Actualizar el usuario con el nuevo proyecto seleccionado
         await db.user.update({
             where: {
@@ -24,7 +22,7 @@ export const setSelectedProject = async (projectId: string | null) => {
             },
         });
 
-        /* revalidatePath("/dashboard");  */// Revalidar/refresh la página de dashboard
+        revalidatePath("page");
     } catch (error) {
         console.error("Error al actualizar el usuario:", error);
         throw error;
@@ -47,8 +45,7 @@ export async function create_project(prevState: State, formData: FormData) {
         }
 
         const { name, description } = validatedFields.data;
-        const user = await currentUser();
-        const user_id = user?.id;
+        const user_id = await current_user_id();
         if (!user_id) {
             throw new Error("User not found");
         }
@@ -128,8 +125,7 @@ export async function update_project(prevState: State, formData: FormData) {
 
 export async function delete_project_by_id(id: string) {
     try {
-        const user = await currentUser();
-        const user_id = user.id;
+        const user_id = await current_user_id();
         const projectUser = await db.projectUser.findFirst({
             where: {
                 user_id,
