@@ -6,6 +6,8 @@ import {
     EyeIcon,
     PencilIcon
 } from "@heroicons/react/24/outline";
+import { setSelectedProject } from "@/actions/projects";
+
 
 export function LinkCreate() {
     return (
@@ -31,13 +33,10 @@ export function LinkCreate() {
     );
 }
 
-export function LinkViewProject({ projectId }: { projectId: string }) {
+export async function LinkViewProject({ children }: { children: React.ReactNode }) {
     return (
-        <Link href={`/projects/${projectId}`}>
-            <Button variant="outline" size="sm">
-                <EyeIcon className="w-6 h-6 mr-1" />
-                View project
-            </Button>
+        <Link href={`/dashboard`}>
+            {children}
         </Link>
     );
 }

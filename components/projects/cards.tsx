@@ -1,16 +1,19 @@
 import Link from "next/link";
 //components
-import { LinkViewProject } from "@/components/projects/redirects";
+import { ButtonSetCurrentProjectId } from "@/components/dashboard/buttons";
 import ButtonActionsDropDropdown from "@/components/projects/drop-down-actions";
+import { LinkViewProject } from "./redirects";
+import { EyeIcon } from "@heroicons/react/24/outline";
 //types
 import { Project, ProjectUser } from "@prisma/client";
 
 
 export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUser & { project: Project }> }) {
+  console.log("🦇  Cards  ProjectsUser:", ProjectsUser)
   return (
     <div className="grid grid-cols-3 gap-4">
-      {ProjectsUser?.map((p) => (
-        <Card key={p.id} id={p.project.id} name={p.project.name} />
+      {ProjectsUser?.map((projectUser) => (
+        <Card key={projectUser.id} id={projectUser.id} name={projectUser.project.name} />
       ))}
     </div>
   )
@@ -31,7 +34,12 @@ export function Card({ id, name }: { id: string; name: string }) {
         </span>
       </div>
 
-      <LinkViewProject projectId={id} />
+      <LinkViewProject >
+        <ButtonSetCurrentProjectId id={id} >
+          <EyeIcon className="w-6 h-6 mr-1" />
+          View project
+        </ButtonSetCurrentProjectId>
+      </LinkViewProject>
 
       {/*           <Link
             href={`/dashboard`}
