@@ -9,7 +9,6 @@ import { Project, ProjectUser } from "@prisma/client";
 
 
 export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUser & { project: Project }> }) {
-  console.log("🦇  Cards  ProjectsUser:", ProjectsUser)
   return (
     <div className="grid grid-cols-3 gap-4">
       {ProjectsUser?.map((projectUser) => (

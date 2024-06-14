@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import { NextResponse, NextRequest } from 'next/server'
+import { currentRole } from "./hooks/use-current-role";
+import type { Role } from "@prisma/client";
 
 //import type { NextRequest } from 'next/server';
 import authConfig from "@/auth.config";
@@ -8,6 +10,7 @@ import {
     apiAuthPrefix,
     authRoutes,
     publicRoutes,
+    roleRoutesPermissions
 } from "@/routes";
 
 const { auth } = NextAuth(authConfig);
@@ -18,12 +21,15 @@ const { auth } = NextAuth(authConfig);
  * @returns The middleware function that handles authentication and authorization logic.
  */
 export default auth((req) => {
+    /*     const token = req.nextauth.token;
+        console.log("🦇  auth  token:", token) */
     const { nextUrl } = req;
+    const pathname = nextUrl.pathname
     /*     console.log(req.auth) */
     const isLoggedIn = !!req.auth;
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+    const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
+    const isPublicRoute = publicRoutes.includes(pathname);
+    const isAuthRoute = authRoutes.includes(pathname);
 
 
     if (isApiAuthRoute) {
@@ -41,6 +47,20 @@ export default auth((req) => {
     if (!isLoggedIn && !isPublicRoute) {
         return NextResponse.redirect(new URL("/", nextUrl));
     }
+
+    // Find a matching path with dynamic path handling
+    const matchingRoleRoute = roleRoutesPermissions.find((p) => {
+        if (p.path.includes("[id]")) {
+            // Replace '[id]' with a regex pattern and test the pathname
+            const regex = new RegExp(`^${p.path.replace("[id]", "\\w+")}$`);
+            return regex.test(pathname);
+        }
+        return p.path === pathname;
+    });
+    console.log("🦇  matchingRoleRoute  matchingRoleRoute:", matchingRoleRoute)
+
+    /*     const currentRol =  */
+
 
     return /* null */;
 })

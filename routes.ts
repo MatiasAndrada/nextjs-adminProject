@@ -1,3 +1,6 @@
+import { Role } from "@prisma/client";
+import { permission } from "process";
+
 /**
  * An array of routes that are accessible to the public
  * These routes do not require authentication
@@ -36,3 +39,23 @@ export const apiAuthPrefix: string = "/api/auth";
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT: string = "/projects";
+//validations
+export const roleRoutesPermissions = [
+    {
+        path: "/dashboard/task-groups/create",
+        permissions: [Role.OWNER, Role.ADMIN]
+    },
+    {
+        path: "/dashboard/task-groups/[id]/edit",
+        permissions: [Role.OWNER, Role.ADMIN, Role.EDITOR]
+    },
+    {
+        path: "/dashboard/task/create",
+        permission: [Role.OWNER, Role.ADMIN]
+    },
+    {
+        path: "/dashboard/members/add",
+        permission: [Role.OWNER, Role.ADMIN]
+    }
+
+]
