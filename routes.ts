@@ -41,6 +41,10 @@ export const apiAuthPrefix: string = "/api/auth";
 export const DEFAULT_LOGIN_REDIRECT: string = "/projects";
 //validations
 export const roleRoutesPermissions = [
+    /*     {
+        path: "/project/create",
+        permission: [Role.OWNER]
+    }, */
     {
         path: "/dashboard/task-groups/create",
         permissions: [Role.OWNER, Role.ADMIN]
@@ -51,11 +55,11 @@ export const roleRoutesPermissions = [
     },
     {
         path: "/dashboard/task/create",
-        permission: [Role.OWNER, Role.ADMIN]
+        permissions: [Role.OWNER, Role.ADMIN]
     },
     {
         path: "/dashboard/members/add",
-        permission: [Role.OWNER, Role.ADMIN]
+        permissions: [Role.OWNER, Role.ADMIN]
     }
 
 ]

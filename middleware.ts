@@ -1,7 +1,5 @@
 import NextAuth from "next-auth";
 import { NextResponse, NextRequest } from 'next/server'
-import { currentRole } from "./hooks/use-current-role";
-import type { Role } from "@prisma/client";
 
 //import type { NextRequest } from 'next/server';
 import authConfig from "@/auth.config";
@@ -12,15 +10,16 @@ import {
     publicRoutes,
     roleRoutesPermissions
 } from "@/routes";
+import { currentRole } from "./hooks/use-current-role"
+import { Role } from "@prisma/client";
 
 const { auth } = NextAuth(authConfig);
-
 /**
  * Middleware function for authentication and authorization.
  * @param req - The request object.
  * @returns The middleware function that handles authentication and authorization logic.
  */
-export default auth((req) => {
+export default auth(async (req) => {
     /*     const token = req.nextauth.token;
         console.log("🦇  auth  token:", token) */
     const { nextUrl } = req;
@@ -58,6 +57,11 @@ export default auth((req) => {
         return p.path === pathname;
     });
     console.log("🦇  matchingRoleRoute  matchingRoleRoute:", matchingRoleRoute)
+    const currenRole = await currentRole()
+    if (matchingRoleRoute?.permissions.some(permission => currenRole?.includes(permission))) {
+        console.log("access-denied")
+        return NextResponse.redirect(new URL("/access-denied", nextUrl));
+    }
 
     /*     const currentRol =  */
 
