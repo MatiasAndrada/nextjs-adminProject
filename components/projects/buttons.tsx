@@ -16,8 +16,8 @@ export function ButtonDeleteProject({ id }: { id: string }) {
     }
     return (
         <Button variant="ghost" onClick={() => handleDelete(id)}>
-            <TrashIcon className="w-4 h-4 mr-1" />
-            <p>Delete</p>
+            <TrashIcon className=" text-red-500 w-4 h-4 mr-1" />
+            <p className="text-red-500">Delete</p>
         </Button>
     );
 }

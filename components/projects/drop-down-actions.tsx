@@ -22,13 +22,13 @@ export default function ButtonActionsDropDropdown({ id }: { id: string }) {
                 <EllipsisVerticalIcon className="w-6 h-6 b-0 " />
             </DropdownMenuTrigger>
             <DropdownMenuPortal>
-                <DropdownMenuContent className="mr-4 md:mr-10">
+                <DropdownMenuContent className="mr-4 md:mr-10 border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
                     <DropdownMenuGroup>
-                        <DropdownMenuItem className="hover:bg-slate-200">
+                        <DropdownMenuItem className="   hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg">
                             <LinkEditProject projectId={id} />
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="my-2 bg-slate-300" />
-                        <DropdownMenuItem className="text-red-500">
+                        <DropdownMenuItem className="   hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg">
                             <ButtonDeleteProject id={id} />
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
