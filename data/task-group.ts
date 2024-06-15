@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
+import { currentProject } from '@/hooks/use-current-project';
 /* import { formatDate } from '@/lib/utils'; */
 import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
@@ -33,9 +34,8 @@ export async function fetch_filtered_task_group(
   noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
-    const user = await currentUser();
-    const project_id = user?.currentProjectId;
-    if (!project_id) throw new Error("Current Project id not exist")
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -67,9 +67,8 @@ export async function fetch_filtered_task_group(
 export async function fetch_all_task_groups_ids() {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.currentProjectId;
-    if (!project_id) throw new Error("Current Project id not exist")
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -90,9 +89,8 @@ export async function fetch_all_task_groups_ids() {
 export async function fetch_all_task_groups_names_ids() {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.currentProjectId;
-    if (!project_id) throw new Error("Current Project id not exist")
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -113,9 +111,8 @@ export async function fetch_all_task_groups_names_ids() {
 export async function fetch_task_group_pages(query: string) {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.currentProjectId;
-    if (!project_id) throw new Error("Current Project id not exist")
+    const project = await currentProject();
+    const project_id = project?.id
     const count = await db.taskGroup.count({
       where: {
         project_id: project_id,
