@@ -34,7 +34,8 @@ export async function fetch_filtered_task_group(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project_id = user?.currentProjectId;
+    if (!project_id) throw new Error("Current Project id not exist")
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -67,7 +68,8 @@ export async function fetch_all_task_groups_ids() {
   noStore();
   try {
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project_id = user?.currentProjectId;
+    if (!project_id) throw new Error("Current Project id not exist")
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -89,7 +91,8 @@ export async function fetch_all_task_groups_names_ids() {
   noStore();
   try {
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project_id = user?.currentProjectId;
+    if (!project_id) throw new Error("Current Project id not exist")
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -111,7 +114,8 @@ export async function fetch_task_group_pages(query: string) {
   noStore();
   try {
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project_id = user?.currentProjectId;
+    if (!project_id) throw new Error("Current Project id not exist")
     const count = await db.taskGroup.count({
       where: {
         project_id: project_id,

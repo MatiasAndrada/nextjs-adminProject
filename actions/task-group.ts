@@ -27,18 +27,17 @@ export async function create_task_group(prevState: State, formData: FormData) {
       message: 'Missing Fields. Failed to Create Task Group.',
     };
   }
-
   // Prepare data for insertion into the database
   const { name, description, criticality } = validatedFields.data;
   // Insert data into the database
   try {
     const user = await currentUser();
     const user_id = user?.id;
-    const selected_project_id = user?.selected_project_id;
+    const current_project_id = user?.currentProjectId;
     if (!user_id) {
       throw new Error('User not found');
     }
-    if (!selected_project_id) {
+    if (!current_project_id) {
       throw new Error('Project not found');
     }
     await db.taskGroup.create({
@@ -46,7 +45,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
         name,
         description,
         criticality,
-        project_id: selected_project_id,
+        project_id: current_project_id,
       },
     });
     revalidatePath('/dashboard/task-groups');
@@ -83,16 +82,7 @@ export async function update_task_group(prevState: State, formData: FormData) {
   const { id, name, description, criticality } = validatedFields.data;
   // Insert data into the database
   try {
-    /*const user = await currentUser();
-    
-        const user_id = user?.id;
-        const selected_project_id = user?.selected_project_id; 
-        if (!user_id) {
-          throw new Error('User not found');
-        }
-        if (!selected_project_id) {
-          throw new Error('Project not found');
-        } */
+
     await db.taskGroup.update({
       where: {
         id: id,

@@ -112,7 +112,7 @@ export async function send_invitation(prevState: State, formData: FormData) {
         };
     }
     const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project_id = user?.currentProjectId;
     const isAllowed = await currentRole() === Role.ADMIN || await currentRole() === Role.OWNER;
     if (!project_id) {
         return { message: "No project selected" };
