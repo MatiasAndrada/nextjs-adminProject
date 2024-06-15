@@ -1,4 +1,5 @@
 import { Role } from "@prisma/client";
+import path from "path";
 import { permission } from "process";
 
 /**
@@ -12,6 +13,7 @@ export const publicRoutes: string[] = [
     "/invitation",
     "/invitation/accept",
     "/invitation/decline",
+    "/access-denied"
 ];/* */
 
 /**
@@ -41,10 +43,10 @@ export const apiAuthPrefix: string = "/api/auth";
 export const DEFAULT_LOGIN_REDIRECT: string = "/projects";
 //validations
 export const roleRoutesPermissions = [
-    /*     {
-        path: "/project/create",
-        permission: [Role.OWNER]
-    }, */
+    {
+        path: "/projects/[id]/edit",
+        permissions: [Role.OWNER, Role.ADMIN, Role.EDITOR]
+    },
     {
         path: "/dashboard/task-groups/create",
         permissions: [Role.OWNER, Role.ADMIN]
@@ -54,7 +56,7 @@ export const roleRoutesPermissions = [
         permissions: [Role.OWNER, Role.ADMIN, Role.EDITOR]
     },
     {
-        path: "/dashboard/task/create",
+        path: "/dashboard/tasks/create",
         permissions: [Role.OWNER, Role.ADMIN]
     },
     {

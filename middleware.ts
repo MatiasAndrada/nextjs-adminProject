@@ -56,16 +56,10 @@ export default auth(async (req) => {
         }
         return p.path === pathname;
     });
-    console.log("🦇  matchingRoleRoute  matchingRoleRoute:", matchingRoleRoute)
     const currenRole = await currentRole()
-    if (matchingRoleRoute?.permissions.some(permission => currenRole?.includes(permission))) {
-        console.log("access-denied")
+    if (matchingRoleRoute && currenRole && !matchingRoleRoute.permissions.some(permission => permission.includes(currenRole))) {
         return NextResponse.redirect(new URL("/access-denied", nextUrl));
     }
-
-    /*     const currentRol =  */
-
-
     return /* null */;
 })
 
