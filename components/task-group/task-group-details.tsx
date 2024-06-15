@@ -9,10 +9,13 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
     return (
         <div className="flex flex-row justify-between text-slate-800 dark:text-slate-300">
             <div className='max-w-3xl	'>
-                <h2 className="text-black dark:text-white text-xl font-semibold">{name}</h2>
-                <Link href={`/projects/${id}/edit`}></Link>
+                <div className='flex flex-row gap-4'>
+                    <h2 className="text-black dark:text-white text-xl font-semibold">{name}</h2>
+                    <Link href={`/dashboard/task-groups/${id}/edit`} className='transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110'>
+                        <PencilSquareIcon className='w-8 h-8  hover:text-black dark:hover:text-white' />
+                    </Link>
+                </div>
                 <p className="text-md">{description}</p>
-
             </div>
             <div className='flex flex-col justify-items-center items-center'>
                 <span className="text-md ">Criticality:  </span>

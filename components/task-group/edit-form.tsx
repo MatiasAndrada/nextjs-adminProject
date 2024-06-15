@@ -10,7 +10,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
     const [state, dispatch] = useFormState(update_task_group, initialState)
 
     return (
-        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-950 p-4 md:p-6">
+        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             <input type="hidden" name="id" value={taskGroup.id} />
             {/* Task Group Name */}
             <div className="mb-4">
