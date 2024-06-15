@@ -3,11 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 //icons
 import {
-    EyeIcon,
     PencilIcon
 } from "@heroicons/react/24/outline";
-import { setSelectedProject } from "@/actions/projects";
-
 
 export function LinkCreate() {
     return (

@@ -14,7 +14,7 @@ export default async function Page({ params, searchParams }: { params: { id: str
     const totalPages = await fetch_task_pages(id, query);
 
     return (
-        <main>
+        <main className="space-y-4">
             <Breadcrumbs breadcrumbs={[
                 { label: 'Dashboard', href: '/dashboard' },
                 { label: 'Task Groups', href: '/dashboard/task-groups' },
@@ -25,10 +25,8 @@ export default async function Page({ params, searchParams }: { params: { id: str
                 },
             ]}
             />
-            <div className="mt-8">
-                <TaskGroupDetails id={id} />
-                <Table query={query} currentPage={currentPage} task_group_id={id} />
-            </div>
+            <TaskGroupDetails id={id} />
+            <Table query={query} currentPage={currentPage} task_group_id={id} />
             {totalPages > 1 &&
                 <div className="mt-5 flex w-full justify-center">
                     <Pagination totalPages={totalPages} />
