@@ -20,11 +20,8 @@ const { auth } = NextAuth(authConfig);
  * @returns The middleware function that handles authentication and authorization logic.
  */
 export default auth(async (req) => {
-    /*     const token = req.nextauth.token;
-        console.log("🦇  auth  token:", token) */
     const { nextUrl } = req;
     const pathname = nextUrl.pathname
-    /*     console.log(req.auth) */
     const isLoggedIn = !!req.auth;
     const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(pathname);
