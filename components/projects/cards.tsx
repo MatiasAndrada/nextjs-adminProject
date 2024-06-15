@@ -12,7 +12,7 @@ export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUse
   return (
     <div className="grid grid-cols-3 gap-4">
       {ProjectsUser?.map((projectUser) => (
-        <Card key={projectUser.id} id={projectUser.project.id} name={projectUser.project.name} />
+        <Card key={projectUser.id} id={projectUser.id} name={projectUser.project.name} />
       ))}
     </div>
   )
@@ -39,14 +39,6 @@ export function Card({ id, name }: { id: string; name: string }) {
           View project
         </ButtonSetCurrentProjectId>
       </LinkViewProject>
-
-      {/*           <Link
-            href={`/dashboard`}
-            className="flex items-center text-blue-600 bg-blue-500 hover:bg-blue-200 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out"
-          >
-            <EyeIcon className="w-6 h-6 mr-2" />
-            <span>View project</span>
-          </Link> */}
     </div>
   );
 }
