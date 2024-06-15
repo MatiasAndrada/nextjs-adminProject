@@ -3,6 +3,7 @@ import { RectangleStackIcon } from "@heroicons/react/24/outline";
 /* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
 /* import type { TaskGroup } from "@prisma/client"; */
+import { CriticalityIndicator, StatusIndicator } from "./indicators";
 import { Criticality, Status } from "@prisma/client";
 import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
 
@@ -41,30 +42,13 @@ export default async function TaskGridItem({
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Criticality:
             </p>
-            <span
-              className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 
-          ${criticality === Criticality.LOW ? "text-criticality-low p-2 bg-criticality-low_foreground" : ""}
-          ${criticality === Criticality.MEDIUM ? "text-criticality-medium p-2 bg-criticality-medium_foreground" : ""}
-          ${criticality === Criticality.HIGH ? "text-criticality-high p-2 bg-criticality-high_foreground" : ""}
-          ${criticality === Criticality.CRITICAL ? "text-criticality-critical p-2 bg-criticality-critical_foreground" : ""}
-          " : ""}`}>
-              {criticality}
-            </span>
+            <CriticalityIndicator criticality={criticality} />
           </div>
           <div className="flex items-center space-x-2">
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Status:
             </p>
-            <span
-              className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
-                ${status === Status.PAUSED ? "text-status-paused p-2 bg-status-paused_foreground" : ""}
-                ${status === Status.PENDING ? "text-status-pending p-2 bg-status-pending_foreground" : ""}
-                ${status === Status.IN_PROGRESS ? "text-status-in_progress p-2 bg-status-in_progress_foreground" : ""}
-                ${status === Status.COMPLETED ? "text-status-completed p-2 bg-status-completed_foreground" : ""}
-              `}
-            >
-              {status}
-            </span>
+            <StatusIndicator status={status} />
           </div>
         </div>
         <div className="flex flex-row items-center space-x-3">
