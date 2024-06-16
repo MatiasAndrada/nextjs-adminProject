@@ -16,7 +16,7 @@ export default function Form() {
       {/* Task Name */}
       <div className="mb-4">
         <label htmlFor="name" className="mb-2 block text-xl font-medium">
-          Project Name:
+          Name:
         </label>
         <input
           type="text"
@@ -37,10 +37,10 @@ export default function Form() {
           </div>
         )}
       </div>
-      {/* Task Description */}
+      {/* Project Description */}
       <div className="mb-4">
         <label htmlFor="description" className="mb-2 block text-xl font-medium">
-          Task Description:
+          Description:
         </label>
         <textarea
           id="description"
