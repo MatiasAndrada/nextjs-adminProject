@@ -23,7 +23,7 @@ export default function Form() {
 
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
-                    Name
+                    Name:
                 </label>
                 <input
                     type="text"
@@ -48,7 +48,7 @@ export default function Form() {
             {/* Task Description */}
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
-                    Description
+                    Description:
                 </label>
                 <textarea
                     id="description"
@@ -73,7 +73,7 @@ export default function Form() {
             {/* Task Group Criticality Dropdown from Type enum*/}
             <div className="mb-4">
                 <label htmlFor="criticality" className="mb-2 block text-xl font-medium">
-                    Criticality
+                    Criticality:
                 </label>
                 <select
                     id="criticality"
@@ -106,7 +106,7 @@ export default function Form() {
             <div className='flex gap-4 items-center'>
                 {/* Submit Button */}
                 <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
-                    Create task group
+                    Create task group:
                 </button>
                 {state.message && (
                     <div

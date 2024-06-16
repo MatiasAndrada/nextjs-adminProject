@@ -15,7 +15,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
             {/* Task Group Name */}
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
-                    Name
+                    Name:
                 </label>
                 <input
                     type="text"
@@ -40,7 +40,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
             {/* Task Description */}
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
-                    Description
+                    Description:
                 </label>
                 <textarea
                     id="description"
