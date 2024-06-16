@@ -3,7 +3,7 @@ import { RectangleStackIcon } from "@heroicons/react/24/outline";
 /* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
 /* import type { TaskGroup } from "@prisma/client"; */
-import { CriticalityIndicator, StatusIndicator } from "./indicators";
+import { CriticalityBgColor, CriticalityIndicator, StatusIndicator } from "./indicators";
 import { Criticality, Status } from "@prisma/client";
 import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
 
@@ -52,16 +52,13 @@ export default async function TaskGridItem({
           </div>
         </div>
         <div className="flex flex-row items-center space-x-3">
-          <div
-            className={`flex flex-none items-center justify-center w-10 h-10 rounded-full text-white 
-          ${criticality === Criticality.LOW ? "bg-criticality-low" : ""}
-          ${criticality === Criticality.MEDIUM ? "bg-criticality-medium" : ""}
-          ${criticality === Criticality.HIGH ? "bg-criticality-high" : ""}
-          ${criticality === Criticality.CRITICAL ? "bg-criticality-critical" : ""}
-          `}
-          >
-            <RectangleStackIcon className="w-6 h-6" />
-          </div>
+          <CriticalityBgColor criticality={criticality} >
+            <div
+              className={"flex flex-none items-center justify-center w-10 h-10 rounded-full text-white"}
+            >
+              <RectangleStackIcon className="w-6 h-6" />
+            </div>
+          </CriticalityBgColor>
           <span className="text-md md:text-lg font-medium">{name}</span>
         </div>
         <div>

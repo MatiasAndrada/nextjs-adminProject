@@ -14,6 +14,21 @@ export function CriticalityIndicator({ criticality }: { criticality: Criticality
     )
 }
 
+export function CriticalityBgColor({ criticality, children }: { criticality: Criticality, children: React.ReactNode }) {
+    return (
+        <div
+            className={`flex flex-none items-center justify-center w-10 h-10 rounded-full text-white 
+          ${criticality === Criticality.LOW ? "bg-criticality-low" : ""}
+          ${criticality === Criticality.MEDIUM ? "bg-criticality-medium" : ""}
+          ${criticality === Criticality.HIGH ? "bg-criticality-high" : ""}
+          ${criticality === Criticality.CRITICAL ? "bg-criticality-critical" : ""}
+          `}
+        >
+            {children}
+        </div>
+    )
+}
+
 export function StatusIndicator({ status }: { status: Status }) {
     return (
         <span
