@@ -1,23 +1,23 @@
 import { Criticality, Status } from "@prisma/client"
 
-export function CriticalityIndicator({ criticality }: { criticality: Criticality }) {
+export function CriticalityIndicator({ criticality, children }: { criticality: Criticality, children?: React.ReactNode }) {
     return (
         <span
             className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 
-          ${criticality === Criticality.LOW ? "text-criticality-low p-2 bg-criticality-low_foreground" : ""}
-          ${criticality === Criticality.MEDIUM ? "text-criticality-medium p-2 bg-criticality-medium_foreground" : ""}
-          ${criticality === Criticality.HIGH ? "text-criticality-high p-2 bg-criticality-high_foreground" : ""}
-          ${criticality === Criticality.CRITICAL ? "text-criticality-critical p-2 bg-criticality-critical_foreground" : ""}
+          ${criticality === Criticality.LOW ? "text-green-950 bg-green-500" : ""}
+          ${criticality === Criticality.MEDIUM ? "text-sky-950 bg-sky-500" : ""}
+          ${criticality === Criticality.HIGH ? "text-orange-950  bg-orange-500" : ""}
+          ${criticality === Criticality.CRITICAL ? "text-red-950 bg-red-500" : ""}
           " : ""}`}>
-            {criticality}
+            {children}
         </span>
     )
 }
 
-export function CriticalityBgColor({ criticality, children }: { criticality: Criticality, children: React.ReactNode }) {
+/* export function CriticalityBgColor({ criticality, children }: { criticality: Criticality, children: React.ReactNode }) {
     return (
         <div
-            className={`flex flex-none items-center justify-center w-10 h-10 rounded-full text-white 
+            className={`flex flex-none items-center justify-center w-10 h-10 rounded-full
           ${criticality === Criticality.LOW ? "bg-criticality-low" : ""}
           ${criticality === Criticality.MEDIUM ? "bg-criticality-medium" : ""}
           ${criticality === Criticality.HIGH ? "bg-criticality-high" : ""}
@@ -27,7 +27,7 @@ export function CriticalityBgColor({ criticality, children }: { criticality: Cri
             {children}
         </div>
     )
-}
+} */
 
 export function StatusIndicator({ status }: { status: Status }) {
     return (
