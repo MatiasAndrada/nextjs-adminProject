@@ -1,6 +1,5 @@
 import { SpeedInsights } from "@vercel/speed-insights/next" //metricas para ver en vercel
 import "@/components/global.css";
-/* import '@radix-ui/themes/styles.css'; */
 
 
 import NextAuthProvider from "@/context/SessionAuthProvider";
