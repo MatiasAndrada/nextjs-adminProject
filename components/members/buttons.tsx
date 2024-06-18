@@ -1,4 +1,4 @@
-import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export function AddMember() {
@@ -10,5 +10,22 @@ export function AddMember() {
             <span className="hidden md:block">Add member</span>{' '}
             <UserPlusIcon className="h-5 md:ml-4" />
         </Link>
+    );
+}
+
+export function EditMember({id , children}: {id:string, children?: React.ReactNode}) {
+    return (
+        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none">
+            <PencilIcon className="h-5 w-5 text-dark" />
+            {children}
+        </button>
+    );
+}
+
+export function DeleteMember({id , children}: {id:string, children?: React.ReactNode}) {
+    return (
+        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none">
+            <TrashIcon className="h-5 w-5 text-dark" />
+        </button>
     );
 }

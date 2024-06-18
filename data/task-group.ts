@@ -1,12 +1,12 @@
 import { db } from '@/lib/db';
-import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals';
+import { CARDS_PER_PAGE_TASK_GROUP } from '@/globals';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
 import { currentProject } from '@/hooks/use-current-project';
 /* import { formatDate } from '@/lib/utils'; */
 import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
-const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
+const ITEMS_PER_PAGE = CARDS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_task_group_by_id(id: string) {
   noStore();

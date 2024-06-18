@@ -1,15 +1,13 @@
 import { db } from '@/lib/db';
-import { currentUser } from '@/hooks/use-current-user';
-import { fetch_all_task_groups_ids } from './task-group';
 import { unstable_noStore as noStore } from 'next/cache';
-import { ITEMS_PER_PAGE_TASKS } from '@/globals';
+import { ROWS_PER_PAGE_TASKS } from '@/globals';
 
 import { Status } from '@prisma/client'
 
-const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASKS;
+const ITEMS_PER_PAGE = ROWS_PER_PAGE_TASKS;
 
 export async function fetch_task(id: string) {
-    noStore(); // disable Next.js' response caching
+    noStore(); 
     try {
         const task = await db.task.findUnique({
             where: {

@@ -1,0 +1,107 @@
+import React from 'react';
+import { EditMember, DeleteMember } from './buttons';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { fetch_members } from '@/data/members';
+
+interface MembersTable {
+    query: string;
+    currentPage: number;
+}
+
+/* const members = [
+    {
+        id: "1",
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTdJC4BHgAVNL_Xwow4wsEKBt2OSo61YfscQ&s",
+        name: "John Doe",
+        email: "matias@asdad.com",
+        role: "Admin",
+        joinDate: "2021-10-10",
+    }] */
+
+const MembersTable = async ({ query, currentPage }: MembersTable) => {
+    const members = await fetch_members(currentPage);
+    if (members === undefined) return 
+    //initial letters if not exist avatar
+    return (
+        <div className="flex flex-wrap">
+            <div className="w-full max-w-full px-3 mb-6 mx-auto">
+                <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-slate-900 m-5">
+                    <div className="relative flex flex-col min-w-0 break-words  rounded-2xl  ">
+                        {/* card header */}
+{/*                         <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
+                            <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
+                                <span className="mr-3 font-semibold text-dark">Members List</span>
+                                <span className="mt-1 font-medium text-secondary-dark text-lg/normal">All members in the team</span>
+                            </h3>
+                            <div className="relative flex flex-wrap items-center my-2">
+                                <a href="javascript:void(0)" className="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light">
+                                    See other members
+                                </a>
+                            </div>
+                        </div> */}
+                        {/* end card header */}
+                        {/* card body  */}
+                        <div className="flex-auto block py-8 pt-6 px-9">
+                            <div className="overflow-x-auto">
+                                <table className="w-full my-0 align-middle text-dark border-neutral-200">
+                                    <thead className="align-bottom">
+                                        <tr className="font-semibold text-md ">
+                                            <th className="pb-3 text-start min-w-[70px]">AVATAR</th>
+                                            <th className="pb-3 text-center min-w-[120px]">NAME</th>
+                                            <th className="pb-3 text-center min-w-[120px]">EMAIL</th>
+                                            <th className="pb-3 text-center min-w-[100px]">ROLE</th>
+                                            <th className="pb-3 text-center min-w-[100px]">JOIN DATE</th>
+                                            <th className="pb-3 text-center min-w-[100px]">ACTIONS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {members.map((member, index) => (
+                                            <tr key={index} >
+                                                <td >
+                                                    <div className="flex items-center">
+                                                        <div className="relative inline-block shrink-0 rounded-2xl me-3">
+                                                            <Avatar className="h-10 w-10">
+                                                                {
+                                                                    member.avatar || member.avatar == ""  ? (
+                                                                        <AvatarImage src={member.avatar} alt="Icon user" />
+                                                                    ) : (
+                                                                        <AvatarFallback>{member.name[0]}</AvatarFallback>
+                                                                    )
+                                                                }
+                                                            </Avatar>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="text-center">
+                                                    <span className="font-semibold ">{member.name}</span>
+                                                </td>
+                                                <td className="text-center">
+                                                    <span className="font-semibold ">{member.email}</span>
+                                                </td>
+                                                <td className="text-center">
+                                                    <span className="font-semibold">{member.role}</span>
+                                                </td>
+                                                <td className=" text-center">
+                                         {/*            <span className="font-semibold">{member.joinDate}</span> */}
+                                                </td>
+                                                <td className=" text-center">
+                                                    <div className="flex items-center gap-4 justify-center">
+                                                        <EditMember id={member.user_id} />
+                                                        <DeleteMember id={member.user_id} />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {/* end card body */}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default MembersTable;

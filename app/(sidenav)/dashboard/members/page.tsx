@@ -4,6 +4,7 @@ import { Metadata } from "next";
 /* import { Loader1 } from "@/components/loaders"; */
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
+import MembersTable from "@/components/members/members-table";
 /* import TaskGroupGrid from "@/components/task-group/task-group-grid";
 import Pagination from "@/components/pagination"; */
 import { AddMember } from "@/components/members/buttons";
@@ -40,16 +41,22 @@ export default async function Page({
                 ]}
             />
 
-            <div className="flex items-center justify-between gap-2">
-                <Search placeholder="Search member..." />
+            <div className="flex items-center justify-end gap-2">
+{/*                 <Search placeholder="Search member..." /> */}
                 <AddMember />
             </div>
+
+                <MembersTable query={query} currentPage={currentPage} />
+            
             {/*             <Suspense fallback={<Loader1 />}>
                 <TaskGroupGrid query={query} currentPage={currentPage} />
-            </Suspense>
+                
+                </Suspense>
+
             <div className="flex w-full justify-center">
                 <Pagination totalPages={totalPages} />
             </div> */}
+            <h2>Invitations: </h2>
         </div>
 
     );
