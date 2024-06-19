@@ -5,9 +5,10 @@ import Image from "next/image";
 /* import type { TaskGroup } from "@prisma/client"; */
 import { CriticalityIndicator, StatusIndicator } from "./indicators";
 import { Criticality, Status } from "@prisma/client";
-import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
+import { DeleteTaskGroup } from "./buttons";
+import { UpdateTaskGroup, ViewTasks } from "./redirects";
 
-export default async function TaskGridItem({
+export default  function TaskGridItem({
   task,
 }: {
   task: {
@@ -146,25 +147,7 @@ export default async function TaskGridItem({
             <UpdateTaskGroup id={id} />
 
           </div>
-          <Link
-            href={`task-groups/` + id}
-            className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 border-2 border-black  hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
-          >
-            <span>View Tasks</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h13M12 5l7 7-7 7" />
-            </svg>
-          </Link>
+          <ViewTasks id={id} />
         </div>
       </div>
     </div >

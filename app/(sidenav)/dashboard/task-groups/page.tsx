@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
 import TaskGroupGrid from "@/components/task-group/task-group-grid";
 import Pagination from "@/components/pagination";
-import { CreateTaskGroup } from "@/components/task-group/buttons";
+import { CreateTaskGroup } from "@/components/task-group/redirects";
 import { fetch_task_group_pages } from "@/data/task-group";
 //!ADD SKELETON LOADING
 
