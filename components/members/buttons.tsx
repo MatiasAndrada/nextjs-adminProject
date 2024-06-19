@@ -12,10 +12,9 @@ export function AddMember() {
         </Link>
     );
 }
-
 export function EditMember({id , children}: {id:string, children?: React.ReactNode}) {
     return (
-        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none">
+        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none hover:shadow-md hover:scale-105 transition-all">
             <PencilIcon className="h-5 w-5 text-dark" />
             {children}
         </button>
@@ -24,7 +23,7 @@ export function EditMember({id , children}: {id:string, children?: React.ReactNo
 
 export function DeleteMember({id , children}: {id:string, children?: React.ReactNode}) {
     return (
-        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none">
+        <button className="flex items-center justify-center w-6 h-6 bg-transparent border-0 outline-none focus:outline-none hover:shadow-md hover:scale-105 transition-all">
             <TrashIcon className="h-5 w-5 text-dark" />
         </button>
     );

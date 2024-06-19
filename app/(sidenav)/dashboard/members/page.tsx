@@ -3,8 +3,9 @@ import { Metadata } from "next";
 //components
 /* import { Loader1 } from "@/components/loaders"; */
 import Breadcrumbs from "@/components/breadcrumbs";
-import Search from "@/components/search";
+/* import Search from "@/components/search"; */
 import MembersTable from "@/components/members/members-table";
+import { CardsInvitation } from "@/components/invitation/card-invitation-send";
 /* import TaskGroupGrid from "@/components/task-group/task-group-grid";
 import Pagination from "@/components/pagination"; */
 import { AddMember } from "@/components/members/buttons";
@@ -45,7 +46,6 @@ export default async function Page({
 {/*                 <Search placeholder="Search member..." /> */}
                 <AddMember />
             </div>
-
                 <MembersTable query={query} currentPage={currentPage} />
             
             {/*             <Suspense fallback={<Loader1 />}>
@@ -56,7 +56,8 @@ export default async function Page({
             <div className="flex w-full justify-center">
                 <Pagination totalPages={totalPages} />
             </div> */}
-            <h2>Invitations: </h2>
+            <h2 className="text-xl">members with invitation sent: </h2>
+            <CardsInvitation />
         </div>
 
     );

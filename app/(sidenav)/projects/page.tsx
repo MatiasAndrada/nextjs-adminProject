@@ -2,7 +2,7 @@
 //components
 import Link from "next/link";
 import Cards from "@/components/projects/cards";
-import { CardsInvitation } from "@/components/invitation/card-invitation";
+import { CardsInvitation } from "@/components/invitation/card-invitation-user";
 import { LinkCreate } from "@/components/projects/redirects";
 import { Button } from "@/components/ui/button";
 import { lusitana } from "@/components/fonts";

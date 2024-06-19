@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
-
+import { currentProject } from "@/hooks/use-current-project";
 import { Role } from "@prisma/client";
 
 export async function fetch_invitation_by_token(token: string) {
@@ -48,6 +48,22 @@ export async function fetch_invitations_of_user() {
 
     }
     catch (err) {
+        console.error("Database Error:", err);
+        throw new Error("Failed to fetch invitations.");
+    }
+}
+
+export async function fetch_invitations_of_project() {
+    const project = await currentProject();
+    const project_id = project?.id;
+    try {
+        const invitations = await db.inviteToken.findMany({
+            where: {
+                project_id: project_id,
+            },
+        });
+        return invitations;
+    } catch (err) {
         console.error("Database Error:", err);
         throw new Error("Failed to fetch invitations.");
     }

@@ -8,25 +8,14 @@ interface MembersTable {
     currentPage: number;
 }
 
-/* const members = [
-    {
-        id: "1",
-        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTdJC4BHgAVNL_Xwow4wsEKBt2OSo61YfscQ&s",
-        name: "John Doe",
-        email: "matias@asdad.com",
-        role: "Admin",
-        joinDate: "2021-10-10",
-    }] */
-
 const MembersTable = async ({ query, currentPage }: MembersTable) => {
     const members = await fetch_members(currentPage);
-    if (members === undefined) return 
-    //initial letters if not exist avatar
+    if (members === undefined) return <div>Loading...</div>;
     return (
         <div className="flex flex-wrap">
-            <div className="w-full max-w-full px-3 mb-6 mx-auto">
-                <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-slate-900 m-5">
-                    <div className="relative flex flex-col min-w-0 break-words  rounded-2xl  ">
+            <div className="w-full mb-6 mx-auto">
+                <div className=" flex flex-col break-words rounded-lg bg-slate-900">
+                    <div className="relative flex flex-col break-words ">
                         {/* card header */}
 {/*                         <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                             <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
@@ -43,7 +32,7 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                         {/* card body  */}
                         <div className="flex-auto block py-8 pt-6 px-9">
                             <div className="overflow-x-auto">
-                                <table className="w-full my-0 align-middle text-dark border-neutral-200">
+                                <table className="w-full my-0 align-middle text-dark ">
                                     <thead className="align-bottom">
                                         <tr className="font-semibold text-md ">
                                             <th className="pb-3 text-start min-w-[70px]">AVATAR</th>
@@ -56,13 +45,13 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                                     </thead>
                                     <tbody>
                                         {members.map((member, index) => (
-                                            <tr key={index} >
+                                            <tr key={index} className='py-8 h-12'>
                                                 <td >
                                                     <div className="flex items-center">
                                                         <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                                             <Avatar className="h-10 w-10">
                                                                 {
-                                                                    member.avatar || member.avatar == ""  ? (
+                                                                    member.avatar ? (
                                                                         <AvatarImage src={member.avatar} alt="Icon user" />
                                                                     ) : (
                                                                         <AvatarFallback>{member.name[0]}</AvatarFallback>

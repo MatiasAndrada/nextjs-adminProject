@@ -104,7 +104,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
             <div className='flex gap-4 item-center'>
                 {/* Submit Button */}
                 <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
-                    Create task group
+                    Create task
                 </button>
                 {state.message && (
                     <div
