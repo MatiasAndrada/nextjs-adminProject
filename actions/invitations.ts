@@ -1,8 +1,9 @@
 "use server";
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
 //hooks
-import { currentUser } from "@/hooks/use-current-user";
+import { currentProject } from '@/hooks/use-current-project';
 import { currentRole } from "@/hooks/use-current-role";
 import { getUserByEmail } from "@/data/user";
 //emails
@@ -15,7 +16,7 @@ import { Schema } from "@/schemas/member";
 import type { State } from "@/schemas/member";
 import { Role } from "@prisma/client";
 
-
+//todo: change name function is_valid_invite_token
 export async function new_invitation(token: string) {
     const existingToken = await db.inviteToken.findUnique({
         where: {
@@ -111,8 +112,8 @@ export async function send_invitation(prevState: State, formData: FormData) {
             message: "Missing Fields. Failed to send invitation.",
         };
     }
-    const user = await currentUser();
-    const project_id = user?.currentProjectId;
+    const project = await currentProject();
+    const project_id = project?.id;
     const isAllowed = await currentRole() === Role.ADMIN || await currentRole() === Role.OWNER;
     if (!project_id) {
         return { message: "No project selected" };
@@ -120,12 +121,13 @@ export async function send_invitation(prevState: State, formData: FormData) {
     if (!isAllowed) {
         return { message: "You don't have permission to invite members" };
     }
-
     // send email to the user
     const { email, role } = validatedFields.data;
     const token = await generateInviteToken(project_id, email, role);
     await sendInvitation(email, token);
-    return { message: "Invitation sent!" };
+    revalidatePath("/dashboard/members")
+    redirect("/dashboard/members")
+/*     return { message: "Invitation sent!" }; */
 }
 
 
