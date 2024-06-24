@@ -45,7 +45,7 @@ export const DEFAULT_LOGIN_REDIRECT: string = "/projects";
 export const roleRoutesPermissions = [
     {
         path: "/projects/[id]/edit",
-        permissions: [Role.OWNER, Role.ADMIN, Role.EDITOR]
+        permissions: [Role.OWNER, Role.ADMIN]
     },
     {
         path: "/dashboard/task-groups/create",
