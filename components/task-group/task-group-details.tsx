@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { RoleGate } from '../auth/role-gate';
 import { CriticalityIndicator, StatusIndicator } from './indicators';
 import { fetch_task_group_by_id } from "@/data/task-group";
+import { Role } from '@prisma/client';
 
 
 const TaskGroupDetails = async ({ id }: { id: string }) => {
@@ -11,9 +13,11 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
             <div className='max-w-3xl'>
                 <div className='flex flex-row items-center gap-4'>
                     <h2 className="text-slate-800 dark:text-slate-200 text-3xl font-semibold">{name}</h2>
-                    <Link href={`/dashboard/task-groups/${id}/edit`} className='transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110'>
-                        <PencilSquareIcon className='w-8 h-8  hover:text-black dark:hover:text-white' />
-                    </Link>
+                    <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="You don't have permissions">
+                        <Link href={`/dashboard/task-groups/${id}/edit`} className='transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110'>
+                            <PencilSquareIcon className='w-8 h-8  hover:text-black dark:hover:text-white' />
+                        </Link>
+                    </RoleGate>
                 </div>
                 <p className="text-md">{description}</p>
             </div>

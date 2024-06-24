@@ -140,7 +140,7 @@ export default function TaskGridItem({
           </div>
         </div>
         <div className="flex justify-between items-center overflow-visible">
-          <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="Not have permissions">
+          <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="You don't have permissions">
             <div className="flex gap-4">
               <DeleteTaskGroup id={id} />
               <UpdateTaskGroup id={id} />
