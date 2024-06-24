@@ -1,9 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next" //metricas para ver en vercel
 import "@/components/global.css";
-
-
 import NextAuthProvider from "@/context/SessionAuthProvider";
-import { inter } from "@/components/fonts";
+//import { inter } from "@/components/fonts";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
