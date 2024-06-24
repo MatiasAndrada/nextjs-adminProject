@@ -60,10 +60,6 @@ export const roleRoutesPermissions = [
         permissions: [Role.OWNER, Role.ADMIN]
     },
     {
-        path: "/dashboard/members",
-        permissions: [Role.OWNER, Role.ADMIN, Role.EDITOR]
-    },
-    {
         path: "/dashboard/members/add",
         permissions: [Role.OWNER, Role.ADMIN]
     }

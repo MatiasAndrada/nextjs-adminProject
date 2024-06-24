@@ -1,14 +1,12 @@
-import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
-/* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
-/* import type { TaskGroup } from "@prisma/client"; */
 import { CriticalityIndicator, StatusIndicator } from "./indicators";
-import { Criticality, Status } from "@prisma/client";
 import { DeleteTaskGroup } from "./buttons";
 import { UpdateTaskGroup, ViewTasks } from "./redirects";
+import { RoleGate } from "../auth/role-gate";
+import { Criticality, Status, Role } from "@prisma/client";
 
-export default  function TaskGridItem({
+export default function TaskGridItem({
   task,
 }: {
   task: {
@@ -142,11 +140,12 @@ export default  function TaskGridItem({
           </div>
         </div>
         <div className="flex justify-between items-center overflow-visible">
-          <div className="flex gap-4">
-            <DeleteTaskGroup id={id} />
-            <UpdateTaskGroup id={id} />
-
-          </div>
+          <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="Not have permissions">
+            <div className="flex gap-4">
+              <DeleteTaskGroup id={id} />
+              <UpdateTaskGroup id={id} />
+            </div>
+          </RoleGate>
           <ViewTasks id={id} />
         </div>
       </div>

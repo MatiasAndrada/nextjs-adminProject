@@ -2,12 +2,14 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 //components
 import { Loader1 } from "@/components/loaders";
+import { RoleGate } from "@/components/auth/role-gate";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
 import TaskGroupGrid from "@/components/task-group/task-group-grid";
 import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/redirects";
 import { fetch_task_group_pages } from "@/data/task-group";
+import { Role } from "@prisma/client";
 //!ADD SKELETON LOADING
 
 
@@ -42,7 +44,9 @@ export default async function Page({
 
             <div className="flex items-center justify-between gap-2">
                 <Search placeholder="Search task groups..." />
-                <CreateTaskGroup />
+                <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]}>
+                    <CreateTaskGroup />
+                </RoleGate>
             </div>
             <Suspense fallback={<Loader1 />}>
                 <TaskGroupGrid query={query} currentPage={currentPage} />

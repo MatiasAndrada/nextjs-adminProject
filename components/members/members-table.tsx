@@ -2,6 +2,8 @@ import React from 'react';
 import { EditMember, DeleteMember } from './buttons';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { fetch_members } from '@/data/members';
+import { RoleGate } from '../auth/role-gate';
+import { Role } from '@prisma/client';
 
 interface MembersTable {
     query: string;
@@ -17,7 +19,7 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                 <div className=" flex flex-col break-words rounded-lg bg-slate-900">
                     <div className="relative flex flex-col break-words ">
                         {/* card header */}
-{/*                         <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
+                        {/*                         <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                             <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
                                 <span className="mr-3 font-semibold text-dark">Members List</span>
                                 <span className="mt-1 font-medium text-secondary-dark text-lg/normal">All members in the team</span>
@@ -71,13 +73,15 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                                                     <span className="font-semibold">{member.role}</span>
                                                 </td>
                                                 <td className=" text-center">
-                                         {/*            <span className="font-semibold">{member.joinDate}</span> */}
+                                                    {/*            <span className="font-semibold">{member.joinDate}</span> */}
                                                 </td>
                                                 <td className=" text-center">
-                                                    <div className="flex items-center gap-4 justify-center">
-                                                        <EditMember id={member.user_id} />
-                                                        <DeleteMember id={member.user_id} />
-                                                    </div>
+                                                    <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} onlyIcon={true} >
+                                                        <div className="flex items-center gap-4 justify-center">
+                                                            <EditMember id={member.user_id} />
+                                                            <DeleteMember id={member.user_id} />
+                                                        </div>
+                                                    </RoleGate>
                                                 </td>
                                             </tr>
                                         ))}
