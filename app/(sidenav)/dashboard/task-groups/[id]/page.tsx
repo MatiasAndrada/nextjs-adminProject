@@ -12,7 +12,6 @@ export default async function Page({ params, searchParams }: { params: { id: str
     const query = searchParams.query || "";
     const currentPage = Number(searchParams.page) || 1;
     const totalPages = await fetch_task_pages(id, query);
-    console.log("🦇  Page  totalPages:", totalPages)
 
     return (
         <main className="space-y-4">
