@@ -1,11 +1,13 @@
-import { db } from "@/lib/db"; 
+import { db } from "@/lib/db";
 import { currentProject } from "@/hooks/use-current-project";
 import { unstable_noStore as noStore } from 'next/cache';
 import { ROWS_PER_PAGE_MEMBERS } from "@/globals";
+import { Role } from "@prisma/client";
 
 interface MemberDTO {
     user_id: string;
-    role: string;
+    project_id: string;
+    role: Role;
     avatar: string;
     name: string;
     email: string;
@@ -17,6 +19,9 @@ export async function fetch_members(currentPage: number) {
     try {
         const current_project = await currentProject();
         const current_project_id = current_project?.id;
+        if (!current_project_id) {
+            throw new Error('Failed to fetch members.');
+        }
         const members = await db.project.findUnique({
             where: {
                 id: current_project_id
@@ -31,7 +36,7 @@ export async function fetch_members(currentPage: number) {
                                 image: true,
                                 name: true,
                                 email: true,
-/*                                 createdAt: true */
+                                /*                                 createdAt: true */
                             }
                         }
                     }
@@ -42,6 +47,7 @@ export async function fetch_members(currentPage: number) {
         const flattenedMembers = members?.members.map((member: any) => {
             const dto: MemberDTO = {
                 user_id: member.user.id,
+                project_id: current_project_id,
                 role: member.role,
                 avatar: member.user.image,
                 name: member.user.name,
