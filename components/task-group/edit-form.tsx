@@ -1,9 +1,11 @@
 "use client"
 import { useFormState } from 'react-dom';
+import { Criticality } from '@prisma/client';
+import { Button } from '../ui/button';
+import { update_task_group } from '@/actions/task-group';
 import type { State } from '@/schemas/task-group';
 import type { TaskGroup } from "@prisma/client"
-import { Criticality } from '@prisma/client';
-import { update_task_group } from '@/actions/task-group';
+
 export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup }) {
     const initialState: State = { message: null, errors: {} }
 
@@ -97,9 +99,9 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
             </div>
 
             {/* Submit Button */}
-            <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
+            <Button type="submit" >
                 Updated task group
-            </button>
+            </Button>
         </form>
     )
 }
