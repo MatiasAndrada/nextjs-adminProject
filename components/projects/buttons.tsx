@@ -12,7 +12,10 @@ export function ButtonDeleteProject({ id }: { id: string }) {
             } else {
                 toast.success(res.success);
             }
-        })
+        }).catch((error) => {
+            toast.error("An unexpected error occurred.");
+            console.error(error);
+        });
     }
     return (
         <Button variant="ghost" onClick={() => handleDelete(id)}>

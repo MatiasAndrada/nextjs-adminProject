@@ -1,7 +1,7 @@
 import Link from "next/link";
 //components
-import { ButtonSetCurrentProjectId } from "@/components/dashboard/buttons";
-import ButtonActionsDropDropdown from "@/components/projects/drop-down-actions";
+import { SetCurrentProjectId } from "@/components/dashboard/buttons";
+import DropdownActions from "@/components/projects/dropdown-actions";
 import { LinkViewProject } from "./redirects";
 import { EyeIcon } from "@heroicons/react/24/outline";
 //types
@@ -24,7 +24,7 @@ export function Card({ id, name }: { id: string; name: string }) {
   return (
     <div className="min-w-fit flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
       <div className="p-2 ">
-        <ButtonActionsDropDropdown id={id} />
+        <DropdownActions id={id} />
       </div>
       <div>
         <h3 className="text-lg text-balance">{name}</h3>
@@ -34,10 +34,10 @@ export function Card({ id, name }: { id: string; name: string }) {
       </div>
 
       <LinkViewProject >
-        <ButtonSetCurrentProjectId id={id} >
+        <SetCurrentProjectId id={id} >
           <EyeIcon className="w-6 h-6 mr-1" />
           View project
-        </ButtonSetCurrentProjectId>
+        </SetCurrentProjectId>
       </LinkViewProject>
     </div>
   );

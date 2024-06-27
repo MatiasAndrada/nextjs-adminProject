@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { setSelectedProject } from "@/actions/projects";
 
-export function ButtonSetCurrentProjectId({
+export function SetCurrentProjectId({
   id,
   children,
 }: {

@@ -25,23 +25,27 @@ ChartJS.register(
     /* Filler */
 );
 
-// Your chart data...
-const data = {
-    labels: ['Paused', 'Pending', 'In Progress', 'Completed'],
-    datasets: [{
-        /*  label: 'Colors', */
-        data: [300, 50, 100, 100],
-        backgroundColor: [
-            '#00d5ff',
-            '#0f37da',
-            '#f59e23',
-            '#e71d1d'
-        ],
-        hoverOffset: 35
-    }]
-};
+interface Props {
+    countStatusTasks: {
+        status: string;
+        value: number;
+    }[];
+}
 
-function DoughnutChart() {
+function DoughnutChart({ countStatusTasks }: Props) {
+    const data = {
+        labels: countStatusTasks.map((task) => task.status),
+        datasets: [{
+            data: countStatusTasks.map((task) => task.value),
+            backgroundColor: [
+                '#f5a523',
+                '#fff700',
+                '#0cc7e9',
+                '#00fc11'
+            ],
+            hoverOffset: 35
+        }]
+    };
     return (
         <>
             <h3 className="text-center text-xl font-bold">
