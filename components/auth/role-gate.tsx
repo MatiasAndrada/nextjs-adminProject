@@ -13,7 +13,7 @@ interface RoleGateProps {
 
 export const RoleGate = React.memo(({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => {
   const { data: session } = useSession();
-  const current_project_role = session?.user?.currentProject.role;
+  const current_project_role = session?.user.currentProject.role;
   const [hasClicked, setHasClicked] = useState(false);
 
   if (!current_project_role) return <FormError message="You have not selected a project" />;

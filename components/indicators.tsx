@@ -1,7 +1,15 @@
 import { Role } from "@prisma/client"
-export function RoleIndicator({ role, children }: { role: Role, children?: React.ReactNode }) {
+
+interface Props {
+    role: Role;
+    children?: React.ReactNode;
+    shadow?: boolean;
+}
+
+export function RoleIndicator({ role, children, shadow }: Props) {
     return (
-        <span className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
+        <span className={`uppercase text-md font-bold  rounded-md px-2 py-1
+            ${shadow ? "shadow-lg dark:shadow-slate-950" : ""}
             ${role === Role.OWNER ? "text-red-500" : ""}
             ${role === Role.ADMIN ? "text-amber-500" : ""}
             ${role === Role.EDITOR ? "text-emerald-500" : ""}

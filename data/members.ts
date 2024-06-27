@@ -3,15 +3,8 @@ import { currentProject } from "@/hooks/use-current-project";
 import { unstable_noStore as noStore } from 'next/cache';
 import { ROWS_PER_PAGE_MEMBERS } from "@/globals";
 import { Role } from "@prisma/client";
+import { error } from "console";
 
-interface MemberDTO {
-    user_id: string;
-    project_id: string;
-    role: Role;
-    avatar: string;
-    name: string;
-    email: string;
-}
 
 export async function fetch_members(currentPage: number) {
     noStore();
@@ -20,7 +13,7 @@ export async function fetch_members(currentPage: number) {
         const current_project = await currentProject();
         const current_project_id = current_project?.id;
         if (!current_project_id) {
-            throw new Error('Failed to fetch members.');
+            throw new Error('Failed to fetch members. Project not found.');
         }
         const members = await db.project.findUnique({
             where: {
@@ -30,6 +23,7 @@ export async function fetch_members(currentPage: number) {
                 members: {
                     select: {
                         role: true,
+                        project_id: true,
                         user: {
                             select: {
                                 id: true,
@@ -44,22 +38,40 @@ export async function fetch_members(currentPage: number) {
             }
         });
 
-        const flattenedMembers = members?.members.map((member: any) => {
-            const dto: MemberDTO = {
-                user_id: member.user.id,
-                project_id: current_project_id,
-                role: member.role,
-                avatar: member.user.image,
-                name: member.user.name,
-                email: member.user.email,
-            };
-            return dto;
-        });
-
-        return flattenedMembers;
-
+        return members?.members;
     } catch (err) {
         console.error('Database Error:', err);
-        throw new Error('Failed to fetch members.');
+        return { error: "Failed to fetch members." };
+    }
+}
+
+export async function fetch_member_by_id(user_id: string, project_id: string) {
+    try {
+        if (!user_id || !project_id) {
+            throw new Error('Failed to fetch member. Missing fields.');
+        }
+        const project_user = await db.projectUser.findFirst({
+            where: {
+                user_id: user_id,
+                project_id: project_id,
+            },
+            select: { //selecting only the required fields
+                role: true,
+                project_id: true,
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        name: true,
+                        image: true,
+                    }
+                }
+            }
+        });
+        return project_user;
+    }
+    catch (err) {
+        console.error('Database Error:', err);
+        return { error: "Failed to fetch member." };
     }
 }

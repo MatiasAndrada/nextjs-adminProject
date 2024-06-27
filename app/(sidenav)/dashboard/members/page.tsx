@@ -5,7 +5,7 @@ import { RoleGate } from "@/components/auth/role-gate";
 import MembersTable from "@/components/members/members-table";
 import { CardsInvitation } from "@/components/invitation/card-invitation-send";
 /* import Pagination from "@/components/pagination"; */
-import { AddMember } from "@/components/members/buttons";
+import { AddMember, InformationRole } from "@/components/members/redirects";
 import { fetch_task_group_pages } from "@/data/task-group";
 import { Role } from "@prisma/client";
 
@@ -29,7 +29,7 @@ export default async function Page({
     const currentPage = Number(searchParams?.page) || 1;
     const totalPages = await fetch_task_group_pages(query);
     return (
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-6">
             <Breadcrumbs
                 breadcrumbs={[
                     { label: "Dashboard", href: "/dashboard" },
@@ -41,7 +41,9 @@ export default async function Page({
                 ]}
             />
 
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-between gap-2">
+                <InformationRole />
+
                 <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]}>
                     <AddMember />
                 </RoleGate>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { EditMember, DeleteMember } from './buttons';
+import { EditMember } from '@/components/members/redirects';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { RoleIndicator } from '../indicators';
 import { fetch_members } from '@/data/members';
-import { RoleGate } from '../auth/role-gate';
+import { RoleGate } from '@/components/auth/role-gate';
 import { Role } from '@prisma/client';
 
 interface MembersTable {
@@ -13,6 +14,11 @@ interface MembersTable {
 const MembersTable = async ({ query, currentPage }: MembersTable) => {
     const members = await fetch_members(currentPage);
     if (members === undefined) return <div>Loading...</div>;
+    if ('error' in members) return (
+        <div className="flex flex-col items-center justify-center">
+            <h2 className="text-red-500">Error: {members.error}</h2>
+        </div>
+    );
     return (
         <div className="flex flex-wrap">
             <div className="w-full mb-6 mx-auto">
@@ -53,10 +59,12 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                                                         <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                                             <Avatar className="h-10 w-10">
                                                                 {
-                                                                    member.avatar ? (
-                                                                        <AvatarImage src={member.avatar} alt="Icon user" />
+                                                                    member.user.image ? (
+                                                                        <AvatarImage src={member.user.image} alt="Icon user" />
                                                                     ) : (
-                                                                        <AvatarFallback>{member.name[0]}</AvatarFallback>
+                                                                        <AvatarFallback>{
+                                                                            member.user.name?.[0] === null ? member.user.email?.[0] : member.user.name?.[0]
+                                                                        }</AvatarFallback>
                                                                     )
                                                                 }
                                                             </Avatar>
@@ -64,24 +72,28 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                                                     </div>
                                                 </td>
                                                 <td className="text-center">
-                                                    <span className="font-semibold ">{member.name}</span>
+                                                    <span className="font-semibold ">{member.user.name}</span>
                                                 </td>
                                                 <td className="text-center">
-                                                    <span className="font-semibold ">{member.email}</span>
+                                                    <span className="font-semibold ">{member.user.email}</span>
                                                 </td>
                                                 <td className="text-center">
-                                                    <span className="font-semibold">{member.role}</span>
+                                                    <RoleIndicator role={member.role} shadow={true}>{member.role}</RoleIndicator>
                                                 </td>
                                                 <td className=" text-center">
                                                     {/*            <span className="font-semibold">{member.joinDate}</span> */}
                                                 </td>
                                                 <td className=" text-center">
-                                                    <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} onlyIcon={true} >
-                                                        <div className="flex items-center gap-4 justify-center">
-                                                            <EditMember id={member.user_id} />
-                                                            <DeleteMember id={member.user_id} />
-                                                        </div>
-                                                    </RoleGate>
+                                                    {
+                                                        member.role === Role.OWNER ? (
+                                                            <h2 className="text-red-500">Not allowed</h2>
+                                                        ) : (
+                                                            <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} onlyIcon={true} >
+                                                                <div className="flex items-center gap-4 justify-center">
+                                                                    <EditMember user_id={member.user.id} project_id={member.project_id} />
+                                                                </div>
+                                                            </RoleGate>
+                                                        )}
                                                 </td>
                                             </tr>
                                         ))}
