@@ -21,7 +21,7 @@ export const setSelectedProject = async (projectId: string | null) => {
             },
         });
 
-        revalidatePath("page");
+        revalidatePath("/", "layout");
     } catch (error) {
         console.log(error)
     }
@@ -140,11 +140,10 @@ export async function delete_project_by_id(id: string) {
             },
         });
         revalidatePath(`/projects`);
-        return { success: "The project was deleted" };
+        return { success: "The project was deleted." };
     }
     catch (error) {
-        return {
-            error: 'An error occurred while deleting the project.',
-        };
+        console.error(error);
+        return { error: "An unexpected error occurred. Failed to delete project." };
     }
 }
