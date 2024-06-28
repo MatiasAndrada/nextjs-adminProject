@@ -1,6 +1,6 @@
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { CriticalityIndicator, StatusIndicator } from "./indicators";
+import { CriticalityIndicator, StatusIndicator } from "@/components/ui/indicators";
 import { DeleteTaskGroup } from "./buttons";
 import { UpdateTaskGroup, ViewTasks } from "./redirects";
 import { RoleGate } from "../auth/role-gate";

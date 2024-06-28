@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { RoleGate } from '../auth/role-gate';
-import { CriticalityIndicator, StatusIndicator } from './indicators';
+import { CriticalityIndicator, StatusIndicator } from '@/components/ui/indicators';
 import { fetch_task_group_by_id } from "@/data/task-group";
 import { Role } from '@prisma/client';
 

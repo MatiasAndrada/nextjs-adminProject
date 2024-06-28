@@ -1,10 +1,15 @@
 "use client";
 import { useRouter } from "next/navigation";
-/* import { SearchFields } from "@/definitions/task"; */
+import { StatusIndicator } from "../ui/indicators";
 import { DocumentIcon } from "@heroicons/react/24/outline";
 import type { Task } from "@prisma/client";
 import { Status } from "@prisma/client";
-export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
+
+interface Props {
+    tasks: Pick<Task, 'id' | 'task_group_id' | 'name' | 'status' | 'progress' | 'updatedAt'>[];
+}
+
+export default function TableBody({ tasks }: Props) {
     const router = useRouter();
     return (
         <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-500">
@@ -34,15 +39,7 @@ export default function TableBody({ tasks }: { tasks: Partial<Task>[] }) {
                         <div className="text-left">{name ?? ''}{!name?.endsWith('.') && '.'}</div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                        <span
-                            className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
-                            ${status === Status.PAUSED ? "text-status-paused p-2 bg-status-paused_foreground" : ""}
-                            ${status === Status.PENDING ? "text-status-pending p-2 bg-status-pending_foreground" : ""}
-                            ${status === Status.IN_PROGRESS ? "text-status-in_progress p-2 bg-status-in_progress_foreground" : ""}
-                            ${status === Status.COMPLETED ? "text-status-completed p-2 bg-status-completed_foreground" : ""}`}
-                        >
-                            {status}
-                        </span>
+                        <StatusIndicator status={status} />
                     </td>
                     <td className="p-2 whitespace-nowrap">
                         <div className="text-lg text-center">{progress}%</div>

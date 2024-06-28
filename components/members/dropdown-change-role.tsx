@@ -7,7 +7,7 @@ import {
     DropdownMenuGroup,
     DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
-import { RoleIndicator } from "@/components/indicators";
+import { RoleIndicator } from "@/components/ui/indicators";
 import { SetRoleOfMember } from "@/components/members/buttons";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Role } from "@prisma/client";

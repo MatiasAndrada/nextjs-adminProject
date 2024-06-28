@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditMember } from '@/components/members/redirects';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { RoleIndicator } from '../indicators';
+import { RoleIndicator } from '../ui/indicators';
 import { fetch_members } from '@/data/members';
 import { RoleGate } from '@/components/auth/role-gate';
 import { Role } from '@prisma/client';
