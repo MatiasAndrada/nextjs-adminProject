@@ -11,6 +11,9 @@ async function AsideDashboard({ id }: { id: string }) {
             <h3 className="text-center text-xl font-bold mb-0 h-20">
                 Mensajes
             </h3>
+            <h3 className="text-center text-xl font-bold">
+                Status of all tasks
+            </h3>
             <DoughnutChart countStatusTasks={countStatusTasks} />
         </div>
     );

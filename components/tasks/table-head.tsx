@@ -16,7 +16,7 @@ export default async function Table({ query, currentPage, task_group_id }: {
     }
 
     const columnHeaders = [
-        { key: "id", label: "Task Id" },
+        { key: "id", label: "# Id" },
         { key: "name", label: "Name" },
         { key: "status", label: "Status" },
         { key: "progress", label: "Progress" },

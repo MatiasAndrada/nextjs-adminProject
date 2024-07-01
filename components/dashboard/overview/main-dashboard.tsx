@@ -1,12 +1,8 @@
 import { Suspense } from "react";
 import Table from "./table";
 import Filter from "./filter";
-import { InvoicesTableSkeleton } from "@/components/skeletons";
 import Pagination from "@/components/pagination";
 import { fetch_filtered_task_group, fetch_task_group_pages } from "@/data/task-group";
-import type { TaskGroup } from '@prisma/client';
-
-
 
 export default async function MainDashboard({ name, description, searchParams }: {
     name: string,
@@ -20,8 +16,6 @@ export default async function MainDashboard({ name, description, searchParams }:
     const currentPage = Number(searchParams?.page) || 1;
     const taskGroup = await fetch_filtered_task_group(query, currentPage);
     const totalPages = await fetch_task_group_pages(query);
-
-
     return (
         <section className="h-fit col-span-2 p-2 my-2 rounded-lg bg-slate-300 dark:bg-gray-800 dark:text-gray-100 ">
             <div className="ml-6">
@@ -37,7 +31,6 @@ export default async function MainDashboard({ name, description, searchParams }:
                 <p className="text-sm font-medium max-h-64 overflow-y-auto">
                     {description}
                 </p>
-
             </div>
             <div className="mt-2">
                 {/*                 <h3>TASK GROUPS STATE</h3> */}

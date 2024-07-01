@@ -1,5 +1,6 @@
 "use client";
 import { Doughnut } from "react-chartjs-2";
+import { Status } from "@prisma/client";
 
 import {
     Chart as ChartJS,
@@ -34,7 +35,15 @@ interface Props {
 
 function DoughnutChart({ countStatusTasks }: Props) {
     const data = {
-        labels: countStatusTasks.map((task) => task.status),
+        labels: countStatusTasks.map((task) =>
+            task.status === Status.PAUSED
+                ? `${task.value} Paused`
+                : task.status === Status.PENDING
+                    ? "Pending"
+                    : task.status === Status.IN_PROGRESS
+                        ? "In Progress"
+                        : "Completed"
+        ),
         datasets: [{
             data: countStatusTasks.map((task) => task.value),
             backgroundColor: [
@@ -43,41 +52,34 @@ function DoughnutChart({ countStatusTasks }: Props) {
                 '#0cc7e9',
                 '#00fc11'
             ],
-            hoverOffset: 35
+            hoverOffset: 35,
+            border: 0
+            /*             borderColor: '#000000', */
         }]
     };
     return (
-        <>
-            <h3 className="text-center text-xl font-bold">
-                Status of all tasks
-            </h3>
-
-
-            <Doughnut data={data}
-                options={{
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                boxWidth: 20,
-                                padding: 20,
-                                color: 'white',
-                            }
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            top: 40,
-                            bottom: 40,
-                            left: 40,
-                            right: 40
+        <Doughnut data={data}
+            options={{
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 20,
+                            color: '#9A9A9A',
                         }
                     }
-                }}
-            ></Doughnut>
-
-        </>
-
+                },
+                layout: {
+                    padding: {
+                        top: 40,
+                        bottom: 40,
+                        left: 40,
+                        right: 40
+                    }
+                }
+            }}
+        />
     );
 }
 
