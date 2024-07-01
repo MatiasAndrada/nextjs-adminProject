@@ -114,7 +114,8 @@ export async function send_invitation(prevState: State, formData: FormData) {
     }
     const project = await currentProject();
     const project_id = project?.id;
-    const isAllowed = await currentRole() === Role.ADMIN || await currentRole() === Role.OWNER;
+    const current_role = await currentRole();
+    const isAllowed = current_role || current_role === Role.OWNER;
     if (!project_id) {
         return { message: "No project selected" };
     }
@@ -127,7 +128,7 @@ export async function send_invitation(prevState: State, formData: FormData) {
     await sendInvitation(email, token);
     revalidatePath("/dashboard/members")
     redirect("/dashboard/members")
-/*     return { message: "Invitation sent!" }; */
+    /*     return { message: "Invitation sent!" }; */
 }
 
 
