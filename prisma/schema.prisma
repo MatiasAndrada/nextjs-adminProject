@@ -101,8 +101,8 @@ enum Role {
 //tabla intermediaria que gestiona la relacion muchos a muchos entre usuarios y proyectos
 model ProjectUser {
   id           String   @id @unique @default(cuid())
-  user_id      String   @unique
-  project_id   String   @unique
+  user_id      String
+  project_id   String
   createdAt    DateTime @default(now()) @db.Timestamptz
   role         Role     @default(VIEWER)
   user         User     @relation(name: "userProjects", fields: [user_id], references: [id], onDelete: Cascade)
