@@ -68,8 +68,6 @@ export async function create_project(prevState: State, formData: FormData) {
                 currentProjectId: projectUser.id,
             },
         })
-        /*         revalidatePath(`/dashboard`); */
-        redirect(`/dashboard`);
     } catch (error) {
         // Handle the error here
         console.error(error);
@@ -78,6 +76,8 @@ export async function create_project(prevState: State, formData: FormData) {
             message: 'An error occurred while creating the project.',
         };
     }
+    revalidatePath(`/dashboard`);
+    redirect(`/dashboard`);
 }
 
 export async function update_project(prevState: State, formData: FormData) {

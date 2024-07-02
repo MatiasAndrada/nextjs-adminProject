@@ -18,117 +18,131 @@ import { Role } from "@prisma/client";
 
 //todo: change name function is_valid_invite_token
 export async function new_invitation(token: string) {
-    const existingToken = await db.inviteToken.findUnique({
-        where: {
-            token: token,
-        },
-        include: {
-            project: true,
-        },
-    });
-    if (!existingToken) {
-        return { error: "Token does not exist!" };
-    }
-    const hasExpired = new Date(existingToken.expires) < new Date();
-    if (hasExpired) {
-        return { error: "Token has expired!" };
-    }
-    const expireIn = Math.floor((existingToken.expires.getTime() - new Date().getTime()) / 3600000)
-    const existingUser = await getUserByEmail(existingToken.email);
-    if (!existingUser) {
-        return { error: "Email does not exist!" };
-    }
+    try {
+        const existingToken = await db.inviteToken.findUnique({
+            where: {
+                token: token,
+            },
+            include: {
+                project: true,
+            },
+        });
+        if (!existingToken) {
+            return { error: "Token does not exist!" };
+        }
+        const hasExpired = new Date(existingToken.expires) < new Date();
+        if (hasExpired) {
+            return { error: "Token has expired!" };
+        }
+        const expireIn = Math.floor((existingToken.expires.getTime() - new Date().getTime()) / 3600000)
+        const existingUser = await getUserByEmail(existingToken.email);
+        if (!existingUser) {
+            return { error: "Email does not exist!" };
+        }
 
-
-    return {
-        success: `Correct token expires in ${expireIn} hours.`, invitation: existingToken
-    };
+        return {
+            success: `Correct token expires in ${expireIn} hours.`, invitation: existingToken
+        };
+    } catch (error) {
+        return { error: "An error occurred while processing the invitation." };
+    }
 }
 
 export async function accept_invitation(token: string) {
-    const existingToken = await db.inviteToken.findUnique({
-        where: {
-            token: token,
-        },
-    });
-    if (!existingToken) {
-        return { error: "Token does not exist!" };
+    try {
+        const existingToken = await db.inviteToken.findUnique({
+            where: {
+                token: token,
+            },
+        });
+        if (!existingToken) {
+            return { error: "Token does not exist!" };
+        }
+        const user = await getUserByEmail(existingToken.email);
+        if (!user) {
+            return { error: "Email does not exist!" };
+        }
+        const user_id = user.id;
+        const project_id = existingToken.project_id;
+        const existingProjectUser = await db.projectUser.findFirst({
+            where: {
+                user_id: user_id,
+                project_id: project_id,
+            },
+        });
+        if (existingProjectUser) {
+            return { error: "User is already a member of this project!" };
+        }
+        await db.projectUser.create({
+            data: {
+                user_id: user_id,
+                project_id: project_id,
+                role: existingToken.role,
+            },
+        });
+        await db.inviteToken.delete({
+            where: {
+                token: token,
+            },
+        });
+    } catch (error) {
+        return { error: "An error occurred while accepting the invitation." };
     }
-    const user = await getUserByEmail(existingToken.email);
-    if (!user) {
-        return { error: "Email does not exist!" };
-    }
-    const user_id = user.id;
-    const project_id = existingToken.project_id;
-    const existingProjectUser = await db.projectUser.findFirst({
-        where: {
-            user_id: user_id,
-            project_id: project_id,
-        },
-    });
-    if (existingProjectUser) {
-        return { error: "User is already a member of this project!" };
-    }
-    await db.projectUser.create({
-        data: {
-            user_id: user_id,
-            project_id: project_id,
-            role: existingToken.role,
-        },
-    });
-    await db.inviteToken.delete({
-        where: {
-            token: token,
-        },
-    });
-    redirect("/invitation/accept")
+    redirect("/invitation/accept");
 }
 
 export async function decline_invitation(token: string) {
-    const existingToken = await db.inviteToken.findUnique({
-        where: {
-            token: token,
-        },
-    });
-    if (!existingToken) {
-        return { error: "Token does not exist!" };
+    try {
+        const existingToken = await db.inviteToken.findUnique({
+            where: {
+                token: token,
+            },
+        });
+        if (!existingToken) {
+            return { error: "Token does not exist!" };
+        }
+        await db.inviteToken.delete({
+            where: {
+                token: token,
+            },
+        });
+    } catch (error) {
+        return { error: "An error occurred while declining the invitation." };
     }
-    await db.inviteToken.delete({
-        where: {
-            token: token,
-        },
-    });
-    redirect("/invitation/decline")
+    redirect("/invitation/decline");
 }
 
 export async function send_invitation(prevState: State, formData: FormData) {
-    const validatedFields = Schema.safeParse({
-        email: formData.get("email"),
-        role: formData.get("role"),
-    });
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: "Missing Fields. Failed to send invitation.",
-        };
+    try {
+        const validatedFields = Schema.safeParse({
+            email: formData.get("email"),
+            role: formData.get("role"),
+        });
+        if (!validatedFields.success) {
+            return {
+                errors: validatedFields.error.flatten().fieldErrors,
+                message: "Missing Fields. Failed to send invitation.",
+            };
+        }
+        const project = await currentProject();
+        const project_id = project?.id;
+        const current_role = await currentRole();
+        const isAllowed = current_role || current_role === Role.OWNER;
+        if (!project_id) {
+            return { message: "No project selected" };
+        }
+        if (!isAllowed) {
+            return { message: "You don't have permission to invite members" };
+        }
+        // send email to the user
+        const { email, role } = validatedFields.data;
+        const token = await generateInviteToken(project_id, email, role);
+        await sendInvitation(email, token);
+    } catch (error) {
+        return { error: "An error occurred while sending the invitation." };
     }
-    const project = await currentProject();
-    const project_id = project?.id;
-    const current_role = await currentRole();
-    const isAllowed = current_role || current_role === Role.OWNER;
-    if (!project_id) {
-        return { message: "No project selected" };
-    }
-    if (!isAllowed) {
-        return { message: "You don't have permission to invite members" };
-    }
-    // send email to the user
-    const { email, role } = validatedFields.data;
-    const token = await generateInviteToken(project_id, email, role);
-    await sendInvitation(email, token);
-    revalidatePath("/dashboard/members")
-    redirect("/dashboard/members")
-    /*     return { message: "Invitation sent!" }; */
+    revalidatePath("/dashboard/members");
+    redirect("/dashboard/members");
 }
 
 
