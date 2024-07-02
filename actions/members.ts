@@ -4,14 +4,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Role } from "@prisma/client";
 
-export async function set_role_of_member(user_id: string, project_id: string, role: Role) {
+export async function set_role_of_member(id: string, role: Role) {
     try {
         if (role === Role.OWNER) return { error: "You can't change the role of the owner." }
-        if (!user_id || !project_id || !role) return { error: "Missing fields. Failed to update role." }
+        if (!id || !role) return { error: "Missing fields. Failed to update role." }
         await db.projectUser.update({
             where: {
-                user_id: user_id,
-                project_id: project_id,
+                id
             },
             data: {
                 role,
@@ -26,13 +25,12 @@ export async function set_role_of_member(user_id: string, project_id: string, ro
     }
 }
 
-export async function delete_member(user_id: string, project_id: string) {
+export async function delete_member(id: string) {
     try {
-        if (!user_id || !project_id) return { error: "Missing fields. Failed to delete member." }
+        if (!id) return { error: "Missing field. Failed to delete member." }
         await db.projectUser.delete({
             where: {
-                user_id,
-                project_id
+                id
             },
         },
         );

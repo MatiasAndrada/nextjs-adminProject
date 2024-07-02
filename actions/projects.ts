@@ -34,45 +34,42 @@ export async function create_project(prevState: State, formData: FormData) {
             name: formData.get('name'),
             description: formData.get('description'),
         });
-
         if (!validatedFields.success) {
             return {
                 errors: validatedFields.error.flatten().fieldErrors,
                 message: 'Missing Fields. Failed to Create Project.',
             };
         }
-
         const { name, description } = validatedFields.data;
         const user_id = await current_user_id();
         if (!user_id) {
             throw new Error("User not found");
         }
-
         const project = await db.project.create({
             data: {
                 name,
                 description,
             },
         });
-
         const project_id = project?.id;
-        await db.projectUser.create({
+        const projectUser = await db.projectUser.create({
             data: {
                 user_id,
                 project_id,
-                role: "ADMIN",
+                role: Role.OWNER,
             },
         });
-
+        //?set the current project of the user
         await db.user.update({
             where: {
                 id: user_id,
             },
             data: {
-                currentProjectId: project_id,
+                currentProjectId: projectUser.id,
             },
-        });
-        redirect(`/projects`);
+        })
+        /*         revalidatePath(`/dashboard`); */
+        redirect(`/dashboard`);
     } catch (error) {
         // Handle the error here
         console.error(error);
@@ -119,20 +116,20 @@ export async function update_project(prevState: State, formData: FormData) {
     }
 }
 
-
-
 export async function delete_project_by_id(id: string) {
     try {
         const user_id = await current_user_id();
-        const projectUser = await db.projectUser.findFirst({
+        const role_in_project = await db.projectUser.findFirst({
             where: {
                 user_id,
                 project_id: id,
-                role: Role.OWNER,
             },
         });
-        if (!projectUser) {
-            return { error: "You are not authorized to delete this project." };
+        if (!role_in_project) {
+            return { error: "You are not part of this project." };
+        }
+        if (role_in_project.role !== Role.OWNER) {
+            return { error: "You are not the owner of this project." };
         }
         await db.project.delete({
             where: {

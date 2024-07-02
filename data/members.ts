@@ -56,6 +56,7 @@ export async function fetch_member_by_id(user_id: string, project_id: string) {
                 project_id: project_id,
             },
             select: { //selecting only the required fields
+                id: true,
                 role: true,
                 project_id: true,
                 user: {

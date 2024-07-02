@@ -6,10 +6,10 @@ import { UserMinusIcon } from '@heroicons/react/24/outline';
 import { set_role_of_member, delete_member } from '@/actions/members';
 import { Role } from '@prisma/client';
 
-export function DeleteMember({ user_id, project_id, redirect }: { user_id: string, project_id: string, redirect?: string }) {
+export function DeleteMember({ projectUser_id, redirect }: { projectUser_id: string, redirect?: string }) {
     const router = useRouter();
     const handleDeleteMember = async () => {
-        await delete_member(user_id, project_id).then((res) => {
+        await delete_member(projectUser_id).then((res) => {
             if (res.error) {
                 toast.error(res.error);
             } else {
@@ -32,21 +32,19 @@ export function DeleteMember({ user_id, project_id, redirect }: { user_id: strin
 }
 
 export function SetRoleOfMember({
-    user_id,
-    project_id,
+    projectUser_id,
     role,
     redirect,
     children,
 }: {
-    user_id: string,
-    project_id: string
+    projectUser_id: string;
     role: Role;
     redirect?: string;
     children: React.ReactNode;
 }) {
     const router = useRouter();
     async function handleSetCurrentProjectId() {
-        await set_role_of_member(user_id, project_id, role).then((res) => {
+        await set_role_of_member(projectUser_id, role).then((res) => {
             if (res.error) {
                 toast.error(res.error);
             } else {

@@ -8,5 +8,6 @@ export const currentUser = async () => {
 export const current_user_id = async () => {
   const session = await auth()
   const user_id = session?.user.id
+  if (!user_id) throw new Error("User not found")
   return user_id
 }

@@ -12,7 +12,7 @@ export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUse
   return (
     <div className="grid grid-cols-3 gap-4">
       {ProjectsUser?.map((projectUser) => (
-        <Card key={projectUser.id} id={projectUser.id} name={projectUser.project.name} />
+        <Card key={projectUser.id} id={projectUser.project.id} name={projectUser.project.name} />
       ))}
     </div>
   )

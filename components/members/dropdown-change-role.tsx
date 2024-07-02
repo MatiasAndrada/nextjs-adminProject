@@ -13,13 +13,12 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Role } from "@prisma/client";
 
 interface Props {
-    user_id: string;
-    project_id: string;
+    projectUser_id: string;
     role: Role;
 }
 
 
-export default function DropdownChangeRole({ user_id, project_id, role }: Props) {
+export default function DropdownChangeRole({ projectUser_id, role }: Props) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
@@ -39,7 +38,7 @@ export default function DropdownChangeRole({ user_id, project_id, role }: Props)
                             if (value === Role.OWNER) return null;
                             return (
                                 <DropdownMenuItem key={value}>
-                                    <SetRoleOfMember redirect={"/dashboard/members"} user_id={user_id} project_id={project_id} role={value}>
+                                    <SetRoleOfMember redirect={"/dashboard/members"} projectUser_id={projectUser_id} role={value}>
                                         <RoleIndicator role={value}>
                                             {value}
                                         </RoleIndicator>

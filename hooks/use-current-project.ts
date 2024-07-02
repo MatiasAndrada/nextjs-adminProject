@@ -18,3 +18,10 @@ export const currentProject = async () => {
     }
     return current_project;
 }
+
+export const currentProjectId = async () => {
+    const user = await currentUser();
+    const current_project_id = user?.currentProject?.project_id;
+    if (!current_project_id) throw new Error("No current project found.");
+    return current_project_id;
+}

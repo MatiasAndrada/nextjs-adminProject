@@ -1,4 +1,3 @@
-'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DropdownChangeRole from '@/components/members/dropdown-change-role';
 import { DeleteMember } from '@/components/members/buttons';
@@ -12,6 +11,7 @@ interface Props {
             name: string | null;
             image: string | null;
         };
+        id: string;
         role: Role;
         project_id: string;
     } | {
@@ -54,11 +54,11 @@ export default function EditRole({ projectUser }: Props) {
                     <div className="flex items-center justify-evenly">
                         <div className='flex gap-4 items-center'>
                             <h3 className="text-lg font-medium">Change role:</h3>
-                            <DropdownChangeRole user_id={projectUser.user.id} project_id={projectUser.project_id} role={projectUser.role} />
+                            <DropdownChangeRole projectUser_id={projectUser.id} role={projectUser.role} />
                         </div>
                         <h2 >OR</h2>
                         <div>
-                            <DeleteMember redirect='/dashboard/members' user_id={projectUser.user.id} project_id={projectUser.project_id} />
+                            <DeleteMember redirect='/dashboard/members' projectUser_id={projectUser.id} />
                         </div>
                     </div>
                 )

@@ -1,14 +1,9 @@
 "use server";
-//next hooks
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-//db
 import { db } from '@/lib/db';
-//schemas
 import { CreateSchema, UpdateSchema } from '@/schemas/task-group';
-//hooks
-import { currentUser } from '@/hooks/use-current-user';
-//types
+import { currentProjectId } from '@/hooks/use-current-project';
 import type { State } from '@/schemas/task-group';
 
 
@@ -31,15 +26,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
   const { name, description, criticality } = validatedFields.data;
   // Insert data into the database
   try {
-    const user = await currentUser();
-    const user_id = user?.id;
-    const current_project_id = user?.currentProjectId;
-    if (!user_id) {
-      throw new Error('User not found');
-    }
-    if (!current_project_id) {
-      throw new Error('Project not found');
-    }
+    const current_project_id = await currentProjectId();
     await db.taskGroup.create({
       data: {
         name,
