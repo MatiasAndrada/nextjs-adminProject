@@ -39,10 +39,10 @@ function DoughnutChart({ countStatusTasks }: Props) {
             task.status === Status.PAUSED
                 ? `${task.value} Paused`
                 : task.status === Status.PENDING
-                    ? "Pending"
+                    ? `${task.value} Pending`
                     : task.status === Status.IN_PROGRESS
-                        ? "In Progress"
-                        : "Completed"
+                        ? `${task.value} In Progress`
+                        : `${task.value} Completed`
         ),
         datasets: [{
             data: countStatusTasks.map((task) => task.value),
@@ -53,29 +53,33 @@ function DoughnutChart({ countStatusTasks }: Props) {
                 '#00fc11'
             ],
             hoverOffset: 35,
-            border: 0
+            border: 0,
+            hoverBorderColor: '#000000',
             /*             borderColor: '#000000', */
         }]
     };
     return (
         <Doughnut data={data}
             options={{
+                /*                 cutout: '50%', */
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                },
                 plugins: {
                     legend: {
-                        position: 'top',
                         labels: {
-                            boxWidth: 20,
                             padding: 20,
-                            color: '#9A9A9A',
+                            color: '#FAFAFA',
                         }
                     }
                 },
                 layout: {
                     padding: {
-                        top: 40,
-                        bottom: 40,
-                        left: 40,
-                        right: 40
+                        top: 35,
+                        bottom: 35,
+                        left: 35,
+                        right: 35
                     }
                 }
             }}

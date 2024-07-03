@@ -2,34 +2,21 @@
 /* import { fetch_filter,ed_task_group } from "@/data/task-group"; */
 import { useRouter } from "next/navigation";
 import { StatusIndicator, CriticalityIndicator, ProgressIndicator } from "@/components/ui/indicators";
-import { formatDate, convertFractionStringToPercentage } from "@/lib/utils";
-import { CreateTaskGroup } from "@/components/task-group/redirects";
+import { formatDate } from "@/lib/utils";
 import type { TaskGroup } from "@prisma/client";
 
 interface Props {
     query: string;
     currentPage: number;
-    taskGroup: Pick<TaskGroup, keyof TaskGroup>
-
+    taskGroup: Pick<TaskGroup, 'id' | 'name' | 'progress' | 'updatedAt' | 'status' | 'criticality'>[];
 }
 
 export default async function TaskGroupTable({
     query,
     currentPage,
     taskGroup,
-}: {
-    query: string;
-    currentPage: number;
-    taskGroup: Pick<TaskGroup, 'id' | 'name' | 'progress' | 'updatedAt' | 'status' | 'criticality'>[];
-}) {
-    console.log("🦇  taskGroup:", taskGroup.length)
+}: Props) {
     const router = useRouter();
-    if (taskGroup.length === 0) return (
-        <div className="w-full flex flex-col justify-center items-center gap-4 ">
-            <h2 className=" text-gray-400">There are no task groups</h2>
-            <CreateTaskGroup />
-        </div>
-    )
     return (
         <table className="min-w-full w-full text-xs text-center">
             <colgroup>

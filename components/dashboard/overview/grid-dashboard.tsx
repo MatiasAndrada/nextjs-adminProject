@@ -12,9 +12,9 @@ export default async function GridDashboard({ searchParams }: { searchParams?: {
         return (
             <main >
                 {/* <h3>YOUR PROJECTS GRAPHS</h3> */}
-                <div className="h-screen  grid grid-cols-3 grid-rows-6 gap-1">
+                <div className="h-screen grid grid-cols-3 grid-rows-6 gap-1">
                     <HeaderDashboard id={id} />
-                    <MainDashboard name={name} description={description ?? null} searchParams={searchParams} />
+                    <MainDashboard id={id} name={name} description={description} searchParams={searchParams} />
                     <AsideDashboard id={id} />
                 </div>
             </main>
