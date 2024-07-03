@@ -40,7 +40,7 @@ export const convertFractionStringToPercentage = (fraction: string) => {
   const parsedNumerator = eval(numerator);
   const parsedDenominator = eval(denominator);
   const result = (parsedNumerator / parsedDenominator) * 100;
-  return `${result.toFixed(2)}%`;
+  return `${result.toFixed(0)}%`;
 }
 export const formatDateToLocal = (date: Date) => {
   // Convert UTC date to local date

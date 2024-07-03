@@ -33,7 +33,7 @@ export default async function Table({ query, currentPage, task_group_id }: {
                                 <tr>
                                     {columnHeaders.map(column => (
                                         <th key={column.key} className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">{column.label}</div>
+                                            <div className="font-semibold ">{column.label}</div>
                                         </th>
                                     ))}
                                 </tr>
