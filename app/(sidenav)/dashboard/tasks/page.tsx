@@ -4,7 +4,7 @@ import Search from "@/components/search";
 import { RoleGate } from "@/components/auth/role-gate";
 import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
-import { CreateTask } from "@/components/tasks/buttons";
+import { CreateTask } from "@/components/tasks/redirects";
 import { fetch_task_pages } from "@/data/task";
 import { Role } from "@prisma/client";
 

@@ -71,6 +71,7 @@ export default async function Page({
                 </div>
                 <div className="col-span-3 row-span-2">
                     <TabsContent
+                        id={id_task}
                         status={status}
                         progress={progress}
                         createdAt={createdAt}

@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 /* import { currentUser } from '@/hooks/use-current-user'; */
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { Status } from '@prisma/client';
 import type { State } from '@/schemas/task';
 
 
@@ -34,3 +35,15 @@ export async function create_task(prevState: State, formData: FormData) {
     redirect('/dashboard/tasks');
 }
 
+export async function set_status_of_task(id: string, status: Status) {
+    await db.task.update({
+        where: {
+            id,
+        },
+        data: {
+            status,
+        },
+    });
+    revalidatePath('/dashboard/tasks');
+    return { message: 'Task status updated successfully.' };
+}
