@@ -18,7 +18,12 @@ export function CriticalityIndicator({ criticality, children }: { criticality: C
     )
 }
 
-export function StatusIndicator({ status }: { status: Status }) {
+interface StatusIndicatorProps {
+    status: Status;
+    children?: React.ReactNode;
+}
+
+export function StatusIndicator({ status, children }: StatusIndicatorProps) {
     return (
         <span
             className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
@@ -28,7 +33,9 @@ export function StatusIndicator({ status }: { status: Status }) {
                 ${status === Status.COMPLETED ? "text-status-completed p-2 bg-status-completed_foreground" : ""}
               `}
         >
-            {status}
+            {
+                children ? children : status
+            }
         </span>
     )
 }
@@ -46,7 +53,11 @@ export function ProgressIndicator({ progress }: ProgressIndicatorProps) {
                 style={{
                     width: percentage,
                 }}
-            ></div>
+            >
+            </div>
+            <div className="flex items-center justify-center text-xs font-bold text-slate-900 dark:text-slate-300">
+                {percentage}
+            </div>
         </div>
     );
 }
