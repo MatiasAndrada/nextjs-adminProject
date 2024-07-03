@@ -21,11 +21,11 @@ export default async function MainDashboard({ id, name, description, searchParam
     const totalPages = await fetch_task_group_pages(query);
     return (
         <section className="h-fit col-span-2 p-2 my-2 rounded-lg bg-slate-300 dark:bg-gray-800 dark:text-gray-100 ">
-            <div className="ml-6">
+            <div className="ml-2">
                 <span className="ml-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
                     Name:
                 </span>
-                <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-start items-center gap-4">
                     <h3 className="py-2 text-2xl font-bold ">
                         {name}
                     </h3>
@@ -39,8 +39,7 @@ export default async function MainDashboard({ id, name, description, searchParam
                 </p>
             </div>
             <div className="mt-2">
-                {/*                 <h3>TASK GROUPS STATE</h3> */}
-                <div className="container p-2 mx-auto sm:p-4 dark:dark:text-gray-100">
+                <div className="container p-2 mx-auto dark:dark:text-gray-100">
                     {taskGroup.length === 0 ? (
                         <div className="w-full flex flex-col justify-center items-center gap-4 ">
                             <h2 className="text-lg  text-gray-400">There are no task groups</h2>
