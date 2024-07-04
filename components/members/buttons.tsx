@@ -1,14 +1,67 @@
-import { UserPlusIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+"use client"
+import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
+import { toast } from 'sonner';
+import { UserMinusIcon } from '@heroicons/react/24/outline';
+import { set_role_of_member, delete_member } from '@/actions/members';
+import { Role } from '@prisma/client';
 
-export function AddMember() {
+export function DeleteMember({ projectUser_id, redirect }: { projectUser_id: string, redirect?: string }) {
+    const router = useRouter();
+    const handleDeleteMember = async () => {
+        await delete_member(projectUser_id).then((res) => {
+            if (res.error) {
+                toast.error(res.error);
+            } else {
+                toast.success(res.success);
+                if (redirect) {
+                    router.push(redirect);
+                }
+            }
+        }).catch((error) => {
+            toast.error("An unexpected error occurred.");
+            console.error(error);
+        });
+    };
     return (
-        <Link
-            href="/dashboard/members/add"
-            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-        >
-            <span className="hidden md:block">Add member</span>{' '}
-            <UserPlusIcon className="h-5 md:ml-4" />
-        </Link>
+        <Button variant="destructive" onClick={() => handleDeleteMember()} className='space-x-2'>
+            <UserMinusIcon className="h-5 w-5" />
+            <span >Delete Member</span>
+        </Button>
     );
 }
+
+export function SetRoleOfMember({
+    projectUser_id,
+    role,
+    redirect,
+    children,
+}: {
+    projectUser_id: string;
+    role: Role;
+    redirect?: string;
+    children: React.ReactNode;
+}) {
+    const router = useRouter();
+    async function handleSetCurrentProjectId() {
+        await set_role_of_member(projectUser_id, role).then((res) => {
+            if (res.error) {
+                toast.error(res.error);
+            } else {
+                if (redirect) {
+                    router.push(redirect);
+                }
+            }
+        }).catch((error) => {
+            toast.error("An unexpected error occurred.");
+            console.error(error);
+        });
+    }
+    return (
+        <Button variant="ghost" onClick={() => handleSetCurrentProjectId()}>
+            {children}
+        </Button>
+    );
+}
+
+

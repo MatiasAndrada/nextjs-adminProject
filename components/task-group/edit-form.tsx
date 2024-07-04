@@ -1,21 +1,24 @@
 "use client"
 import { useFormState } from 'react-dom';
+import MembersAssignForTaskGroup from '../members/members-assign-for-task-group';
+import { Button } from '../ui/button';
+import { update_task_group } from '@/actions/task-group';
+import { Criticality } from '@prisma/client';
 import type { State } from '@/schemas/task-group';
 import type { TaskGroup } from "@prisma/client"
-import { Criticality } from '@prisma/client';
-import { update_task_group } from '@/actions/task-group';
+
 export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup }) {
     const initialState: State = { message: null, errors: {} }
 
     const [state, dispatch] = useFormState(update_task_group, initialState)
 
     return (
-        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-950 p-4 md:p-6">
+        <form action={dispatch} className="w-full rounded-md bg-slate-300 dark:bg-slate-900 p-4 md:p-6">
             <input type="hidden" name="id" value={taskGroup.id} />
             {/* Task Group Name */}
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
-                    Name
+                    Name:
                 </label>
                 <input
                     type="text"
@@ -37,10 +40,10 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
                 )}
             </div>
 
-            {/* Task Description */}
+            {/* Task Group Description */}
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
-                    Description
+                    Description:
                 </label>
                 <textarea
                     id="description"
@@ -65,7 +68,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
             {/* Task Group Criticality Dropdown from Type enum*/}
             <div className="mb-4">
                 <label htmlFor="criticality" className="mb-2 block text-xl font-medium">
-                    Criticality
+                    Criticality:
                 </label>
                 <select
                     id="criticality"
@@ -95,11 +98,16 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
                     )
                 }
             </div>
-
+            <div className="mb-4">
+                <label htmlFor="select-members" className="mb-2 block text-xl font-medium">
+                    Select Members:
+                </label>
+                {/*       <MembersAssignForTaskGroup /> */}
+            </div>
             {/* Submit Button */}
-            <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
+            <Button type="submit" >
                 Updated task group
-            </button>
+            </Button>
         </form>
     )
 }

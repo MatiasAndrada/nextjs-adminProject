@@ -43,7 +43,7 @@ export const task_groups = [
     name: "Server Configuration",
     description: "Task group responsible for configuring and optimizing server settings. Involves collaboration with system administrators and backend developers. Critical for ensuring robust server performance.",
     status: Status.IN_PROGRESS,
-    progress: "10 / 10",
+    progress: "7/7",
     criticality: Criticality.CRITICAL
   },
   {

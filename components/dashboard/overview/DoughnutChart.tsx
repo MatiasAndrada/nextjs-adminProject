@@ -1,5 +1,6 @@
 "use client";
 import { Doughnut } from "react-chartjs-2";
+import { Status } from "@prisma/client";
 
 import {
     Chart as ChartJS,
@@ -25,55 +26,64 @@ ChartJS.register(
     /* Filler */
 );
 
-// Your chart data...
-const data = {
-    labels: ['Paused', 'Pending', 'In Progress', 'Completed'],
-    datasets: [{
-        /*  label: 'Colors', */
-        data: [300, 50, 100, 100],
-        backgroundColor: [
-            '#00d5ff',
-            '#0f37da',
-            '#f59e23',
-            '#e71d1d'
-        ],
-        hoverOffset: 35
-    }]
-};
+interface Props {
+    countStatusTasks: {
+        status: string;
+        value: number;
+    }[];
+}
 
-function DoughnutChart() {
+function DoughnutChart({ countStatusTasks }: Props) {
+    const data = {
+        labels: countStatusTasks.map((task) =>
+            task.status === Status.PAUSED
+                ? `${task.value} Paused`
+                : task.status === Status.PENDING
+                    ? `${task.value} Pending`
+                    : task.status === Status.IN_PROGRESS
+                        ? `${task.value} In Progress`
+                        : `${task.value} Completed`
+        ),
+        datasets: [{
+            data: countStatusTasks.map((task) => task.value),
+            backgroundColor: [
+                '#f5a523',
+                '#fff700',
+                '#0cc7e9',
+                '#00fc11'
+            ],
+            hoverOffset: 35,
+            border: 0,
+            hoverBorderColor: '#000000',
+            /*             borderColor: '#000000', */
+        }]
+    };
     return (
-        <>
-            <h3 className="text-center text-xl font-bold">
-                Status of all tasks
-            </h3>
-
-
-            <Doughnut data={data}
-                options={{
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                boxWidth: 20,
-                                padding: 20,
-                                color: 'white',
-                            }
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            top: 40,
-                            bottom: 40,
-                            left: 40,
-                            right: 40
+        <Doughnut data={data}
+            options={{
+                /*                 cutout: '50%', */
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            padding: 20,
+                            color: '#FAFAFA',
                         }
                     }
-                }}
-            ></Doughnut>
-
-        </>
-
+                },
+                layout: {
+                    padding: {
+                        top: 35,
+                        bottom: 35,
+                        left: 35,
+                        right: 35
+                    }
+                }
+            }}
+        />
     );
 }
 

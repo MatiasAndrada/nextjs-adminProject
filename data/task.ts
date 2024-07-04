@@ -1,15 +1,14 @@
+"use server";
 import { db } from '@/lib/db';
-import { currentUser } from '@/hooks/use-current-user';
-import { fetch_all_task_groups_ids } from './task-group';
 import { unstable_noStore as noStore } from 'next/cache';
-import { ITEMS_PER_PAGE_TASKS } from '@/globals';
+import { ROWS_PER_PAGE_TASKS } from '@/globals';
 
 import { Status } from '@prisma/client'
 
-const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASKS;
+const ITEMS_PER_PAGE = ROWS_PER_PAGE_TASKS;
 
 export async function fetch_task(id: string) {
-    noStore(); // disable Next.js' response caching
+    noStore();
     try {
         const task = await db.task.findUnique({
             where: {
@@ -87,7 +86,6 @@ export async function fetch_tasks_of_task_group(
 }
 
 export async function fetch_task_pages(query: string, task_group_id?: string | null) {
-    //return number of pages
     noStore();
     try {
         const count = await db.task.count({
@@ -141,5 +139,40 @@ export async function fetch_count_total_tasks(projectId: string) {
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to fetch total tasks count.');
+    }
+}
+
+//necesito que retorne esto:
+/*    countStatusTasks: {
+        paused: number;
+        pending: number;
+        inProgress: number;
+        completed: number;
+    } */
+
+export async function fetch_count_status_tasks(projectId: string) {
+    noStore();
+    try {
+        const countStatusTasks = await db.task.groupBy({
+            by: ['status'],
+            where: {
+                taskGroup: {
+                    project_id: projectId,
+                },
+            },
+            _count: {
+                status: true,
+            },
+        });
+        const flattenedData = countStatusTasks.map((task) => {
+            return {
+                status: task.status,
+                value: task._count.status,
+            };
+        });
+        return flattenedData;
+    } catch (err) {
+        console.error('Database Error:', err);
+        return { error: 'Failed to fetch status tasks count.' };
     }
 }

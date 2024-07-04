@@ -10,8 +10,8 @@ import { Loader1 } from "@/components/loaders";
 
 export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
   return (
-    <main>
-      <h1 className={`${lusitana.className} my-4 text-4xl `}>
+    <main className="space-y-4">
+      <h1 className={`${lusitana.className} text-4xl `}>
         Dashboard
       </h1>
       <Suspense fallback={

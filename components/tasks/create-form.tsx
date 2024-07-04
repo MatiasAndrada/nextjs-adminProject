@@ -18,7 +18,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
             {/* Task Group Name */}
             <div className="mb-4">
                 <label htmlFor="name" className="mb-2 block text-xl font-medium">
-                    Name
+                    Name:
                 </label>
                 <input
                     type="text"
@@ -43,7 +43,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
             {/* Task Description */}
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
-                    Description
+                    Description:
                 </label>
                 <textarea
                     id="description"
@@ -68,7 +68,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
             {/*Select Task Group Dropdown*/}
             <div className="mb-4">
                 <label htmlFor="task-group" className="mb-2 block text-xl font-medium">
-                    Task Group
+                    Task Group:
                 </label>
                 <select
                     id="task-group"
@@ -104,7 +104,7 @@ export default function Form({ task_groups_names_and_ids }: { task_groups_names_
             <div className='flex gap-4 item-center'>
                 {/* Submit Button */}
                 <button type="submit" className="capitalize bg-blue-500 text-white mt-2 px-4 py-2 rounded-md">
-                    Create task group
+                    Create task
                 </button>
                 {state.message && (
                     <div

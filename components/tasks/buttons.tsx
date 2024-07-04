@@ -1,16 +1,27 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-/* import { deleteInvoice } from '@/actions';
- */import Link from 'next/link';
+"use client"
+import { Button } from '../ui/button';
+import { toast } from 'sonner';
+import { set_status_of_task } from '@/actions/task';
+import { Status } from '@prisma/client';
 
-export function CreateTask() {
+export function SetTaskStatus({
+    id,
+    status,
+    children,
+}: {
+    id: string;
+    status: Status;
+    children: React.ReactNode;
+}) {
+    async function handleSetTaskStatus() {
+        await set_status_of_task(id, status).then((res) => {
+            toast.success(res.message);
+        })
+    }
     return (
-        <Link
-            href="/dashboard/tasks/create"
-            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-        >
-            <span className="hidden md:block">Create Task</span>{' '}
-            <PlusIcon className="h-5 md:ml-4" />
-        </Link>
+        <Button variant="ghost" onClick={() => handleSetTaskStatus()}>
+            {children}
+        </Button>
     );
 }
 

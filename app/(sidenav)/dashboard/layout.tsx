@@ -14,7 +14,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const project = await currentProject();
   return (
     <>
-      {project === null ? (
+      {project === undefined ? (
         <div className="flex items-center justify-center h-screen w-full mx-auto">
           <h3 className="text-2xl text-red-500 h-32">
             First you must select a project!

@@ -22,7 +22,7 @@ export default async function Page({
         task;
 
     return (
-        <main>
+        <main className="space-y-8">
             <Breadcrumbs
                 breadcrumbs={[
                     { label: "Dashboard", href: "/dashboard" },
@@ -43,14 +43,14 @@ export default async function Page({
                     },
                 ]}
             />
-            <div className="flex w-full items-center justify-between">
+            {/*             <div className="flex w-full items-center justify-between">
                 <h1 className={`${lusitana.className} text-4xl my-2 `}>Task Details</h1>
-            </div>
+            </div> */}
             <div className="grid grid-cols-5 grid-rows-3 gap-4">
                 <div className="col-span-2 row-span-2">
                     <div className="flex flex-col items-start justify-start p-2 divide-y-4 divide-slate-900 bg-slate-300 dark:bg-slate-800 rounded-lg shadow-md gap-4">
                         <div>
-                            <p className="my-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+                            <p className="my-2 text-xs font-bold uppercase text-slate-400 dark:text-slate-500">
                                 Name:
                             </p>
                             <h2 className={`${inter.className} text-4xl `}>
@@ -59,7 +59,7 @@ export default async function Page({
                             </h2>
                         </div>
                         <div>
-                            <p className="my-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+                            <p className="my-2 text-xs font-bold uppercase text-slate-400 dark:text-slate-500">
                                 Description:
                             </p>
                             <p className={`${inter.className} text-lg `}>
@@ -71,6 +71,7 @@ export default async function Page({
                 </div>
                 <div className="col-span-3 row-span-2">
                     <TabsContent
+                        id={id_task}
                         status={status}
                         progress={progress}
                         createdAt={createdAt}

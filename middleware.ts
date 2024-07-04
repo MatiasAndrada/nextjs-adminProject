@@ -8,16 +8,24 @@ import {
     apiAuthPrefix,
     authRoutes,
     publicRoutes,
+    roleRoutesPermissions
 } from "@/routes";
+import { currentRole } from "./hooks/use-current-role"
+/* import { Role } from "@prisma/client"; */
 
 const { auth } = NextAuth(authConfig);
-
-export default auth((req) => {
+/**
+ * Middleware function for authentication and authorization.
+ * @param req - The request object.
+ * @returns The middleware function that handles authentication and authorization logic.
+ */
+export default auth(async (req) => {
     const { nextUrl } = req;
+    const pathname = nextUrl.pathname
     const isLoggedIn = !!req.auth;
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+    const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
+    const isPublicRoute = publicRoutes.includes(pathname);
+    const isAuthRoute = authRoutes.includes(pathname);
 
 
     if (isApiAuthRoute) {
@@ -36,6 +44,19 @@ export default auth((req) => {
         return NextResponse.redirect(new URL("/", nextUrl));
     }
 
+    // Find a matching path with dynamic path handling
+    const matchingRoleRoute = roleRoutesPermissions.find((p) => {
+        if (p.path.includes("[id]")) {
+            // Replace '[id]' with a regex pattern and test the pathname
+            const regex = new RegExp(`^${p.path.replace("[id]", "\\w+")}$`);
+            return regex.test(pathname);
+        }
+        return p.path === pathname;
+    });
+    const currenRole = await currentRole()
+    if (matchingRoleRoute && currenRole && !matchingRoleRoute.permissions.some(permission => permission.includes(currenRole))) {
+        return NextResponse.redirect(new URL("/access-denied", nextUrl));
+    }
     return /* null */;
 })
 

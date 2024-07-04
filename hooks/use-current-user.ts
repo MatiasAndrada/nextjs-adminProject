@@ -1,6 +1,13 @@
 import { auth } from "@/auth";
+
 export const currentUser = async () => {
   const session = await auth();
-  if (!session) throw new Error("No session found");
-  return session.user;
+  return session?.user;
 };
+
+export const current_user_id = async () => {
+  const session = await auth()
+  const user_id = session?.user.id
+  if (!user_id) throw new Error("User not found")
+  return user_id
+}

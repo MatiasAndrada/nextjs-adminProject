@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
-/* import { formatDate, formatDateToLocal } from "@/lib/utils"; */
 import Image from "next/image";
-/* import type { TaskGroup } from "@prisma/client"; */
-import { Criticality, Status } from "@prisma/client";
-import { UpdateTaskGroup, DeleteTaskGroup } from "./buttons";
+import { CriticalityIndicator, StatusIndicator } from "@/components/ui/indicators";
+import { DeleteTaskGroup } from "./buttons";
+import { UpdateTaskGroup, ViewTasks } from "./redirects";
+import { RoleGate } from "../auth/role-gate";
+import { Criticality, Status, Role } from "@prisma/client";
 
-export default async function TaskGridItem({
+export default function TaskGridItem({
   task,
 }: {
   task: {
@@ -41,43 +41,25 @@ export default async function TaskGridItem({
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Criticality:
             </p>
-            <span
-              className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 
-          ${criticality === Criticality.LOW ? "text-criticality-low p-2 bg-criticality-low_foreground" : ""}
-          ${criticality === Criticality.MEDIUM ? "text-criticality-medium p-2 bg-criticality-medium_foreground" : ""}
-          ${criticality === Criticality.HIGH ? "text-criticality-high p-2 bg-criticality-high_foreground" : ""}
-          ${criticality === Criticality.CRITICAL ? "text-criticality-critical p-2 bg-criticality-critical_foreground" : ""}
-          " : ""}`}>
+            <CriticalityIndicator criticality={criticality} >
               {criticality}
-            </span>
+            </CriticalityIndicator>
           </div>
           <div className="flex items-center space-x-2">
             <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Status:
             </p>
-            <span
-              className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
-                ${status === Status.PAUSED ? "text-status-paused p-2 bg-status-paused_foreground" : ""}
-                ${status === Status.PENDING ? "text-status-pending p-2 bg-status-pending_foreground" : ""}
-                ${status === Status.IN_PROGRESS ? "text-status-in_progress p-2 bg-status-in_progress_foreground" : ""}
-                ${status === Status.COMPLETED ? "text-status-completed p-2 bg-status-completed_foreground" : ""}
-              `}
-            >
-              {status}
-            </span>
+            <StatusIndicator status={status} />
           </div>
         </div>
         <div className="flex flex-row items-center space-x-3">
-          <div
-            className={`flex flex-none items-center justify-center w-10 h-10 rounded-full text-white 
-          ${criticality === Criticality.LOW ? "bg-criticality-low" : ""}
-          ${criticality === Criticality.MEDIUM ? "bg-criticality-medium" : ""}
-          ${criticality === Criticality.HIGH ? "bg-criticality-high" : ""}
-          ${criticality === Criticality.CRITICAL ? "bg-criticality-critical" : ""}
-          `}
-          >
-            <RectangleStackIcon className="w-6 h-6" />
-          </div>
+          <CriticalityIndicator criticality={criticality} >
+            <div
+              className={"flex flex-none items-center justify-center w-8 h-8 rounded-full "}
+            >
+              <RectangleStackIcon className="w-6 h-6" />
+            </div>
+          </CriticalityIndicator>
           <span className="text-md md:text-lg font-medium">{name}</span>
         </div>
         <div>
@@ -158,30 +140,13 @@ export default async function TaskGridItem({
           </div>
         </div>
         <div className="flex justify-between items-center overflow-visible">
-          <div className="flex gap-4">
-            <DeleteTaskGroup id={id} />
-            <UpdateTaskGroup id={id} />
-
-          </div>
-          <Link
-            href={`task-groups/` + id}
-            className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 border-2 border-black  hover:bg-black hover:text-white text-black dark:bg-slate-800 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
-          >
-            <span>View Tasks</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h13M12 5l7 7-7 7" />
-            </svg>
-          </Link>
+          <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="You don't have permissions">
+            <div className="flex gap-4">
+              <DeleteTaskGroup id={id} />
+              <UpdateTaskGroup id={id} />
+            </div>
+          </RoleGate>
+          <ViewTasks id={id} />
         </div>
       </div>
     </div >

@@ -1,6 +1,6 @@
 
 import { createStore } from 'zustand/vanilla'
-import { setSelectedProject } from "@/actions/select-project";
+import { setSelectedProject } from "@/actions/projects";
 import type { Project } from "@prisma/client";
 
 

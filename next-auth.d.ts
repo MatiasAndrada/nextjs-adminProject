@@ -1,7 +1,8 @@
 import NextAuth, { type DefaultSession } from "next-auth";
-
+import type { ProjectUser } from "@prisma/client";
 export type ExtendedUser = DefaultSession["user"] & {
-    selected_project_id: string;
+    currentProjectId: string | null;
+    currentProject: ProjectUser,
     isTwoFactorEnabled: boolean;
     isOAuth: boolean;
 };
@@ -14,7 +15,8 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
     /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
     interface JWT {
-        selected_project_id: string;
+        currentProjectId: string | null;
+        currentProject: ProjectUser,
         isTwoFactorEnabled: boolean;
         email: string;
         isOAuth: boolean;

@@ -1,9 +1,11 @@
 import Link from "next/link";
+
 import NavLinks from "@/components/dashboard/nav-links";
-import DropDown from "@/components/dashboard/drop-down-select-project";
+import { DropDownProjects } from "@/components/dashboard/dropdown-projects";
 import { IconWithText } from "@/components/logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import { LogoutButton } from "@/components/buttons-auth";
+
 import { fetch_projects } from "@/data/projects";
 import { currentProject } from "@/hooks/use-current-project";
 import { PowerIcon } from "@heroicons/react/24/outline";
@@ -19,13 +21,12 @@ export default async function SideNav() {
         <div className="pt-2 flex flex-row items-center gap-1 justify-around w-full">
           <IconWithText redirect="/projects" />
           <ThemeToggle />
-
         </div>
-        <DropDown
+        <DropDownProjects
           name="Projects"
           createName="project"
           items={projectItems}
-          selectedItem={project}
+          selectedProject={project}
         />
       </div>
       <div className="mx-2 flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">

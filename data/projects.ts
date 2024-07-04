@@ -31,16 +31,6 @@ export async function fetch_projects_owner() {
             project: true
         }
     })
-    /*     const dto = projectsOfUser.map((pu) => {
-            return {
-                id: pu.project.id,
-                name: pu.project.name,
-            }
-        }); */
-
-    /*     const onlyProjects = projectsOfUser.map((pu) => {
-            return pu.project
-        }) */
     return projectsOfUser
 }
 
@@ -87,7 +77,6 @@ export async function fetch_count_members(id: string) {
             }
         }
     })
-    //dto - number of members
     const count = member?._count?.members
     return count
 }

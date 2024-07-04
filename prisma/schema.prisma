@@ -9,8 +9,8 @@ datasource db {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
-  name                  String?
+  id                    String                 @id @unique @default(cuid())
+  name                  String?                @db.VarChar(35)
   email                 String                 @unique
   emailVerified         DateTime?
   image                 String?
@@ -18,15 +18,15 @@ model User {
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @default(now()) @updatedAt
   accounts              Account[]
-  ProjectUser           ProjectUser[]
-  selected_project_id   String?
-  selectedProject       Project?               @relation(fields: [selected_project_id], references: [id], onDelete: SetNull)
+  ProjectUser           ProjectUser[]          @relation("userProjects")
+  currentProjectId      String?
+  currentProject        ProjectUser?           @relation("currentProject", fields: [currentProjectId], references: [id])
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id @unique @default(cuid())
   userId            String
   type              String
   provider          String
@@ -45,7 +45,7 @@ model Account {
 }
 
 model VerificationToken {
-  id      String   @id @default(cuid())
+  id      String   @id @unique @default(cuid())
   email   String
   token   String   @unique
   expires DateTime
@@ -54,7 +54,7 @@ model VerificationToken {
 }
 
 model PasswordResetToken {
-  id      String   @id @default(cuid())
+  id      String   @id @unique @default(cuid())
   email   String
   token   String   @unique
   expires DateTime
@@ -63,7 +63,7 @@ model PasswordResetToken {
 }
 
 model TwoFactorToken {
-  id      String   @id @default(cuid())
+  id      String   @id @unique @default(cuid())
   email   String
   token   String   @unique
   expires DateTime
@@ -72,8 +72,7 @@ model TwoFactorToken {
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
-
+  id     String @id @unique @default(cuid())
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -81,10 +80,10 @@ model TwoFactorConfirmation {
 }
 
 model InviteToken {
-  id         String   @id @default(cuid())
+  id         String   @id @unique @default(cuid())
   project_id String
   project    Project  @relation(fields: [project_id], references: [id])
-  email      String
+  email      String   @unique //probar luego el error que da cuando ya existe una invitacion con el mismo email para devolver algo en la vista
   role       Role
   token      String   @unique
   expires    DateTime
@@ -101,17 +100,14 @@ enum Role {
 
 //tabla intermediaria que gestiona la relacion muchos a muchos entre usuarios y proyectos
 model ProjectUser {
-  id         String @id @unique @default(cuid())
-  //user_id
-  user_id    String
-  //project_id
-  project_id String
-  //rol
-
-  role    Role    @default(VIEWER)
-  //relaciones 
-  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade) // reclacion one to many 
-  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade) // relacion one to many
+  id           String   @id @unique @default(cuid())
+  user_id      String
+  project_id   String
+  createdAt    DateTime @default(now()) @db.Timestamptz
+  role         Role     @default(VIEWER)
+  user         User     @relation(name: "userProjects", fields: [user_id], references: [id], onDelete: Cascade)
+  project      Project  @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  currentUsers User[]   @relation("currentProject")
 }
 
 model Project {
@@ -121,7 +117,6 @@ model Project {
   description String?       @db.VarChar(4000)
   createdAt   DateTime      @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
-  User        User[]
   Invitation  InviteToken[]
 }
 

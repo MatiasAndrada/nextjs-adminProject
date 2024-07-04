@@ -1,11 +1,12 @@
 import { db } from '@/lib/db';
-import { ITEMS_PER_PAGE_TASK_GROUP } from '@/globals';
+import { CARDS_PER_PAGE_TASK_GROUP } from '@/globals';
 import { unstable_noStore as noStore } from 'next/cache';
 import { currentUser } from '@/hooks/use-current-user';
+import { currentProject } from '@/hooks/use-current-project';
 /* import { formatDate } from '@/lib/utils'; */
 import { Status } from '@prisma/client';
 /* import type { TaskGroup } from '@/definitions/task-group'; */
-const ITEMS_PER_PAGE = ITEMS_PER_PAGE_TASK_GROUP;
+const ITEMS_PER_PAGE = CARDS_PER_PAGE_TASK_GROUP;
 
 export async function fetch_task_group_by_id(id: string) {
   noStore();
@@ -15,6 +16,9 @@ export async function fetch_task_group_by_id(id: string) {
         id: id,
       },
     });
+    if (!task_group) {
+      throw new Error('Task group not found.');
+    }
     return task_group;
   }
   catch (err) {
@@ -30,8 +34,8 @@ export async function fetch_filtered_task_group(
   noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
-    const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -63,8 +67,8 @@ export async function fetch_filtered_task_group(
 export async function fetch_all_task_groups_ids() {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -85,8 +89,8 @@ export async function fetch_all_task_groups_ids() {
 export async function fetch_all_task_groups_names_ids() {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project = await currentProject();
+    const project_id = project?.id
     const task_group = await db.taskGroup.findMany({
       where: {
         project_id: project_id,
@@ -107,8 +111,8 @@ export async function fetch_all_task_groups_names_ids() {
 export async function fetch_task_group_pages(query: string) {
   noStore();
   try {
-    const user = await currentUser();
-    const project_id = user?.selected_project_id;
+    const project = await currentProject();
+    const project_id = project?.id
     const count = await db.taskGroup.count({
       where: {
         project_id: project_id,
@@ -170,20 +174,4 @@ export async function fetch_count_total_task_group(id: string) {
   });
   const dto = task_group_total[0]._count.taskGroup;
   return dto;
-}
-
-export async function delete_task_group(id: string) {
-  noStore();
-  try {
-    const task_group = await db.taskGroup.delete({
-      where: {
-        id: id,
-      },
-    });
-    return task_group;
-  }
-  catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to delete task group.');
-  }
 }

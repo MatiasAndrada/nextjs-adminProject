@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <main>
+        <main className='space-y-4'>
             <Breadcrumbs
                 breadcrumbs={[
                     { label: 'Projects', href: '/projects' },

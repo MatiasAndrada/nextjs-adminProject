@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         notFound();
     }
     return (
-        <main>
+        <main className='space-y-4'>
             <Breadcrumbs
                 breadcrumbs={[
                     { label: 'Task Groups', href: '/dashboard/task-groups' },

@@ -13,7 +13,7 @@ export default function Page() {
             <div className="flex flex-col items-start justify-between">
                 <Breadcrumbs
                     breadcrumbs={[
-                        { label: "Projects", href: "/" },
+                        { label: "Projects", href: "/projects" },
                         { label: "Create project", href: "/projects/create", active: true },
                     ]}
                 />

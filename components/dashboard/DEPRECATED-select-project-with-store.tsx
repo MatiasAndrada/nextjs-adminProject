@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from 'react';
 import { useCurrentProjectStore } from '@/context/currentProjectStore';
