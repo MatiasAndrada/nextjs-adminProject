@@ -1,4 +1,4 @@
-import React from "react";
+import * as Tooltip from '@radix-ui/react-tooltip';
 import { convertFractionStringToPercentage } from "@/lib/utils";
 import { Criticality, Status, Role } from "@prisma/client"
 import { cn } from "@/lib/utils";
@@ -47,18 +47,34 @@ interface ProgressIndicatorProps {
 export function ProgressIndicator({ progress }: ProgressIndicatorProps) {
     const percentage = typeof progress === "string" ? convertFractionStringToPercentage(progress) : `${progress}%`;
     return (
-        <div className="h-3 w-16 mx-auto rounded-full bg-slate-300">
-            <div
-                className=" h-full rounded-md bg-brand-500 bg-green-400"
-                style={{
-                    width: percentage,
-                }}
-            >
-            </div>
-            <div className="flex items-center justify-center text-xs font-bold text-slate-900 dark:text-slate-300">
-                {percentage}
-            </div>
-        </div>
+        <Tooltip.Provider
+            skipDelayDuration={400
+
+            }>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <div className="h-3 w-16 mx-auto rounded-full bg-slate-300">
+                        <div
+                            className=" h-full rounded-md bg-brand-500 bg-green-400"
+                            style={{
+                                width: percentage,
+                            }}
+                        >
+                        </div>
+                        {/*                         <div className="flex items-center justify-center text-xs font-bold text-slate-900 dark:text-slate-300">
+                            {percentage}
+                        </div> */}
+                    </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content
+                    side='bottom'>
+                    <div className='bg-slate-900 px-4 py-2 rounded-full flex items-center justify-center text-md font-bold text-slate-900 dark:text-slate-300'>
+                        {percentage}
+                    </div>
+                </Tooltip.Content>
+            </Tooltip.Root>
+        </Tooltip.Provider>
+
     );
 }
 

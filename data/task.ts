@@ -86,7 +86,6 @@ export async function fetch_tasks_of_task_group(
 }
 
 export async function fetch_task_pages(query: string, task_group_id?: string | null) {
-    //return number of pages
     noStore();
     try {
         const count = await db.task.count({

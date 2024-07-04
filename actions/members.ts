@@ -30,3 +30,12 @@ export async function delete_member(id: string) {
     revalidatePath("/dashboard/members", "page");
     return { success: "Member deleted." };
 }
+
+export async function assign_member_to_task_group(formData: FormData) {
+    const task_group_id = formData.get("id");
+    const users_id = formData.getAll("selectedIds");
+
+    console.log("🦇  assign_member_to_task_group  task_group_id:", task_group_id)
+    console.log("🦇  assign_member_to_task_group  users_id:", users_id)
+
+}

@@ -1,8 +1,9 @@
 "use client"
 import { useFormState } from 'react-dom';
-import { Criticality } from '@prisma/client';
+import MembersAssignForTaskGroup from '../members/members-assign-for-task-group';
 import { Button } from '../ui/button';
 import { update_task_group } from '@/actions/task-group';
+import { Criticality } from '@prisma/client';
 import type { State } from '@/schemas/task-group';
 import type { TaskGroup } from "@prisma/client"
 
@@ -39,7 +40,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
                 )}
             </div>
 
-            {/* Task Description */}
+            {/* Task Group Description */}
             <div className="mb-4">
                 <label htmlFor="description" className="mb-2 block text-xl font-medium">
                     Description:
@@ -67,7 +68,7 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
             {/* Task Group Criticality Dropdown from Type enum*/}
             <div className="mb-4">
                 <label htmlFor="criticality" className="mb-2 block text-xl font-medium">
-                    Criticality
+                    Criticality:
                 </label>
                 <select
                     id="criticality"
@@ -97,7 +98,12 @@ export default function EditTaskGroupForm({ taskGroup }: { taskGroup: TaskGroup 
                     )
                 }
             </div>
-
+            <div className="mb-4">
+                <label htmlFor="select-members" className="mb-2 block text-xl font-medium">
+                    Select Members:
+                </label>
+                {/*       <MembersAssignForTaskGroup /> */}
+            </div>
             {/* Submit Button */}
             <Button type="submit" >
                 Updated task group

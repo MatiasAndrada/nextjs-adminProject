@@ -11,7 +11,7 @@ interface Props {
     taskGroup: Pick<TaskGroup, 'id' | 'name' | 'progress' | 'updatedAt' | 'status' | 'criticality'>[];
 }
 
-export default async function TaskGroupTable({
+export default function TaskGroupTable({
     query,
     currentPage,
     taskGroup,

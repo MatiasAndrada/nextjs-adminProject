@@ -11,7 +11,7 @@ import {
     roleRoutesPermissions
 } from "@/routes";
 import { currentRole } from "./hooks/use-current-role"
-import { Role } from "@prisma/client";
+/* import { Role } from "@prisma/client"; */
 
 const { auth } = NextAuth(authConfig);
 /**

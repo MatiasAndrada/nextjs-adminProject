@@ -10,8 +10,9 @@ interface RoleGateProps {
   onlyIcon?: boolean;
   message?: string;
 }
-
-export const RoleGate = React.memo(({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => {
+/* 
+export const RoleGate = React.memo(({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => { */
+export const RoleGate = (({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => {
   const { data: session } = useSession();
   const current_project_role = session?.user.currentProject.role;
   const [hasClicked, setHasClicked] = useState(false);

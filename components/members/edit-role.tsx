@@ -49,7 +49,7 @@ export default function EditRole({ projectUser }: Props) {
             <h2 className="text-xl font-medium">Actions:</h2>
             {
                 projectUser.role === Role.OWNER ? (
-                    <h3 className="text-red-500">You can't change the role of the owner.</h3>
+                    <h3 className="text-red-500">You can&apos;t change the role of the owner.</h3>
                 ) : (
                     <div className="flex items-center justify-evenly">
                         <div className='flex gap-4 items-center'>

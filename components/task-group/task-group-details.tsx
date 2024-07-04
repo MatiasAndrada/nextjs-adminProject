@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { RoleGate } from '../auth/role-gate';
-import { CriticalityIndicator, StatusIndicator } from '@/components/ui/indicators';
+import { CriticalityIndicator, StatusIndicator, ProgressIndicator } from '@/components/ui/indicators';
 import { fetch_task_group_by_id } from "@/data/task-group";
 import { Role } from '@prisma/client';
 
 
 const TaskGroupDetails = async ({ id }: { id: string }) => {
-    const { name, description, status, progress, criticality, createdAt } = await fetch_task_group_by_id(id);
+    const { name, description, status, progress, criticality } = await fetch_task_group_by_id(id);
     return (
-        <div className="flex flex-row items-center justify-between text-slate-800 dark:text-slate-300">
-            <div className='max-w-3xl'>
+        <div className="flex flex-row items-center justify-between ">
+            <div className='max-w-3xl space-y-4'>
                 <div className='flex flex-row items-center gap-4'>
                     <h2 className="text-slate-800 dark:text-slate-200 text-3xl font-semibold">{name}</h2>
                     <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]} message="You don't have permissions">
@@ -19,7 +19,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
                         </Link>
                     </RoleGate>
                 </div>
-                <p className="text-md">{description}</p>
+                <p className="text-md text-slate-800 dark:text-slate-300">{description}</p>
             </div>
             <div className='flex flex-col justify-items-center items-center gap-1'>
                 <span className="text-md ">Criticality:  </span>
@@ -28,12 +28,12 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
                 </CriticalityIndicator>
             </div>
             <div className='flex flex-col justify-items-center items-center gap-1'>
-                <span className="text-md ">Progress: </span>
-                {progress}
-            </div>
-            <div className='flex flex-col justify-items-center items-center gap-1'>
                 <span className="text-md ">Status: </span>
                 <StatusIndicator status={status} />
+            </div>
+            <div className='flex flex-col justify-items-center items-center gap-1'>
+                <span className="text-md ">General progress: </span>
+                <ProgressIndicator progress={progress} />
             </div>
         </div>
     )
