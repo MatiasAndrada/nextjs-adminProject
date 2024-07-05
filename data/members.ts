@@ -1,47 +1,40 @@
 import { db } from "@/lib/db";
-import { currentProject } from "@/hooks/use-current-project";
+import { currentProjectId } from "@/hooks/use-current-project";
 import { unstable_noStore as noStore } from 'next/cache';
 import { ROWS_PER_PAGE_MEMBERS } from "@/globals";
-import { Role } from "@prisma/client";
 
 export async function fetch_members(currentPage: number) {
     noStore();
+    //TODO: Implement pagination
     const OFFSET = (currentPage - 1) * ROWS_PER_PAGE_MEMBERS;
-    try {
-        const current_project = await currentProject();
-        const current_project_id = current_project?.id;
-        if (!current_project_id) {
-            throw new Error('Failed to fetch members. Project not found.');
-        }
-        const members = await db.project.findUnique({
-            where: {
-                id: current_project_id
-            },
-            select: {
-                members: {
-                    select: {
-                        role: true,
-                        project_id: true,
-                        user: {
-                            select: {
-                                id: true,
-                                image: true,
-                                name: true,
-                                email: true,
-                                /*                                 createdAt: true */
-                            }
+
+    const current_project_id = await currentProjectId();
+    const members = await db.project.findUnique({
+        where: {
+            id: current_project_id
+        },
+        select: {
+            members: {
+                select: {
+                    role: true,
+                    project_id: true,
+                    user: {
+                        select: {
+                            id: true,
+                            image: true,
+                            name: true,
+                            email: true,
+                            /*                                 createdAt: true */
                         }
                     }
                 }
             }
-        });
-
-        return members?.members;
-    } catch (err) {
-        console.error('Database Error:', err);
-        return { error: "Failed to fetch members." };
-    }
+        }
+    });
+    if (!members) return null;
+    return members.members;
 }
+
 
 export async function fetch_members_assigned_to_task_group(id: string) {
     const membersAssigned = await db.taskGroup.findUnique({
