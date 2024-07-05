@@ -3,8 +3,6 @@ import { currentProject } from "@/hooks/use-current-project";
 import { unstable_noStore as noStore } from 'next/cache';
 import { ROWS_PER_PAGE_MEMBERS } from "@/globals";
 import { Role } from "@prisma/client";
-import { error } from "console";
-
 
 export async function fetch_members(currentPage: number) {
     noStore();
@@ -45,12 +43,39 @@ export async function fetch_members(currentPage: number) {
     }
 }
 
+export async function fetch_members_assigned_to_task_group(id: string) {
+    const membersAssigned = await db.taskGroup.findUnique({
+        where: {
+            id: id
+        },
+        select: {
+            membersAssigned: {
+                select: {
+                    role: true,
+                    project_id: true,
+                    user: {
+                        select: {
+                            id: true,
+                            image: true,
+                            name: true,
+                            email: true,
+                        }
+                    }
+                }
+            }
+
+        }
+    })
+
+    return membersAssigned?.membersAssigned;
+}
+
 export async function fetch_member_by_id(user_id: string, project_id: string) {
     try {
         if (!user_id || !project_id) {
             throw new Error('Failed to fetch member. Missing fields.');
         }
-        const project_user = await db.projectUser.findFirst({
+        const project_user = await db.usersOnProjects.findFirst({
             where: {
                 user_id: user_id,
                 project_id: project_id,

@@ -7,8 +7,8 @@ export default async function Page({ params }: { params: { ids: string[] } }) {
     const ids = params.ids;
     const user_id = ids[0];
     const project_id = ids[1];
-    const projectUser = await fetch_member_by_id(user_id, project_id);
-    if (!projectUser) return notFound();
+    const userOnProject = await fetch_member_by_id(user_id, project_id);
+    if (!userOnProject) return notFound();
 
     return (
         <main className="space-y-6">
@@ -23,9 +23,9 @@ export default async function Page({ params }: { params: { ids: string[] } }) {
                     }
                 ]}
                 />
-            </div>
+            </div>S
             <div className="h-full flex flex-col items-center justify-between">
-                <EditRole projectUser={projectUser} />
+                <EditRole userOnProject={userOnProject} />
             </div>
         </main>
     );

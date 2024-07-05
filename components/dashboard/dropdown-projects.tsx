@@ -1,4 +1,4 @@
-import type { Project, ProjectUser } from "@prisma/client";
+import type { Project, UsersOnProjects } from "@prisma/client";
 import { SetCurrentProjectId } from './buttons';
 import { LinkCreate } from "./redirects";
 import {
@@ -14,7 +14,7 @@ interface DropDownProps {
     name: string;
     createName: string;
     selectedProject: Project | undefined;
-    items?: Array<ProjectUser & { project: Project }>;
+    items?: Array<UsersOnProjects & { project: Project }>;
 }
 
 export async function DropDownProjects({ name, createName, selectedProject, items }: DropDownProps) {
@@ -49,10 +49,10 @@ export async function DropDownProjects({ name, createName, selectedProject, item
                         </DropdownMenuItem>
                     )}
                     <DropdownMenuSeparator className="my-1 bg-slate-300" />
-                    {items?.map((projectUser) => (
-                        <DropdownMenuItem key={projectUser.id} className="   hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg">
-                            <SetCurrentProjectId id={projectUser.id} >
-                                {projectUser.project.name}
+                    {items?.map((userOnProject) => (
+                        <DropdownMenuItem key={userOnProject.id} className="   hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg">
+                            <SetCurrentProjectId id={userOnProject.id} >
+                                {userOnProject.project.name}
                             </SetCurrentProjectId>
                         </DropdownMenuItem>
                     ))}

@@ -6,7 +6,7 @@ import authConfig from "@/auth.config";
 import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "@/data/account";
-import { ProjectUser } from "@prisma/client";
+import { UsersOnProjects } from "@prisma/client";
 const adapter = PrismaAdapter(db);
 
 export const {
@@ -56,8 +56,8 @@ export const {
                 session.user.id = token.sub;
             }
             if (token.currentProjectId && session.user) {
-                session.user.currentProject = token.currentProject as ProjectUser;
                 session.user.currentProjectId = token.currentProjectId as string;
+                session.user.currentProject = token.currentProject as UsersOnProjects;
             }
 
             if (session.user) {

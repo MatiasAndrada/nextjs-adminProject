@@ -32,16 +32,11 @@ export const formatDate = (date: Date) => {
   return `${formatHour} ${formatDay}`;
 }
 
-/* export const convertFractionToPercentage = (numerator: number, denominator: number) => {
-  return `${(numerator / denominator) * 100}%`;
-} */
-export const convertFractionStringToPercentage = (fraction: string) => {
-  const [numerator, denominator] = fraction.split('/');
-  const parsedNumerator = eval(numerator);
-  const parsedDenominator = eval(denominator);
-  const result = (parsedNumerator / parsedDenominator) * 100;
-  return `${result.toFixed(0)}%`;
+export const convertFractionToPercentage = (numerator: number, denominator: number) => {
+  const result = (numerator / denominator) * 100;
+  return result.toFixed(0) + '%';
 }
+
 export const formatDateToLocal = (date: Date) => {
   // Convert UTC date to local date
   const localDate = new Date(date);
@@ -50,6 +45,10 @@ export const formatDateToLocal = (date: Date) => {
     month: 'long',
     day: 'numeric',
   });
+}
+
+export const initialLetters = (name: string) => {
+  return name.split(' ').map((n) => n[0]).join('');
 }
 
 

@@ -1,4 +1,4 @@
-import {  TrashIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { delete_task_group } from '@/actions/task-group'
 
 export function DeleteTaskGroup({ id }: { id: string }) {

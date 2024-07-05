@@ -64,16 +64,16 @@ export async function accept_invitation(token: string) {
         }
         const user_id = user.id;
         const project_id = existingToken.project_id;
-        const existingProjectUser = await db.projectUser.findFirst({
+        const existingUserOnProject = await db.usersOnProjects.findFirst({
             where: {
                 user_id: user_id,
                 project_id: project_id,
             },
         });
-        if (existingProjectUser) {
+        if (existingUserOnProject) {
             return { error: "User is already a member of this project!" };
         }
-        await db.projectUser.create({
+        await db.usersOnProjects.create({
             data: {
                 user_id: user_id,
                 project_id: project_id,

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
-
+import { initialLetters } from "@/lib/utils"
 import { cn } from "@/lib/utils"
 
 const Avatar = React.forwardRef<
@@ -35,16 +35,22 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-slate-300 dark:bg-slate-800 text-black dark:text-white",
-      className
-    )}
-    {...props}
-  />
-))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
+>(({ className, children, ...props }, ref) => {
+  const fallbackChildren = typeof children === "string" ? initialLetters(children) : children;
+
+  return (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(
+        "flex h-full w-full items-center justify-center rounded-full bg-slate-300 dark:bg-slate-800 text-black dark:text-white",
+        className
+      )}
+      {...props}
+    >
+      {fallbackChildren}
+    </AvatarPrimitive.Fallback>
+  );
+});
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 export { Avatar, AvatarImage, AvatarFallback }

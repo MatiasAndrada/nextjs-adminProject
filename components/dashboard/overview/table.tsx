@@ -8,7 +8,7 @@ import type { TaskGroup } from "@prisma/client";
 interface Props {
     query: string;
     currentPage: number;
-    taskGroup: Pick<TaskGroup, 'id' | 'name' | 'progress' | 'updatedAt' | 'status' | 'criticality'>[];
+    taskGroup: Pick<TaskGroup, 'id' | 'name' | 'updatedAt' | 'status' | 'criticality'>[];
 }
 
 export default function TaskGroupTable({
@@ -38,7 +38,7 @@ export default function TaskGroupTable({
             </thead>
             <tbody>
                 {taskGroup.map(
-                    ({ id, name, progress, updatedAt, status, criticality }) => (
+                    ({ id, name, updatedAt, status, criticality }) => (
                         <tr
                             key={id}
                             className="table-row-link
@@ -56,7 +56,7 @@ export default function TaskGroupTable({
                                 <p className="text-start">{name}</p>
                             </td>
                             <td className="py-3 text-sm" role="cell">
-                                <ProgressIndicator progress={progress} />
+                                {/*                    <ProgressIndicator progress={progress} /> */}
                             </td>
                             <td className="p-3 text-center">
                                 {updatedAt && <p>{formatDate(updatedAt)}</p>}

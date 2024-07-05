@@ -33,17 +33,17 @@ export async function fetch_invitations_of_user() {
                 email: email,
             },
         });
-        for (const invite of invitations) {
-            const user_project_owner = await db.projectUser.findUnique({
-                where: {
-                    id: invite.id,
-                    role: Role.OWNER,
-                },
-                select: {
-                    user_id: true,
-                },
-            });
-        }
+        /*         for (const invite of invitations) {
+                    const user_project_owner = await db.usersOnProjects.findUnique({
+                        where: {
+                            id: invite.id,
+                            role: Role.OWNER,
+                        },
+                        select: {
+                            user_id: true,
+                        },
+                    });
+                } */
         return invitations;
 
     }

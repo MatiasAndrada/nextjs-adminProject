@@ -52,7 +52,7 @@ export async function create_project(prevState: State, formData: FormData) {
             },
         });
         const project_id = project?.id;
-        const projectUser = await db.projectUser.create({
+        const newUserOnProject = await db.usersOnProjects.create({
             data: {
                 user_id,
                 project_id,
@@ -65,7 +65,7 @@ export async function create_project(prevState: State, formData: FormData) {
                 id: user_id,
             },
             data: {
-                currentProjectId: projectUser.id,
+                currentProjectId: newUserOnProject.id,
             },
         })
     } catch (error) {
@@ -119,7 +119,7 @@ export async function update_project(prevState: State, formData: FormData) {
 export async function delete_project_by_id(id: string) {
     try {
         const user_id = await current_user_id();
-        const role_in_project = await db.projectUser.findFirst({
+        const role_in_project = await db.usersOnProjects.findFirst({
             where: {
                 user_id,
                 project_id: id,

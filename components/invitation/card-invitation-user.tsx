@@ -5,7 +5,7 @@ import { InviteToken } from "@prisma/client"
 export async function CardsInvitation() {
     const invitations = await fetch_invitations_of_user()
     return (<>
-            {invitations.length === 0 && <InvitationsNotFound /> }
+        {invitations.length === 0 && <InvitationsNotFound />}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {
                 invitations.map((invite) => (
@@ -59,7 +59,7 @@ export function CardInvitation({ invitation }: { invitation: InviteToken }) {
 export function InvitationsNotFound() {
     return (
         <div className="w-full mx-auto text-center py-10">
-            <h2 className="text-lg">No invitations found.</h2>
+            <h2 className="text-lg">You didn&apos;t receive invitations.</h2>
         </div>
     )
 }

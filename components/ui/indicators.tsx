@@ -1,5 +1,5 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { convertFractionStringToPercentage } from "@/lib/utils";
+import { convertFractionToPercentage } from '@/lib/utils';
 import { Criticality, Status, Role } from "@prisma/client"
 import { cn } from "@/lib/utils";
 
@@ -41,11 +41,12 @@ export function StatusIndicator({ status, children }: StatusIndicatorProps) {
 }
 
 interface ProgressIndicatorProps {
-    progress: number | string;
+    progress?: number;
+    fraction?: { numerator: number, denominator: number };
 }
 
-export function ProgressIndicator({ progress }: ProgressIndicatorProps) {
-    const percentage = typeof progress === "string" ? convertFractionStringToPercentage(progress) : `${progress}%`;
+export function ProgressIndicator({ progress, fraction }: ProgressIndicatorProps) {
+    const percentage = progress ? progress + "%" : fraction ? convertFractionToPercentage(fraction.numerator, fraction.denominator) : "0%";
     return (
         <Tooltip.Provider
             skipDelayDuration={400
@@ -69,7 +70,7 @@ export function ProgressIndicator({ progress }: ProgressIndicatorProps) {
                 <Tooltip.Content
                     side='bottom'>
                     <div className='bg-slate-900 px-4 py-2 rounded-full flex items-center justify-center text-md font-bold text-slate-900 dark:text-slate-300'>
-                        {percentage}
+                        {percentage}%
                     </div>
                 </Tooltip.Content>
             </Tooltip.Root>

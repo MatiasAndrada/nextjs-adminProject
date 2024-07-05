@@ -7,7 +7,6 @@ export default async function Table({ query, currentPage, task_group_id }: {
     query: string, currentPage: number,
     task_group_id?: string
 }) {
-
     let tasks;
     if (task_group_id) {
         tasks = await fetch_tasks_of_task_group(task_group_id, currentPage);

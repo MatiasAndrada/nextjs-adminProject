@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import { useState } from "react";
 import { Role } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { FormError } from "@/components/form-error";
@@ -13,11 +13,12 @@ interface RoleGateProps {
 /* 
 export const RoleGate = React.memo(({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => { */
 export const RoleGate = (({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => {
-  const { data: session } = useSession();
-  const current_project_role = session?.user.currentProject.role;
   const [hasClicked, setHasClicked] = useState(false);
+  const { data: session } = useSession();
+  const current_project_role = session?.user.currentProject?.role;
+  if (!current_project_role) return null;
 
-  if (!current_project_role) return <FormError message="You have not selected a project" />;
+
 
   const hasAccess = allowedRoles.includes(current_project_role);
 
@@ -27,7 +28,7 @@ export const RoleGate = (({ children, allowedRoles, onlyIcon, message }: RoleGat
     }
   }
 
-  if (!hasAccess && hasClicked) {
+  if (session && !hasAccess && hasClicked) {
     if (!message && !onlyIcon) message = "You do not have permission to perform this action";
     return <FormError message={message} />;
   }

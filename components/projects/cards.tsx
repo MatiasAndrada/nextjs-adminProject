@@ -5,14 +5,14 @@ import DropdownActions from "@/components/projects/dropdown-actions";
 import { LinkViewProject } from "./redirects";
 import { EyeIcon } from "@heroicons/react/24/outline";
 //types
-import { Project, ProjectUser } from "@prisma/client";
+import { Project, UsersOnProjects } from "@prisma/client";
 
 
-export default function Cards({ ProjectsUser }: { ProjectsUser: Array<ProjectUser & { project: Project }> }) {
+export default function Cards({ ProjectsUser }: { ProjectsUser: Array<UsersOnProjects & { project: Project }> }) {
   return (
     <div className="grid grid-cols-3 gap-4">
-      {ProjectsUser?.map((projectUser) => (
-        <Card key={projectUser.id} id={projectUser.project.id} name={projectUser.project.name} />
+      {ProjectsUser?.map((userOnProject) => (
+        <Card key={userOnProject.id} id={userOnProject.project.id} name={userOnProject.project.name} />
       ))}
     </div>
   )

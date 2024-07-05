@@ -9,7 +9,6 @@ type Props = {
 
 export default async function NextAuthProvider({ children }: Props) {
     const session = await auth();
-
     return (
         <SessionProvider session={session}>
             {children}

@@ -18,7 +18,6 @@ import { Toaster } from 'sonner'
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const user = await currentUser();
-  const initialLetters = user?.name?.split(" ").map((n) => n[0]) ?? "";
   return (
     <section>
       {/*       <CurrentProjectStoreProvider> */}
@@ -43,7 +42,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
                   {user && user.image ? (
                     <AvatarImage src={user.image} alt="Icon user" />
                   ) : (
-                    <AvatarFallback>{initialLetters}</AvatarFallback>
+                    <AvatarFallback>{user?.name}</AvatarFallback>
                   )}
                 </Avatar>
               </DropdownMenuTrigger>

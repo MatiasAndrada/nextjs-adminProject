@@ -7,7 +7,7 @@ import { Role } from "@prisma/client";
 export async function set_role_of_member(id: string, role: Role) {
     if (role === Role.OWNER) return { error: "You can't change the role of the owner." }
     if (!id || !role) return { error: "Missing fields. Failed to update role." }
-    await db.projectUser.update({
+    await db.usersOnProjects.update({
         where: {
             id
         },
@@ -21,7 +21,7 @@ export async function set_role_of_member(id: string, role: Role) {
 
 export async function delete_member(id: string) {
     if (!id) return { error: "Missing field. Failed to delete member." }
-    await db.projectUser.delete({
+    await db.usersOnProjects.delete({
         where: {
             id
         },
@@ -34,8 +34,7 @@ export async function delete_member(id: string) {
 export async function assign_member_to_task_group(formData: FormData) {
     const task_group_id = formData.get("id");
     const users_id = formData.getAll("selectedIds");
+    if (!task_group_id || !users_id) return { error: "Missing fields. Failed to assign member to task group." }
 
-    console.log("🦇  assign_member_to_task_group  task_group_id:", task_group_id)
-    console.log("🦇  assign_member_to_task_group  users_id:", users_id)
 
 }

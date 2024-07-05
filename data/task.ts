@@ -49,43 +49,19 @@ export async function fetch_tasks_of_task_group(
 ) {
     noStore(); // disable Next.js' response caching
     const OFFSET = (currentPage - 1) * ITEMS_PER_PAGE;
+    console.log("🦇  OFFSET:", OFFSET)
     /*     const columns = selectedColumns.join(', '); */
-    try {
-        const task = await db.task.findMany({
-            where: {
-                task_group_id: task_group_id,
-            },
-            take: ITEMS_PER_PAGE,
-            skip: OFFSET,
-        });
-        //dto
-        /*         const taskDto = task.rows.map((task) => {
-                    return {
-                        task_id: task.task_id,
-                        task_group_id: task.task_group_id,
-                        user_id: task.user_id,
-                        owner_id: task.owner_id,
-                        name: task.name,
-                        description: task.description,
-                        status: task.status,
-                        progress: task.progress,
-                        created_at: task.created_at,
-                        ends_at: task.ends_at,
-                        updated_at: task.updated_at,
-                    }
-                });
-                return taskDto;
-            */
-        return task;
-    }
-    catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch task group.');
-    }
-
+    const task = await db.task.findMany({
+        where: {
+            task_group_id: task_group_id,
+        },
+        take: ITEMS_PER_PAGE,
+        skip: OFFSET,
+    });
+    return task;
 }
 
-export async function fetch_task_pages(query: string, task_group_id?: string | null) {
+export async function fetch_task_pages(query: string, task_group_id: string) {
     noStore();
     try {
         const count = await db.task.count({

@@ -17,7 +17,6 @@ interface Props {
     status: Status;
 }
 export default function DropdownChangeTaskStatus({ id, status }: Props) {
-    console.log("🦇  DropdownChangeTaskStatus  id:", id)
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>

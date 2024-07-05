@@ -4,11 +4,10 @@ import Pagination from "@/components/pagination";
 import MembersAssignForTaskGroup from '../members/members-assign-for-task-group';
 import { fetch_task_pages } from "@/data/task";
 
-export default async function TabsTaskGroupDetail({ id, searchParams }: { id: string, searchParams: { page: string, query: string } }) {
-    console.log("🦇  TabsTaskGroupDetail  id:", id)
-    const query = searchParams.query || "";
-    const currentPage = Number(searchParams.page) || 1;
-    const totalPages = await fetch_task_pages(searchParams.query, id);
+export default async function TabsTaskGroupDetail({ id, searchParams }: { id: string, searchParams: { page: number, query: string } }) {
+    const currentPage = searchParams.page || 1;
+    const query = searchParams.query || '';
+    const totalPages = await fetch_task_pages(query, id);
     return (
         <Tabs.Root
             className="flex flex-col bg-darkModeBg text-white"
@@ -49,7 +48,9 @@ export default async function TabsTaskGroupDetail({ id, searchParams }: { id: st
                 <h3 className="mb-5 text-white text-lg leading-normal">
                     Members assigned to this task group
                 </h3>
-                <MembersAssignForTaskGroup id={id} />
+                <div className='space-y-4'>
+                    <MembersAssignForTaskGroup id={id} />
+                </div>
             </Tabs.Content>
         </Tabs.Root>
     )

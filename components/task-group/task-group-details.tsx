@@ -2,12 +2,20 @@ import Link from 'next/link';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { RoleGate } from '../auth/role-gate';
 import { CriticalityIndicator, StatusIndicator, ProgressIndicator } from '@/components/ui/indicators';
-import { fetch_task_group_by_id } from "@/data/task-group";
+import { fetch_task_group_by_id, fetch_task_group_progress_by_id } from "@/data/task-group";
 import { Role } from '@prisma/client';
 
 
 const TaskGroupDetails = async ({ id }: { id: string }) => {
-    const { name, description, status, progress, criticality } = await fetch_task_group_by_id(id);
+    const taskGroup = await fetch_task_group_by_id(id);
+    if (!taskGroup) {
+        return <div>Task group not found
+            <Link href='/dashboard/task-groups'>Go back</Link>
+        </div>
+    }
+    const { task_count, task_completed } = await fetch_task_group_progress_by_id(id);
+    const { name, description, criticality, status } = taskGroup;
+
     return (
         <div className="flex flex-row items-center justify-between ">
             <div className='max-w-3xl space-y-4'>
@@ -33,7 +41,10 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
             </div>
             <div className='flex flex-col justify-items-center items-center gap-1'>
                 <span className="text-md ">General progress: </span>
-                <ProgressIndicator progress={progress} />
+                <div className='flex flex-row items-center gap-1'>
+                    <ProgressIndicator fraction={{ numerator: task_completed, denominator: task_count }} />
+                    <span>{task_completed}/{task_count}</span>
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import { db } from "..//lib/db";
 import {
   testUser,
-  projectUser,
+  userOnProject,
   task_groups,
   tasks,
   project,
@@ -92,30 +92,29 @@ async function main() {
     } else {
       console.log("Project already exist");
     }
-    //! PROJECT-USER CREATION
-    console.log("Creating projectUser if not exist");
-    const projectUserExist = await prisma.projectUser.findMany({
+    //! USER ON PROJECT CREATION
+    console.log("Creating userOnProject if not exist");
+    const userOnProjectsExists = await prisma.usersOnProjects.findMany({
       where: {
         user_id: userId,
       },
     });
     if (
-      projectUserExist.length === 0 &&
-      typeof prisma.projectUser.create === "function"
+      userOnProjectsExists.length === 0 &&
+      typeof prisma.usersOnProjects.create === "function"
     ) {
       console.log("project user does not exist");
-      await prisma.projectUser.create({
+      await prisma.usersOnProjects.create({
         data: {
           user_id: userId,
-          project_id: projectUser[0].project_id,
-          role: projectUser[0].role,
+          project_id: userOnProject[0].project_id,
+          role: userOnProject[0].role,
         },
       });
-      console.log("Creating projectUser...");
+      console.log("Creating UserOnProject...");
     } else {
-      console.log("projectUser already exist");
+      console.log("UserOnProject already exist");
     }
-
     /*         //!SELECT PROJECT FOR USER
                 console.log("Selecting project for user");
                 const userSelectedProject = await prisma.user.update({
@@ -128,7 +127,6 @@ async function main() {
                 });
                 console.log("Project selected:", userSelectedProject.selected_project_id);
          */
-
     //! TASK GROUP CREATION
     console.log("Creating taskGroup if not exist");
     const taskGroupExist = await prisma.taskGroup.findMany({

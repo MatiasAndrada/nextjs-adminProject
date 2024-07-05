@@ -18,9 +18,9 @@ model User {
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @default(now()) @updatedAt
   accounts              Account[]
-  ProjectUser           ProjectUser[]          @relation("userProjects")
+  projects              UsersOnProjects[]      @relation("userProjects")
   currentProjectId      String?
-  currentProject        ProjectUser?           @relation("currentProject", fields: [currentProjectId], references: [id])
+  currentProject        UsersOnProjects?       @relation("currentProject", fields: [currentProjectId], references: [id])
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -99,23 +99,24 @@ enum Role {
 }
 
 //tabla intermediaria que gestiona la relacion muchos a muchos entre usuarios y proyectos
-model ProjectUser {
-  id           String   @id @unique @default(cuid())
-  user_id      String
-  project_id   String
-  createdAt    DateTime @default(now()) @db.Timestamptz
-  role         Role     @default(VIEWER)
-  user         User     @relation(name: "userProjects", fields: [user_id], references: [id], onDelete: Cascade)
-  project      Project  @relation(fields: [project_id], references: [id], onDelete: Cascade)
-  currentUsers User[]   @relation("currentProject")
+model UsersOnProjects {
+  id                String      @id @unique @default(cuid())
+  user_id           String
+  project_id        String
+  createdAt         DateTime    @default(now()) @db.Timestamptz
+  role              Role        @default(VIEWER)
+  user              User        @relation(name: "userProjects", fields: [user_id], references: [id], onDelete: Cascade)
+  project           Project     @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  currentUsers      User[]      @relation("currentProject")
+  assignedTaskGroup TaskGroup[] // relation m-m inplicit
 }
 
 model Project {
-  id          String        @id @unique @default(cuid())
-  members     ProjectUser[]
-  name        String        @db.VarChar(28)
-  description String?       @db.VarChar(4000)
-  createdAt   DateTime      @default(now()) @db.Timestamptz
+  id          String            @id @unique @default(cuid())
+  members     UsersOnProjects[]
+  name        String            @db.VarChar(28)
+  description String?           @db.VarChar(4000)
+  createdAt   DateTime          @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
   Invitation  InviteToken[]
 }
@@ -135,18 +136,19 @@ enum Status {
 }
 
 model TaskGroup {
-  id          String      @id @unique @default(cuid())
-  project_id  String
-  project     Project     @relation(fields: [project_id], references: [id], onDelete: Cascade)
-  task        Task[]
-  name        String      @db.VarChar(45)
-  description String?     @db.VarChar(1200)
-  status      Status      @default(PENDING)
-  progress    String      @default("0/0") @db.VarChar(10)
-  criticality Criticality
-  createdAt   DateTime    @default(now()) @db.Timestamptz
-  updatedAt   DateTime?   @db.Timestamptz
-  endsAt      DateTime    @default(now()) @db.Timestamptz
+  id              String            @id @unique @default(cuid())
+  project_id      String
+  project         Project           @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  membersAssigned UsersOnProjects[] // relation m-m inplicit
+  task            Task[]
+  name            String            @db.VarChar(45)
+  description     String?           @db.VarChar(1200)
+  status          Status            @default(PENDING)
+  //  progress    String      @default("0/0") @db.VarChar(10) ! Pasa a ser un campo calculado
+  criticality     Criticality
+  createdAt       DateTime          @default(now()) @db.Timestamptz
+  updatedAt       DateTime?         @db.Timestamptz
+  endsAt          DateTime          @default(now()) @db.Timestamptz
 }
 
 model Task {

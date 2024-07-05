@@ -9,9 +9,10 @@ import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
 import { fetch_task_pages } from "@/data/task";
 
-export default async function Page({ params, searchParams }: { params: { id: string }, searchParams: { page: string, query: string } }) {
+export default async function Page({ params, searchParams }: { params: { id: string }, searchParams?: { page: number, query: string } }) {
+    searchParams = searchParams || { page: 1, query: '' };
+    /*     const totalPages = await fetch_task_group_pages(query); */
     const id = params.id;
-
 
     return (
         <main className="space-y-4">
