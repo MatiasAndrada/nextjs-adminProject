@@ -1,4 +1,4 @@
-import { Button } from "../ui/button"
+import { DeclineInvite, AcceptInvite } from "@/components/invitation/buttons"
 import { fetch_invitations_of_user } from "@/data/invitations"
 import { InviteToken } from "@prisma/client"
 
@@ -18,12 +18,9 @@ export async function CardsInvitation() {
 }
 
 export function CardInvitation({ invitation }: { invitation: InviteToken }) {
-
-    const { project_id, email, role, expires } = invitation
-
+    //* add project name
+    const { token, role, expires } = invitation
     const expiresHours = Math.floor((expires.getTime() - new Date().getTime()) / 3600000)
-
-
     return (
         <div className="bg-slate-100 dark:bg-slate-900 text-gray-500 dark:text-slate-300 shadow-xl rounded-lg p-4">
             {/*  {
@@ -33,24 +30,15 @@ export function CardInvitation({ invitation }: { invitation: InviteToken }) {
                     </div>
                 ) : ( */}
             <ul className="mb-4 leading-loose">
-                <li className="text-md ">Project: <span className="text-black dark:text-white font-bold text-lg">{role}</span></li>
+                <li className="text-md ">Project role: <span className="text-black dark:text-white font-bold text-lg">{role}</span></li>
                 {/*      <li>Invite From: {email_owner}</li> */}
                 <li>Invite Expires in  {expiresHours} hs</li>
             </ul>
             {/*                 )
             } */}
             <div className="flex justify-around">
-                <Button
-                /* disabled={cardLoading} */
-                /* onClick={() => handleInviteResponse(String(invite._id), "PUT")} */
-
-                >Accept</Button>
-                <Button
-                    /*  disabled={cardLoading} */
-                    /*                     onClick={() => handleInviteResponse(String(invite._id), "DELETE")} */
-                    variant="destructive"
-
-                >Reject</Button>
+                <AcceptInvite token={token} />
+                <DeclineInvite token={token} />
             </div>
         </div>
     )

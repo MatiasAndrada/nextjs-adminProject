@@ -49,67 +49,62 @@ export async function new_invitation(token: string) {
 }
 
 export async function accept_invitation(token: string) {
-    try {
-        const existingToken = await db.inviteToken.findUnique({
-            where: {
-                token: token,
-            },
-        });
-        if (!existingToken) {
-            return { error: "Token does not exist!" };
-        }
-        const user = await getUserByEmail(existingToken.email);
-        if (!user) {
-            return { error: "Email does not exist!" };
-        }
-        const user_id = user.id;
-        const project_id = existingToken.project_id;
-        const existingUserOnProject = await db.usersOnProjects.findFirst({
-            where: {
-                user_id: user_id,
-                project_id: project_id,
-            },
-        });
-        if (existingUserOnProject) {
-            return { error: "User is already a member of this project!" };
-        }
-        await db.usersOnProjects.create({
-            data: {
-                user_id: user_id,
-                project_id: project_id,
-                role: existingToken.role,
-            },
-        });
-        await db.inviteToken.delete({
-            where: {
-                token: token,
-            },
-        });
-    } catch (error) {
-        return { error: "An error occurred while accepting the invitation." };
+
+    const existingToken = await db.inviteToken.findUnique({
+        where: {
+            token: token,
+        },
+    });
+    if (!existingToken) {
+        return { error: "Token does not exist!" };
     }
-    redirect("/invitation/accept");
+    const user = await getUserByEmail(existingToken.email);
+    if (!user) {
+        return { error: "Email does not exist!" };
+    }
+    const user_id = user.id;
+    const project_id = existingToken.project_id;
+    const existingUserOnProject = await db.usersOnProjects.findFirst({
+        where: {
+            user_id: user_id,
+            project_id: project_id,
+        },
+    });
+    if (existingUserOnProject) {
+        return { error: "User is already a member of this project!" };
+    }
+    await db.usersOnProjects.create({
+        data: {
+            user_id: user_id,
+            project_id: project_id,
+            role: existingToken.role,
+        },
+    });
+    await db.inviteToken.delete({
+        where: {
+            token: token,
+        },
+    });
+    revalidatePath("/", "page")
+    return { success: "Invitation accepted!" };
 }
 
 export async function decline_invitation(token: string) {
-    try {
-        const existingToken = await db.inviteToken.findUnique({
-            where: {
-                token: token,
-            },
-        });
-        if (!existingToken) {
-            return { error: "Token does not exist!" };
-        }
-        await db.inviteToken.delete({
-            where: {
-                token: token,
-            },
-        });
-    } catch (error) {
-        return { error: "An error occurred while declining the invitation." };
+    const existingToken = await db.inviteToken.findUnique({
+        where: {
+            token: token,
+        },
+    });
+    if (!existingToken) {
+        return { error: "Token does not exist!" };
     }
-    redirect("/invitation/decline");
+    await db.inviteToken.delete({
+        where: {
+            token: token,
+        },
+    });
+    revalidatePath("/", "page")
+    return { success: "Invitation declined!" };
 }
 
 export async function send_invitation(prevState: State, formData: FormData) {

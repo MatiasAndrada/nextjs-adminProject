@@ -49,7 +49,6 @@ export async function fetch_tasks_of_task_group(
 ) {
     noStore(); // disable Next.js' response caching
     const OFFSET = (currentPage - 1) * ITEMS_PER_PAGE;
-    console.log("🦇  OFFSET:", OFFSET)
     /*     const columns = selectedColumns.join(', '); */
     const task = await db.task.findMany({
         where: {
@@ -61,7 +60,7 @@ export async function fetch_tasks_of_task_group(
     return task;
 }
 
-export async function fetch_task_pages(query: string, task_group_id: string) {
+export async function fetch_task_pages(query: string, task_group_id?: string) {
     noStore();
     try {
         const count = await db.task.count({
@@ -101,7 +100,7 @@ export async function fetch_count_in_progress_task(projectId: string) {
         throw new Error('Failed to fetch active tasks count.');
     }
 }
-export async function fetch_count_total_tasks(projectId: string) {
+export async function fetch_count_total_tasks_of_project(projectId: string) {
     noStore();
     try {
         const countTotalTasks = await db.task.count({

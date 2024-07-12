@@ -1,16 +1,21 @@
 import { Metadata } from "next";
+import { NextUIProvider } from "@/context/NextUIProvider";
 import { currentProject } from "@/hooks/use-current-project";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Project Admin', // El %s se reemplazara con el título de la página especifica
-    default: 'Dashboard',
+    template: "%s | Project Admin", // El %s se reemplazara con el título de la página especifica
+    default: "Dashboard",
   },
-  description: 'The official Next.js Course Dashboard, built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  description: "The official Next.js Course Dashboard, built with App Router.",
+  metadataBase: new URL("https://next-learn-dashboard.vercel.sh"),
 };
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const project = await currentProject();
   return (
     <>
@@ -21,7 +26,10 @@ export default async function Layout({ children }: { children: React.ReactNode }
           </h3>
         </div>
       ) : (
-        <div /* className="h-screen flex-grow md:overflow-y-auto  p-6 md:p-12" */>{children}</div>
+        <div /* className="h-screen flex-grow md:overflow-y-auto  p-6 md:p-12" */
+        >
+          <NextUIProvider>{children}</NextUIProvider>
+        </div>
       )}
     </>
   );

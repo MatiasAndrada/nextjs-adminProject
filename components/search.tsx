@@ -37,14 +37,14 @@ export default function Search({ placeholder }: { placeholder: string }) {
         Search
       </label>
       <input
-        className="peer block w-full rounded-md border text-white dark:text-black border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-600 shadow-lg "
+        className="peer block w-full rounded-md border bg-white text-white dark:text-black placeholder:text-gray-500 placeholder:hover:text-black border-gray-200 py-[9px] pl-10 text-sm outline-2  shadow-lg "
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
         defaultValue={searchParams.get("query")?.toString()} //defaultValue. la entrada nativa gestionará su propio estado. Esto está bien ya que está guardando la consulta de búsqueda en la URL en lugar del estado.
       />
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-600 peer-focus:text-black" />
+      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2  text-gray-500 peer-focus:text-black" />
     </div>
   );
 }

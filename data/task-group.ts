@@ -18,6 +18,8 @@ export async function fetch_task_group_by_id(id: string) {
       status: true,
       criticality: true,
       updatedAt: true,
+      startAt: true,
+      endAt: true,
     }
   }
   );
@@ -61,13 +63,27 @@ export async function fetch_filtered_task_group(
         id: true,
         name: true,
         description: true,
-        updatedAt: true,
         status: true,
         criticality: true,
+        updatedAt: true,
+        startAt: true,
+        endAt: true,
+        membersAssigned: {
+          select: {
+            user: {
+              select: {
+                image: true,
+                name: true
+              }
+            }
+          }
+        }
+
       },
       take: ITEMS_PER_PAGE,
       skip: offset,
     });
+
     return task_group;
   }
   catch (err) {

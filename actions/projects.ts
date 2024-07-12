@@ -9,22 +9,17 @@ import type { State } from "@/schemas/project";
 import { Role } from "@prisma/client";
 
 export const setSelectedProject = async (projectId: string | null) => {
-    try {
-        const user_id = await current_user_id()
-        // Actualizar el usuario con el nuevo proyecto seleccionado
-        await db.user.update({
-            where: {
-                id: user_id
-            },
-            data: {
-                currentProjectId: projectId
-            },
-        });
-
-        revalidatePath("/", "layout");
-    } catch (error) {
-        console.log(error)
-    }
+    const user_id = await current_user_id()
+    // Actualizar el usuario con el nuevo proyecto seleccionado
+    await db.user.update({
+        where: {
+            id: user_id
+        },
+        data: {
+            currentProjectId: projectId
+        },
+    });
+    revalidatePath("/", "layout");
 }
 
 

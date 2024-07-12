@@ -1,5 +1,6 @@
 
 import { type ClassValue, clsx } from "clsx"
+import { CalendarDate } from "@internationalized/date";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -21,6 +22,7 @@ export const updateSearchParams = (type: string, value: string) => {
   return newPathname;
 };
 
+//*Dates formatters
 export const formatDate = (date: Date) => {
   const hour = date.getHours();
   const minute = date.getMinutes();
@@ -32,11 +34,6 @@ export const formatDate = (date: Date) => {
   return `${formatHour} ${formatDay}`;
 }
 
-export const convertFractionToPercentage = (numerator: number, denominator: number) => {
-  const result = (numerator / denominator) * 100;
-  return result.toFixed(0) + '%';
-}
-
 export const formatDateToLocal = (date: Date) => {
   // Convert UTC date to local date
   const localDate = new Date(date);
@@ -46,6 +43,23 @@ export const formatDateToLocal = (date: Date) => {
     day: 'numeric',
   });
 }
+
+export function convertToDateValue(date: Date): CalendarDate {
+  return new CalendarDate(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  );
+}
+
+//*End Date formatters */
+
+
+export const convertFractionToPercentage = (numerator: number, denominator: number) => {
+  const result = (numerator / denominator) * 100;
+  return result.toFixed(0) + '%';
+}
+
 
 export const initialLetters = (name: string) => {
   return name.split(' ').map((n) => n[0]).join('');

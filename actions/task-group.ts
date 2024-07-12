@@ -47,7 +47,10 @@ export async function update_task_group(prevState: State, formData: FormData) {
     name: formData.get('name'),
     description: formData.get('description'),
     criticality: formData.get('criticality'),
+    startAt: new Date(formData.get("startDate") as string),
+    endAt: new Date(formData.get("endDate") as string),
   });
+  console.log("🦇  update_task_group  validatedFields:", validatedFields)
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -55,7 +58,7 @@ export async function update_task_group(prevState: State, formData: FormData) {
       message: 'Missing Fields. Failed to Update Task Group.',
     };
   }
-  const { id, name, description, criticality } = validatedFields.data;
+  const { id, name, description, criticality, startAt, endAt } = validatedFields.data;
   await db.taskGroup.update({
     where: {
       id: id,
@@ -64,6 +67,8 @@ export async function update_task_group(prevState: State, formData: FormData) {
       name,
       description,
       criticality,
+      startAt,
+      endAt
     },
   });
   revalidatePath('/dashboard/task-groups');

@@ -11,16 +11,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuGroup,
   DropdownMenuPortal,
-} from "../../components/ui/dropdown-menu"
-import { Toaster } from 'sonner'
-/* import { CurrentProjectStoreProvider } from "@/context/currentProjectStore";
- */
+} from "../../components/ui/dropdown-menu";
+import { Toaster } from "sonner";
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const user = await currentUser();
   return (
     <section>
-      {/*       <CurrentProjectStoreProvider> */}
       <Toaster richColors />
       <div className="flex flex-col md:flex-row">
         <div className=" w-full flex-none md:w-64">
@@ -28,15 +29,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
         </div>
         <div className="h-screen relative flex-grow p-6 md:overflow-y-auto ">
           <div className="absolute top-3 right-3 flex items-center justify-end gap-2 ">
-            <h2
-              className="text-lg font-medium 
-                    md:text-xl
-                "
-            >
+            <h2 className="text-lg font-medium md:text-xl">
               Hi!
               {user && ` ${user.name}`}
             </h2>
-            <DropdownMenu >
+            <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="h-14 w-14">
                   {user && user.image ? (
@@ -46,13 +43,19 @@ export default async function Layout({ children }: { children: React.ReactNode }
                   )}
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuPortal >
+              <DropdownMenuPortal>
                 <DropdownMenuContent className="mr-4 md:mr-10">
-                  <DropdownMenuLabel className="text-green-500">Free plan</DropdownMenuLabel>
-                  <DropdownMenuLabel className="text-sm font-light">{user?.email}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-green-500">
+                    Free plan
+                  </DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-sm font-light">
+                    {user?.email}
+                  </DropdownMenuLabel>
                   <DropdownMenuSeparator className="my-2 bg-slate-300" />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem><Link href={"/profile"}>Profile</Link></DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href={"/profile"}>Profile</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator className="my-4 bg-slate-300" />
@@ -64,7 +67,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
           {children}
         </div>
       </div>
-      {/*       </CurrentProjectStoreProvider > */}
-    </section >
+    </section>
   );
 }

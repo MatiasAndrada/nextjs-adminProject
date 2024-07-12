@@ -144,11 +144,11 @@ model TaskGroup {
   name            String            @db.VarChar(45)
   description     String?           @db.VarChar(1200)
   status          Status            @default(PENDING)
-  //  progress    String      @default("0/0") @db.VarChar(10) ! Pasa a ser un campo calculado
   criticality     Criticality
   createdAt       DateTime          @default(now()) @db.Timestamptz
-  updatedAt       DateTime?         @db.Timestamptz
-  endsAt          DateTime          @default(now()) @db.Timestamptz
+  updatedAt       DateTime?         @updatedAt @db.Timestamptz
+  startAt         DateTime?         @db.Timestamptz
+  endAt           DateTime?         @db.Timestamptz
 }
 
 model Task {
@@ -160,6 +160,5 @@ model Task {
   status        Status    @default(PENDING)
   progress      Int       @default(0)
   createdAt     DateTime  @default(now()) @db.Timestamptz
-  updatedAt     DateTime? @db.Timestamptz
-  endsAt        DateTime  @default(now()) @db.Timestamptz
+  updatedAt     DateTime? @updatedAt @db.Timestamptz
 }
