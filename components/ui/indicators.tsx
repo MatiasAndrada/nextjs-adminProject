@@ -1,4 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
+import moment from "moment";
 import { convertFractionToPercentage } from "@/lib/utils";
 import { Criticality, Status, Role } from "@prisma/client";
 import { cn } from "@/lib/utils";
@@ -113,3 +114,55 @@ export function RoleIndicator({
     </span>
   );
 }
+
+export const TimeDisplay = ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date;
+  endDate: Date;
+}) => {
+  const today = moment();
+  const start = moment(startDate);
+  const end = moment(endDate);
+
+  let message;
+  let bgColor;
+
+  if (today.isBefore(start)) {
+    const daysUntilStart = start.diff(today, "days");
+    message = `${daysUntilStart} days until start`;
+    bgColor = "bg-blue-400 dark:bg-blue-700";
+  } else if (today.isBetween(start, end, "days", "[]")) {
+    const daysUntilEnd = end.diff(today, "days");
+    message = `${daysUntilEnd} days left`;
+    bgColor = "bg-slate-400 dark:bg-slate-700";
+  } else {
+    const daysSinceEnd = today.diff(end, "days");
+    message = `${daysSinceEnd} days since end`;
+    bgColor = "bg-red-400 dark:bg-red-700";
+  }
+
+  return (
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+              Time status:
+            </span>
+            <span
+              className={` w-fit text-xs font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 ${bgColor}`}
+            >
+              {message}
+            </span>
+          </div>
+        </Tooltip.Trigger>
+        <Tooltip.Content className="bg-black text-white p-2 rounded shadow-lg">
+          {message}
+          <Tooltip.Arrow className="fill-current text-black" />
+        </Tooltip.Content>
+      </Tooltip.Root>
+    </Tooltip.Provider>
+  );
+};

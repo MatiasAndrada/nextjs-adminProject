@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   CriticalityIndicator,
   StatusIndicator,
+  TimeDisplay,
 } from "@/components/ui/indicators";
 import { DeleteTaskGroup } from "./buttons";
 import { UpdateTaskGroup, ViewTasks } from "./redirects";
@@ -24,7 +25,16 @@ export default function TaskGridItem({
     membersAssigned: { user: { image: string | null; name: string | null } }[];
   };
 }) {
-  const { id, name, description, criticality, status, membersAssigned } = task;
+  const {
+    id,
+    name,
+    description,
+    criticality,
+    status,
+    startAt,
+    endAt,
+    membersAssigned,
+  } = task;
   return (
     <div className="min-w-96 max-w-lg mx-auto bg-slate-300 dark:bg-slate-900 rounded-xl">
       <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
@@ -61,21 +71,17 @@ export default function TaskGridItem({
           {!description?.endsWith(".") && "."}
         </div>
         <div className="flex flex-row justify-between items-center">
-          {/*           <div className="flex flex-col items-center  space-x-2 py-1 ">
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate- 400 ">
-              Time left:
+          {startAt && endAt ? (
+            <TimeDisplay startDate={startAt} endDate={endAt} />
+          ) : (
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              No time frame
             </span>
-            <span
-              className={`uppercase w-fit text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 bg-slate-400 dark:bg-slate-700`}
-            >
-              Incoming
-            </span>
-          </div> */}
+          )}
           <div className="flex items-center justify-center">
             <span className="mr-2 text-xs font-bold text-slate-500 dark:text-slate-400 ">
               Assigned to:
             </span>
-
             <dd className="flex justify-start -space-x-2">
               {membersAssigned.map((member, index) => (
                 <Avatar className="w-8 h-8" key={index}>
