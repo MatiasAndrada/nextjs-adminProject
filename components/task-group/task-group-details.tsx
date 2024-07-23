@@ -1,10 +1,7 @@
 import { RoleGate } from "@/components/auth/role-gate";
-import DropdownChangeStatus from "../ui/dropdowns/dropdown-change-status";
-import {
-  CriticalityIndicator,
-  StatusIndicator,
-  ProgressIndicator,
-} from "@/components/ui/indicators";
+import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-status";
+import DropdownChangeCriticality from "@/components/task-group/dropdown-change-criticality";
+import { ProgressIndicator } from "@/components/ui/indicators";
 import { EditTaskGroup } from "@/components/task-group/redirects";
 import { DeleteTaskGroup } from "@/components/task-group/buttons";
 import { UsersIcon } from "@heroicons/react/24/outline";
@@ -13,7 +10,6 @@ import {
   fetch_task_group_progress_by_id,
 } from "@/data/task-group";
 import { fetch_members_assigned_to_task_group } from "@/data/members";
-
 import { Role } from "@prisma/client";
 
 const TaskGroupDetails = async ({ id }: { id: string }) => {
@@ -59,9 +55,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-md">Criticality:</span>
-          <CriticalityIndicator criticality={criticality}>
-            {criticality}
-          </CriticalityIndicator>
+          <DropdownChangeCriticality id={id} criticality={criticality} />
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-md">Total members:</span>

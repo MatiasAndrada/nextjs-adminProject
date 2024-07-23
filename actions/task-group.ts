@@ -5,7 +5,7 @@ import { db } from '@/lib/db';
 import { CreateSchema, UpdateSchema } from '@/schemas/task-group';
 import { currentProjectId } from '@/hooks/use-current-project';
 import type { State } from '@/schemas/task-group';
-import { Status } from '@prisma/client';
+import { Criticality, Status } from '@prisma/client';
 export async function create_task_group(prevState: State, formData: FormData) {
   const validatedFields = CreateSchema.safeParse({
     name: formData.get('name'),
@@ -73,6 +73,19 @@ export async function delete_task_group(id: string) {
   });
   revalidatePath('/dashboard/task-groups');
   redirect('/dashboard/task-groups');
+}
+
+export async function set_criticality_of_task_group(id: string, criticality: Criticality) {
+  await db.taskGroup.update({
+    where: {
+      id,
+    },
+    data: {
+      criticality,
+    },
+  });
+  revalidatePath('/dashboard/task-groups');
+  return { message: 'Task Group criticality updated successfully.' };
 }
 
 export async function set_status_of_task_group(id: string, status: Status) {
