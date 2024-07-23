@@ -9,8 +9,6 @@ import { AddMember, InformationRole } from "@/components/members/redirects";
 import { fetch_task_group_pages } from "@/data/task-group";
 import { Role } from "@prisma/client";
 
-//!ADD SKELETON LOADING
-
 export const metadata: Metadata = {
   title: {
     template: "%s | Project Admin",

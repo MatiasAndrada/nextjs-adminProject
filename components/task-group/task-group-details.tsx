@@ -1,11 +1,13 @@
-import Link from "next/link";
-import { PencilSquareIcon, UsersIcon } from "@heroicons/react/24/outline";
-import { RoleGate } from "../auth/role-gate";
+import { RoleGate } from "@/components/auth/role-gate";
+import DropdownChangeStatus from "../ui/dropdowns/dropdown-change-status";
 import {
   CriticalityIndicator,
   StatusIndicator,
   ProgressIndicator,
 } from "@/components/ui/indicators";
+import { EditTaskGroup } from "@/components/task-group/redirects";
+import { DeleteTaskGroup } from "@/components/task-group/buttons";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   fetch_task_group_by_id,
   fetch_task_group_progress_by_id,
@@ -25,7 +27,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
   return (
     <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between lg:space-x-4">
       <div className="w-full lg:w-3/5 space-y-4">
-        <div className="flex items-center gap-4">
+        <div className="flex w-full justify-between items-center gap-4">
           <h2 className="text-slate-800 dark:text-slate-200 text-3xl font-semibold">
             {name}
           </h2>
@@ -33,12 +35,10 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
             allowedRoles={[Role.OWNER, Role.ADMIN]}
             message="You don't have permissions"
           >
-            <Link
-              href={`/dashboard/task-groups/${id}/edit`}
-              className="transition transform hover:-translate-y-1 hover:scale-110"
-            >
-              <PencilSquareIcon className="w-8 h-8 hover:text-black dark:hover:text-white" />
-            </Link>
+            <div className="flex flex-row items-center  md:mr-10 gap-12">
+              <DeleteTaskGroup id={id} />
+              <EditTaskGroup id={id} />
+            </div>
           </RoleGate>
         </div>
         <p className="text-md text-slate-800 dark:text-slate-300">
@@ -72,7 +72,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-md">Status:</span>
-          <StatusIndicator status={status} />
+          <DropdownChangeStatus idTaskGroup={id} status={status} />
         </div>
       </div>
     </div>

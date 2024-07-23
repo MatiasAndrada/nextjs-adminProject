@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { RectangleStackIcon } from "@heroicons/react/24/outline";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -5,9 +6,9 @@ import {
   StatusIndicator,
   TimeDisplay,
 } from "@/components/ui/indicators";
-import { DeleteTaskGroup } from "./buttons";
-import { UpdateTaskGroup, ViewTasks } from "./redirects";
-import { RoleGate } from "../auth/role-gate";
+//import { DeleteTaskGroup } from "./buttons";
+//import { UpdateTaskGroup, ViewTasks } from "./redirects";
+//import { RoleGate } from "../auth/role-gate";
 import { Criticality, Status, Role, UsersOnProjects } from "@prisma/client";
 
 export default function TaskGridItem({
@@ -36,7 +37,10 @@ export default function TaskGridItem({
     membersAssigned,
   } = task;
   return (
-    <div className="min-w-96 max-w-lg mx-auto bg-slate-300 dark:bg-slate-900 rounded-xl">
+    <Link
+      href={`task-groups/` + id}
+      className="min-w-96 max-w-lg mx-auto bg-slate-300 hover:bg-slate-200 focus:bg-slate-100 dark:bg-slate-900 hover:dark:bg-slate-800 focus:dark:bg-slate-700 rounded-xl"
+    >
       <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center space-x-2   ">
@@ -114,6 +118,7 @@ export default function TaskGridItem({
             </dd>
           </div>
         </div>
+        {/*
         <div className="flex justify-between items-center overflow-visible">
           <RoleGate
             allowedRoles={[Role.OWNER, Role.ADMIN]}
@@ -126,7 +131,8 @@ export default function TaskGridItem({
           </RoleGate>
           <ViewTasks id={id} />
         </div>
+          */}
       </div>
-    </div>
+    </Link>
   );
 }

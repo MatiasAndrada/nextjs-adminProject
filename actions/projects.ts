@@ -8,7 +8,7 @@ import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
 import { Role } from "@prisma/client";
 
-export const setSelectedProject = async (projectId: string | null) => {
+export async function setSelectedProject(projectId: string | null) {
     const user_id = await current_user_id()
     // Actualizar el usuario con el nuevo proyecto seleccionado
     await db.user.update({

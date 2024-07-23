@@ -24,13 +24,13 @@ export default async function TabsTaskGroupDetail({
         aria-label="Manage your account"
       >
         <Tabs.Trigger
-          className="px-5 h-12 flex-1 flex items-center justify-center text-lg leading-none text-white select-none first:rounded-tl-md last:rounded-tr-md hover:text-blue-500 normal-case"
+          className="px-5 h-12 flex-1 flex items-center justify-center text-lg leading-none text-white select-none first:rounded-tl-md last:rounded-tr-md hover:text-blue-500 normal-case data-[state=active]:text-blue-500"
           value="tab1"
         >
           Tasks
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="px-5 h-12 flex-1 flex items-center justify-center text-lg leading-none text-white select-none first:rounded-tl-md last:rounded-tr-md hover:text-blue-500 normal-case"
+          className="px-5 h-12 flex-1 flex items-center justify-center text-lg leading-none text-white select-none first:rounded-tl-md last:rounded-tr-md hover:text-blue-500 normal-case data-[state=active]:text-blue-500"
           value="tab2"
         >
           Members Assigned
@@ -40,9 +40,6 @@ export default async function TabsTaskGroupDetail({
         className="grow p-5 rounded-b-md outline-none focus:shadow-outline"
         value="tab1"
       >
-        {/*         <h3 className="mb-5 text-white text-lg leading-normal normal-case">
-          Tasks assigned to this group
-        </h3> */}
         <Table query={query} currentPage={currentPage} task_group_id={id} />
         {totalPages > 0 && (
           <div className="mt-5 flex w-full justify-center">
@@ -54,9 +51,6 @@ export default async function TabsTaskGroupDetail({
         className="grow p-5 rounded-b-md outline-none focus:shadow-outline"
         value="tab2"
       >
-        {/*         <h3 className="mb-5 text-white text-lg leading-normal normal-case">
-          Members assigned to this task group
-        </h3> */}
         <div className="space-y-4">
           <MembersAssignForTaskGroup
             id={id}

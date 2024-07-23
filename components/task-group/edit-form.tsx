@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { Button } from "../ui/button";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { RangeCalendar } from "@nextui-org/calendar";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import { update_task_group } from "@/actions/task-group";
@@ -47,9 +48,9 @@ export default function EditTaskGroupForm({ taskGroup }: Props) {
 
       {/* Task Group Name */}
       <div className="mb-4">
-        <label htmlFor="name" className="mb-2 block text-xl font-medium">
-          Name:
-        </label>
+        <Label htmlFor="name" required>
+          Name
+        </Label>
         <input
           type="text"
           id="name"
@@ -69,9 +70,9 @@ export default function EditTaskGroupForm({ taskGroup }: Props) {
 
       {/* Task Group Description */}
       <div className="mb-4">
-        <label htmlFor="description" className="mb-2 block text-xl font-medium">
-          Description:
-        </label>
+        <Label htmlFor="description" required>
+          Description
+        </Label>
         <textarea
           id="description"
           className="peer block w-full h-fit rounded-md dark:bg-slate-800 border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -90,9 +91,9 @@ export default function EditTaskGroupForm({ taskGroup }: Props) {
 
       {/* Task Group Criticality Dropdown from Type enum */}
       <div className="mb-4">
-        <label htmlFor="criticality" className="mb-2 block text-xl font-medium">
-          Criticality:
-        </label>
+        <Label htmlFor="criticality" required>
+          Criticality
+        </Label>
         <select
           id="criticality"
           name="criticality"
@@ -132,12 +133,7 @@ export default function EditTaskGroupForm({ taskGroup }: Props) {
       </div>
 
       <div className="mb-4 flex flex-row gap-4">
-        <label
-          htmlFor="select-members"
-          className="mb-2 block text-xl font-medium"
-        >
-          Select time period:
-        </label>
+        <Label htmlFor="select-members">Select time period</Label>
         <RangeCalendar
           aria-label="Date (Min Date Value)"
           minValue={today(getLocalTimeZone())}

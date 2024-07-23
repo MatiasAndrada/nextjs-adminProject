@@ -15,7 +15,6 @@ export function SetCurrentProjectId({
   }
   return (
     <Button variant="ghost" onClick={() => handleSetCurrentProjectId(id)}>
-      {/* <TrashIcon className="w-4 h-4 mr-1" /> */}
       {children}
     </Button>
   );
