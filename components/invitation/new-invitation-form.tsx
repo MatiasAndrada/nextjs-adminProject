@@ -1,7 +1,7 @@
 "use client";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
+import { BeatLoader } from "react-spinners";
 //components
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
@@ -28,8 +28,11 @@ export const NewVerificationForm = () => {
     }
     new_invitation(token)
       .then((data) => {
-        setSuccess(data.success);
-        setError(data.error);
+        if (data.success) {
+          setSuccess(data.success);
+        } else {
+          setError(data.error);
+        }
         setInvitation(data.invitation);
       })
       .catch(() => {

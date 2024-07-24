@@ -46,8 +46,6 @@ export function CardInvitation({ invitation }: { invitation: InviteToken }) {
           <span className="text-white">{expiresHours} hs</span>{" "}
         </li>
       </ul>
-      {/*                 )
-            } */}
       <div className="flex justify-around">
         <DeclineInvite token={invitation.token}>Cancel</DeclineInvite>
       </div>

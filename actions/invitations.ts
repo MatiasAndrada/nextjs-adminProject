@@ -49,7 +49,6 @@ export async function new_invitation(token: string) {
 }
 
 export async function accept_invitation(token: string) {
-
     const existingToken = await db.inviteToken.findUnique({
         where: {
             token: token,

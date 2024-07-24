@@ -15,13 +15,14 @@ export async function AcceptInvite({
   const handleAccept = async () => {
     await accept_invitation(token)
       .then((res) => {
+        if (redirect) {
+          router.push(redirect);
+        }
         if (res.error) {
           toast.error(res.error);
-        } else {
+        }
+        if (res.success) {
           toast.success(res.success);
-          if (redirect) {
-            router.push(redirect);
-          }
         }
       })
       .catch((error) => {
