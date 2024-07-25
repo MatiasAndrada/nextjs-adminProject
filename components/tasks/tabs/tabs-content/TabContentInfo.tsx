@@ -1,4 +1,5 @@
 import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-status";
+import SliderProgress from "../../progress-slider";
 import moment from "moment";
 import { Status } from "@prisma/client";
 
@@ -31,7 +32,7 @@ const TabContentInfo: React.FC<TabContentInfoProps> = ({
           <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
             Progress:
           </p>
-          <p className="text-lg">{progress}%</p>
+          <SliderProgress value={progress} />
         </div>
       </div>
       <div className="bg-slate-300 dark:bg-slate-800 rounded-lg col-span-1 row-span-2">
