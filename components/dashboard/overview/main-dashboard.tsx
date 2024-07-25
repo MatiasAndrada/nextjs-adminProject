@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Table from "./table";
 import Filter from "./filter";
 import Pagination from "@/components/pagination";

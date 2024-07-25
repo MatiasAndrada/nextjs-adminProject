@@ -15,13 +15,16 @@ export default async function Page() {
   const projects_owner = await fetch_projects_owner();
   const projects_member = await fetch_projects_member();
   return (
-    <main>
+    <section className="space-y-4">
       <h1 className={`${lusitana.className} text-4xl `}>Projects page</h1>
-      <div className="absolute top-16 right-5">
-        <CreateProject />
-      </div>
-      <div className="mt-4 space-y-4">
-        <h2 className="text-xl font-medium ">Your projects</h2>
+
+      <div className=" space-y-4">
+        <div className="flex justify-between">
+          <h2 className="text-xl font-medium ">Your projects</h2>
+          <div className="ml-end">
+            <CreateProject />
+          </div>
+        </div>
         {projects_owner.length === 0 ? (
           <div className="mx-auto flex flex-col items-center justify-center space-y-2">
             <h2 className="text-lg font-medium ">
@@ -55,6 +58,6 @@ export default async function Page() {
         <h3 className="text-xl font-medium">invitations</h3>
         <CardsInvitation />
       </div>
-    </main>
+    </section>
   );
 }

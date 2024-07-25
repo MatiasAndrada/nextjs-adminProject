@@ -26,7 +26,7 @@ export default async function Page({
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetch_task_group_pages(query);
   return (
-    <div className="w-full space-y-6">
+    <section className="w-full space-y-4">
       <Breadcrumbs
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard" },
@@ -57,6 +57,6 @@ export default async function Page({
             </div> */}
       <h2 className="text-xl normal-case">Members with invitation sent: </h2>
       <CardsInvitation />
-    </div>
+    </section>
   );
 }

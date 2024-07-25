@@ -7,7 +7,7 @@ export function CreateProject() {
     <Link href="/projects/create">
       <Button>
         <PlusIcon className="h-5 mr-2" />
-        <span> Create Task Group </span>
+        <span> Create Project</span>
       </Button>
     </Link>
   );

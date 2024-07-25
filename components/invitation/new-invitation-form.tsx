@@ -8,7 +8,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { AcceptInvite, DeclineInvite } from "@/components/invitation/buttons";
 //actions
-import { new_invitation } from "@/actions/invitations";
+import { is_valid_invite_token } from "@/actions/invitations";
 //types
 import type { InviteToken } from "@prisma/client";
 import type { Project } from "@prisma/client";
@@ -26,14 +26,14 @@ export const NewVerificationForm = () => {
       setError("Missing token!");
       return;
     }
-    new_invitation(token)
+    is_valid_invite_token(token)
       .then((data) => {
         if (data.success) {
           setSuccess(data.success);
+          setInvitation(data.invitation);
         } else {
           setError(data.error);
         }
-        setInvitation(data.invitation);
       })
       .catch(() => {
         setError("Something went wrong!");

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { accept_invitation, decline_invitation } from "@/actions/invitations";
 import { toast } from "sonner";
 
-export async function AcceptInvite({
+export function AcceptInvite({
   token,
   redirect,
 }: {
@@ -15,7 +15,7 @@ export async function AcceptInvite({
   const handleAccept = async () => {
     await accept_invitation(token)
       .then((res) => {
-        if (redirect) {
+        if (redirect && res.success) {
           router.push(redirect);
         }
         if (res.error) {
@@ -24,6 +24,7 @@ export async function AcceptInvite({
         if (res.success) {
           toast.success(res.success);
         }
+        router.refresh();
       })
       .catch((error) => {
         toast.error("An unexpected error occurred.");
@@ -33,7 +34,7 @@ export async function AcceptInvite({
   return <Button onClick={() => handleAccept()}>Accept</Button>;
 }
 
-export async function DeclineInvite({
+export function DeclineInvite({
   token,
   children,
   redirect,
@@ -46,14 +47,16 @@ export async function DeclineInvite({
   const handleDecline = async () => {
     await decline_invitation(token)
       .then((res) => {
+        if (redirect && res.success) {
+          router.push(redirect);
+        }
         if (res.error) {
           toast.error(res.error);
-        } else {
-          toast.success(res.success);
-          if (redirect) {
-            router.push(redirect);
-          }
         }
+        if (res.success) {
+          toast.success(res.success);
+        }
+        router.refresh();
       })
       .catch((error) => {
         toast.error("An unexpected error occurred.");

@@ -1,5 +1,6 @@
 "use server";
 import { redirect } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
 //hooks
@@ -16,8 +17,9 @@ import { Schema } from "@/schemas/member";
 import type { State } from "@/schemas/member";
 import { Role } from "@prisma/client";
 
-//todo: change name function is_valid_invite_token
-export async function new_invitation(token: string) {
+
+export async function is_valid_invite_token(token: string) {
+    noStore();
     try {
         const existingToken = await db.inviteToken.findUnique({
             where: {
@@ -55,11 +57,12 @@ export async function accept_invitation(token: string) {
         },
     });
     if (!existingToken) {
+        revalidatePath("/", "layout")
         return { error: "Token does not exist!" };
     }
     const user = await getUserByEmail(existingToken.email);
     if (!user) {
-        return { error: "Email does not exist!" };
+        return { error: "Email does not exist! First create an account with this email." };
     }
     const user_id = user.id;
     const project_id = existingToken.project_id;
@@ -84,7 +87,7 @@ export async function accept_invitation(token: string) {
             token: token,
         },
     });
-    revalidatePath("/", "page")
+    revalidatePath("/", "layout")
     return { success: "Invitation accepted!" };
 }
 
