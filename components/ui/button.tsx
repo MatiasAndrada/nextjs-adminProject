@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "capitalize bg-primary shadow hover:bg-secondary text-white",
+        default:
+          "capitalize bg-primary shadow hover:shadow-lg shadow-blue-500/50 hover:shadow-blue-500/40 hover:bg-secondary text-white",
         create:
           "mt-4  text-blue-600 bg-blue-200 hover:bg-blue-300 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out",
         destructive:
@@ -21,7 +22,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost:
           "text-black dark:text-white w-full flex items-center justify-center gap-2",
-        info: "bg-slate-600 text-info-foreground shadow hover:bg-slate-600/80 text-white",
+        info: "bg-slate-500 hover:bg-slate-600 focus:bg-slate-700 shadow-md hover:shadow-lg shadow-slate-500/50 text-white",
         link: "text-primary underline-offset-4 hover:underline",
         disabled: "bg-gray-200 text-gray-400 shadow-none cursor-not-allowed",
       },
