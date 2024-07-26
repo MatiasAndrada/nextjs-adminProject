@@ -88,25 +88,28 @@ export function ProgressIndicator({
 interface RoleIndicatorProps {
   role: Role;
   children?: React.ReactNode;
-  shadow?: boolean;
   className?: string;
 }
 
 export function RoleIndicator({
   role,
   children,
-  shadow,
   className,
 }: RoleIndicatorProps) {
+  const getColorText = (role: Role) => {
+    if (role === Role.OWNER) return "text-red-500";
+    if (role === Role.ADMIN) return "text-amber-500";
+    if (role === Role.EDITOR) return "text-emerald-500";
+    return "text-zinc-400";
+  };
+
+  const bgColorRole = getColorText(role);
+
   return (
     <span
       className={cn(
+        bgColorRole,
         "uppercase text-md font-bold rounded-md px-2 py-1",
-        shadow && "shadow-lg dark:shadow-slate-950",
-        role === Role.OWNER && "text-red-500",
-        role === Role.ADMIN && "text-amber-500",
-        role === Role.EDITOR && "text-emerald-500",
-        role === Role.VIEWER && "text-zinc-400",
         className // Add the extra className prop here
       )}
     >
