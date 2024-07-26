@@ -17,7 +17,7 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
   return (
     <div className="flex flex-wrap">
       <div className="w-full mb-6 mx-auto">
-        <div className=" flex flex-col break-words rounded-lg bg-slate-900">
+        <div className=" flex flex-col break-words rounded-lg bg-slate-300 dark:bg-slate-900">
           <div className="relative flex flex-col break-words ">
             {/* card header */}
             {/*                         <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
@@ -52,7 +52,7 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                   </thead>
                   <tbody>
                     {members.map((member, index) => (
-                      <tr key={index} className="py-8 h-12">
+                      <tr key={index} className="py-8 h-14">
                         <td>
                           <div className="flex items-center">
                             <div className="relative inline-block shrink-0 rounded-2xl me-3">
@@ -84,7 +84,7 @@ const MembersTable = async ({ query, currentPage }: MembersTable) => {
                           </span>
                         </td>
                         <td className="text-center">
-                          <RoleIndicator role={member.role} shadow={true}>
+                          <RoleIndicator role={member.role}>
                             {member.role}
                           </RoleIndicator>
                         </td>
