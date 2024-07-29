@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
 import { currentProject } from "@/hooks/use-current-project";
-import { Role } from "@prisma/client";
 
 export async function fetch_invitation_by_token(token: string) {
     try {
