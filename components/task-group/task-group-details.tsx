@@ -21,7 +21,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
   const membersAssigned = await fetch_members_assigned_to_task_group(id);
   const membersAssignedCount = membersAssigned?.length;
   return (
-    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between lg:space-x-4">
+    <div className="bg-slate-300 dark:bg-slate-900 rounded-lg p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between lg:space-x-4">
       <div className="w-full lg:w-3/5 space-y-4">
         <div className="flex w-full justify-between items-center gap-4">
           <h2 className="text-slate-800 dark:text-slate-200 text-3xl font-semibold">

@@ -22,7 +22,7 @@ export default function TableBody({ tasks }: Props) {
           className="
                         h-14
                         bg-slate-300 dark:bg-slate-900
-                        hover:bg-slate-200 focus:bg-slate-100 hover:dark:bg-slate-800 focus:dark:bg-slate-700 dark:border-gray-700  cursor-pointer
+                        hover:bg-slate-200 focus:bg-slate-300/50 hover:dark:bg-slate-800 focus:dark:bg-slate-900/50 dark:border-gray-700 cursor-pointer
                         "
           onClick={() => {
             router.push(`/dashboard/task-groups/${task_group_id}/task/${id}`);

@@ -22,7 +22,7 @@ const Tab: React.FC<{
 }> = ({ tab, isActive, onClick }) => (
   <button
     type="button"
-    className={`hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-slate-300 text-sm font-medium text-center border rounded-t-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:border-slate-700  dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600 ${
+    className={`hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-slate-300 text-sm font-medium text-center border rounded-t-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-800  dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600 ${
       isActive ? "hs-tab-active text-primary" : ""
     }`}
     id={`hs-tab-to-select-item-${tab.index}`}

@@ -45,7 +45,7 @@ export default async function Page({
       />
       <div className="grid grid-cols-5 grid-rows-3 gap-4">
         <div className="col-span-2 row-span-2">
-          <div className="flex flex-col items-start justify-start p-2 divide-y-4 divide-slate-900 bg-slate-300 dark:bg-slate-800 rounded-lg shadow-md gap-4">
+          <div className="flex flex-col items-start justify-start p-2 divide-y-4 divide-slate-900 bg-slate-300 dark:bg-slate-900 rounded-lg shadow-md gap-4">
             <div>
               <div className="flex justify-between">
                 <p className="my-2 text-xs font-bold uppercase text-slate-400 dark:text-slate-500">

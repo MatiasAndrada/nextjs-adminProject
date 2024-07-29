@@ -1,6 +1,6 @@
 import type { Project, UsersOnProjects } from "@prisma/client";
 import { SetCurrentProjectId } from "./buttons";
-import { CreateProject } from "./redirects";
+import { CreateProject } from "@/components/projects/redirects";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -65,7 +65,9 @@ export async function DropDownProjects({
             <DropdownMenuSeparator className=" bg-slate-300" />
           )}
           <DropdownMenuItem className=" hover:bg-gray-300 dark:hover:bg-slate-900 rounded-lg">
-            <CreateProject />
+            <div className="mx-auto">
+              <CreateProject />
+            </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenuPortal>
