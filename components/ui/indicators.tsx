@@ -1,6 +1,7 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import moment from "moment";
 import { convertFractionToPercentage } from "@/lib/utils";
+import { inter, lusitana } from "@/components/fonts";
 import { Criticality, Status, Role } from "@prisma/client";
 import { cn } from "@/lib/utils";
 
@@ -11,13 +12,23 @@ export function CriticalityIndicator({
   criticality: Criticality;
   children?: React.ReactNode;
 }) {
+  const bgColor = (criticality: Criticality) => {
+    if (criticality === Criticality.LOW) return "bg-green-500";
+    if (criticality === Criticality.MEDIUM) return "bg-sky-500";
+    if (criticality === Criticality.HIGH) return "bg-orange-500";
+    if (criticality === Criticality.CRITICAL) return " bg-red-500";
+    return "text-zinc-400";
+  };
+  const shadowColor = (criticality: Criticality) => {
+    if (criticality === Criticality.LOW) return "shadow-green-500";
+    if (criticality === Criticality.MEDIUM) return "shadow-sky-500";
+    if (criticality === Criticality.HIGH) return "shadow-orange-500";
+    if (criticality === Criticality.CRITICAL) return " shadow-red-500";
+    return "shadow-zinc-400";
+  };
   return (
     <span
-      className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 
-          ${criticality === Criticality.LOW ? "text-green-950 bg-green-500" : ""}
-          ${criticality === Criticality.MEDIUM ? "text-sky-950 bg-sky-500" : ""}
-          ${criticality === Criticality.HIGH ? "text-orange-950  bg-orange-500" : ""}
-          ${criticality === Criticality.CRITICAL ? "text-red-950 bg-red-500" : ""}
+      className={`${inter.className} ${bgColor(criticality)} uppercase text-md text-black font-bold shadow-md ${shadowColor(criticality)} rounded-md px-2 py-1 
           " : ""}`}
     >
       {children}
@@ -31,9 +42,18 @@ interface StatusIndicatorProps {
 }
 
 export function StatusIndicator({ status, children }: StatusIndicatorProps) {
+  const shadowColor = (status: Status) => {
+    if (status === Status.PAUSED) return "shadow-status-paused_foreground";
+    if (status === Status.PENDING) return "shadow-status-pending_foreground";
+    if (status === Status.IN_PROGRESS)
+      return "shadow-status-in_progress_foreground";
+    if (status === Status.COMPLETED)
+      return "shadow-status-completed_foreground";
+    return "shadow-zinc-400";
+  };
   return (
     <span
-      className={`uppercase text-md font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1
+      className={`${inter.className} uppercase text-md font-bold text-black shadow-md ${shadowColor(status)} rounded-md px-2 py-1
                 ${status === Status.PAUSED ? "text-status-paused p-2 bg-status-paused_foreground" : ""}
                 ${status === Status.PENDING ? "text-status-pending p-2 bg-status-pending_foreground" : ""}
                 ${status === Status.IN_PROGRESS ? "text-status-in_progress p-2 bg-status-in_progress_foreground" : ""}
@@ -151,8 +171,8 @@ export const TimeDisplay = ({
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
-              Time status:
+            <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
+              deadline:
             </span>
             <span
               className={` w-fit text-xs font-bold shadow-lg dark:shadow-slate-900 rounded-md px-2 py-1 ${bgColor}`}

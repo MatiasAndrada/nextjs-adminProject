@@ -10,11 +10,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "capitalize bg-primary shadow hover:shadow-lg shadow-blue-500/50 hover:shadow-blue-500/40 hover:bg-secondary text-white",
+          "text-white capitalize bg-primary hover:bg-secondary shadow hover:shadow-lg dark:shadow-blue-500",
         create:
           "mt-4  text-blue-600 bg-blue-200 hover:bg-blue-300 text-sm py-2 px-4 rounded-md transition duration-300 ease-in-out",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        info: "bg-slate-500 hover:bg-slate-600 focus:bg-slate-700 shadow hover:shadow-lg dark:shadow-slate-500 text-white",
         icon: "hover:scale-110 text-slate-300 hover:text-white rounded-full focus:bg-slate-300 focus:dark:bg-slate-800 transition duration-300 ease-in-out transform",
         outline:
           "border  border-black dark:border-white hover:bg-slate-200 hover:dark:bg-slate-800 shadow-sm ",
@@ -22,7 +23,6 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost:
           "text-black dark:text-white w-full flex items-center justify-center gap-2",
-        info: "bg-slate-500 hover:bg-slate-600 focus:bg-slate-700 shadow-md hover:shadow-lg shadow-slate-500/50 text-white",
         link: "text-primary underline-offset-4 hover:underline",
         disabled: "bg-gray-200 text-gray-400 shadow-none cursor-not-allowed",
       },

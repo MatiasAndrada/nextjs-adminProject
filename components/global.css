@@ -17,15 +17,6 @@ body,
   --status-in_progress-foreground: #063942;
   --status-completed: #00fc11;
   --status-completed-foreground: #035209;
-  /* !Criticality */
-  --criticality-low: #00d5ff;
-  --criticality-low-foreground: #02505f;
-  --criticality-medium: #0f37da;
-  --criticality-medium-foreground: #8d9dd1;
-  --criticality-high: #f59e23;
-  --criticality-high-foreground: #482e0a;
-  --criticality-critical: #e71d1d;
-  --criticality-critical-foreground: #650f0f;
 }
 
 @layer base {
