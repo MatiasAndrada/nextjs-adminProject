@@ -44,21 +44,21 @@ export default function TaskGridItem({
       <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center space-x-2   ">
-            <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
               Criticality:
-            </p>
+            </span>
             <CriticalityIndicator criticality={criticality}>
               {criticality}
             </CriticalityIndicator>
           </div>
           <div className="flex items-center space-x-2">
-            <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
               Status:
-            </p>
+            </span>
             <StatusIndicator status={status} />
           </div>
         </div>
-        <div className="flex flex-row items-center space-x-3">
+        <div className="flex flex-row items-center space-x-2">
           <CriticalityIndicator criticality={criticality}>
             <div
               className={
@@ -78,25 +78,35 @@ export default function TaskGridItem({
           {startAt && endAt ? (
             <TimeDisplay startDate={startAt} endDate={endAt} />
           ) : (
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
               No time frame
             </span>
           )}
           <div className="flex items-center justify-center">
-            <span className="mr-2 text-xs font-bold text-slate-500 dark:text-slate-400 ">
-              Assigned to:
-            </span>
-            <dd className="flex justify-start -space-x-2">
-              {membersAssigned.map((member, index) => (
-                <Avatar className="w-8 h-8" key={index}>
-                  {member.user.image ? (
-                    <AvatarImage src={member.user.image} />
-                  ) : (
-                    <AvatarFallback>{member.user.name}</AvatarFallback>
-                  )}
-                </Avatar>
-              ))}
-              {/*               <span className="inline-block m-1 rounded-full ring-2 ring-white dark:ring-slate-800">
+            {membersAssigned.length === 0 ? (
+              <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
+                No members assigned
+              </span>
+            ) : (
+              <>
+                <span className="mr-2 text-xs font-bold uppercase text-slate-600 dark:text-slate-400 ">
+                  Assigned to:
+                </span>
+                <dd className="flex justify-start -space-x-2">
+                  {membersAssigned.map((member, index) => (
+                    <Avatar className="w-8 h-8" key={index}>
+                      {member.user.image ? (
+                        <AvatarImage src={member.user.image} />
+                      ) : (
+                        <AvatarFallback>{member.user.name}</AvatarFallback>
+                      )}
+                    </Avatar>
+                  ))}
+                </dd>
+              </>
+            )}
+
+            {/*               <span className="inline-block m-1 rounded-full ring-2 ring-white dark:ring-slate-800">
  <svg
                 width="32"
                 height="32"
@@ -115,7 +125,6 @@ export default function TaskGridItem({
                 />
               </svg> 
               </span> */}
-            </dd>
           </div>
         </div>
         {/*
