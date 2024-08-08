@@ -1,7 +1,10 @@
 import type { Config } from 'tailwindcss';
+import { nextui } from "@nextui-org/react";
 
 const config: Config = {
   content: [
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -42,16 +45,6 @@ const config: Config = {
           completed: "var(--status-completed)",
           completed_foreground: "var(--status-completed-foreground)",
         },
-        'criticality': {
-          low: "var(--criticality-low)",
-          low_foreground: "var(--criticality-low-foreground)",
-          medium: "var(--criticality-medium)",
-          medium_foreground: "var(--criticality-medium-foreground)",
-          high: "var(--criticality-high)",
-          high_foreground: "var(--criticality-high-foreground)",
-          critical: "var(--criticality-critical)",
-          critical_foreground: "var(--criticality-critical-foreground)",
-        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -84,6 +77,7 @@ const config: Config = {
 
     plugins: [require('@tailwindcss/forms')],
   },
+  plugins: [nextui()],
 };
 
 export default config;

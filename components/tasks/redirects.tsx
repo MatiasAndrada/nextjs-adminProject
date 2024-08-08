@@ -1,14 +1,24 @@
-import Link from 'next/link';
-import { PlusIcon } from '@radix-ui/react-icons';
+import Link from "next/link";
+import { Button } from "../ui/button";
+import { PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 export function CreateTask() {
-    return (
-        <Link
-            href="/dashboard/tasks/create"
-            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-        >
-            <span className="hidden md:block">Create Task</span>{' '}
-            <PlusIcon className="h-5 md:ml-4" />
-        </Link>
-    );
+  return (
+    <Link href="/dashboard/tasks/create">
+      <Button>
+        <PlusIcon className="h-5 mr-2" />
+        <span>Create Task</span>
+      </Button>
+    </Link>
+  );
+}
+
+export function EditTask({ id }: { id: string }) {
+  return (
+    <Link href={`/dashboard/task/${id}/edit`}>
+      <Button>
+        <PencilIcon className="w-7 hover:scale-110 text-slate-300 hover:text-white transition duration-300 ease-in-out transform" />
+      </Button>
+    </Link>
+  );
 }

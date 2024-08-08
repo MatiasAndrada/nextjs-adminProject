@@ -22,12 +22,7 @@ export default async function SideNav() {
           <IconWithText redirect="/projects" />
           <ThemeToggle />
         </div>
-        <DropDownProjects
-          name="Projects"
-          createName="project"
-          items={projectItems}
-          selectedProject={project}
-        />
+        <DropDownProjects items={projectItems} selectedProject={project} />
       </div>
       <div className="mx-2 flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />

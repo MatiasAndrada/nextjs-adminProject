@@ -5,7 +5,6 @@ export default async function Page() {
     const user = await currentUser()
     if (!user) return null
     const { name, email, image } = user
-    const initialLetters = name?.split(' ').map((n) => n[0]) ?? ''
 
     return (
         <div className=' p-4 h-full flex flex-row items-center justify-between gap-2 bg-slate-300 dark:bg-gray-900 rounded-lg'>
@@ -13,7 +12,7 @@ export default async function Page() {
                 {image ? (
                     <AvatarImage src={image} alt={"user avatar"} />
                 ) : (
-                    <AvatarFallback>{initialLetters}</AvatarFallback>
+                    <AvatarFallback>{name}</AvatarFallback>
                 )}
             </Avatar>
             <div className='space-y-2'>

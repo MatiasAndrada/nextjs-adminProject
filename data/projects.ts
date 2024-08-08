@@ -7,7 +7,7 @@ const prisma = db;
 export async function fetch_projects() {
     const user = await currentUser();
     const user_id = user?.id;
-    const projectsOfUser = await prisma.projectUser.findMany({
+    const projectsOfUser = await prisma.usersOnProjects.findMany({
         where: {
             user_id: user_id
         },
@@ -22,7 +22,7 @@ export async function fetch_projects() {
 export async function fetch_projects_owner() {
     const user = await currentUser();
     const user_id = user?.id;
-    const projectsOfUser = await prisma.projectUser.findMany({
+    const projectsOfUser = await prisma.usersOnProjects.findMany({
         where: {
             role: Role.OWNER,
             user_id: user_id
@@ -37,7 +37,7 @@ export async function fetch_projects_owner() {
 export async function fetch_projects_member() {
     const user = await currentUser();
     const user_id = user?.id;
-    const projectsOfUser = await prisma.projectUser.findMany({
+    const projectsOfUser = await prisma.usersOnProjects.findMany({
         where: {
             role: { in: [Role.VIEWER, Role.EDITOR, Role.ADMIN] },
             user_id: user_id

@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/hooks/use-current-user";
 import { currentProject } from "@/hooks/use-current-project";
-import { Role } from "@prisma/client";
 
 export async function fetch_invitation_by_token(token: string) {
     try {
@@ -33,17 +32,17 @@ export async function fetch_invitations_of_user() {
                 email: email,
             },
         });
-        for (const invite of invitations) {
-            const user_project_owner = await db.projectUser.findUnique({
-                where: {
-                    id: invite.id,
-                    role: Role.OWNER,
-                },
-                select: {
-                    user_id: true,
-                },
-            });
-        }
+        /*         for (const invite of invitations) {
+                    const user_project_owner = await db.usersOnProjects.findUnique({
+                        where: {
+                            id: invite.id,
+                            role: Role.OWNER,
+                        },
+                        select: {
+                            user_id: true,
+                        },
+                    });
+                } */
         return invitations;
 
     }
