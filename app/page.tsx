@@ -5,7 +5,7 @@ import { lusitana } from "@/components/fonts";
 import LastVersion from "@/components/home/LastVersion";
 import { LoginButton } from "@/components/buttons-auth";
 import { StatusSession } from "@/components/home/StatusSession";
-import FadeImages from "@/components/home/Carousel";
+import FadeImages from "@/components/home/FadeImages";
 
 export default function Page() {
   return (
