@@ -5,7 +5,8 @@ import { lusitana } from "@/components/fonts";
 import LastVersion from "@/components/home/LastVersion";
 import { LoginButton } from "@/components/buttons-auth";
 import { StatusSession } from "@/components/home/StatusSession";
-import ImageCarousel from "@/components/home/Carousel";
+import FadeImages from "@/components/home/Carousel";
+
 export default function Page() {
   return (
     <main className="h-screen flex flex-col  p-6">
@@ -20,7 +21,7 @@ export default function Page() {
             <StatusSession />
           </div>
           <p
-            className={`${lusitana.className} text-xl md:text-3xl md:leading-normal `}
+            className={`${lusitana.className} text-xl md:text-3xl md:leading-noral `}
           >
             <strong>Welcome to Project Admin</strong>@beta version of the
             project.{" "}
@@ -35,13 +36,13 @@ export default function Page() {
           <LoginButton />
         </div>
         <div className="flex items-center justify-center md:w-3/5 md:px-20 md:py-4 relative">
-          <div className="absolute w-full	h-full top-0 right-4 bg-gradient-to-r dark:from-blue-900 via-transparent dark:to-sky-900 blur-xl"></div>
+          <div className="absolute w-full	h-full top-0 right-4 bg-gradient-to-r from-blue-500/75 dark:from-blue-900/75 via-transparent to-sky-500/75  dark:to-sky-900/75 blur-xl"></div>
           <img
             src="/gradients/gradient (1).png"
             alt="background"
             className="rounded-lg p-16 absolute w-full h-full top-0 left-0 object-cover blur-xl"
           />
-          <ImageCarousel />
+          <FadeImages />
         </div>
       </div>
     </main>
