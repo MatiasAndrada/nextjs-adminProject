@@ -1,3 +1,4 @@
+import Image from "next/image";
 //Components
 import { IconWithText } from "@/components/logo";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -37,7 +38,9 @@ export default function Page() {
         </div>
         <div className="flex items-center justify-center md:w-3/5 md:px-20 md:py-4 relative">
           <div className="absolute w-full	h-full top-0 right-4 bg-gradient-to-r from-blue-500/75 dark:from-blue-900/75 via-transparent to-sky-500/75  dark:to-sky-900/75 blur-xl"></div>
-          <img
+          <Image
+            height={900}
+            width={1200}
             src="/gradients/gradient (1).png"
             alt="background"
             className="rounded-lg p-16 absolute w-full h-full top-0 left-0 object-cover blur-xl"
