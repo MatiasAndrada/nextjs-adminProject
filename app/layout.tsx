@@ -4,7 +4,7 @@ import NextAuthProvider from "@/context/SessionAuthProvider";
 //import { inter } from "@/components/fonts";
 import { Metadata } from "next";
 
-//export const runtime = "edge";
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   /*Next.js agregará automáticamente el título y los metadatos a su aplicación.
