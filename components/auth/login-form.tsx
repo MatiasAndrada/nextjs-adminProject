@@ -69,14 +69,15 @@ export const LoginForm = () => {
     });
   };
 
-  const obSubmitTestUser = () => {
+  const onSubmitTestUser = () => {
     setError("");
     setSuccess("");
     const values = {
       email: process.env.NEXT_PUBLIC_TEST_USER_EMAIL || "test@projectAdmin.com",
       password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD || "password",
     };
-
+    form.setValue("email", values.email);
+    form.setValue("password", values.password);
     startTransition(() => {
       login(values, callbackUrl)
         .then((data) => {
@@ -96,8 +97,7 @@ export const LoginForm = () => {
         })
         .catch(() => setError("Something went wrong"));
     });
-
-  }
+  };
 
   return (
     <CardWrapper
@@ -182,11 +182,15 @@ export const LoginForm = () => {
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
-          <Button onClick={obSubmitTestUser} className="w-full">
+          <Button
+            disabled={isPending}
+            onClick={onSubmitTestUser}
+            className="w-full"
+          >
             Login with test user
           </Button>
         </form>
       </Form>
     </CardWrapper>
   );
-}
+};
