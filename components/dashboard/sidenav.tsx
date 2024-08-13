@@ -30,9 +30,7 @@ export default async function SideNav() {
       </div>
 
       <div className="mb-6 mx-2 flex-none flex flex-col justify-end md:justify-start">
-        <LogoutButton>
-          <PowerIcon className="w-6" />
-        </LogoutButton>
+        <LogoutButton className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md hover:bg-sky-200 dark:hover:bg-sky-950 hover:text-blue-600" />
       </div>
     </div>
   );

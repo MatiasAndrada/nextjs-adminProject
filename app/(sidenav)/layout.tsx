@@ -1,6 +1,7 @@
-import { currentUser } from "@/hooks/use-current-user";
 import Link from "next/link";
+import { currentUser } from "@/hooks/use-current-user";
 import SideNav from "@/components/dashboard/sidenav";
+import { LogoutButton } from "@/components/buttons-auth";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -56,10 +57,12 @@ export default async function Layout({
                     <DropdownMenuItem>
                       <Link href={"/profile"}>Profile</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem disabled>Settings</DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator className="my-4 bg-slate-300" />
-                  <DropdownMenuItem>Sign out</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <LogoutButton className="text-red-500" />
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenuPortal>
             </DropdownMenu>
