@@ -11,7 +11,7 @@ const fadeVariants = {
 };
 
 const ImageCarousel = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState<string>("light");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -33,13 +33,15 @@ const ImageCarousel = () => {
     "/ui/dark/dark (6).png",
   ];
 
-  const themeSaved = localStorage.getItem("theme") || "light";
   useEffect(() => {
-    setTheme(themeSaved);
-  }, [themeSaved]);
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme");
+      const themeSaved = storedTheme ? storedTheme : "light";
+      setTheme(themeSaved);
+    }
+  }, []);
 
   useEffect(() => {
-    // Configura el intervalo para el carrusel
     const interval = setInterval(() => {
       setCurrentIndex(
         (prevIndex) =>
@@ -48,7 +50,6 @@ const ImageCarousel = () => {
       );
     }, 3200);
 
-    // Manejar el retraso inicial para mostrar las imágenes
     const initialDelay = setTimeout(() => {
       setIsLoaded(true);
     }, 50);
@@ -57,7 +58,7 @@ const ImageCarousel = () => {
       clearInterval(interval);
       clearTimeout(initialDelay);
     };
-  }, []); // Re-renderizar cuando `theme` cambie
+  }, [theme]);
 
   const images = theme === "dark" ? darkImages : lightImages;
 

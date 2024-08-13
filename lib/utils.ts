@@ -7,6 +7,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// Función para generar un UUID basado en `crypto`
+export const generateUUID = async () => {
+  const array = new Uint8Array(16);
+  crypto.getRandomValues(array);
+  // Convert the array to a UUID string format (e.g., "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx")
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c, i) => {
+    const r = (array[i] & 0xf) >> (c === 'x' ? 0 : 4);
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+};
 
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString('en-US', {

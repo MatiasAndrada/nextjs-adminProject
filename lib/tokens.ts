@@ -1,6 +1,5 @@
-import crypto from "crypto";
-import { v4 as uuidv4 } from "uuid";
 import { db } from "@/lib/db";
+import { generateUUID } from "@/lib/utils"
 //tokens
 import { getVerificationTokenByEmail } from "@/data/verificiation-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
@@ -8,9 +7,11 @@ import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 //types
 import { Role } from "@prisma/client";
 
+
+
 //!AUTH
 export const generateTwoFactorToken = async (email: string) => {
-    const token = crypto.randomInt(100_000, 1_000_000).toString();
+    const token = Math.floor(Math.random() * 900000) + 100000; // Genera un número aleatorio de 6 dígitos
     const expires = new Date(new Date().getTime() + 5 * 60 * 1000);
 
     const existingToken = await getTwoFactorTokenByEmail(email);
@@ -26,7 +27,7 @@ export const generateTwoFactorToken = async (email: string) => {
     const twoFactorToken = await db.twoFactorToken.create({
         data: {
             email,
-            token,
+            token: token.toString(),
             expires,
         }
     });
@@ -35,7 +36,7 @@ export const generateTwoFactorToken = async (email: string) => {
 }
 
 export const generatePasswordResetToken = async (email: string) => {
-    const token = uuidv4();
+    const token = await generateUUID();
     const expires = new Date(new Date().getTime() + 3600 * 1000);
 
     const existingToken = await getPasswordResetTokenByEmail(email);
@@ -58,7 +59,7 @@ export const generatePasswordResetToken = async (email: string) => {
 }
 
 export const generateVerificationToken = async (email: string) => {
-    const token = uuidv4();
+    const token = await generateUUID();
     const expires = new Date(new Date().getTime() + 3600 * 1000);
 
     const existingToken = await getVerificationTokenByEmail(email);
@@ -84,7 +85,7 @@ export const generateVerificationToken = async (email: string) => {
 
 //!MEMBERS
 export const generateInviteToken = async (project_id: string, email: string, role: Role) => {
-    const token = uuidv4();
+    const token = await generateUUID();
     const expires = new Date(new Date().getTime() + 72 * 60 * 60 * 1000); // Set expiration time to 72 hours (3 days)
 
     const existingToken = await db.inviteToken.findFirst({
