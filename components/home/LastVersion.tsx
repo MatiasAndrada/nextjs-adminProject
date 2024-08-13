@@ -1,46 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
+// app/components/LastVersion.tsx
 
-async function fetchLastCommit() {
-  try {
-    const response = await fetch(
-      "https://api.github.com/repos/matiasandrada/nextjs-adminProject/commits/master"
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    const data = await response.json();
-    return data.commit.author;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
+import { fetchLastCommit } from "@/data/github";
 
-function LastVersion() {
-  const [commitInfo, setCommitInfo] = useState(null);
-  const [error, setError] = useState(null);
+export default async function LastVersion() {
+  const commitInfo = await fetchLastCommit();
 
-  useEffect(() => {
-    fetchLastCommit()
-      .then((data) => setCommitInfo(data))
-      .catch((error) => setError(error.message));
-  }, []);
-
-  if (error) {
+  if (!commitInfo) {
     return (
       <div className="text-gray-500 dark:text-slate-300 text-sm opacity-60">
         <h4 className="w-36 text-balance">Error fetching data</h4>
-        <p>{error}</p>
+        <p>Something went wrong</p>
       </div>
     );
   }
 
-  if (!commitInfo) {
-    return <div className="text-gray-500">Loading...</div>;
-  }
-
-  const { name: author, date } = commitInfo;
+  const { author, date } = commitInfo;
   const formattedDate = new Date(date).toLocaleDateString(undefined, {
     day: "numeric",
     month: "long",
@@ -55,5 +29,3 @@ function LastVersion() {
     </div>
   );
 }
-
-export default LastVersion;
