@@ -33,13 +33,11 @@ const ImageCarousel = () => {
     "/ui/dark/dark (6).png",
   ];
 
+  const storedTheme = localStorage.getItem("theme");
+  const themeSaved = storedTheme ? storedTheme : "light";
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedTheme = localStorage.getItem("theme");
-      const themeSaved = storedTheme ? storedTheme : "light";
-      setTheme(themeSaved);
-    }
-  }, []);
+    setTheme(themeSaved);
+  }, [themeSaved]);
 
   useEffect(() => {
     const interval = setInterval(() => {
