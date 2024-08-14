@@ -1,6 +1,4 @@
 import { Role } from "@prisma/client";
-import path from "path";
-import { permission } from "process";
 
 /**
  * An array of routes that are accessible to the public
@@ -40,7 +38,7 @@ export const apiAuthPrefix: string = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT: string = "/projects";
+export const DEFAULT_LOGIN_REDIRECT: string = process.env.DEFAULT_LOGIN_REDIRECT || "/";
 //validations
 export const roleRoutesPermissions = [
     {

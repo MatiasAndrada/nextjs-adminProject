@@ -6,8 +6,8 @@ import { Status, Criticality, Role } from "@prisma/client";
 export const testUser = {
   id: "clri6fs8e0000j8la4hdgf2i0",
   name: "Test User",
-  email: "test@projectAdmin.com",
-  password: "password",
+  email: process.env.NEXT_PUBLIC_TEST_USER_EMAIL || "test@projectAdmin.com",
+  password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD || "password",
 };
 
 export const project = [
