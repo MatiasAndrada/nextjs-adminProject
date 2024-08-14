@@ -38,7 +38,7 @@ export const apiAuthPrefix: string = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT: string = process.env.DEFAULT_LOGIN_REDIRECT || "/";
+export const DEFAULT_LOGIN_REDIRECT: string = process.env.DEFAULT_LOGIN_REDIRECT || "/projects";
 //validations
 export const roleRoutesPermissions = [
     {
