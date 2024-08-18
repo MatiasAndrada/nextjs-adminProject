@@ -1,4 +1,4 @@
-# PROJECT ADMIN BETA
+# PROJECT ADMIN
 
 ## Description
 Sistema de administración de tareas y usuarios para equipos de trabajo.
