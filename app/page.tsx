@@ -22,7 +22,7 @@ export default function Page() {
             <StatusSession />
           </div>
           <p
-            className={`${lusitana.className} text-xl md:text-3xl md:leading-noral `}
+            className={`${lusitana.className} text-xl md:text-3xl md:leading-normal `}
           >
             <strong>Welcome to Project Admin</strong>@beta version of the
             project.{" "}
