@@ -8,7 +8,7 @@ import { currentProject } from '@/hooks/use-current-project';
 import { currentRole } from "@/hooks/use-current-role";
 import { getUserByEmail } from "@/data/user";
 //emails
-import { sendInvitation } from "@/emails/member";
+import { sendInvitation } from "@/actions/emails";
 //tokens
 import { generateInviteToken } from "@/lib/tokens";
 //schemas

@@ -35,7 +35,6 @@ export async function assign_member_to_task_group(formData: FormData) {
     const current_project_id = await currentProjectId();
     const task_group_id = formData.get("id") as string;
     const users_id = formData.getAll("selectedIds") as string[];
-    console.log("🦇  assign_member_to_task_group  users_id:", users_id);
 
     if (!task_group_id || users_id.length === 0) {
         return { error: "Missing fields. Failed to assign member to task group." };
