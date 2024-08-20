@@ -1,4 +1,3 @@
-import Link from "next/link";
 //components
 import { SetCurrentProjectId } from "@/components/dashboard/buttons";
 import DropdownActions from "@/components/projects/dropdown-actions";

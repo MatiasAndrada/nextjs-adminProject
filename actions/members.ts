@@ -1,6 +1,7 @@
 "use server"
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
 import { currentProjectId } from "@/hooks/use-current-project";
 import { redirect } from "next/navigation";
 import { Role } from "@prisma/client";
@@ -32,6 +33,8 @@ export async function delete_member(id: string) {
     return { success: "Member deleted." };
 }
 export async function assign_member_to_task_group(formData: FormData) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (has_access !== true) return { error: "You do not have permission to perform this action." };
     const current_project_id = await currentProjectId();
     const task_group_id = formData.get("id") as string;
     const users_id = formData.getAll("selectedIds") as string[];
@@ -91,7 +94,6 @@ export async function assign_member_to_task_group(formData: FormData) {
                 });
             })
         );
-
         // Asignar los nuevos miembros al task_group
         await Promise.all(
             usersOnProjects.map(async (userOnProject) => {

@@ -6,8 +6,10 @@ import {
   fetch_members,
   fetch_members_assigned_to_task_group,
 } from "@/data/members";
+import { RoleGate } from "../auth/role-gate";
 import { RoleIndicator } from "../ui/indicators";
-/* import { Button } from "../ui/button"; */
+import { Button } from "../ui/button";
+import { Role } from "@prisma/client";
 
 const MembersAssignForTaskGroup = async ({
   id,
@@ -108,12 +110,9 @@ const MembersAssignForTaskGroup = async ({
             </tbody>
           </table>
           <div className="flex justify-end mt-4">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Assign members
-            </button>
+            <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]}>
+              <Button type="submit">Assign members</Button>
+            </RoleGate>
           </div>
         </form>
       )}

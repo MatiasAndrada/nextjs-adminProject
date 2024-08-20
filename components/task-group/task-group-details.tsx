@@ -58,7 +58,7 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
           <DropdownChangeCriticality id={id} criticality={criticality} />
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="text-md">Total members:</span>
+          <span className="text-md">Members Assigned:</span>
           <div className="flex items-center gap-1">
             <UsersIcon className="w-6 h-6" />
             <span>{membersAssignedCount}</span>

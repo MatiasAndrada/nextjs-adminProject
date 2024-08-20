@@ -17,7 +17,6 @@ export default async function Page() {
   return (
     <section className="space-y-4">
       <h1 className={`${lusitana.className} text-4xl `}>Projects page</h1>
-
       <div className=" space-y-4">
         <div className="flex justify-between">
           <h2 className="text-xl font-medium ">Your projects</h2>

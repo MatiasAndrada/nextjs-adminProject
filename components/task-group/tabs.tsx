@@ -4,7 +4,7 @@ import Pagination from "@/components/pagination";
 import MembersAssignForTaskGroup from "../members/members-assign-for-task-group";
 import { fetch_task_pages } from "@/data/task";
 
-export default async function TabsTaskGroupDetail({
+export default async function TaskGroupDetailTabs({
   id,
   searchParams,
 }: {

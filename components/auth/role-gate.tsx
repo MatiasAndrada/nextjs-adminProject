@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { Role } from "@prisma/client";
 import { useSession } from "next-auth/react";
@@ -10,15 +10,17 @@ interface RoleGateProps {
   onlyIcon?: boolean;
   message?: string;
 }
-/* 
-export const RoleGate = React.memo(({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => { */
-export const RoleGate = (({ children, allowedRoles, onlyIcon, message }: RoleGateProps) => {
+
+export const RoleGate = ({
+  children,
+  allowedRoles,
+  onlyIcon,
+  message,
+}: RoleGateProps) => {
   const [hasClicked, setHasClicked] = useState(false);
   const { data: session } = useSession();
   const current_project_role = session?.user.currentProject?.role;
   if (!current_project_role) return null;
-
-
 
   const hasAccess = allowedRoles.includes(current_project_role);
 
@@ -26,23 +28,25 @@ export const RoleGate = (({ children, allowedRoles, onlyIcon, message }: RoleGat
     if (session && current_project_role && !hasAccess) {
       setHasClicked(true);
     }
-  }
+  };
 
   if (session && !hasAccess && hasClicked) {
-    if (!message && !onlyIcon) message = "You do not have permission to perform this action";
+    if (!message && !onlyIcon)
+      message = "You do not have permission to perform this action.";
     return <FormError message={message} />;
   }
 
   return (
     <div onClick={handleClick}>
-      <div style={
-        hasAccess
-          ? { pointerEvents: "all" }
-          : { pointerEvents: "none", opacity: 0.7 }
-      }
+      <div
+        style={
+          hasAccess
+            ? { pointerEvents: "all" }
+            : { pointerEvents: "none", opacity: 0.7 }
+        }
       >
         {children}
       </div>
     </div>
   );
-});
+};
