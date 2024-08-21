@@ -3,8 +3,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuGroup,
   DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { StatusIndicator } from "@/components/ui/indicators";

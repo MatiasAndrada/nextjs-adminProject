@@ -4,7 +4,8 @@ import { db } from '@/lib/db';
 /* import { currentUser } from '@/hooks/use-current-user'; */
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { Status } from '@prisma/client';
+import { useProjectRoleHasAccess } from '@/hooks/use-current-role';
+import { Status, Role } from '@prisma/client';
 import type { State } from '@/schemas/task';
 
 
@@ -36,6 +37,10 @@ export async function create_task(prevState: State, formData: FormData) {
 }
 
 export async function set_status_of_task(id: string, status: Status) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN, Role.EDITOR])
+    if (has_access !== true) {
+        return { error: "You do not have permission to perform this action." };
+    }
     await db.task.update({
         where: {
             id,
@@ -46,4 +51,19 @@ export async function set_status_of_task(id: string, status: Status) {
     });
     revalidatePath('/dashboard/tasks');
     return { message: 'Task status updated successfully.' };
+}
+
+export async function set_progress_of_task(id: string, value: number) {
+    const has_access = await useProjectRoleHasAccess(([Role.OWNER, Role.ADMIN, Role.EDITOR]))
+    if (has_access !== true) {
+        return { error: "You do not have permission to perform this action." };
+    }
+    await db.task.update({
+        where: { id },
+        data: {
+            progress: value
+        }
+    })
+    revalidatePath("/dashboard/tasks")
+    return { message: 'Task progress updated successfully.' };
 }

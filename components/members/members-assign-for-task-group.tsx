@@ -33,12 +33,12 @@ const MembersAssignForTaskGroup = async ({
         </div>
       ) : (
         <form
-          className="relative overflow-x-auto shadow-md sm:rounded-lg"
+          className="relative overflow-x-auto sm:rounded-lg bg-slate-300 dark:bg-slate-900"
           action={assign_member_to_task_group}
         >
           <input type="hidden" name="id" value={id} />
-          <table className="w-full text-sm text-left rtl:text-right ">
-            <thead className="text-xs text-black dark:text-white uppercase bg-slate-400 dark:bg-slate-700">
+          <table className="w-full text-md text-left rtl:text-right ">
+            <thead className=" text-black dark:text-white uppercase bg-slate-400 dark:bg-slate-700">
               <tr>
                 <th className="p-4">
                   <div className="flex items-center">
@@ -64,7 +64,7 @@ const MembersAssignForTaskGroup = async ({
               {members.map((member) => (
                 <tr
                   key={member.user.id}
-                  className="bg-white border-b dark:bg-slate-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-300"
+                  className=" bg-white border-b dark:bg-slate-900 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-900/70 text-gray-900 dark:text-gray-300"
                 >
                   <td className="w-4 p-4">
                     <div className="flex items-center">

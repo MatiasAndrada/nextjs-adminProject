@@ -1,6 +1,9 @@
-import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-status";
-import SliderProgress from "../../progress-slider";
+"use client";
 import moment from "moment";
+import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-status";
+import { Slider, Progress } from "@nextui-org/react";
+import SliderProgress from "../../progress-slider";
+import { currentRole } from "@/hooks/use-current-role";
 import { Status } from "@prisma/client";
 
 interface TabContentInfoProps {
@@ -16,6 +19,8 @@ const TabContentInfo: React.FC<TabContentInfoProps> = ({
   progress,
   createdAt,
 }) => {
+  /*   const role = await currentRole();
+  if (role === undefined) return null; */
   const createdAtLocal = moment(createdAt).format("DD/MM/YYYY");
   return (
     <div className="grid grid-cols-2 grid-rows-4 gap-4">
@@ -32,7 +37,8 @@ const TabContentInfo: React.FC<TabContentInfoProps> = ({
           <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
             Progress:
           </p>
-          <SliderProgress value={progress} />
+          {/*           <SliderProgress id={id} value={progress} role={role} /> */}
+          <Progress value={60} />
         </div>
       </div>
       <div className="bg-slate-300 dark:bg-slate-900 rounded-lg col-span-1 row-span-2">
