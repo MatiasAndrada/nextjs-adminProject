@@ -4,7 +4,7 @@ import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-stat
 import { Slider, Progress } from "@nextui-org/react";
 import SliderProgress from "../../progress-slider";
 import { currentRole } from "@/hooks/use-current-role";
-import { Status } from "@prisma/client";
+import { Role, Status } from "@prisma/client";
 
 interface TabContentInfoProps {
   id: string;
@@ -29,7 +29,11 @@ const TabContentInfo: React.FC<TabContentInfoProps> = ({
           <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
             Status:
           </p>
-          <DropdownChangeStatus idTask={id} status={status} />
+          <DropdownChangeStatus
+            idTask={id}
+            status={status}
+            rolesAllowed={[Role.OWNER, Role.ADMIN, Role.EDITOR]}
+          />
         </div>
       </div>
       <div className="bg-slate-300 dark:bg-slate-900 rounded-lg col-span-1 row-span-2">

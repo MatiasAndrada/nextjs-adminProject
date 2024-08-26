@@ -36,13 +36,13 @@ export function Card({
 }) {
   //TODO: debe de tener el rol del usuario
   return (
-    <div className="min-w-fit flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
+    <div className="min-w-fit h-28 flex items-center justify-between gap-2 bg-slate-100 dark:bg-slate-900  shadow-xl rounded-lg p-4">
       <div className="p-2 ">
         <DropdownActions id={IdProject} />
       </div>
       <div>
-        <h3 className="text-lg text-balance">{name}</h3>
-        <span className="text-green-500 text-md font-medium flex items-center">
+        <h3 className="text-xl text-balance">{name}</h3>
+        <span className="text-green-500 text-lg font-medium flex items-center">
           #{IdProject && IdProject.slice(-3)}
         </span>
       </div>

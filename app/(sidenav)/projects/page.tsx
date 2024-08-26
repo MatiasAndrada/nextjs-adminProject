@@ -1,11 +1,9 @@
 /* import { Suspense } from "react"; */
 //components
-import Link from "next/link";
+import { lusitana } from "@/components/fonts";
 import Cards from "@/components/projects/cards";
 import { CardsInvitation } from "@/components/invitation/card-invitation-user";
 import { CreateProject } from "@/components/projects/redirects";
-import { Button } from "@/components/ui/button";
-import { lusitana } from "@/components/fonts";
 //functions
 import { fetch_projects_owner, fetch_projects_member } from "@/data/projects";
 
@@ -19,42 +17,36 @@ export default async function Page() {
       <h1 className={`${lusitana.className} text-4xl `}>Projects page</h1>
       <div className=" space-y-4">
         <div className="flex justify-between">
-          <h2 className="text-xl font-medium ">Your projects</h2>
+          <h2 className="text-2xl font-medium ">Your projects</h2>
           <div className="ml-end">
             <CreateProject />
           </div>
         </div>
         {projects_owner.length === 0 ? (
           <div className="mx-auto flex flex-col items-center justify-center space-y-2">
-            <h2 className="text-lg font-medium ">
+            <h2 className="text-xl font-medium ">
               You don t have any projects yet.
             </h2>
-            <Link href="/projects/new">
-              <Button variant="create" size="sm">
-                Create a project
-              </Button>
-            </Link>
+            <CreateProject />
           </div>
         ) : (
           <Cards ProjectsUser={projects_owner} />
         )}
-        <h2 className="text-xl font-medium ">Projects with you</h2>
+        <h2 className="text-2xl font-medium ">Projects with you</h2>
         {projects_member.length === 0 ? (
           <div className="mx-auto flex flex-col items-center justify-center space-y-2">
-            <h2 className="text-lg font-medium ">
+            <h2 className="text-xl font-medium ">
               There are no projects with you yet.
             </h2>
-            <p className="text-gray-500">
-              Join or invite on your project to start collaborating with others.
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              You must have an invitation to a project to start collaborating
+              with others.
             </p>
-            <Button variant="disabled" size="sm">
-              Join a project
-            </Button>
           </div>
         ) : (
           <Cards ProjectsUser={projects_member} />
         )}
-        <h3 className="text-xl font-medium">invitations</h3>
+        <h3 className="text-2xl font-medium">invitations</h3>
         <CardsInvitation />
       </div>
     </section>

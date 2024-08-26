@@ -33,7 +33,7 @@ const MembersAssignForTaskGroup = async ({
         </div>
       ) : (
         <form
-          className="relative overflow-x-auto sm:rounded-lg bg-slate-300 dark:bg-slate-900"
+          className="relative overflow-x-auto sm:rounded-lg bg-slate-300 dark:bg-slate-900 py-4"
           action={assign_member_to_task_group}
         >
           <input type="hidden" name="id" value={id} />
@@ -109,7 +109,7 @@ const MembersAssignForTaskGroup = async ({
               ))}
             </tbody>
           </table>
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-4 mr-4">
             <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]}>
               <Button type="submit">Assign members</Button>
             </RoleGate>

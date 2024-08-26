@@ -36,7 +36,7 @@ export function CreateTaskGroup() {
   return (
     <Link href="/dashboard/task-groups/create">
       <Button>
-        <PlusIcon className="mr-2 h-5" />
+        <PlusIcon className="mr-2 h-5 text-4xl font-bold" />
         <span> Create Task Group </span>
       </Button>
     </Link>
