@@ -7,8 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { StatusIndicator } from "@/components/ui/indicators";
-import { SetTaskStatus } from "@/components/tasks/buttons";
-import { SetTaskGroupStatus } from "@/components/task-group/buttons";
+import { SetStatus } from "@/components/ui/buttons/change-status";
 import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
 import { Status, Role } from "@prisma/client";
 
@@ -18,6 +17,7 @@ interface Props {
   status: Status;
   rolesAllowed: Role[];
 }
+
 export default async function DropdownChangeStatus({
   idTask,
   idTaskGroup,
@@ -25,13 +25,15 @@ export default async function DropdownChangeStatus({
   rolesAllowed,
 }: Props) {
   const id = idTask || idTaskGroup;
-  if (!id) return null;
+
   const has_access = await useProjectRoleHasAccess(rolesAllowed);
-  if (has_access === true) {
+  if (!id) return null;
+
+  if (has_access) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="w-full flex rounded-lg bg-slate-400 dark:bg-slate-800 px-4 py-3 text-sm outline-2 placeholder:text-gray-500 group">
+          <div className="w-full flex rounded-lg bg-slate-400 dark:bg-slate-800 px-4 py-3 text-sm outline-2 placeholder:text-gray-500">
             <ChevronDownIcon className="w-6 h-6 text-gray-500 dark:text-gray-400 mr-2" />
             <StatusIndicator status={status} />
           </div>
@@ -42,15 +44,13 @@ export default async function DropdownChangeStatus({
               const value = Status[key as keyof typeof Status];
               return (
                 <DropdownMenuItem key={value}>
-                  {idTaskGroup ? (
-                    <SetTaskGroupStatus id={id} status={value}>
-                      <StatusIndicator status={value} />
-                    </SetTaskGroupStatus>
-                  ) : (
-                    <SetTaskStatus id={id} status={value}>
-                      <StatusIndicator status={value} />
-                    </SetTaskStatus>
-                  )}
+                  <SetStatus
+                    idTask={idTask}
+                    idTaskGroup={idTaskGroup}
+                    status={value}
+                  >
+                    <StatusIndicator status={value} />
+                  </SetStatus>
                 </DropdownMenuItem>
               );
             })}
@@ -59,5 +59,6 @@ export default async function DropdownChangeStatus({
       </DropdownMenu>
     );
   }
+
   return <StatusIndicator status={status} />;
 }
