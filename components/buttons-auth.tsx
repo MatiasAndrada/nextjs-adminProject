@@ -1,9 +1,9 @@
 "use client";
-import { Button } from "./ui/button";
+import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import { ArrowRightIcon, PowerIcon } from "@heroicons/react/24/outline";
-
-import Link from "next/link";
+import { Button } from "./ui/button";
+import { ButtonProps } from "./ui/button";
 
 export const LoginButton = () => {
   return (
@@ -22,21 +22,25 @@ export const RegisterButton = () => {
   );
 };
 
+interface LogoutButtonProps extends ButtonProps {
+  className?: string;
+  variant?: ButtonProps["variant"];
+  onClick?: () => void;
+}
 export const LogoutButton = ({
   className = "",
+  variant,
   onClick = () => signOut(),
-}: {
-  className?: string;
-  onClick?: () => void;
-}) => {
+}: LogoutButtonProps) => {
   return (
-    <button
+    <Button
       className={`flex items-center gap-2 ${className}`}
+      variant={variant} // Se pasa la variante aquí
       onClick={onClick}
     >
       <PowerIcon className="w-6" />
       <span>Sign out</span>
-    </button>
+    </Button>
   );
 };
 

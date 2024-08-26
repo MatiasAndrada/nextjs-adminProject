@@ -66,7 +66,11 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-md">Status:</span>
-          <DropdownChangeStatus idTaskGroup={id} status={status} />
+          <DropdownChangeStatus
+            idTaskGroup={id}
+            status={status}
+            rolesAllowed={[Role.OWNER, Role.ADMIN]}
+          />
         </div>
       </div>
     </div>

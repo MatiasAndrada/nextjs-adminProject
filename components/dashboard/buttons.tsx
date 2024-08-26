@@ -14,7 +14,11 @@ export function SetCurrentProjectId({
     await setSelectedProject(id);
   }
   return (
-    <Button variant="ghost" onClick={() => handleSetCurrentProjectId(id)}>
+    <Button
+      variant="ghost"
+      className="text-md md:text-lg"
+      onClick={() => handleSetCurrentProjectId(id)}
+    >
       {children}
     </Button>
   );
