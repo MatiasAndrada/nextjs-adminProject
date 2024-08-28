@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   UserGroupIcon,
   HomeIcon,
@@ -8,9 +9,9 @@ import {
   ChartBarSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
+import { cn } from "@/lib/utils"; // Asegúrate de importar la función `cn` correctamente
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -61,25 +62,28 @@ export default function NavLinks() {
         return (
           <Link
             key={link.name}
+            className=""
             href={link.state === "disabled" ? "#" : link.href}
-            className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-100 dark:bg-slate-800  p-3 text-sm font-medium  hover:bg-sky-200 dark:hover:bg-sky-950 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 ",
-              {
-                "bg-sky-200  text-blue-600": pathname === link.href,
-              }
-            )}
           >
-            <LinkIcon
-              className={`w-6 
+            <Button
+              className={cn(
+                pathname === link.href && "bg-sky-200 text-blue-600"
+              )}
+              variant={"sidenav"}
+            >
+              <LinkIcon
+                className={`w-6 
             ${link.state ? "opacity-40" : ""}
             `}
-            />
-            <p
-              className={`hidden md:block ${link.state ? "line-through opacity-40" : ""
+              />
+              <p
+                className={`hidden md:block ${
+                  link.state ? "line-through opacity-40" : ""
                 }`}
-            >
-              {link.name}
-            </p>
+              >
+                {link.name}
+              </p>
+            </Button>
           </Link>
         );
       })}

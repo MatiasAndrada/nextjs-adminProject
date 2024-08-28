@@ -18,7 +18,7 @@ export function EditMember({
   return (
     <Link href={`/dashboard/members/edit/${user_id}/${project_id}`}>
       <Button variant="icon">
-        <PencilIcon className="h-5 w-5 text-dark" />
+        <PencilIcon className="h-5 w-5" />
         {children}
       </Button>
     </Link>

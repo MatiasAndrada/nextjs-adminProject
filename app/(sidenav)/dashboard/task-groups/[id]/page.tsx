@@ -3,7 +3,7 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import Breadcrumbs from "@/components/breadcrumbs";
 import TaskGroupDetails from "@/components/task-group/task-group-details";
-import TabsTaskGroupDetail from "@/components/task-group/tabs";
+import TaskGroupDetailTabs from "@/components/task-group/tabs";
 import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
 import { fetch_task_pages } from "@/data/task";
@@ -33,7 +33,7 @@ export default async function Page({
         ]}
       />
       <TaskGroupDetails id={id} />
-      <TabsTaskGroupDetail id={id} searchParams={searchParams} />
+      <TaskGroupDetailTabs id={id} searchParams={searchParams} />
     </main>
   );
 }

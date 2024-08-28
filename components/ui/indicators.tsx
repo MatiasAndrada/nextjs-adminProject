@@ -1,9 +1,8 @@
-import * as Tooltip from "@radix-ui/react-tooltip";
 import moment from "moment";
-import { convertFractionToPercentage } from "@/lib/utils";
-import { inter, lusitana } from "@/components/fonts";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import { inter } from "@/components/fonts";
+import { convertFractionToPercentage, cn } from "@/lib/utils";
 import { Criticality, Status, Role } from "@prisma/client";
-import { cn } from "@/lib/utils";
 
 export function CriticalityIndicator({
   criticality,

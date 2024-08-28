@@ -12,6 +12,7 @@ const fadeVariants = {
 
 const ImageCarousel = () => {
   const [theme, setTheme] = useState<string>("light");
+  const [themeSaved, setThemeSaved] = useState<string>("light");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -32,9 +33,13 @@ const ImageCarousel = () => {
     "/ui/dark/dark (5).png",
     "/ui/dark/dark (6).png",
   ];
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme");
+      setThemeSaved(storedTheme ? storedTheme : "light");
+    }
+  });
 
-  const storedTheme = localStorage.getItem("theme");
-  const themeSaved = storedTheme ? storedTheme : "light";
   useEffect(() => {
     setTheme(themeSaved);
   }, [themeSaved]);

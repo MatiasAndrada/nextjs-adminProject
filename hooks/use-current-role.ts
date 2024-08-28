@@ -10,7 +10,8 @@ export const currentRole = async () => {
 
 export async function useProjectRoleHasAccess(role: Role[]) {
   const current_role = await currentRole()
-  if (current_role && current_role in role) {
-    return true
+  if (current_role && role.includes(current_role)) {
+    return true;
   }
+  return false
 }

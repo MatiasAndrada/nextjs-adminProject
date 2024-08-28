@@ -4,11 +4,12 @@ import NavLinks from "@/components/dashboard/nav-links";
 import { DropDownProjects } from "@/components/dashboard/dropdown-projects";
 import { IconWithText } from "@/components/logo";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Button } from "../ui/button";
 import { LogoutButton } from "@/components/buttons-auth";
 
 import { fetch_projects } from "@/data/projects";
 import { currentProject } from "@/hooks/use-current-project";
-import { PowerIcon } from "@heroicons/react/24/outline";
+/* import { PowerIcon } from "@heroicons/react/24/outline"; */
 
 export default async function SideNav() {
   const [projectItems, project] = await Promise.all([
@@ -30,7 +31,9 @@ export default async function SideNav() {
       </div>
 
       <div className="mb-6 mx-2 flex-none flex flex-col justify-end md:justify-start">
-        <LogoutButton className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md hover:bg-sky-200 dark:hover:bg-sky-950 hover:text-blue-600" />
+        {/*  <Button variant={"sidenav"}> */}
+        <LogoutButton variant={"sidenav"} />
+        {/*         </Button> */}
       </div>
     </div>
   );

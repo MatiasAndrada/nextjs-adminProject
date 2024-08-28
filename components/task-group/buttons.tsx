@@ -34,7 +34,11 @@ export function SetTaskGroupCriticality({
 }) {
   async function handleSetTaskGroupCriticality() {
     await set_criticality_of_task_group(id, criticality).then((res) => {
-      toast.success(res.message);
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.success(res.message);
+      }
     });
   }
   return (
@@ -55,7 +59,11 @@ export function SetTaskGroupStatus({
 }) {
   async function handleSetTaskGroupStatus() {
     await set_status_of_task_group(id, status).then((res) => {
-      toast.success(res.message);
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.success(res.message);
+      }
     });
   }
   return (

@@ -45,7 +45,7 @@ export async function DropDownProjects({
         <DropdownMenuContent className="mt-2 w-56  bg-slate-200 dark:bg-slate-950 border-none">
           {items?.length && selectedProject !== undefined && (
             <>
-              <DropdownMenuItem className="   hover:bg-gray-300 dark:hover:bg-slate-900  rounded-lg">
+              <DropdownMenuItem className="hover:bg-gray-300 dark:hover:bg-slate-900 rounded-lg">
                 <SetCurrentProjectId id={null}>Select none</SetCurrentProjectId>
               </DropdownMenuItem>
               <DropdownMenuSeparator className=" bg-slate-300" />
@@ -54,7 +54,7 @@ export async function DropDownProjects({
           {items?.map((userOnProject) => (
             <DropdownMenuItem
               key={userOnProject.id}
-              className="   hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
+              className="  hover:bg-gray-300 dark:hover:bg-slate-800 rounded-lg"
             >
               <SetCurrentProjectId id={userOnProject.id}>
                 {userOnProject.project.name}

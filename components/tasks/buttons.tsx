@@ -15,7 +15,11 @@ export function SetTaskStatus({
 }) {
   async function handleSetTaskStatus() {
     await set_status_of_task(id, status).then((res) => {
-      toast.success(res.message);
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.success(res.message);
+      }
     });
   }
   return (

@@ -1,21 +1,23 @@
 "use server";
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-import { db } from '@/lib/db';
-import { CreateSchema, UpdateSchema } from '@/schemas/task-group';
-import { currentProjectId } from '@/hooks/use-current-project';
-import type { State } from '@/schemas/task-group';
-import { Criticality, Status } from '@prisma/client';
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { db } from "@/lib/db";
+import { CreateSchema, UpdateSchema } from "@/schemas/task-group";
+import { currentProjectId } from "@/hooks/use-current-project";
+import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
+import type { State } from "@/schemas/task-group";
+import { Criticality, Status, Role } from "@prisma/client";
+
 export async function create_task_group(prevState: State, formData: FormData) {
   const validatedFields = CreateSchema.safeParse({
-    name: formData.get('name'),
-    description: formData.get('description'),
-    criticality: formData.get('criticality'),
+    name: formData.get("name"),
+    description: formData.get("description"),
+    criticality: formData.get("criticality"),
   });
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Task Group.',
+      message: "Missing Fields. Failed to Create Task Group.",
     };
   }
   const { name, description, criticality } = validatedFields.data;
@@ -28,26 +30,27 @@ export async function create_task_group(prevState: State, formData: FormData) {
       project_id: current_project_id,
     },
   });
-  revalidatePath('/dashboard/task-groups');
-  redirect('/dashboard/task-groups')
+  revalidatePath("/dashboard/task-groups");
+  redirect("/dashboard/task-groups");
 }
 
 export async function update_task_group(prevState: State, formData: FormData) {
   const validatedFields = UpdateSchema.safeParse({
     id: formData.get("id"),
-    name: formData.get('name'),
-    description: formData.get('description'),
-    criticality: formData.get('criticality'),
+    name: formData.get("name"),
+    description: formData.get("description"),
+    criticality: formData.get("criticality"),
     startAt: new Date(formData.get("startDate") as string),
     endAt: new Date(formData.get("endDate") as string),
   });
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Task Group.',
+      message: "Missing Fields. Failed to Update Task Group.",
     };
   }
-  const { id, name, description, criticality, startAt, endAt } = validatedFields.data;
+  const { id, name, description, criticality, startAt, endAt } =
+    validatedFields.data;
   await db.taskGroup.update({
     where: {
       id: id,
@@ -57,25 +60,31 @@ export async function update_task_group(prevState: State, formData: FormData) {
       description,
       criticality,
       startAt,
-      endAt
+      endAt,
     },
   });
-  revalidatePath('/dashboard/task-groups');
-  redirect('/dashboard/task-groups');
+  revalidatePath("/dashboard/task-groups");
+  redirect("/dashboard/task-groups");
 }
 
 export async function delete_task_group(id: string) {
-  ;
   await db.taskGroup.delete({
     where: {
-      id
+      id,
     },
   });
-  revalidatePath('/dashboard/task-groups');
-  redirect('/dashboard/task-groups');
+  revalidatePath("/dashboard/task-groups");
+  redirect("/dashboard/task-groups");
 }
 
-export async function set_criticality_of_task_group(id: string, criticality: Criticality) {
+export async function set_criticality_of_task_group(
+  id: string,
+  criticality: Criticality
+) {
+  const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+  if (has_access !== true) {
+    return { error: "You do not have permission to perform this action." };
+  }
   await db.taskGroup.update({
     where: {
       id,
@@ -84,11 +93,15 @@ export async function set_criticality_of_task_group(id: string, criticality: Cri
       criticality,
     },
   });
-  revalidatePath('/dashboard/task-groups');
-  return { message: 'Task Group criticality updated successfully.' };
+  revalidatePath("/dashboard/task-groups");
+  return { message: "Task Group criticality updated successfully." };
 }
 
 export async function set_status_of_task_group(id: string, status: Status) {
+  const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+  if (has_access !== true) {
+    return { error: "You do not have permission to perform this action." };
+  }
   await db.taskGroup.update({
     where: {
       id,
@@ -97,6 +110,6 @@ export async function set_status_of_task_group(id: string, status: Status) {
       status,
     },
   });
-  revalidatePath('/dashboard/task-groups');
-  return { message: 'Task Group status updated successfully.' };
+  revalidatePath("/dashboard/task-groups");
+  return { message: "Task Group status updated successfully." };
 }

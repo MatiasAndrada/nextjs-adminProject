@@ -3,10 +3,12 @@ import Filter from "./filter";
 import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/redirects";
 import { UpdateProject } from "@/components/dashboard/redirects";
+import { RoleGate } from "@/components/auth/role-gate";
 import {
   fetch_filtered_task_group,
   fetch_task_group_pages,
 } from "@/data/task-group";
+import { Role } from "@prisma/client";
 
 export default async function MainDashboard({
   id,
@@ -34,7 +36,9 @@ export default async function MainDashboard({
         </span>
         <div className="flex flex-row justify-start items-center gap-4">
           <h3 className="py-2 text-2xl font-bold ">{name}</h3>
-          <UpdateProject id={id} />
+          <RoleGate allowedRoles={[Role.OWNER, Role.ADMIN]}>
+            <UpdateProject id={id} />
+          </RoleGate>
         </div>
         <p className="ml-4 mb-2 text-sm font-semibold text-gray-600 dark:text-gray-400">
           Description:
