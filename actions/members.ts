@@ -18,7 +18,7 @@ export async function set_role_of_member(id: string, role: Role) {
         },
     });
     revalidatePath("/dashboard/members", "page");
-    redirect("/dashboard/members");
+    return { success: "Role changed successfully" }
 }
 
 export async function delete_member(id: string) {
