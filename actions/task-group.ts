@@ -111,5 +111,5 @@ export async function set_status_of_task_group(id: string, status: Status) {
     },
   });
   revalidatePath("/dashboard/task-groups");
-  return { message: "Task Group status updated successfully." };
+  return { success: "Task Group status updated successfully." };
 }

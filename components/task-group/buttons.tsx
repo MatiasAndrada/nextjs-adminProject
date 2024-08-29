@@ -62,7 +62,7 @@ export function SetTaskGroupStatus({
       if (res.error) {
         toast.error(res.error);
       } else {
-        toast.success(res.message);
+        toast.success(res.success);
       }
     });
   }
