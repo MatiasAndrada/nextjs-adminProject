@@ -9,13 +9,13 @@ const Schema = z.object({
 });
 
 const CreateFormSchema = Schema.omit({
-    id: true,
     createdAt: true,
     updatedAt: true,
 });
 
 export type State = {
     errors?: {
+        id?: string[],
         name?: string[],
         description?: string[],
     }

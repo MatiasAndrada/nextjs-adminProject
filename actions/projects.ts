@@ -2,7 +2,9 @@
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
+//hooks
 import { current_user_id } from "@/hooks/use-current-user";
+import { useProjectRoleHasAccess } from '@/hooks/use-current-role';
 //types
 import { CreateFormSchema } from "@/schemas/project";
 import type { State } from "@/schemas/project";
@@ -76,10 +78,15 @@ export async function create_project(prevState: State, formData: FormData) {
 }
 
 export async function update_project(prevState: State, formData: FormData) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (has_access !== true) {
+        return { error: "You do not have permission to edit this project." }
+    }
     try {
         const validatedFields = CreateFormSchema.safeParse({
             name: formData.get('name'),
             description: formData.get('description'),
+            id: formData.get('id')
         });
 
         if (!validatedFields.success) {
@@ -89,12 +96,11 @@ export async function update_project(prevState: State, formData: FormData) {
             };
         }
 
-        const { name, description } = validatedFields.data;
-        const id = formData.get('id');
+        const { id, name, description } = validatedFields.data;
 
         await db.project.update({
             where: {
-                id: id as string,
+                id: id,
             },
             data: {
                 name,
@@ -112,6 +118,10 @@ export async function update_project(prevState: State, formData: FormData) {
 }
 
 export async function delete_project_by_id(id: string) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER])
+    if (has_access !== true) {
+        return { error: "You do not have permission to delete this project." }
+    }
     try {
         const user_id = await current_user_id();
         const role_in_project = await db.usersOnProjects.findFirst({
