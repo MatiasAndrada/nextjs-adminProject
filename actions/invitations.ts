@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { db } from "@/lib/db";
 //hooks
 import { currentProject } from '@/hooks/use-current-project';
-import { currentRole } from "@/hooks/use-current-role";
+import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
 import { getUserByEmail } from "@/data/user";
 //emails
 import { sendInvitation } from "@/actions/emails";
@@ -17,6 +17,37 @@ import { Schema } from "@/schemas/member";
 import type { State } from "@/schemas/member";
 import { Role } from "@prisma/client";
 
+export async function send_invitation(prevState: State, formData: FormData) {
+    try {
+        const validatedFields = Schema.safeParse({
+            email: formData.get("email"),
+            role: formData.get("role"),
+        });
+        if (!validatedFields.success) {
+            return {
+                errors: validatedFields.error.flatten().fieldErrors,
+                message: "Missing Fields. Failed to send invitation.",
+            };
+        }
+        const project = await currentProject();
+        const project_id = project?.id;
+        const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+        if (!project_id) {
+            return { message: "No project selected" };
+        }
+        if (!has_access !== true) {
+            return { message: "You don't have permission to invite members" };
+        }
+        // send email to the user
+        const { email, role } = validatedFields.data;
+        const token = await generateInviteToken(project_id, email, role);
+        await sendInvitation(email, token);
+    } catch (error) {
+        return { error: "An error occurred while sending the invitation." };
+    }
+    revalidatePath("/dashboard/members");
+    redirect("/dashboard/members");
+}
 
 export async function is_valid_invite_token(token: string) {
     noStore();
@@ -107,39 +138,6 @@ export async function decline_invitation(token: string) {
     });
     revalidatePath("/", "page")
     return { success: "Invitation declined!" };
-}
-
-export async function send_invitation(prevState: State, formData: FormData) {
-    try {
-        const validatedFields = Schema.safeParse({
-            email: formData.get("email"),
-            role: formData.get("role"),
-        });
-        if (!validatedFields.success) {
-            return {
-                errors: validatedFields.error.flatten().fieldErrors,
-                message: "Missing Fields. Failed to send invitation.",
-            };
-        }
-        const project = await currentProject();
-        const project_id = project?.id;
-        const current_role = await currentRole();
-        const isAllowed = current_role || current_role === Role.OWNER;
-        if (!project_id) {
-            return { message: "No project selected" };
-        }
-        if (!isAllowed) {
-            return { message: "You don't have permission to invite members" };
-        }
-        // send email to the user
-        const { email, role } = validatedFields.data;
-        const token = await generateInviteToken(project_id, email, role);
-        await sendInvitation(email, token);
-    } catch (error) {
-        return { error: "An error occurred while sending the invitation." };
-    }
-    revalidatePath("/dashboard/members");
-    redirect("/dashboard/members");
 }
 
 

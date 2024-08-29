@@ -3,12 +3,14 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
 import { currentProjectId } from "@/hooks/use-current-project";
-import { redirect } from "next/navigation";
 import { Role } from "@prisma/client";
 
 export async function set_role_of_member(id: string, role: Role) {
     if (role === Role.OWNER) return { error: "You can't change the role of the owner." }
     if (!id || !role) return { error: "Missing fields. Failed to update role." }
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (has_access !== true)
+        return { error: "You don't have permission to change roles" }
     await db.usersOnProjects.update({
         where: {
             id
@@ -23,6 +25,10 @@ export async function set_role_of_member(id: string, role: Role) {
 
 export async function delete_member(id: string) {
     if (!id) return { error: "Missing field. Failed to delete member." }
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (has_access !== true) {
+        return { error: "You don't have permission to delete members" }
+    }
     await db.usersOnProjects.delete({
         where: {
             id
@@ -38,11 +44,9 @@ export async function assign_member_to_task_group(formData: FormData) {
     const current_project_id = await currentProjectId();
     const task_group_id = formData.get("id") as string;
     const users_id = formData.getAll("selectedIds") as string[];
-
     if (!task_group_id || users_id.length === 0) {
         return { error: "Missing fields. Failed to assign member to task group." };
     }
-
     try {
         // Verificar que todos los usuarios enviados están en el proyecto actual
         const usersOnProjects = await db.usersOnProjects.findMany({
@@ -69,14 +73,10 @@ export async function assign_member_to_task_group(formData: FormData) {
                 project_id: current_project_id,
             },
         });
-
-        const currentMemberIds = currentMembers.map((member) => member.user_id);
-
         // Identificar los miembros que deben ser eliminados
         const membersToRemove = currentMembers.filter(
             (member) => !users_id.includes(member.user_id)
         );
-
         // Eliminar los miembros que ya no deben estar asignados
         await Promise.all(
             membersToRemove.map(async (member) => {
