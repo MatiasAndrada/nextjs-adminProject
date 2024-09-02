@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Role } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { FormError } from "@/components/form-error";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 interface RoleGateProps {
   children: React.ReactNode;
@@ -31,6 +32,13 @@ export const RoleGate = ({
   };
 
   if (session && !hasAccess && hasClicked) {
+    if (onlyIcon && !message) {
+      return (
+        <div className="w-fit mx-auto bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive ">
+          <ExclamationTriangleIcon className="h-4 w-4" />
+        </div>
+      );
+    }
     if (!message && !onlyIcon)
       message = "You do not have permission to perform this action.";
     return <FormError message={message} />;
