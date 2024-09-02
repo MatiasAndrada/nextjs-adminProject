@@ -1,7 +1,6 @@
 "use server";
 import { CreateSchema } from '@/schemas/task';
 import { db } from '@/lib/db';
-/* import { currentUser } from '@/hooks/use-current-user'; */
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { useProjectRoleHasAccess } from '@/hooks/use-current-role';
@@ -11,6 +10,10 @@ import type { State } from '@/schemas/task';
 
 //! create task group
 export async function create_task(prevState: State, formData: FormData) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+    if (has_access !== true) {
+        return { error: "You do not have permission to create tasks." };
+    }
     // Validate form using Zod
     const validatedFields = CreateSchema.safeParse({
         name: formData.get('name'),
@@ -39,7 +42,7 @@ export async function create_task(prevState: State, formData: FormData) {
 export async function set_status_of_task(id: string, status: Status) {
     const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN, Role.EDITOR])
     if (has_access !== true) {
-        return { error: "You do not have permission to perform this action." };
+        return { error: "You do not have permission to change status." };
     }
     await db.task.update({
         where: {
@@ -56,7 +59,7 @@ export async function set_status_of_task(id: string, status: Status) {
 export async function set_progress_of_task(id: string, value: number) {
     const has_access = await useProjectRoleHasAccess(([Role.OWNER, Role.ADMIN, Role.EDITOR]))
     if (has_access !== true) {
-        return { error: "You do not have permission to perform this action." };
+        return { error: "You do not have permission to change progress task." };
     }
     await db.task.update({
         where: { id },

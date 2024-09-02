@@ -9,6 +9,10 @@ import type { State } from "@/schemas/task-group";
 import { Criticality, Status, Role } from "@prisma/client";
 
 export async function create_task_group(prevState: State, formData: FormData) {
+  const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+  if (has_access !== true) {
+    return { error: "You do not have permission to create task groups." };
+  }
   const validatedFields = CreateSchema.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
@@ -17,7 +21,7 @@ export async function create_task_group(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Task Group.",
+      message: "Missing Fields. Failed to create task group.",
     };
   }
   const { name, description, criticality } = validatedFields.data;
@@ -46,7 +50,7 @@ export async function update_task_group(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Update Task Group.",
+      message: "Missing Fields. Failed to update task group.",
     };
   }
   const { id, name, description, criticality, startAt, endAt } =
@@ -68,6 +72,10 @@ export async function update_task_group(prevState: State, formData: FormData) {
 }
 
 export async function delete_task_group(id: string) {
+  const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+  if (has_access !== true) {
+    return { error: "You do not have permission to delete task groups." };
+  }
   await db.taskGroup.delete({
     where: {
       id,
@@ -83,7 +91,7 @@ export async function set_criticality_of_task_group(
 ) {
   const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
   if (has_access !== true) {
-    return { error: "You do not have permission to perform this action." };
+    return { error: "You do not have permission to change criticality." };
   }
   await db.taskGroup.update({
     where: {
@@ -111,5 +119,5 @@ export async function set_status_of_task_group(id: string, status: Status) {
     },
   });
   revalidatePath("/dashboard/task-groups");
-  return { success: "Task Group status updated successfully." };
+  return { success: "Task group status updated successfully." };
 }
