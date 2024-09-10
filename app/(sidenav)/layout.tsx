@@ -61,7 +61,10 @@ export default async function Layout({
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator className="my-4 bg-slate-300" />
                   <DropdownMenuItem>
-                    <LogoutButton variant={"ghost"} className="text-red-500" />
+                    <LogoutButton
+                      variant={"ghost"}
+                      className="text-red-500 dark:text-red-500"
+                    />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenuPortal>
