@@ -11,7 +11,7 @@ import bcrypt from "bcryptjs";
 
 const prisma = db;
 
-async function main() {
+export async function main() {
   let userId = "";
   try {
     //! USER CREATION
