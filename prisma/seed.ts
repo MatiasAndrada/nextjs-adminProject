@@ -16,12 +16,10 @@ export async function main() {
   try {
     //! USER CREATION
     console.log("Creating user if not exist");
-    const userExist = await prisma.user.findMany({
-      where: {
-        email: testUser.email,
-      },
-    });
-    if (userExist.length === 0 && typeof prisma.user.create === "function") {
+    const userExist = await prisma.user.findUnique({
+      where: { id: testUser.id }
+    })
+    if (userExist && typeof prisma.user.create === "function") {
       console.log("User does not exist");
       const hashedPassword = await bcrypt.hash(testUser.password, 10);
       const newUser = await prisma.user.create({
@@ -65,7 +63,7 @@ export async function main() {
 
     } else {
       console.log("User already exist");
-      userId = userExist[0].id;
+      userId = testUser.id;
     }
 
     //! PROJECT CREATION
