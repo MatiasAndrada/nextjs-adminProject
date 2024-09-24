@@ -16,13 +16,10 @@ export async function main() {
   try {
     //! USER CREATION
     console.log("Creating user if not exist");
-    const userExist = await prisma.user.findMany({
-      where: {
-        email: testUser.email,
-      },
-    });
-    if (userExist.length === 0 && typeof prisma.user.create === "function") {
-      console.log("User does not exist");
+    const userExist = await prisma.user.findUnique({
+      where: { id: testUser.id }
+    })
+    if (!userExist) {
       const hashedPassword = await bcrypt.hash(testUser.password, 10);
       const newUser = await prisma.user.create({
         //?generate user
@@ -75,7 +72,6 @@ export async function main() {
         id: project[0].id,
       },
     });
-    console.log("Project exist:", projectExist.length);
     if (
       projectExist.length === 0 &&
       typeof prisma.project.create === "function"
@@ -226,7 +222,7 @@ async function createVerificationEmail(token: string) {
                 }); */
     console.log("Email verified");
     return { success: "Email verified!" };
-  } catch {
-    return null;
+  } catch (err) {
+    console.log(err)
   }
 }
