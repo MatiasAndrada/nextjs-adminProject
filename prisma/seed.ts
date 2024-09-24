@@ -65,7 +65,7 @@ export async function main() {
 
     } else {
       console.log("User already exist");
-      userId = userExist[0].id;
+      userId = testUser.id;
     }
 
     //! PROJECT CREATION
