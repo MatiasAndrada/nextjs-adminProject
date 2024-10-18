@@ -1,6 +1,4 @@
-// app/components/LastVersion.tsx
-
-import { fetchLastCommit } from "@/data/github";
+import fetchLastCommit from "@/data/github";
 
 export default async function LastVersion() {
   const commitInfo = await fetchLastCommit();

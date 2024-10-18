@@ -1,10 +1,11 @@
 // lib/cache.ts
 
-let cachedCommit: { author: string; date: string } | null = null;
-let lastFetchTime: number | null = null;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos en milisegundos
 
-export async function fetchLastCommit() {
+
+export default async function fetchLastCommit() {
+    let cachedCommit: { author: string; date: string } | null = null;
+    let lastFetchTime: number | null = null;
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos en milisegundos
     if (cachedCommit && lastFetchTime && Date.now() - lastFetchTime < CACHE_DURATION) {
         return cachedCommit;
     }
