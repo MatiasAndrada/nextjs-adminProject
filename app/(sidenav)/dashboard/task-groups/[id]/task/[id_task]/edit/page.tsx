@@ -1,27 +1,43 @@
-/* import Form from "@/components/task-group/edit-form"; */
+import Form from "@/components/tasks/edit-form";
 import Breadcrumbs from "@/components/breadcrumbs";
-import { fetch_task_group_by_id } from "@/data/task-group";
+import { fetch_task_by_id } from "@/data/task";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const task_group = await fetch_task_group_by_id(id);
-  if (!task_group) {
+export default async function Page({
+  params,
+}: {
+  params: { id: string; id_task: string };
+}) {
+  const id_task_group = params.id;
+  const id_task = params.id_task;
+  const task = await fetch_task_by_id(id_task);
+  console.log(task);
+  if (!task) {
     notFound();
   }
   return (
     <main className="space-y-4">
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Task Groups", href: "/dashboard/task-groups" },
+          { label: "Dashboard", href: "/dashboard" },
           {
-            label: "Edit Task  ",
-            href: `/dashboard/task-groups/${id}/edit`,
+            label: "Task Groups",
+            href: "/dashboard/task-groups",
+            active: true,
+          },
+          {
+            label: "Tasks of Task Group",
+            href: `/dashboard/task-groups/${id_task_group}`,
+            active: true,
+          },
+          {
+            label: "Task Edit",
+            href: `/dashboard/task-groups/${id_task_group}/task/${id_task}`,
             active: true,
           },
         ]}
       />
-      {/*       <Form taskGroup={task_group} /> */}
+      <Form task={task} />
     </main>
   );
 }

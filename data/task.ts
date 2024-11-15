@@ -7,7 +7,7 @@ import { Status } from '@prisma/client'
 
 const ITEMS_PER_PAGE = ROWS_PER_PAGE_TASKS;
 
-export async function fetch_task(id: string) {
+export async function fetch_task_by_id(id: string) {
     noStore();
     try {
         const task = await db.task.findUnique({

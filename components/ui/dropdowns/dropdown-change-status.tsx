@@ -25,9 +25,8 @@ export default async function DropdownChangeStatus({
   rolesAllowed,
 }: Props) {
   const id = idTask || idTaskGroup;
-
-  const has_access = await useProjectRoleHasAccess(rolesAllowed);
   if (!id) return null;
+  const has_access = await useProjectRoleHasAccess(rolesAllowed);
 
   if (has_access) {
     return (

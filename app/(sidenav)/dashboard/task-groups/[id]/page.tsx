@@ -8,7 +8,7 @@ import Table from "@/components/tasks/table-head";
 import Pagination from "@/components/pagination";
 import { fetch_task_pages } from "@/data/task";
 
-export default async function Page({
+export default function Page({
   params,
   searchParams,
 }: {

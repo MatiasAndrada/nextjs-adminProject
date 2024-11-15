@@ -1,5 +1,5 @@
 "use server";
-import { CreateSchema } from '@/schemas/task';
+import { CreateSchema, UpdateSchema } from '@/schemas/task';
 import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -37,6 +37,36 @@ export async function create_task(prevState: State, formData: FormData) {
     });
     revalidatePath('/dashboard/tasks');
     redirect('/dashboard/tasks');
+}
+
+export async function update_task(prevState: State, formData: FormData) {
+    console.log(formData)
+    const validatedFields = UpdateSchema.safeParse({
+        id: formData.get("id"),
+        task_group_id: formData.get("id_task_group"),
+        name: formData.get("name"),
+        description: formData.get("description"),
+    });
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: "Missing Fields. Failed to update task group.",
+        };
+    }
+    const { task_group_id, id, name, description, } =
+        validatedFields.data;
+    await db.task.update({
+        where: {
+            task_group_id: task_group_id,
+            id: id,
+        },
+        data: {
+            name,
+            description,
+        },
+    });
+    revalidatePath(`/dashboard/task-groups/${task_group_id}/task/${id}`);
+    redirect(`/dashboard/task-groups/${task_group_id}/task/${id}`);
 }
 
 export async function set_status_of_task(id: string, status: Status) {

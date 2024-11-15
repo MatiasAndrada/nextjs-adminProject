@@ -10,7 +10,7 @@ const Schema = z.object({
     progress: z.number().int().min(0).max(100).default(0),
     createdAt: z.date(),
     updatedAt: z.date(),
-    endsAt: z.date(),
+
 });
 
 const CreateSchema = Schema.omit({
@@ -19,17 +19,23 @@ const CreateSchema = Schema.omit({
     progress: true,
     createdAt: true,
     updatedAt: true,
-    endsAt: true,
+
 });
 
-export { Schema, CreateSchema };
+const UpdateSchema = Schema.omit({
+    status: true,
+    progress: true,
+    updatedAt: true,
+    createdAt: true
+})
+
+export { Schema, CreateSchema, UpdateSchema };
 
 export type State = {
     errors?: {
         name?: string[],
         description?: string[],
-        task_group_id?: string[
-        ],
+        task_group_id?: string[],
     }
     message?: string | null;
 }

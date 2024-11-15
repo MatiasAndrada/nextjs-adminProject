@@ -1,9 +1,7 @@
-"use client";
 import moment from "moment";
 import DropdownChangeStatus from "@/components/ui/dropdowns/dropdown-change-status";
-import { Slider, Progress } from "@nextui-org/react";
-import SliderProgress from "../../progress-slider";
-import { currentRole } from "@/hooks/use-current-role";
+import { /*Slider,*/ Progress } from "@nextui-org/react";
+//import SliderProgress from "../../progress-slider";
 import { Role, Status } from "@prisma/client";
 
 interface TabContentInfoProps {
@@ -19,8 +17,6 @@ const TabContentInfo: React.FC<TabContentInfoProps> = ({
   progress,
   createdAt,
 }) => {
-  /*   const role = await currentRole();
-  if (role === undefined) return null; */
   const createdAtLocal = moment(createdAt).format("DD/MM/YYYY");
   return (
     <div className="grid grid-cols-2 grid-rows-4 gap-4">

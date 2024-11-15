@@ -1,10 +1,10 @@
-/* "use client" */
+/* "use client"; */
 import { Metadata } from "next";
 import { inter } from "@/components/fonts";
 import Breadcrumbs from "@/components/breadcrumbs";
 import TabsContent from "@/components/tasks/tabs/tabs";
 import { EditTask } from "@/components/tasks/redirects";
-import { fetch_task } from "@/data/task";
+import { fetch_task_by_id } from "@/data/task";
 
 export const metadata: Metadata = {
   title: "Task",
@@ -15,7 +15,7 @@ export default async function Page({
 }: {
   params: { id: string; id_task: string };
 }) {
-  const task = await fetch_task(id_task);
+  const task = await fetch_task_by_id(id_task);
   if (!task) {
     return <div>Task not found</div>;
   }
@@ -52,7 +52,7 @@ export default async function Page({
                   Name:
                 </p>
                 <div className="ml-auto">
-                  <EditTask id={id_task} />
+                  <EditTask id_task_group={id} id_task={id_task} />
                 </div>
               </div>
               <h2 className={`${inter.className} text-4xl `}>

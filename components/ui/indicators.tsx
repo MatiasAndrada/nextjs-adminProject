@@ -52,7 +52,7 @@ export function StatusIndicator({ status, children }: StatusIndicatorProps) {
   };
   return (
     <span
-      className={`${inter.className} uppercase text-md font-bold text-black shadow-md ${shadowColor(status)} rounded-md px-2 py-1
+      className={`uppercase text-md font-bold text-black shadow-md ${shadowColor(status)} rounded-md px-2 py-1
                 ${status === Status.PAUSED ? "text-status-paused p-2 bg-status-paused_foreground" : ""}
                 ${status === Status.PENDING ? "text-status-pending p-2 bg-status-pending_foreground" : ""}
                 ${status === Status.IN_PROGRESS ? "text-status-in_progress p-2 bg-status-in_progress_foreground" : ""}
