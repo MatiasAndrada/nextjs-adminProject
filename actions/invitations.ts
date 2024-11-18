@@ -35,7 +35,7 @@ export async function send_invitation(prevState: State, formData: FormData) {
         if (!project_id) {
             return { message: "No project selected" };
         }
-        if (!has_access !== true) {
+        if (!has_access) {
             return { message: "You don't have permission to invite members" };
         }
         // send email to the user
