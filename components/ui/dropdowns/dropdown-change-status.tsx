@@ -25,9 +25,10 @@ export default async function DropdownChangeStatus({
   rolesAllowed,
 }: Props) {
   const id = idTask || idTaskGroup;
+  console.log("🦇  id:", id);
   const has_access = await useProjectRoleHasAccess(rolesAllowed);
-  if (!id || !has_access) return null;
-
+  console.log("🦇  has_access:", has_access);
+  if (!id) return null;
   if (has_access) {
     return (
       <DropdownMenu>
@@ -58,6 +59,5 @@ export default async function DropdownChangeStatus({
       </DropdownMenu>
     );
   }
-
   return <StatusIndicator status={status} />;
 }

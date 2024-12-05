@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { NextUIProvider } from "@/context/NextUIProvider";
 import { currentProject } from "@/hooks/use-current-project";
+import { Loader1 } from "@/components/loaders";
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +30,9 @@ export default async function Layout({
       ) : (
         <div /* className="h-screen flex-grow md:overflow-y-auto  p-6 md:p-12" */
         >
-          <NextUIProvider>{children}</NextUIProvider>
+          <NextUIProvider>
+            <Suspense fallback={<Loader1 />}>{children}</Suspense>
+          </NextUIProvider>
         </div>
       )}
     </>

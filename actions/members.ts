@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { useProjectRoleHasAccess } from "@/hooks/use-current-role";
@@ -6,41 +6,42 @@ import { currentProjectId } from "@/hooks/use-current-project";
 import { Role } from "@prisma/client";
 
 export async function set_role_of_member(id: string, role: Role) {
-    if (role === Role.OWNER) return { error: "You can't change the role of the owner." }
-    if (!id || !role) return { error: "Missing fields. Failed to update role." }
-    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (role === Role.OWNER)
+        return { error: "You can't change the role of the owner." };
+    if (!id || !role) return { error: "Missing fields. Failed to update role." };
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
     if (has_access !== true)
-        return { error: "You don't have permission to change roles" }
+        return { error: "You don't have permission to change roles" };
     await db.usersOnProjects.update({
         where: {
-            id
+            id,
         },
         data: {
             role,
         },
     });
     revalidatePath("/dashboard/members", "page");
-    return { success: "Role changed successfully" }
+    return { success: "Role changed successfully" };
 }
 
 export async function delete_member(id: string) {
-    if (!id) return { error: "Missing field. Failed to delete member." }
-    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
+    if (!id) return { error: "Missing field. Failed to delete member." };
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
     if (has_access !== true) {
-        return { error: "You don't have permission to delete members" }
+        return { error: "You don't have permission to delete members" };
     }
     await db.usersOnProjects.delete({
         where: {
-            id
+            id,
         },
-    },
-    );
+    });
     revalidatePath("/dashboard/members", "page");
     return { success: "Member deleted." };
 }
 export async function assign_member_to_task_group(formData: FormData) {
-    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN])
-    if (has_access !== true) return { error: "You do not have permission to perform this action." };
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+    if (has_access !== true)
+        return { error: "You do not have permission to perform this action." };
     const current_project_id = await currentProjectId();
     const task_group_id = formData.get("id") as string;
     const users_id = formData.getAll("selectedIds") as string[];
@@ -73,27 +74,34 @@ export async function assign_member_to_task_group(formData: FormData) {
                 project_id: current_project_id,
             },
         });
+        console.log("current", currentMembers);
         // Identificar los miembros que deben ser eliminados
-        const membersToRemove = currentMembers.filter(
-            (member) => !users_id.includes(member.user_id)
-        );
-        // Eliminar los miembros que ya no deben estar asignados
-        await Promise.all(
-            membersToRemove.map(async (member) => {
-                await db.usersOnProjects.update({
-                    where: {
-                        id: member.id,
-                    },
-                    data: {
-                        assignedTaskGroup: {
-                            disconnect: {
-                                id: task_group_id,
+        //!Este membersToRemove esta buscando en la bd sin antes eliminarlos, tiene que eliminarlo y después buscarlo
+        if (users_id.length < usersOnProjects.length) {
+            console.log("if")
+            const membersToRemove = currentMembers.filter(
+                (member) => !users_id.includes(member.user_id)
+            );
+            console.log(membersToRemove);
+            // Eliminar los miembros que ya no deben estar asignados
+            /**
+                await Promise.all(
+                    membersToRemove.map(async (userOnProject) =>
+                        await db.usersOnProjects.update({
+                            where: {
+                                id: userOnProject.id,
                             },
-                        },
-                    },
-                });
-            })
-        );
+                            data: {
+                                assignedTaskGroup: {
+                                    disconnect: {
+                                        id: task_group_id,
+                                    },
+                                },
+                            },
+                        })
+                    ))
+                     */
+        }
         // Asignar los nuevos miembros al task_group
         await Promise.all(
             usersOnProjects.map(async (userOnProject) => {
@@ -114,6 +122,8 @@ export async function assign_member_to_task_group(formData: FormData) {
         return { success: true };
     } catch (error) {
         console.error(error);
-        return { error: "An error occurred while assigning members to the task group." };
+        return {
+            error: "An error occurred while assigning members to the task group.",
+        };
     }
 }

@@ -61,7 +61,7 @@ export function SetRoleOfMember({
         if (res.error) {
           toast.error(res.error);
         } else {
-        toast.success(res.success); 
+          toast.success(res.success);
           if (redirect) {
             router.push(redirect);
           }

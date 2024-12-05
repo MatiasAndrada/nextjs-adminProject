@@ -39,11 +39,12 @@ export function CardInvitation({ invitation }: { invitation: InviteToken }) {
           </span>
         </li>
         <li>
-          Invitation to: <span className="text-white">{email}</span>
+          Invitation to:{" "}
+          <span className="text-black dark:text-white">{email}</span>
         </li>
         <li>
           Invitation expires in:{" "}
-          <span className="text-white">{expiresHours} hs</span>{" "}
+          <span className="text-black dark:text-white">{expiresHours} hs</span>{" "}
         </li>
       </ul>
       <div className="flex justify-around">

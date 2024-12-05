@@ -32,6 +32,7 @@ export const NewVerificationForm = () => {
           setSuccess(data.success);
           setInvitation(data.invitation);
         } else {
+          setInvitation(data.invitation);
           setError(data.error);
         }
       })

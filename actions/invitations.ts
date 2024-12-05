@@ -61,7 +61,7 @@ export async function is_valid_invite_token(token: string) {
             },
         });
         if (!existingToken) {
-            return { error: "Token does not exist!" };
+            return { error: "Token does not exist! " };
         }
         const hasExpired = new Date(existingToken.expires) < new Date();
         if (hasExpired) {
@@ -70,13 +70,14 @@ export async function is_valid_invite_token(token: string) {
         const expireIn = Math.floor((existingToken.expires.getTime() - new Date().getTime()) / 3600000)
         const existingUser = await getUserByEmail(existingToken.email);
         if (!existingUser) {
-            return { error: "Email does not exist!" };
+            return { error: "Email does not exist! First you must create an account with the email that you were invited to." };
         }
 
         return {
             success: `Correct token expires in ${expireIn} hours.`, invitation: existingToken
         };
     } catch (error) {
+        console.log(error)
         return { error: "An error occurred while processing the invitation." };
     }
 }

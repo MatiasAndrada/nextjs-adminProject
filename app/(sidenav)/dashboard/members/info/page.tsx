@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section className="space-y-6">
+    <section className="h-full space-y-6 ">
       <Breadcrumbs
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard" },
@@ -28,7 +28,7 @@ export default function Page() {
           },
         ]}
       />
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex justify-around items-center content-center gap-2">
         {rolesPermissions.map(({ role, permissions }) => (
           <CardInfo key={role} role={role} permissions={permissions} />
         ))}
