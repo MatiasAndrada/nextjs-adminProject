@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { generateUUID } from "@/lib/utils"
 //tokens
-import { getVerificationTokenByEmail } from "@/data/verificiation-token";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 //types

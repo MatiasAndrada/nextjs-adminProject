@@ -8,6 +8,7 @@ import { signIn } from "@/auth";
 import { LoginSchema } from "@/schemas/auth";
 import { getUserByEmail } from "@/data/user";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 import {
   sendVerificationEmail,
   sendTwoFactorTokenEmail,
@@ -38,20 +39,16 @@ export const login = async (
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email does not exist!" }
   }
-
   if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email,
-    );
-
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token,
-    );
-
-    return { success: "Confirmation email sent!" };
+    console.log("Email not verified for user", existingUser.email);
+    const verificationToken = await getVerificationTokenByEmail(existingUser.email);
+    if (!verificationToken) {
+      console.log("No verification token found for user", existingUser.email);
+      const newToken = await generateVerificationToken(existingUser.email);
+      await sendVerificationEmail(newToken.email, newToken.token);
+    }
+    return { error: "Confirm your email!" };
   }
-
   if (existingUser.isTwoFactorEnabled && existingUser.email) {
     if (code) {
       const twoFactorToken = await getTwoFactorTokenByEmail(
@@ -121,3 +118,4 @@ export const login = async (
     throw error;
   }
 };
+

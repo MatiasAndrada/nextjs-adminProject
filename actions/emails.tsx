@@ -7,6 +7,7 @@ import { generateEmailHtml } from "@/components/emails/template";
 
 export const sendTwoFactorTokenEmail = async (
   email: string,
+  
   token: string
 ): Promise<void> => {
   try {
@@ -61,12 +62,13 @@ export const sendVerificationEmail = async (
       link: confirmLink,
       linkText: "Confirm Email",
     });
-    await resend.emails.send({
+    const res = await resend.emails.send({
       from: fromEmail,
       to: email,
       subject: "Confirm your email",
       html: emailHtml,
     });
+    console.log("🦇  res:", res);
   } catch (error) {
     console.error("Error sending verification email:", error);
   }
