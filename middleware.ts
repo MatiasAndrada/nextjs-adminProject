@@ -27,6 +27,13 @@ export default auth(async (req) => {
     const isPublicRoute = publicRoutes.includes(pathname);
     const isAuthRoute = authRoutes.includes(pathname);
 
+    // Excluir rutas de cron de la autenticación
+    const isCronRoute = pathname.startsWith('/api/cron');
+
+    if (isCronRoute) {
+        return; // Permitir que las rutas de cron pasen sin autenticación
+    }
+
 
     if (isApiAuthRoute) {
         return /* null */;

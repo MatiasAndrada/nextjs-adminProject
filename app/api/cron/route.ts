@@ -5,6 +5,10 @@ import { main } from "@/prisma/seed"
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+    // Verificación de que es una llamada de Vercel Cron
+    const userAgent = req.headers.get('user-agent');
+    const isVercelCron = userAgent?.includes('vercel-cron') || req.headers.get('x-vercel-cron');
+
     // Verificación de seguridad - solo permitir a Vercel Cron
     const authHeader = req.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET;
