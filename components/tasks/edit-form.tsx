@@ -11,7 +11,6 @@ export default function EditTaskForm({ task }: { task: Task }) {
   const initialState: State = { message: null, errors: {} };
 
   const [state, dispatch] = useFormState(update_task, initialState);
-  console.log(state);
   const [charactersCount, setCharactersCount] = useState(
     task.description ? task.description.length : 0
   ); // Add this line to initialize charactersCount state

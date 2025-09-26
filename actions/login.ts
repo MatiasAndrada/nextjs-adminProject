@@ -40,10 +40,8 @@ export const login = async (
     return { error: "Email does not exist!" }
   }
   if (!existingUser.emailVerified) {
-    console.log("Email not verified for user", existingUser.email);
     const verificationToken = await getVerificationTokenByEmail(existingUser.email);
     if (!verificationToken) {
-      console.log("No verification token found for user", existingUser.email);
       const newToken = await generateVerificationToken(existingUser.email);
       await sendVerificationEmail(newToken.email, newToken.token);
     }

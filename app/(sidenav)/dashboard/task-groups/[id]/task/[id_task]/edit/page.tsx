@@ -11,7 +11,6 @@ export default async function Page({
   const id_task_group = params.id;
   const id_task = params.id_task;
   const task = await fetch_task_by_id(id_task);
-  console.log(task);
   if (!task) {
     notFound();
   }

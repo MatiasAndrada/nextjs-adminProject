@@ -77,7 +77,6 @@ export async function is_valid_invite_token(token: string) {
             success: `Correct token expires in ${expireIn} hours.`, invitation: existingToken
         };
     } catch (error) {
-        console.log(error)
         return { error: "An error occurred while processing the invitation." };
     }
 }

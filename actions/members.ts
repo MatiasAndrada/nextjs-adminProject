@@ -74,15 +74,12 @@ export async function assign_member_to_task_group(formData: FormData) {
                 project_id: current_project_id,
             },
         });
-        console.log("current", currentMembers);
         // Identificar los miembros que deben ser eliminados
         //!Este membersToRemove esta buscando en la bd sin antes eliminarlos, tiene que eliminarlo y después buscarlo
         if (users_id.length < usersOnProjects.length) {
-            console.log("if")
             const membersToRemove = currentMembers.filter(
                 (member) => !users_id.includes(member.user_id)
             );
-            console.log(membersToRemove);
             // Eliminar los miembros que ya no deben estar asignados
             /**
                 await Promise.all(

@@ -40,7 +40,6 @@ export async function create_task(prevState: State, formData: FormData) {
 }
 
 export async function update_task(prevState: State, formData: FormData) {
-    console.log(formData)
     const validatedFields = UpdateSchema.safeParse({
         id: formData.get("id"),
         task_group_id: formData.get("id_task_group"),
