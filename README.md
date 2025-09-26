@@ -75,17 +75,22 @@ Un sistema moderno de administración de tareas y usuarios diseñado para equipo
    docker-compose up -d
    ```
 
-5. **Seedea la base de datos**
+5. **Genera el cliente de Prisma y sincroniza el esquema**
+   ```bash
+   npx prisma generate && npx prisma db push
+   ```
+
+6. **Seedea la base de datos**
    ```bash
    npm run seed
    ```
 
-6. **Inicia el servidor de desarrollo**
+7. **Inicia el servidor de desarrollo**
    ```bash
    npm run dev
    ```
 
-7. **Abre el navegador** en `http://localhost:3000/dashboard`
+8. **Abre el navegador** en `http://localhost:3000/dashboard`
 
 ### Usuario de Prueba
 - **Email:** `test@projectAdmin.com`
