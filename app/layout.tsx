@@ -1,6 +1,8 @@
 import { SpeedInsights } from "@vercel/speed-insights/next"; //metricas para ver en vercel
 import "@/components/global.css";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import NextAuthProvider from "@/context/SessionAuthProvider";
+import { SocketProvider } from "@/context/SocketProvider";
 //import { inter } from "@/components/fonts";
 import { Metadata } from "next";
 
@@ -26,8 +28,10 @@ export default function RootLayout({
         id="main_layout"
       >
         <NextAuthProvider>
-          {children}
-          <SpeedInsights />
+          <SocketProvider>
+            {children}
+            <SpeedInsights />
+          </SocketProvider>
         </NextAuthProvider>
       </body>
     </html>

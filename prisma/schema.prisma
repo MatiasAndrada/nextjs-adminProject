@@ -24,6 +24,8 @@ model User {
   currentProject        UsersOnProjects?       @relation("currentProject", fields: [currentProjectId], references: [id])
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  messages              Message[]
+  messageReads          MessageRead[]
 }
 
 model Account {
@@ -120,6 +122,7 @@ model Project {
   createdAt   DateTime          @default(now()) @db.Timestamptz
   taskGroup   TaskGroup[]
   Invitation  InviteToken[]
+  chats       Chat[]
 }
 
 enum Criticality {
@@ -150,6 +153,7 @@ model TaskGroup {
   updatedAt       DateTime?         @updatedAt @db.Timestamptz
   startAt         DateTime?         @db.Timestamptz
   endAt           DateTime?         @db.Timestamptz
+  chat            Chat?
 }
 
 model Task {
@@ -162,4 +166,53 @@ model Task {
   progress      Int       @default(0)
   createdAt     DateTime  @default(now()) @db.Timestamptz
   updatedAt     DateTime? @updatedAt @db.Timestamptz
+}
+
+model Chat {
+  id          String    @id @unique @default(cuid())
+  name        String    @db.VarChar(100)
+  type        ChatType
+  projectId   String?
+  project     Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  taskGroupId String?   @unique
+  taskGroup   TaskGroup? @relation(fields: [taskGroupId], references: [id], onDelete: Cascade)
+  messages    Message[]
+  createdAt   DateTime  @default(now()) @db.Timestamptz
+  updatedAt   DateTime  @updatedAt @db.Timestamptz
+
+  @@index([projectId])
+  @@index([taskGroupId])
+}
+
+model Message {
+  id        String        @id @unique @default(cuid())
+  content   String        @db.Text
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chatId    String
+  chat      Chat          @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  readBy    MessageRead[]
+  createdAt DateTime      @default(now()) @db.Timestamptz
+  updatedAt DateTime      @updatedAt @db.Timestamptz
+
+  @@index([chatId])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model MessageRead {
+  id        String   @id @unique @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  readAt    DateTime @default(now()) @db.Timestamptz
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+enum ChatType {
+  PROJECT
+  TASK_GROUP
 }
