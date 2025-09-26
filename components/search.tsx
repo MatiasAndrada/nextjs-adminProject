@@ -42,7 +42,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
-        defaultValue={searchParams.get("query")?.toString()} //defaultValue. la entrada nativa gestionará su propio estado. Esto está bien ya que está guardando la consulta de búsqueda en la URL en lugar del estado.
+        defaultValue={searchParams?.get("query")?.toString()} //defaultValue. la entrada nativa gestionará su propio estado. Esto está bien ya que está guardando la consulta de búsqueda en la URL en lugar del estado.
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2  text-gray-500 peer-focus:text-black" />
     </div>

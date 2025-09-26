@@ -19,7 +19,7 @@ Has obtenido datos en el servidor.
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const currentPage = Number(searchParams?.get("page")) || 1;
   const allPages = generatePagination(currentPage, totalPages);
 
   function createPageURL(page: number | string) {
