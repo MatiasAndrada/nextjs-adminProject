@@ -5,7 +5,7 @@ import {
   task_groups,
   tasks,
   project,
-} from "../lib/placeholder-data";
+} from "../lib/data-seed";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 
