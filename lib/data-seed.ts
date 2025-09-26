@@ -28,6 +28,52 @@ export const userOnProject = [
   },
 ];
 
+// Función para generar fechas dinámicas que muestren diferentes estados en TimeDisplay
+function generateDynamicDates() {
+  const today = new Date();
+  const dateScenarios = [
+    // Escenario 1: Proyecto que aún no ha comenzado (azul - "days until start")
+    {
+      startAt: new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000), // 5 días en el futuro
+      endAt: new Date(today.getTime() + 25 * 24 * 60 * 60 * 1000),  // 25 días en el futuro
+    },
+    // Escenario 2: Proyecto en progreso con mucho tiempo restante (gris - "days left")
+    {
+      startAt: new Date(today.getTime() - 10 * 24 * 60 * 60 * 1000), // 10 días atrás
+      endAt: new Date(today.getTime() + 15 * 24 * 60 * 60 * 1000),   // 15 días en el futuro
+    },
+    // Escenario 3: Proyecto en progreso con poco tiempo (gris - "days left")
+    {
+      startAt: new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000),  // 5 días atrás
+      endAt: new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000),    // 3 días en el futuro
+    },
+    // Escenario 4: Proyecto que terminó hace poco (rojo - "days since end")
+    {
+      startAt: new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 días atrás
+      endAt: new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000),    // 5 días atrás
+    },
+    // Escenario 5: Proyecto que terminó hace mucho (rojo - "days since end")
+    {
+      startAt: new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000), // 60 días atrás
+      endAt: new Date(today.getTime() - 20 * 24 * 60 * 60 * 1000),   // 20 días atrás
+    },
+    // Escenario 6: Proyecto que empieza mañana (azul - "days until start")
+    {
+      startAt: new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000),  // 1 día en el futuro
+      endAt: new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000),   // 14 días en el futuro
+    },
+    // Escenario 7: Proyecto que termina hoy (gris - "0 days left")
+    {
+      startAt: new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000),  // 7 días atrás
+      endAt: new Date(today.getTime()),                                // hoy
+    },
+  ];
+  
+  return dateScenarios;
+}
+
+const dynamicDates = generateDynamicDates();
+
 export const task_groups = [
   {
     id: "clqhamf0z000008lf46h3d42t",
@@ -37,6 +83,8 @@ export const task_groups = [
       "Task group focused on designing and implementing the user interface. Requires collaboration between UI/UX designers and front-end developers. Critical for delivering a seamless and visually appealing product.",
     status: Status.PENDING,
     criticality: Criticality.HIGH,
+    startAt: dynamicDates[0].startAt,
+    endAt: dynamicDates[0].endAt,
   },
   {
     id: "clqhamyrj000108lf72730m2z",
@@ -46,6 +94,8 @@ export const task_groups = [
       "Task group responsible for configuring and optimizing server settings. Involves collaboration with system administrators and backend developers. Critical for ensuring robust server performance.",
     status: Status.IN_PROGRESS,
     criticality: Criticality.CRITICAL,
+    startAt: dynamicDates[1].startAt,
+    endAt: dynamicDates[1].endAt,
   },
   {
     id: "clqhan80t000208lf0l5m11lm",
@@ -55,6 +105,8 @@ export const task_groups = [
       "Task group focused on thoroughly testing the functionality of the developed features. Involves coordination between QA testers and developers. Crucial for identifying and resolving bugs.",
     status: Status.IN_PROGRESS,
     criticality: Criticality.HIGH,
+    startAt: dynamicDates[2].startAt,
+    endAt: dynamicDates[2].endAt,
   },
   {
     id: "clqhanli4000308lf9r8ders1",
@@ -64,6 +116,8 @@ export const task_groups = [
       "Task group responsible for conducting code reviews to ensure code quality and adherence to coding standards. Collaboration between senior developers and the development team is essential.",
     status: Status.PAUSED,
     criticality: Criticality.MEDIUM,
+    startAt: dynamicDates[3].startAt,
+    endAt: dynamicDates[3].endAt,
   },
   {
     id: "clqhanx05000408lfh4994o42",
@@ -73,6 +127,8 @@ export const task_groups = [
       "Task group focused on optimizing the performance of the application. Requires collaboration between performance engineers and developers. Critical for delivering a fast and efficient product.",
     status: Status.PAUSED,
     criticality: Criticality.MEDIUM,
+    startAt: dynamicDates[4].startAt,
+    endAt: dynamicDates[4].endAt,
   },
   {
     id: "clqhao6gx000508lf913fdeby",
@@ -82,6 +138,8 @@ export const task_groups = [
       "Task group responsible for implementing new features as per project requirements. Collaboration between product managers and developers is crucial for delivering innovative functionalities.",
     status: Status.IN_PROGRESS,
     criticality: Criticality.MEDIUM,
+    startAt: dynamicDates[5].startAt,
+    endAt: dynamicDates[5].endAt,
   },
   {
     id: "clqhaog3j000608lf5w2gfwra",
@@ -91,6 +149,8 @@ export const task_groups = [
       "Task group focused on analyzing the technical feasibility of proposed features. Requires collaboration between technical analysts and development teams. Critical for informed decision-making.",
     status: Status.PAUSED,
     criticality: Criticality.LOW,
+    startAt: dynamicDates[6].startAt,
+    endAt: dynamicDates[6].endAt,
   },
 ];
 
