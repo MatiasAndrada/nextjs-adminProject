@@ -32,7 +32,11 @@ const TaskGroupDetails = async ({ id }: { id: string }) => {
             message="You don't have permissions"
           >
             <div className="flex flex-row items-center  md:mr-10 gap-12">
-              <DeleteTaskGroup id={id} />
+              <DeleteTaskGroup 
+                id={id} 
+                taskGroupName={name} 
+                redirectPath="/dashboard/task-groups" 
+              />
               <EditTaskGroup id={id} />
             </div>
           </RoleGate>

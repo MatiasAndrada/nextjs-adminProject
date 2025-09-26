@@ -76,13 +76,16 @@ export async function delete_task_group(id: string) {
   if (has_access !== true) {
     return { error: "You do not have permission to delete task groups." };
   }
-  await db.taskGroup.delete({
-    where: {
-      id,
-    },
-  });
-  revalidatePath("/dashboard/task-groups");
-  redirect("/dashboard/task-groups");
+  
+  try {
+    await db.taskGroup.delete({
+      where: { id }
+    });
+    revalidatePath("/dashboard/task-groups");
+    return { message: "Task group deleted successfully." };
+  } catch (error) {
+    return { error: "Failed to delete task group." };
+  }
 }
 
 export async function set_criticality_of_task_group(

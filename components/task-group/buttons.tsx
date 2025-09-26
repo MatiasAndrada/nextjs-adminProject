@@ -1,13 +1,9 @@
 "use client";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-/* import {
-  TooltipProvider,
-  Root as TooltipRoot,
-  TooltipTrigger,
-  TooltipContent,
-  } from "@radix-ui/react-tooltip"; */
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { ConfirmationModal } from "../ui/confirmation-modal";
+import { useState } from "react";
 import {
   delete_task_group,
   set_criticality_of_task_group,
@@ -15,11 +11,65 @@ import {
 } from "@/actions/task-group";
 import { Status, Criticality } from "@prisma/client";
 
-export function DeleteTaskGroup({ id }: { id: string }) {
+export function DeleteTaskGroup({ 
+  id, 
+  taskGroupName, 
+  redirectPath 
+}: { 
+  id: string; 
+  taskGroupName?: string; 
+  redirectPath?: string; 
+}) {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  async function handleDeleteTaskGroup() {
+    setIsDeleting(true);
+    setShowModal(false);
+    
+    try {
+      const result = await delete_task_group(id);
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result.message);
+        // Si hay una ruta de redirección, redirigir después de eliminar
+        if (redirectPath) {
+          window.location.href = redirectPath;
+        }
+      }
+    } catch (error) {
+      toast.error("Error al eliminar el grupo de tareas");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   return (
-    <Button onClick={() => delete_task_group(id)} variant="destructive">
-      <TrashIcon className="w-7 hover:scale-110 text-slate-300 hover:text-white transition duration-300 ease-in-out transform" />
-    </Button>
+    <>
+      <Button 
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+        disabled={isDeleting}
+        className="bg-red-500 hover:bg-red-600 text-white shadow hover:shadow-lg dark:shadow-red-500 hover:scale-105 transition duration-300 ease-in-out"
+      >
+        <TrashIcon className="w-7 hover:scale-110 transition duration-300 ease-in-out transform" />
+      </Button>
+
+      <ConfirmationModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handleDeleteTaskGroup}
+        title="Eliminar grupo de tareas"
+        message={`¿Estás seguro de que quieres eliminar el grupo de tareas${taskGroupName ? ` "${taskGroupName}"` : ""}? Esta acción eliminará también todas las tareas que contiene y no se puede deshacer.`}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        isLoading={isDeleting}
+        type="danger"
+      />
+    </>
   );
 }
 
