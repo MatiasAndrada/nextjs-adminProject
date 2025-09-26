@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { StatusIndicator, ProgressIndicator } from "../ui/indicators";
 import { DocumentIcon } from "@heroicons/react/24/outline";
+import { DeleteTask } from "./buttons";
 import type { Task } from "@prisma/client";
 
 interface Props {
@@ -53,6 +54,9 @@ export default function TableBody({ tasks }: Props) {
             {/*                         <div className="text-left">
                             {updatedAt?.toString().slice(0, 10)}
                         </div> */}
+          </td>
+          <td className="p-2 whitespace-nowrap">
+            <DeleteTask id={id} taskName={name} />
           </td>
         </tr>
       ))}

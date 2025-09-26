@@ -4,6 +4,7 @@ import { inter } from "@/components/fonts";
 import Breadcrumbs from "@/components/breadcrumbs";
 import TabsContent from "@/components/tasks/tabs/tabs";
 import { EditTask } from "@/components/tasks/redirects";
+import { DeleteTask } from "@/components/tasks/buttons";
 import { fetch_task_by_id } from "@/data/task";
 
 export const metadata: Metadata = {
@@ -51,8 +52,13 @@ export default async function Page({
                 <p className="my-2 text-xs font-bold uppercase text-slate-400 dark:text-slate-500">
                   Name:
                 </p>
-                <div className="ml-auto">
+                <div className="ml-auto flex gap-2">
                   <EditTask id_task_group={id} id_task={id_task} />
+                  <DeleteTask 
+                    id={id_task} 
+                    taskName={name} 
+                    redirectPath={`/dashboard/task-groups/${id}`} 
+                  />
                 </div>
               </div>
               <h2 className={`${inter.className} text-4xl `}>

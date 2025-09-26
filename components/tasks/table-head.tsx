@@ -24,6 +24,7 @@ export default async function Table({
     { key: "status", label: "Status" },
     { key: "progress", label: "Progress" },
     { key: "updated at", label: "updatedAt" },
+    { key: "actions", label: "Acciones" },
   ];
 
   return (

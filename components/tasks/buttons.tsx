@@ -1,8 +1,11 @@
 "use client";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import { set_status_of_task } from "@/actions/task";
+import { set_status_of_task, delete_task } from "@/actions/task";
 import { Status } from "@prisma/client";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { ConfirmationModal } from "../ui/confirmation-modal";
 
 export function SetTaskStatus({
   id,
@@ -29,27 +32,60 @@ export function SetTaskStatus({
   );
 }
 
-/* export function UpdateInvoice({ id }: { id: string }) {
-    return (
-        <Link
-            href={`/dashboard/invoices/${id}/edit`}
-            className="rounded-md border p-2 hover:bg-slate-300"
-        >
-            <PencilIcon className="w-5" />
-        </Link>
-    );
-}
+export function DeleteTask({ 
+  id, 
+  taskName, 
+  redirectPath 
+}: { 
+  id: string; 
+  taskName?: string; 
+  redirectPath?: string; 
+}) {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-export function DeleteInvoice({ id }: { id: string }) {
-        const deleteInvoiceWithId = deleteInvoice.bind(null, id);
-    return (
-        <>
-            <form >
-                <button className="rounded-md border p-2 hover:bg-slate-300">
-                    <span className="sr-only">Delete</span>
-                    <TrashIcon className="w-5" />
-                </button>
-            </form>
-        </>
-    );
-} */
+  async function handleDeleteTask() {
+    setIsDeleting(true);
+    setShowModal(false);
+    
+    try {
+      const result = await delete_task(id);
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result.message);
+      }
+    } catch (error) {
+      toast.error("Error al eliminar la tarea");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
+  return (
+    <>
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+        disabled={isDeleting}
+        className="bg-red-500 hover:bg-red-600 text-white shadow hover:shadow-lg dark:shadow-red-500 hover:scale-105 transition duration-300 ease-in-out"
+      >
+        <TrashIcon className="w-7 hover:scale-110 transition duration-300 ease-in-out transform" />
+      </Button>
+
+      <ConfirmationModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handleDeleteTask}
+        title="Eliminar tarea"
+        message={`¿Estás seguro de que quieres eliminar la tarea${taskName ? ` "${taskName}"` : ""}? Esta acción no se puede deshacer.`}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        isLoading={isDeleting}
+        type="danger"
+      />
+    </>
+  );
+}

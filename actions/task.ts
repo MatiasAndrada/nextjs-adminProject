@@ -99,3 +99,20 @@ export async function set_progress_of_task(id: string, value: number) {
     revalidatePath("/dashboard/tasks")
     return { message: 'Task progress updated successfully.' };
 }
+
+export async function delete_task(id: string) {
+    const has_access = await useProjectRoleHasAccess([Role.OWNER, Role.ADMIN]);
+    if (has_access !== true) {
+        return { error: "You do not have permission to delete tasks." };
+    }
+    
+    try {
+        await db.task.delete({
+            where: { id }
+        });
+        revalidatePath("/dashboard/tasks");
+        return { message: 'Task deleted successfully.' };
+    } catch (error) {
+        return { error: "Failed to delete task." };
+    }
+}
