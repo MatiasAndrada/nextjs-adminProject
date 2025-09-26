@@ -11,7 +11,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
   const handleSearch = useDebouncedCallback((term) => {
     //useDebouncedCallback. Debounce es una técnica que limita la frecuencia con la que se ejecuta una función. Para no hacer una petición a la base de datos cada vez que el usuario escribe una letra, se usa esta técnica.
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams || undefined);
     params.set("page", "1");
     if (term) {
       params.set("query", term);

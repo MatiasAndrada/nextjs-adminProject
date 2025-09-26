@@ -23,7 +23,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const allPages = generatePagination(currentPage, totalPages);
 
   function createPageURL(page: number | string) {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams || undefined);
     params.set("page", page.toString());
     return `${pathname}?${params.toString()}`;
   }

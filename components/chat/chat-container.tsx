@@ -49,7 +49,7 @@ export function ChatContainer({
 
   // Unirse a la sala al montar el componente
   useEffect(() => {
-    if (socket) {
+    if (socket && typeof socket.emit === 'function') {
       socket.emit("join-room", roomId);
 
       // Listeners para eventos del socket
@@ -84,6 +84,9 @@ export function ChatContainer({
         socket.off("user-typing", handleUserTyping);
         socket.emit("leave-room", roomId);
       };
+    } else {
+      // Si no hay socket, solo marcar como leído
+      onMarkAsRead();
     }
   }, [socket, roomId, currentUserId, onMarkAsRead]);
 
@@ -97,12 +100,19 @@ export function ChatContainer({
     try {
       const result = await onSendMessage(newMessage.trim());
       
-      if (result.message && socket) {
-        // Emitir el mensaje via WebSocket
-        socket.emit("send-message", {
-          roomId,
-          message: result.message,
-        });
+      if (result.message) {
+        // Emitir el mensaje via WebSocket si está disponible
+        if (socket && typeof socket.emit === 'function') {
+          socket.emit("send-message", {
+            roomId,
+            message: result.message,
+          });
+        }
+        
+        // Agregar mensaje localmente si no hay WebSocket
+        if (!socket) {
+          setMessages((prev) => [...prev, result.message!]);
+        }
         
         setNewMessage("");
         inputRef.current?.focus();
@@ -117,7 +127,7 @@ export function ChatContainer({
   const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
     
-    if (socket && !isTyping) {
+    if (socket && typeof socket.emit === 'function' && !isTyping) {
       setIsTyping(true);
       socket.emit("typing", {
         roomId,
@@ -134,7 +144,7 @@ export function ChatContainer({
 
     // Establecer nuevo timeout para dejar de escribir
     typingTimeoutRef.current = setTimeout(() => {
-      if (socket && isTyping) {
+      if (socket && typeof socket.emit === 'function' && isTyping) {
         setIsTyping(false);
         socket.emit("typing", {
           roomId,

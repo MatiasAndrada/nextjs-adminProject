@@ -3,7 +3,7 @@
 import { createContext, useContext, ReactNode } from "react";
 
 interface SocketContextType {
-  socket: null;
+  socket: any | null; // Socket.IO socket instance or null
   isConnected: boolean;
 }
 
@@ -39,5 +39,6 @@ export function SocketProvider({ children }: SocketProviderProps) {
 
 // Hook for socket instance (returns null when disabled)
 export function useSocket() {
-  return null;
+  const context = useContext(SocketContext);
+  return context.socket;
 }
