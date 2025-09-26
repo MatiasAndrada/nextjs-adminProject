@@ -13,6 +13,8 @@ const buttonVariants = cva(
           "text-white capitalize bg-primary hover:bg-secondary shadow hover:shadow-lg dark:shadow-blue-500",
         create:
           "mt-4  text-blue-600 bg-blue-200 hover:bg-blue-300  py-2 px-4 rounded-md transition duration-300 ease-in-out",
+         success:
+          "bg-green-500 text-white shadow hover:bg-green-600 focus:bg-green-700 hover:shadow-lg dark:shadow-green-500 hover:scale-105 transition duration-300 ease-in-out",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         info: "bg-slate-500 hover:bg-slate-600 focus:bg-slate-700 shadow hover:shadow-lg dark:shadow-slate-500 text-white",

@@ -186,6 +186,7 @@ export const LoginForm = () => {
             disabled={isPending}
             onClick={onSubmitTestUser}
             className="w-full"
+            variant={'success'}
           >
             Login with test user
           </Button>
