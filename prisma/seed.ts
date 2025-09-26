@@ -102,6 +102,7 @@ export async function main() {
       console.log("project user does not exist");
       await prisma.usersOnProjects.create({
         data: {
+          id: userOnProject[0].id,
           user_id: userId,
           project_id: userOnProject[0].project_id,
           role: userOnProject[0].role,
@@ -111,18 +112,14 @@ export async function main() {
     } else {
       console.log("UserOnProject already exist");
     }
-    /*         //!SELECT PROJECT FOR USER
-                console.log("Selecting project for user");
-                const userSelectedProject = await prisma.user.update({
-                    where: {
-                        id: userId,
-                    },
-                    data: {
-                        selected_project_id: project[0].id,
-                    },
-                });
-                console.log("Project selected:", userSelectedProject.selected_project_id);
-         */
+    //!SELECT PROJECT FOR USER
+    console.log("Selecting project for user");
+    const userSelectedProject = await prisma.user.update({
+      where: { id: userId },
+      data: { currentProjectId: userOnProject[0].id },
+    });
+    console.log("Project selected:", userSelectedProject.currentProjectId);
+
     //! TASK GROUP CREATION
     console.log("Creating taskGroup if not exist");
     const taskGroupExist = await prisma.taskGroup.findMany({

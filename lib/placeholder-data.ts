@@ -21,6 +21,7 @@ export const project = [
 
 export const userOnProject = [
   {
+    id: "cmfykf2r40002bhgap7zhc6yz",
     user_id: testUser.id,
     project_id: project[0].id,
     role: Role.OWNER,
