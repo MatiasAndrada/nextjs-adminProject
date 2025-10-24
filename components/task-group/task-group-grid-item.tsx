@@ -39,9 +39,9 @@ export default function TaskGridItem({
   return (
     <Link
       href={`task-groups/` + id}
-      className="min-w-96 max-w-lg mx-auto bg-slate-300 hover:bg-slate-300/50 focus:bg-slate-400/50 dark:bg-slate-900 hover:dark:bg-slate-800 focus:dark:bg-slate-950 rounded-xl"
+
     >
-      <div className="break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
+      <div className="bg-slate-300 hover:bg-slate-200 focus:bg-slate-400/50 dark:bg-slate-900 hover:dark:bg-slate-800 focus:dark:bg-slate-950 break-inside relative overflow-visible flex flex-col justify-between space-y-3 text-sm rounded-xl max-w-2xl p-3 text-black  dark:text-white">
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center space-x-2   ">
             <span className="text-xs font-bold uppercase text-slate-600 dark:text-slate-400">

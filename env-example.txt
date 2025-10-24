@@ -10,5 +10,11 @@ DIRECT_URL=`postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:
 
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
+# Skeleton Testing Delay
+# Habilita un delay de 5 segundos en los skeletons para testing/desarrollo visual
+# Por defecto: deshabilitado (no incluir o usar false)
+# Para habilitar: descomentar y cambiar a true
+# NEXT_PUBLIC_ENABLE_SKELETON_DELAY=false
+
 # NextAuth.js
 AUTH_SECRET=supersecretkeythatishouldchange

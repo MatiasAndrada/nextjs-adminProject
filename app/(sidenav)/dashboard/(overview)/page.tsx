@@ -4,14 +4,13 @@ import { Suspense } from "react";
 import { ProjectChat } from "@/components/chat/project-chat";
 import { currentProject } from "@/hooks/use-current-project";
 import { auth } from "@/auth";
-/* import {
-  RevenueChartSkeleton,
-  LatestInvoicesSkeleton,
-  CardsSkeleton
-} from "@/components/skeletons"; */
-import { Loader1 } from "@/components/loaders";
+import { DashboardOverviewSkeleton } from "@/components/skeletons";
+import { skeletonDelay } from "@/lib/skeleton-delay";
 
 export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
+  // Delay configurable para testing de skeletons (controlado por env var)
+  await skeletonDelay();
+  
   const project = await currentProject();
   const session = await auth();
 
@@ -20,9 +19,7 @@ export default async function Page({ searchParams }: { searchParams?: { query?: 
       <h1 className={`${lusitana.className} text-4xl `}>
         Dashboard
       </h1>
-      <Suspense fallback={
-        <Loader1 />
-      }>
+      <Suspense fallback={<DashboardOverviewSkeleton />}>
         <GridDashboard searchParams={searchParams} />
       </Suspense>
       

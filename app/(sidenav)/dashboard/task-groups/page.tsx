@@ -1,7 +1,5 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-//components
-import { Loader1 } from "@/components/loaders";
 import { RoleGate } from "@/components/auth/role-gate";
 import Breadcrumbs from "@/components/breadcrumbs";
 import Search from "@/components/search";
@@ -10,8 +8,8 @@ import Pagination from "@/components/pagination";
 import { CreateTaskGroup } from "@/components/task-group/redirects";
 import { fetch_task_group_pages } from "@/data/task-group";
 import { Role } from "@prisma/client";
-//!ADD SKELETON LOADING
-
+import { TaskGroupsGridSkeleton } from "@/components/skeletons";
+import { skeletonDelay } from "@/lib/skeleton-delay";
 
 export const metadata: Metadata = {
     title: {
@@ -21,6 +19,14 @@ export const metadata: Metadata = {
     description: "",
 };
 
+// Componente para el grid de task groups
+async function TaskGroupsGrid({ query, currentPage }: { query: string; currentPage: number }) {
+    // Delay configurable para testing de skeletons (controlado por env var)
+    await skeletonDelay();
+    
+    return <TaskGroupGrid query={query} currentPage={currentPage} />;
+}
+
 export default async function Page({
     searchParams,
 }: {
@@ -29,6 +35,7 @@ export default async function Page({
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page) || 1;
     const totalPages = await fetch_task_group_pages(query);
+    
     return (
         <div className="w-full space-y-4">
             <Breadcrumbs
@@ -48,8 +55,9 @@ export default async function Page({
                     <CreateTaskGroup />
                 </RoleGate>
             </div>
-            <Suspense fallback={<Loader1 />}>
-                <TaskGroupGrid query={query} currentPage={currentPage} />
+            
+            <Suspense fallback={<TaskGroupsGridSkeleton />}>
+                <TaskGroupsGrid query={query} currentPage={currentPage} />
             </Suspense>
             <div className="flex w-full justify-center">
                 <Pagination totalPages={totalPages} />
